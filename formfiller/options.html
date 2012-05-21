@@ -16,8 +16,7 @@
 			<li id="link_field_types"><a href="#">Field Types</a></li>
 		</ul>
 		<div id="about">
-			<p>If you like Form Filler, please <a href="https://chrome.google.com/webstore/detail/bnjjngeaknajbdcgpfkgnonkmififhfo">rate it on the Chrome Web Store</a>.</p>
-			<p>If you find any issues, please report it <a href="https://github.com/husainshabbir/form-filler/issues">here</a>.</p>
+			<p>If you like Form Filler, please <a href="https://chrome.google.com/webstore/detail/bnjjngeaknajbdcgpfkgnonkmififhfo">rate it on the Chrome Web Store</a>. If you find any issues, please report it <a href="https://github.com/husainshabbir/form-filler/issues">here</a>.</p>
 		</div>
 	</div>
 	<div class="span8">
@@ -30,7 +29,7 @@
 					<div class="controls">
 						<label class="radio"><input type="radio" name="email_username" id="email_username_random" /> Use a randomly generated name</label>
 						<label class="radio"><input type="radio" name="email_username" id="email_username_constant"> Select from the list below</label>
-						<textarea id="email_username_constants" rows="2" cols="50" class="span5"></textarea>
+						<input type="text" id="email_username_constants" class="span5" />
 						<div class="help-block">List each name with a comma.</div>
 					</div>
 				</div>
@@ -39,7 +38,7 @@
 					<div class="controls">
 						<label class="radio"><input type="radio" name="email_hostname" id="email_hostname_random" /> Use a randomly generated host name</label>
 						<label class="radio"><input type="radio" name="email_hostname" id="email_hostname_constant" /> Select from the list below</label>
-						<textarea id="email_hostname_constants" rows="2" cols="50" class="span5"></textarea>
+						<input type="text" id="email_hostname_constants" class="span5" />
 						<div class="help-block">List each name with a comma.</div>
 					</div>
 				</div>
@@ -68,6 +67,7 @@
 					<label class="control-label" for="field_type_confirm">Confirmation</label>
 					<div class="controls">
 						<input type="text" id="field_type_confirm" class="span5" />
+						<div class="help-block"><small>For example: <code>&lt;input type="text" name="<u>confirm</u>password" /></code></small></div>
 					</div>
 				</div>
 				<div class="control-group">
