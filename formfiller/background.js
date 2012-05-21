@@ -29,7 +29,7 @@ var application = (function () {
 				'hostname_random': false,
 				'hostname_constants': ['gmail.com', 'yahoo.com', 'live.com', 'hotmail.com']
 			},
-			'ignore_fields': ['captcha'],
+			'ignore_fields': ['captcha', 'hipinputtext'],
 			'field_types': {
 				'confirm': ['confirm', 'reenter', 'retype'],
 				'email': ['email'],
@@ -70,7 +70,8 @@ var application = (function () {
 			if (currentVersion != previousVersion) {
 				if (typeof previousVersion == 'undefined') {
 					localStorage['options'] = JSON.stringify(defaultOptions);
-				} else {
+				}
+				else {
 					// Update
 				}
 			}
