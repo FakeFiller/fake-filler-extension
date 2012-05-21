@@ -67,7 +67,8 @@ var FormFiller = function ($, options) {
 				var password = generateWord(8).toLowerCase();
 				console.log('Generated Password: ' + password);
 				return password;
-			} else {
+			}
+			else {
 				return options.password.constant;
 			}
 		},
@@ -96,6 +97,22 @@ var FormFiller = function ($, options) {
 			return Math.floor((Math.random() * 49)) + ' (' + Math.floor((Math.random() * 999)) + ') ' + Math.floor((Math.random() * 899) + 100) + '-' + Math.floor((Math.random() * 89) + 10) + '-' + Math.floor((Math.random() * 89) + 10);
 		},
 
+		generateDate = function () {
+			return ('0' + generateNumber(1, 12)).slice(-2) + '/' + ('0' + generateNumber(1, 12)).slice(-2) + '/' + generateNumber(1970, new Date().getFullYear());
+		},
+
+		generateDay = function () {
+			return ('0' + generateNumber(1, 28)).slice(-2);
+		},
+
+		generateMonth = function () {
+			return ('0' + generateNumber(1, 12)).slice(-2);
+		},
+
+		generateYear = function () {
+			return generateNumber(1970, new Date().getFullYear());
+		},
+
 		generateValueByType = function (element) {
 			var elementName = (element.name + element.id + element.className).toLowerCase();
 
@@ -115,16 +132,16 @@ var FormFiller = function ($, options) {
 				return generateWebsite();
 			}
 			if (isAnyMatch(elementName, options.field_types.date)) {
-				return ('0' + generateNumber(1, 12)).slice(-2) + '/' + ('0' + generateNumber(1, 12)).slice(-2) + '/' + generateNumber(1970, new Date().getFullYear());
+				return generateDate();
 			}
 			if (isAnyMatch(elementName, options.field_types.day)) {
-				return generateNumber(1, 28);
+				return generateDay();
 			}
 			if (isAnyMatch(elementName, options.field_types.month)) {
-				return generateNumber(1, 12);
+				return generateMonth();
 			}
 			if (isAnyMatch(elementName, options.field_types.year)) {
-				return generateNumber(1970, new Date().getFullYear());
+				return generateYear();
 			}
 
 			return generateWord(element.maxlength);
@@ -153,9 +170,20 @@ var FormFiller = function ($, options) {
 					return true;
 				}
 
-				if (this.type == 'text') {
-					previousValue = generateValueByType(this);
-					this.value = previousValue;
+				if (this.type == 'checkbox') {
+					this.checked = (Math.random() > 0.5) ? 'checked' : '';
+				}
+				else if (this.type == 'date') {
+					this.value = generateYear() + '-' + generateMonth() + '-' + generateDay();
+				}
+				else if (this.type == 'email') {
+					this.value = generateEmail();
+				}
+				else if (this.type == 'month') {
+					this.value = generateYear() + '-' + generateMonth();
+				}
+				else if (this.type == 'number') {
+					this.value = generateNumber(1, 100);
 				}
 				else if (this.type == 'password') {
 					if (isAnyMatch(this.name.toLowerCase(), options.field_types.confirm)) {
@@ -166,11 +194,18 @@ var FormFiller = function ($, options) {
 						this.value = previousValue;
 					}
 				}
-				else if (this.type == 'checkbox') {
-					this.checked = (Math.random() > 0.5) ? 'checked' : '';
-				}
 				else if (this.type == 'radio') {
 					selectRandomRadio(this.name);
+				}
+				else if (this.type == 'tel') {
+					this.value = generatePhoneNumber();
+				}
+				else if (this.type == 'text') {
+					previousValue = generateValueByType(this);
+					this.value = previousValue;
+				}
+				else if (this.type == 'url') {
+					this.value = generateWebsite();
 				}
 			});
 			$('textarea:enabled:not([readonly])').each(function () {
