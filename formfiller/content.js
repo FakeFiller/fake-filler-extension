@@ -212,9 +212,40 @@ var FormFiller = function ($, options) {
 				this.value = generateParagraph(this.maxLength);
 			});
 			$('select:enabled:not([readonly])').each(function () {
-				if (this.options) {
-					//$(this).val(this.options[Math.floor(Math.random() * (this.options.length - 1)) + 1].val());
-					this.selectedIndex = Math.floor(Math.random() * (this.options.length - 1)) + 1;
+				if (this.options && this.options.length > 1) {
+					var i = 0,
+						optionsCount = this.options.length;
+
+					if (this.multiple) {
+						var count = generateNumber(1, optionsCount);
+
+						for (; i < optionsCount; i++) {
+							if (!this.options[i].disabled) {
+								this.options[i].selected = false;
+							}
+						}
+
+						for (i = 0; i < count; i++) {
+							if (!this.options[i].disabled) {
+								this.options[generateNumber(1, optionsCount - 1)].selected = true;
+							}
+						}
+					}
+					else {
+						var iteration = 0;
+						
+						while (iteration < optionsCount) {
+							var randomOption = Math.floor(Math.random() * (optionsCount - 1)) + 1;
+							
+							if (!this.options[randomOption].disabled) {
+								this.options[randomOption].selected = true;
+								break;
+							}
+							else {
+								iteration++;
+							}
+						}
+					}
 				}
 			});
 		}
