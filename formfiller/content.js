@@ -182,8 +182,13 @@ var FormFiller = function ($, options) {
 				else if (this.type == 'month') {
 					this.value = generateYear() + '-' + generateMonth();
 				}
-				else if (this.type == 'number') {
-					this.value = generateNumber(1, 100);
+				else if (this.type == 'number' || this.type == 'range') {
+					var min = 1,
+						max = 100;
+						
+					if (this.min) { min = parseInt(this.min); }
+					if (this.max) { max = parseInt(this.max); }
+					this.value = generateNumber(min, max);
 				}
 				else if (this.type == 'password') {
 					if (isAnyMatch(this.name.toLowerCase(), options.field_types.confirm)) {
