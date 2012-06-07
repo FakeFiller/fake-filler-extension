@@ -37,14 +37,13 @@ var FormFiller = function ($, options) {
 
 			return resultWord;
 		},
-
-		generateParagraph = function (maxLength) {
+		
+		generateWords = function (wordCount, maxLength) {
 			var i = 0,
 				resultPhrase = '',
-				word = '',
-				length = Math.floor(Math.random() * 24) + 5;
-
-			for (; i < length; i++) {
+				word = '';
+				
+			for (; i < wordCount; i++) {
 				word = wordBank[Math.floor(Math.random() * (wordBank.length - 1))];
 				var phraseLength = resultPhrase.length;
 				
@@ -59,7 +58,25 @@ var FormFiller = function ($, options) {
 				resultPhrase = resultPhrase.substring(0, maxLength - 1);
 			}
 			
+			return resultPhrase;
+		},
+
+		generateParagraph = function (maxLength) {
+			var resultPhrase = '',
+				length = Math.floor(Math.random() * 50) + 20;
+
+			resultPhrase = generateWords(length, maxLength);
+			
 			return resultPhrase.replace(/[?.!,;]?$/, '.');
+		},
+		
+		generatePhrase = function (maxLength) {
+			var resultPhrase = '',
+				length = Math.floor(Math.random()) + 5;
+
+			resultPhrase = generateWords(length, maxLength);
+			
+			return resultPhrase.replace(/[^\w\s]|_/g, '').replace(/\s+/g, ' ');
 		},
 
 		generatePassword = function () {
@@ -144,7 +161,7 @@ var FormFiller = function ($, options) {
 				return generateYear();
 			}
 
-			return generateWord(element.maxlength);
+			return generatePhrase(element.maxLength);
 		},
 
 		selectRandomRadio = function (name) {
