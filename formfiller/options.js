@@ -14,7 +14,16 @@ $(function () {
 	$('#email_hostname_constants').val(options.email.hostname_constants.join(', '));
 	$('#password_constant').val(options.password.constant);
 
+	if (options.field_detect_using_class) {
+		$('#field_detect_using_class').attr('checked', 'checked');
+	}
+
+	$('#field_type_firstname').val(options.field_types.firstname.join(', '));
+	$('#field_type_lastname').val(options.field_types.lastname.join(', '));
+	$('#field_type_fullname').val(options.field_types.fullname.join(', '));
 	$('#field_type_confirm').val(options.field_types.confirm.join(', '));
+	$('#field_type_username').val(options.field_types.username.join(', '));
+	$('#field_type_organization').val(options.field_types.organization.join(', '));
 	$('#field_type_email').val(options.field_types.email.join(', '));
 	$('#field_type_number').val(options.field_types.number.join(', '));
 	$('#field_type_telephone').val(options.field_types.telephone.join(', '));
@@ -62,7 +71,14 @@ $(function () {
 		options.email.hostname_constants = csvToArray($('#email_hostname_constants').val());
 		options.password.constant = $('#password_constant').val();
 
+		options.field_detect_using_class = $('#field_detect_using_class').is(':checked');
+
+		options.field_types.firstname = csvToArray($('#field_type_firstname').val());
+		options.field_types.lastname = csvToArray($('#field_type_lastname').val());
+		options.field_types.fullname = csvToArray($('#field_type_fullname').val());
 		options.field_types.confirm = csvToArray($('#field_type_confirm').val());
+		options.field_types.username = csvToArray($('#field_type_username').val());
+		options.field_types.organization = csvToArray($('#field_type_organization').val());
 		options.field_types.email = csvToArray($('#field_type_email').val());
 		options.field_types.number = csvToArray($('#field_type_number').val());
 		options.field_types.telephone = csvToArray($('#field_type_telephone').val());

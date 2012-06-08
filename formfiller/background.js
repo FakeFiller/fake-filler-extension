@@ -30,9 +30,15 @@ var application = (function () {
 				'hostname_constants': ['gmail.com', 'yahoo.com', 'live.com', 'hotmail.com']
 			},
 			'ignore_fields': ['captcha', 'hipinputtext'],
+			'field_detect_using_class': false,
 			'field_types': {
+				'firstname': ['firstname'],
+				'lastname': ['lastname', 'surname', 'secondname'],
+				'fullname': ['fullname', 'name'],
 				'confirm': ['confirm', 'reenter', 'retype'],
+				'username': ['userid', 'username'],
 				'email': ['email'],
+				'organization': ['organization', 'organisation', 'company'],
 				'number': ['integer', 'number', 'numeric', 'price', 'qty', 'quantity', 'zip'],
 				'telephone': ['phone', 'fax'],
 				'website': ['website'],
@@ -72,9 +78,31 @@ var application = (function () {
 					localStorage['options'] = JSON.stringify(defaultOptions);
 				}
 				else {
-					// Update
+					var opt = JSON.parse(localStorage['options']);
+
+					if (!opt.field_detect_using_class) {
+						opt.field_detect_using_class = defaultOptions.field_detect_using_class;
+					}
+					if (!opt.field_types.firstname) {
+						opt.field_types.firstname = defaultOptions.field_types.firstname;
+					}
+					if (!opt.field_types.lastname) {
+						opt.field_types.lastname = defaultOptions.field_types.lastname;
+					}
+					if (!opt.field_types.fullname) {
+						opt.field_types.fullname = defaultOptions.field_types.fullname;
+					}
+					if (!opt.field_types.username) {
+						opt.field_types.username = defaultOptions.field_types.username;
+					}
+					if (!opt.field_types.organization) {
+						opt.field_types.organization = defaultOptions.field_types.organization;
+					}
+
+					localStorage['options'] = JSON.stringify(opt);
 				}
 			}
+
 			localStorage['version'] = currentVersion;
 		}
 	}
