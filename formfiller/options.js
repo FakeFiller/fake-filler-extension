@@ -61,6 +61,13 @@ $(function () {
 		$('#link_general').removeClass('active');
 		$('#link_field_types').addClass('active');
 	});
+	
+	$('body').on('change', 'input, select, textarea', function (e) {
+		$('.saved-msg').hide();
+		window.onbeforeunload = function () {
+			return 'You have not saved the changes you have made. Are you sure you want to discard them?';
+		}
+	});
 
 	$('.save-settings').on('click', function () {
 		options.email.username_random = $('#email_username_random').is(':checked');
@@ -89,6 +96,7 @@ $(function () {
 		options.field_types.year = csvToArray($('#field_type_year').val());
 
 		app.setOptions(options);
+		window.onbeforeunload = null;
 		$('.saved-msg').show();
 	});
 });
