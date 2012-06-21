@@ -1,6 +1,6 @@
 {
 	"name": "Form Filler",
-	"version": "1.2.0",
+	"version": "1.3.0",
 	"manifest_version": 2,
 	"description": "Fills all form inputs in a page with dummy data.",
 	"icons": {
@@ -16,7 +16,7 @@
 	"content_scripts": [
 		{
 			"all_frames": true,
-			"js": ["jquery.js", "content.js"],
+			"js": ["jquery.js", "keymaster.js", "content.js"],
 			"matches": [ "<all_urls>" ]
 		}
 	],

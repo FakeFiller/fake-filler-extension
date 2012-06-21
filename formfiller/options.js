@@ -10,6 +10,12 @@ $(function () {
 	var app = chrome.extension.getBackgroundPage().application;
 	var options = app.getOptions();
 
+	$('#hotkey').val(options.hotkey.combination);
+
+	if (options.hotkey.enabled) {
+		$('#hotkey_enabled').attr('checked', 'checked');
+	}
+
 	$('#email_username_constants').val(options.email.username_constants.join(', '));
 	$('#email_hostname_constants').val(options.email.hostname_constants.join(', '));
 	$('#password_constant').val(options.password.constant);
@@ -61,7 +67,27 @@ $(function () {
 		$('#link_general').removeClass('active');
 		$('#link_field_types').addClass('active');
 	});
-	
+
+	$('#hotkey').on('keydown', function (e) {
+		e.preventDefault();
+
+		var code,
+			character = '',
+			combination = '';
+
+		e = e || window.event;
+
+		if (e.keyCode) { code = e.keyCode; }
+		else if (e.which) { code = e.which; }
+
+		if (code > 48 && code < 91)
+			combination = (e.ctrlKey ? 'ctrl+' : '') + (e.altKey ? 'alt+' : '') + (e.shiftKey ? 'shift+' : '') + String.fromCharCode(code).toLowerCase();
+		else
+			combination = options.hotkey.combination;
+
+		$(this).val(combination);
+	});
+
 	$('body').on('change', 'input, select, textarea', function (e) {
 		$('.saved-msg').hide();
 		window.onbeforeunload = function () {
@@ -70,6 +96,9 @@ $(function () {
 	});
 
 	$('.save-settings').on('click', function () {
+		options.hotkey.enabled = $('#hotkey_enabled').is(':checked');
+		options.hotkey.combination = $('#hotkey').val();
+
 		options.email.username_random = $('#email_username_random').is(':checked');
 		options.email.hostname_random = $('#email_hostname_random').is(':checked');
 		options.password.random = $('#password_use_random').is(':checked');

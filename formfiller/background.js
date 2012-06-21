@@ -15,6 +15,10 @@ _gaq.push(['_trackPageview']);
 var application = (function () {
 	var
 		defaultOptions = {
+			'hotkey': {
+				'enabled': false,
+				'combination': 'ctrl+shift+f'
+			},
 			'username': {
 				'random': true,
 				'constants': []
@@ -80,6 +84,9 @@ var application = (function () {
 				else {
 					var opt = JSON.parse(localStorage['options']);
 
+					if (!opt.hotkey) {
+						opt.hotkey = defaultOptions.hotkey;
+					}
 					if (!opt.field_detect_using_class) {
 						opt.field_detect_using_class = defaultOptions.field_detect_using_class;
 					}
@@ -100,6 +107,7 @@ var application = (function () {
 					}
 
 					localStorage['options'] = JSON.stringify(opt);
+					chrome.tabs.create({'url': chrome.extension.getURL('options.html')}, function () {});
 				}
 			}
 
@@ -116,6 +124,10 @@ chrome.browserAction.onClicked.addListener(function () {
 });
 
 chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
-	if (request == 'getOptions')
+	if (request == 'getOptions') {
 		sendResponse({options: application.getOptions()});
+	}
+	else if (request == 'trackHotkeyClick') {
+		_gaq.push(['_trackEvent', 'extension_hotkey', application.getOptions().hotkey.combination]);
+	}
 });

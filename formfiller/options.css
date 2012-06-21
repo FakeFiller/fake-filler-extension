@@ -47,3 +47,7 @@ legend {
 	color: #51A351;
 	display: none;
 }
+
+#hotkey {
+	text-transform: uppercase;
+}

@@ -306,6 +306,13 @@ var FormFiller = function ($, options) {
 };
 
 chrome.extension.sendRequest(null, 'getOptions', function (response) {
-	if (!window.formFiller)
+	if (!window.formFiller) {
 		window.formFiller = new FormFiller(jQuery, response.options);
+		if (response.options.hotkey.enabled && response.options.hotkey.combination.length > 0) {
+			key(response.options.hotkey.combination, function () {
+				chrome.extension.sendRequest(null, 'trackHotkeyClick', function (response) {});
+				window.formFiller.fillAllInputs();
+			});
+		}
+	}
 });
