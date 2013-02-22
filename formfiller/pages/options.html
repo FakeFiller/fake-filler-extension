@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Filler Options</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/options.js"></script>
+    <script type="text/javascript" src="../js/mustache.js"></script>
+</head>
+<body>
+<div class="row">
+    <div class="span3">
+        <h1><img src="../img/icon-48.png" id="logo" width="32" height="32"> Form Filler</h1>
+        <ul class="nav nav-pills nav-stacked">
+            <li id="nav-general" class="active"><a href="#">General</a></li>
+            <li id="nav-fields"><a href="#">Custom Fields</a></li>
+        </ul>
+        <div id="about">
+            <p>If you like Form Filler, please
+                <a href="http://bit.ly/FormFiller">rate it on the Chrome Web Store</a>. If you have any suggestions
+                to make this extension better, or find any issues, please send me an
+                <a href="mailto:husainsfabbas@gmail.com">email</a>.</p>
+        </div>
+        <p><a href="#" id="factory-reset">Restore Factory Settings</a></p>
+    </div>
+    <div class="span8">
+        <div id="tab-general">
+            <fieldset class="form-horizontal">
+                <h2>Email Settings</h2>
+                <div id="email-settings-area"></div>
+            </fieldset>
+            <fieldset class="form-horizontal">
+                <h2>Password Settings</h2>
+                <div id="password-settings-area"></div>
+            </fieldset>
+            <fieldset class="form-horizontal">
+                <h2>Field Options</h2>
+                <div id="other-fields-area"></div>
+            </fieldset>
+            <div class="form-actions">
+                <button type="button" id="save-general-settings" class="btn btn-primary">Save Settings</button>
+                <span class="saved-msg">Saved.</span>
+            </div>
+        </div>
+        <div id="tab-fields" class="hide">
+            <h2>Custom Fields</h2>
+            <p>Form Filler uses the ID, NAME and CLASS values of an input field to determine its data type. You can
+                adjust the search phrases in the text boxes below to tweak how Form Filler determines the correct
+                data types.</p>
+            <p>Basically, any partial match in the attributes underlined:<br><code>&lt;input type="<i>anything</i>"
+                id="<b><u>match</u></b>" name="<b><u>match</u></b>" class="<b><u>match</u></b>" /&gt;</code></p>
+            <p>Please note that attributes take precedence over any configuration and may override it in some cases. Also, fields are matched in the order listed here.</p>
+            <hr>
+            <div class="btn-toolbar">
+                <div class="btn-group">
+                    <button type="button" id="add-field" class="btn"><i class="icon-plus-sign"></i> Add Field</button>
+                </div>
+            </div>
+            <div id="fields-list-view"></div>
+        </div>
+    </div>
+</div>
+
+<div id="field-settings-modal" class="modal hide form-horizontal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3>Add Custom Field</h3>
+    </div>
+    <div class="modal-body">
+        <div class="control-group">
+            <label class="control-label" for="if-type">Data Type</label>
+            <div class="controls">
+                <select name="field-type" id="if-type">
+                    <option value="">-- select --</option>
+                    <optgroup label="Human Data">
+                        <option value="first-name">First Name</option>
+                        <option value="last-name">Last Name</option>
+                        <option value="full-name">Full Name</option>
+                        <option value="username">Username</option>
+                        <option value="email">Email Address</option>
+                        <option value="organization">Organization/Company Name</option>
+                        <option value="telephone">Telephone</option>
+                        <option value="number">Number</option>
+                        <option value="date">Date</option>
+                        <option value="url">Website/URL</option>
+                    </optgroup>
+                    <optgroup label="Other">
+                        <option value="text">Text</option>
+                        <option value="alphanumeric">Alphanumeric</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="if-name">Friendly Name</label>
+            <div class="controls">
+                <input type="text" id="if-name" class="span4">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="if-match">Match</label>
+            <div class="controls">
+                <input type="text" id="if-match" class="span4">
+            </div>
+        </div>
+        <div id="field-options-area"></div>
+        <input type="hidden" id="if-index" value="">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="create-field"> &nbsp;&nbsp;&nbsp; Save &nbsp;&nbsp;&nbsp; </button>
+    </div>
+</div>
+
+<script type="text/template" id="template-email-editor">
+    <div class="control-group">
+        <label class="control-label">Username</label>
+        <div class="controls" id="email-username-area">
+            {{#wrappedUsername}}
+            <label class="radio"><input type="radio" name="if-email-username" value="username"> Use a previously generated username</label>
+            <label class="radio"><input type="radio" name="if-email-username" value="name"> Use a previously generated first and last name</label>
+            <label class="radio"><input type="radio" name="if-email-username" value="random"> Generate a random name</label>
+            <label class="radio"><input type="radio" name="if-email-username" value="list"> Select from the list below</label>
+            {{/wrappedUsername}}
+            <input type="text" id="if-email-username-list" class="span4" value="{{usernameListFormatted}}">
+            <div class="help-block">List each name with a comma.</div>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Host name</label>
+        <div class="controls" id="email-hostname-area">
+            {{#wrappedHostname}}
+            <label class="radio"><input type="radio" name="if-email-hostname" value="random"> Use a randomly generated host name</label>
+            <label class="radio"><input type="radio" name="if-email-hostname" value="list"> Select from the list below</label>
+            {{/wrappedHostname}}
+            <input type="text" id="if-email-hostname-list" class="span4" value="{{hostnameListFormatted}}">
+            <div class="help-block">List each name with a comma. You may include the @ sign as well.</div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="template-password-editor">
+    <div class="control-group">
+        <label class="control-label">Password</label>
+        <div class="controls">
+            <label class="radio"><input type="radio" name="pwd" id="if-password-random" {{#random}}checked{{/random}}> Generate a random 8 character password (is logged in the console)</label>
+            <label class="radio"><input type="radio" name="pwd" id="if-password-static" {{#notRandom}}checked{{/notRandom}}>
+                Use this: <input type="text" id="if-password" value="{{password}}" class="span3 code"></label>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="template-other-fields-editor">
+    <div class="control-group">
+        <label class="control-label" for="if-ignore-match">Ignore Fields Match</label>
+        <div class="controls">
+            <input type="text" id="if-ignore-match" value="{{ignoredFieldsFormatted}}" class="span4">
+        </div>
+        <div class="controls">
+            <label class="checkbox"><input type="checkbox" id="if-ignore-hidden" {{#ignoreHiddenFields}}checked{{/ignoreHiddenFields}}> Ignore all hidden/invisible fields</label>
+            <div class="help-block">Note that all inputs with <i>type="hidden"</i> are always ignored.</div>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="if-confirm-match">Confirmation Fields Match</label>
+        <div class="controls">
+            <input type="text" id="if-confirm-match" value="{{confirmFieldsFormatted}}" class="span4">
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="template-telephone-editor">
+    <div class="control-group">
+        <label class="control-label" for="if-telephone-template">Template</label>
+        <div class="controls">
+            <input type="text" id="if-telephone-template" class="span4 code" value="{{template}}">
+            <div class="help-block">Use an uppercase <b>X</b> for numbers between 1 and 9 and a lowercase
+                <b>x</b> for numbers between 0 and 9. Everything else is left as-is.
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="template-telephone-view">
+    <div class="well well-small">
+        <div class="pull-right">
+            <a href="#" title="Move Up" class="field-move-up" data-index="{{index}}"><i class="icon-arrow-up"></i></a>
+            <a href="#" title="Move Down" class="field-move-down" data-index="{{index}}"><i class="icon-arrow-down"></i></a>
+            <a href="#" title="Edit" class="field-edit" data-index="{{index}}"><i class="icon-edit"></i></a>
+            <a href="#" title="Delete" class="field-delete" data-index="{{index}}"><i class="icon-trash"></i></a>
+        </div>
+        <strong>{{name}}</strong>
+        <dl class="dl-horizontal">
+            <dt>Type</dt>
+            <dd>{{type}}</dd>
+            <dt>Match</dt>
+            <dd>{{matchFormatted}}</dd>
+            <dt>Template</dt>
+            <dd class="code">{{template}}</dd>
+        </dl>
+    </div>
+</script>
+
+<script type="text/template" id="template-number-editor">
+    <div class="control-group">
+        <label class="control-label" for="if-number-min">Minimum Value</label>
+        <div class="controls">
+            <input type="text" id="if-number-min" class="span2" value="{{min}}">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="if-number-max">Maximum Value</label>
+        <div class="controls">
+            <input type="text" id="if-number-max" class="span2" value="{{max}}">
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="template-number-view">
+    <div class="well well-small">
+        <div class="pull-right">
+            <a href="#" title="Move Up" class="field-move-up" data-index="{{index}}"><i class="icon-arrow-up"></i></a>
+            <a href="#" title="Move Down" class="field-move-down" data-index="{{index}}"><i class="icon-arrow-down"></i></a>
+            <a href="#" title="Edit" class="field-edit" data-index="{{index}}"><i class="icon-edit"></i></a>
+            <a href="#" title="Delete" class="field-delete" data-index="{{index}}"><i class="icon-trash"></i></a>
+        </div>
+        <strong>{{name}}</strong>
+        <dl class="dl-horizontal">
+            <dt>Type</dt>
+            <dd>{{type}}</dd>
+            <dt>Match</dt>
+            <dd>{{matchFormatted}}</dd>
+            <dt>Minimum Value</dt>
+            <dd>{{min}}</dd>
+            <dt>Maximum Value</dt>
+            <dd>{{max}}</dd>
+        </dl>
+    </div>
+</script>
+
+<script type="text/template" id="template-text-editor">
+    <div class="control-group">
+        <label class="control-label" for="if-text-min">Minimum Words</label>
+        <div class="controls">
+            <input type="text" id="if-text-min" class="span2" value="{{min}}">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="if-text-max">Maximum Words</label>
+        <div class="controls">
+            <input type="text" id="if-text-max" class="span2" value="{{max}}">
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="template-text-view">
+    <div class="well well-small">
+        <div class="pull-right">
+            <a href="#" title="Move Up" class="field-move-up" data-index="{{index}}"><i class="icon-arrow-up"></i></a>
+            <a href="#" title="Move Down" class="field-move-down" data-index="{{index}}"><i class="icon-arrow-down"></i></a>
+            <a href="#" title="Edit" class="field-edit" data-index="{{index}}"><i class="icon-edit"></i></a>
+            <a href="#" title="Delete" class="field-delete" data-index="{{index}}"><i class="icon-trash"></i></a>
+        </div>
+        <strong>{{name}}</strong>
+        <dl class="dl-horizontal">
+            <dt>Type</dt>
+            <dd>{{type}}</dd>
+            <dt>Match</dt>
+            <dd>{{matchFormatted}}</dd>
+            <dt>Minimum Words</dt>
+            <dd>{{min}}</dd>
+            <dt>Maximum Words</dt>
+            <dd>{{max}}</dd>
+        </dl>
+    </div>
+</script>
+
+<script type="text/template" id="template-date-editor">
+    <div class="control-group">
+        <label class="control-label" for="if-date-template">Format</label>
+        <div class="controls">
+            <input type="text" id="if-date-template" class="span4 code" value="{{template}}">
+            <div class="help-block">Uses moment.js to format date/time values. Please refer to the moment.js
+                <a href="http://momentjs.com/docs/#/displaying/format/" target="_blank">documentation</a>.
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="template-date-view">
+    <div class="well well-small">
+        <div class="pull-right">
+            <a href="#" title="Move Up" class="field-move-up" data-index="{{index}}"><i class="icon-arrow-up"></i></a>
+            <a href="#" title="Move Down" class="field-move-down" data-index="{{index}}"><i class="icon-arrow-down"></i></a>
+            <a href="#" title="Edit" class="field-edit" data-index="{{index}}"><i class="icon-edit"></i></a>
+            <a href="#" title="Delete" class="field-delete" data-index="{{index}}"><i class="icon-trash"></i></a>
+        </div>
+        <strong>{{name}}</strong>
+        <dl class="dl-horizontal">
+            <dt>Type</dt>
+            <dd>{{type}}</dd>
+            <dt>Match</dt>
+            <dd>{{matchFormatted}}</dd>
+            <dt>Template</dt>
+            <dd class="code">{{template}}</dd>
+        </dl>
+    </div>
+</script>
+
+<script type="text/template" id="template-alphanumeric-editor">
+    <div class="control-group">
+        <label class="control-label" for="if-alphanumeric-template">Format</label>
+        <div class="controls">
+            <input type="text" id="if-alphanumeric-template" class="span4 code" value="{{template}}">
+            <div class="help-block">
+                <div class="row-fluid">
+                    <div class="span6">
+                        <code>L</code> An uppercase Letter.<br>
+                        <code>l</code> lowercase letter.<br>
+                        <code>D</code> A letter (upper or lower).<br>
+                        <code>C</code> An uppercase Consonant.<br>
+                        <code>c</code> A lowercase consonant.<br>
+                        <code>E</code> A consonant (upper or lower).
+                    </div>
+                    <div class="span6">
+                        <code>V</code> An uppercase Vowel.<br>
+                        <code>v</code> A lowercase vowel.<br>
+                        <code>F</code> A vowel (upper or lower).<br>
+                        <code>x</code> Any number, 0-9.<br>
+                        <code>X</code> Any number, 1-9.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="template-alphanumeric-view">
+    <div class="well well-small">
+        <div class="pull-right">
+            <a href="#" title="Move Up" class="field-move-up" data-index="{{index}}"><i class="icon-arrow-up"></i></a>
+            <a href="#" title="Move Down" class="field-move-down" data-index="{{index}}"><i class="icon-arrow-down"></i></a>
+            <a href="#" title="Edit" class="field-edit" data-index="{{index}}"><i class="icon-edit"></i></a>
+            <a href="#" title="Delete" class="field-delete" data-index="{{index}}"><i class="icon-trash"></i></a>
+        </div>
+        <strong>{{name}}</strong>
+        <dl class="dl-horizontal">
+            <dt>Type</dt>
+            <dd>{{type}}</dd>
+            <dt>Match</dt>
+            <dd>{{matchFormatted}}</dd>
+            <dt>Template</dt>
+            <dd class="code">{{template}}</dd>
+        </dl>
+    </div>
+</script>
+
+<script type="text/template" id="template-default-view">
+    <div class="well well-small">
+        <div class="pull-right">
+            <a href="#" title="Move Up" class="field-move-up" data-index="{{index}}"><i class="icon-arrow-up"></i></a>
+            <a href="#" title="Move Down" class="field-move-down" data-index="{{index}}"><i class="icon-arrow-down"></i></a>
+            <a href="#" title="Edit" class="field-edit" data-index="{{index}}"><i class="icon-edit"></i></a>
+            <a href="#" title="Delete" class="field-delete" data-index="{{index}}"><i class="icon-trash"></i></a>
+        </div>
+        <strong>{{name}}</strong>
+        <dl class="dl-horizontal">
+            <dt>Type</dt>
+            <dd>{{type}}</dd>
+            <dt>Match</dt>
+            <dd>{{matchFormatted}}</dd>
+        </dl>
+    </div>
+</script>
+
+</body>
+</html>

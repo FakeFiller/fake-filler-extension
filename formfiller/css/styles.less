@@ -1,0 +1,101 @@
+@import "bootstrap/bootstrap.less";
+
+// Match color of text in input fields with body text
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+    color: @textColor;
+}
+
+// Tweak the transitions
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+    background-color: @inputBackground;
+    border: 1px solid @inputBorder;
+    .box-shadow(none);
+    .transition(~"border linear .1s, box-shadow linear .1s"); // Focus state
+    &:focus {
+        border-color: rgba(54, 112, 174, .8);
+        outline: 0;
+        outline: thin dotted         \9; /* IE6-9 */
+        .box-shadow(~"inset 0 1px 1px rgba(0,0,0,.075), 0 0 2px rgba(0,136,204,.6)");
+    }
+}
+
+select {
+    width: inherit;
+}
+
+body {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-weight: normal;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-weight: normal;
+    font-size: 17px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+#about {
+    margin-top: 70px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+#about p {
+    font-size: 0.9em;
+    color: #999;
+}
+
+.code {
+    #font > #family > .monospace;
+}
+
+code {
+    font-size: 12px;
+}
+
+.saved-msg {
+    font-size: 12px;
+    font-weight: bold;
+    padding-left: 10px;
+    color: #51A351;
+    display: none;
+}

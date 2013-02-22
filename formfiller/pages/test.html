@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Filler Test</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../js/moment.min.js"></script>
+    <script type="text/javascript" src="../js/background.js"></script>
+    <script type="text/javascript" src="../js/content.js"></script>
+    <script type="text/javascript">
+        if (!window.formFiller) {
+            window.formFiller = new FormFiller(jQuery, application.getOptions());
+        }
+        $(function() {
+            $('#fill-all-inputs').on('click', function() {
+                window.formFiller.fillAllInputs();
+            });
+            $('#serialize-form').on('click', function() {
+                $('#form-data').html($('#form').serialize().replace(/&/g, '<br>').replace(/=/g, ' = '));
+                window.scrollTo(0, document.body.scrollHeight);
+            });
+        });
+    </script>
+    <style type="text/css">
+        #fill-all-inputs {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <h1>Form Filler Test</h1>
+    <button type="button" class="btn btn-inverse" id="fill-all-inputs">Fill All Inputs</button>
+    <form id="form" class="form-horizontal">
+        <fieldset>
+            <legend>Text Type</legend>
+            <div class="control-group">
+                <label class="control-label">First Name</label>
+                <div class="controls">
+                    <input type="text" name="first_name" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Last Name</label>
+                <div class="controls">
+                    <input type="text" name="last_name" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Full Name</label>
+                <div class="controls">
+                    <input type="text" name="full_name" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Username</label>
+                <div class="controls">
+                    <input type="text" name="username" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Email Address</label>
+                <div class="controls">
+                    <input type="text" name="email_address_text" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Organization</label>
+                <div class="controls">
+                    <input type="text" name="organization" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Telephone</label>
+                <div class="controls">
+                    <input type="text" name="telephone_text" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Number</label>
+                <div class="controls">
+                    <input type="text" name="number_text" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Zip Code</label>
+                <div class="controls">
+                    <input type="text" name="zip_text" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Date</label>
+                <div class="controls">
+                    <input type="text" name="date_of_birth_text" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Website</label>
+                <div class="controls">
+                    <input type="text" name="website_text" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Matches Nothing</label>
+                <div class="controls">
+                    <input type="text" name="no_match" class="span4">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Other Types</legend>
+            <div class="control-group">
+                <label class="control-label">Password</label>
+                <div class="controls">
+                    <input type="password" name="password" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Repeat Password</label>
+                <div class="controls">
+                    <input type="password" name="confirm_password" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Email</label>
+                <div class="controls">
+                    <input type="email" name="email_address" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Confirm Email</label>
+                <div class="controls">
+                    <input type="email" name="repeat_email_address" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Number</label>
+                <div class="controls">
+                    <input type="number" name="number" class="span4" min="100" max="500">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Range</label>
+                <div class="controls">
+                    <input type="range" name="number_range" class="span4" value="0" min="0" max="100" step="5">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Search</label>
+                <div class="controls">
+                    <input type="search" name="keywords_search" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Website</label>
+                <div class="controls">
+                    <input type="url" name="website" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Date</label>
+                <div class="controls">
+                    <input type="date" name="date_of_birth" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Date/Time</label>
+                <div class="controls">
+                    <input type="datetime" name="date_time" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Date/Time Local</label>
+                <div class="controls">
+                    <input type="datetime-local" name="date_time_local" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Month</label>
+                <div class="controls">
+                    <input type="month" name="month" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Time</label>
+                <div class="controls">
+                    <input type="time" name="time" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Week</label>
+                <div class="controls">
+                    <input type="week" name="week" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Telephone</label>
+                <div class="controls">
+                    <input type="tel" name="telephone" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Color</label>
+                <div class="controls">
+                    <input type="color" name="color" class="span4">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Radio</label>
+                <div class="controls">
+                    <label class="radio inline"><input type="radio" name="favorite_color_radio" value="red"> Red</label>
+                    <label class="radio inline"><input type="radio" name="favorite_color_radio" value="green"> Green</label>
+                    <label class="radio inline"><input type="radio" name="favorite_color_radio" value="blue"> Blue</label>
+                    <label class="radio inline"><input type="radio" name="favorite_color_radio" value="yellow"> Yellow</label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Checkbox</label>
+                <div class="controls">
+                    <label class="checkbox inline"><input type="checkbox" name="favorite_color_checkbox" value="red"> Red</label>
+                    <label class="checkbox inline"><input type="checkbox" name="favorite_color_checkbox" value="green"> Green</label>
+                    <label class="checkbox inline"><input type="checkbox" name="favorite_color_checkbox" value="blue"> Blue</label>
+                    <label class="checkbox inline"><input type="checkbox" name="favorite_color_checkbox" value="yellow"> Yellow</label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Text Area</label>
+                <div class="controls">
+                    <textarea name="bio" class="span4" rows="7"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Text Area Match Nothing</label>
+                <div class="controls">
+                    <textarea name="text_no_match" class="span4" rows="7" maxlength="100"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Alphanumeric</label>
+                <div class="controls">
+                    <input type="text" name="alnum" class="span4">
+                </div>
+            </div>
+            <div class="control-group hide">
+                <label class="control-label">JavaScript Hidden</label>
+                <div class="controls">
+                    <input type="text" name="email_js_hidden" class="span4">
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-actions">
+            <button type="button" id="serialize-form" class="btn btn-primary">Serialize Form</button>
+        </div>
+        <input type="hidden" name="email_hidden">
+    </form>
+    <br>
+    <div id="form-data"></div>
+    <br>
+</div>
+</body>
+</html>
