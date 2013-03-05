@@ -70,6 +70,7 @@ $(function() {
             delete(passwordOptions.hasErrors);
             options.emailSettings = emailOptions;
             options.passwordSettings = passwordOptions;
+            options.triggerClickEvents = ignoreFieldsOptions.triggerClickEvents;
             options.ignoreHiddenFields = ignoreFieldsOptions.ignoreHiddenFields;
             options.ignoredFields = ignoreFieldsOptions.ignoredFields;
             options.confirmFields = confirmFieldsOptions.confirmFields;
@@ -267,6 +268,7 @@ $(function() {
         passwordSettingsArea.html(Mustache.to_html(templatePasswordEditor, passwordOptions));
 
         var otherOptions = {};
+        otherOptions.triggerClickEvents = options.triggerClickEvents;
         otherOptions.ignoreHiddenFields = options.ignoreHiddenFields;
         otherOptions.ignoredFields = options.ignoredFields;
         otherOptions.ignoredFieldsFormatted = function() {
@@ -418,11 +420,13 @@ $(function() {
     function getIgnoreFieldOptionsFromForm() {
         var options = {},
             match = $('#if-ignore-match'),
-            ignoreHidden = $('#if-ignore-hidden');
+            ignoreHidden = $('#if-ignore-hidden'),
+            triggerClickEvent = $('#if-trigger-click-event');
 
         options.hasErrors = false;
         options.ignoredFields = csvToArray(match.val());
         options.ignoreHiddenFields = ignoreHidden.is(':checked');
+        options.triggerClickEvents = triggerClickEvent.is(':checked');
 
         return options;
     }

@@ -374,7 +374,14 @@ var FormFiller = function($, options) {
                 }
             }
 
-            list[Math.floor(Math.random() * list.length)].checked = true;
+            var radioElement = list[Math.floor(Math.random() * list.length)];
+
+            if (options.triggerClickEvents) {
+                $(radioElement).click();
+            }
+            else {
+                radioElement.checked = true;
+            }
         },
 
         shouldIgnoreField = function(element) {
@@ -399,7 +406,12 @@ var FormFiller = function($, options) {
                 var elementType = element.attr('type').toLowerCase();
 
                 if (elementType == 'checkbox') {
-                    this.checked = (Math.random() > 0.5) ? 'checked' : '';
+                    if (options.triggerClickEvents) {
+                        element.prop('checked', (Math.random() > 0.5)).click();
+                    }
+                    else {
+                        this.checked = (Math.random() > 0.5) ? 'checked' : '';
+                    }
                 }
                 else if (elementType == 'date') {
                     this.value = generateDate();

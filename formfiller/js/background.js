@@ -23,7 +23,16 @@ var application = (function() {
                     // New installation
                 } else {
                     // Upgrade
-                    this.setOptions(this.getDefaultOptions());
+
+                    if (previousVersion.substr(0, 1) == '1') {
+                        this.setOptions(this.getDefaultOptions());
+                    }
+                    else {
+                        var options = this.getOptions();
+                        options.triggerClickEvents = false;
+                        this.setOptions(options);
+                    }
+
                     chrome.tabs.create({url: chrome.extension.getURL('pages/changelog.html')});
                 }
             }
@@ -43,6 +52,7 @@ var application = (function() {
 
         getDefaultOptions: function() {
             var options = {};
+            options.triggerClickEvents = true;
             options.ignoreHiddenFields = true;
             options.ignoredFields = ['captcha', 'hipinputtext'];
             options.confirmFields = ['confirm', 'reenter', 'retype', 'repeat'];
