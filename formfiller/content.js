@@ -264,6 +264,11 @@ var FormFiller = function ($, options) {
 			$('textarea:enabled:not([readonly])').each(function () {
 				this.value = generateParagraph(this.maxLength);
 			});
+      $('[contenteditable]').each(function () {
+        if(!this.isContentEditable) return;
+
+        this.innerHTML = generateParagraph();
+      });
 			$('select:enabled:not([readonly])').each(function () {
 				if (this.options && this.options.length > 1) {
 					var i = 0,
