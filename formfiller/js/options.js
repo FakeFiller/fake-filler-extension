@@ -607,4 +607,6 @@ $(function() {
         }
         return data;
     }
+
+    navGeneral.trigger('click');
 });

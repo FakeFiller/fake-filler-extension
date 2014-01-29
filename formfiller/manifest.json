@@ -16,7 +16,7 @@
     "content_scripts": [
         {
             "matches": [ "<all_urls>" ],
-            "js": ["js/jquery-1.8.3.min.js", "js/moment.min.js", "js/content.js"],
+            "js": ["js/jquery-2.1.0.min.js", "js/moment.min.js", "js/content.js"],
             "all_frames": true
         }
     ],
