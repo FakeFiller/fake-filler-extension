@@ -7,6 +7,7 @@
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/options.js"></script>
     <script type="text/javascript" src="../js/mustache.js"></script>
+    <script type="text/javascript" src="../js/FileSaver.js"></script>
 </head>
 <body>
 <div class="container">
@@ -24,6 +25,9 @@
                     <a href="mailto:husainsfabbas@gmail.com">email</a>.</p>
             </div>
             <p><a href="#" id="factory-reset">Restore Factory Settings</a></p>
+            <p><a href="#" id="export-settings">Export Settings</a></p>
+            <p><a href="#" id="import-settings">Import Settings</a></p>
+            <input type="file" id="restore-file-selector" name="restore-file-selector" style="visibility:hidden;position:absolute;"/>
         </div>
         <div class="col-xs-9">
             <div id="tab-general">

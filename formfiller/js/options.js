@@ -21,7 +21,10 @@ $(function() {
         inputFieldType = $('#if-type'),
         inputFieldName = $('#if-name'),
         inputFieldMatch = $('#if-match'),
-        inputFieldIndex = $('#if-index');
+        inputFieldIndex = $('#if-index'),
+        exportSettingsLink = $('#export-settings'),
+        importSettingsLink = $('#import-settings'),
+        restoreFileSelector = $('#restore-file-selector');
 
     var templateEmailEditor = $('#template-email-editor').html(),
         templatePasswordEditor = $('#template-password-editor').html(),
@@ -48,9 +51,11 @@ $(function() {
 
     factoryReset.on('click', function(e) {
         e.preventDefault();
-        app.restoreFactorySettings();
-        loadGeneralView();
-        loadCustomFieldsView();
+        if (confirm('Are you sure you want to reset to the default settings?')) {
+            app.restoreFactorySettings();
+            loadGeneralView();
+            loadCustomFieldsView();
+        }
     });
 
     saveGeneralSettingsButton.on('click', function(e) {
@@ -205,6 +210,45 @@ $(function() {
             app.removeCustomField($(this).data('index'));
             loadCustomFieldsView();
         }
+    });
+
+    exportSettingsLink.on('click', function(e) {
+        e.preventDefault();
+        var encodedFileData = window.btoa(JSON.stringify(app.getOptions()));
+
+        try {
+            var blob = new Blob([encodedFileData], {type: "text/plain;charset=utf-8"});
+            saveAs(blob, 'form-filler.txt');
+        }
+        catch (e) {
+            alert('Error creating a backup file.');
+            console.log('%c ' + e.toString(), 'color: red');
+        }
+    });
+
+    importSettingsLink.on('click', function(e) {
+        e.preventDefault();
+        restoreFileSelector.trigger('click');
+    });
+
+    restoreFileSelector.on('change', function() {
+        var file = restoreFileSelector[0];
+
+        var isSure = confirm('Are you sure you want to restore the options?\n\nNote: Existing settings will be replaced.');
+        if (isSure) {
+            if (file.files.length > 0 && file.files[0].name.length > 0) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    restoreOptionsFromBackup(e.target.result);
+                };
+                reader.onerror = function() {
+                    alert('Error reading backup file.');
+                };
+                reader.readAsText(file.files[0]);
+            }
+        }
+
+        file.value = '';
     });
 
     function loadEditorTemplateByType(type, options) {
@@ -606,6 +650,21 @@ $(function() {
             }
         }
         return data;
+    }
+
+    function restoreOptionsFromBackup(encodedData) {
+        try {
+            var decodedData = window.atob(encodedData);
+            var options = JSON.parse(decodedData);
+            app.setOptions(options);
+        }
+        catch (e) {
+            alert('Unable to restore from backup. The backup file is corrupted or invalid.');
+            console.log('%c ' + e.toString(), 'color: red');
+        }
+
+        loadGeneralView();
+        loadCustomFieldsView();
     }
 
     navGeneral.trigger('click');
