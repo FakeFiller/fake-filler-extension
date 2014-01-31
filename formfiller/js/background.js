@@ -29,7 +29,15 @@ var application = (function() {
                     }
                     else {
                         var options = this.getOptions();
-                        options.triggerClickEvents = false;
+
+                        if (options.triggerClickEvents === undefined) {
+                            options.triggerClickEvents = false;
+                        }
+
+                        if (options.ignoreFieldsWithContent === undefined) {
+                            options.ignoreFieldsWithContent = false;
+                        }
+
                         this.setOptions(options);
                     }
 
@@ -52,6 +60,7 @@ var application = (function() {
 
         getDefaultOptions: function() {
             var options = {};
+            options.ignoreFieldsWithContent = true;
             options.triggerClickEvents = true;
             options.ignoreHiddenFields = true;
             options.ignoredFields = ['captcha', 'hipinputtext'];

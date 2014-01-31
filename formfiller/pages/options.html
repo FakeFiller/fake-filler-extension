@@ -189,7 +189,10 @@
             <div class="checkbox">
                 <label><input type="checkbox" id="if-ignore-hidden" {{#ignoreHiddenFields}}checked{{/ignoreHiddenFields}}> Ignore all hidden/invisible fields</label>
             </div>
-            <div class="help-block"><span class="label label-info">Note</span> All inputs with
+            <div class="checkbox">
+                <label><input type="checkbox" id="if-ignore-with-content" {{#ignoreFieldsWithContent}}checked{{/ignoreFieldsWithContent}}> Ignore fields that already have content</label>
+            </div>
+            <div class="help-block"><span class="label label-info">Note</span> Inputs with
                 <i>type="hidden"</i> are always ignored.
             </div>
         </div>

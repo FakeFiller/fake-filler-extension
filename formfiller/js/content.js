@@ -15,7 +15,7 @@ var FormFiller = function($, options) {
 
         isAnyMatch = function(haystack, needles) {
             for (var i = 0, count = needles.length; i < count; i++) {
-                if ((new RegExp(needles[i])).test(haystack)){
+                if ((new RegExp(needles[i])).test(haystack)) {
                     return true;
                 }
             }
@@ -385,13 +385,34 @@ var FormFiller = function($, options) {
         },
 
         shouldIgnoreField = function(element) {
-            var elementName = getSanitizedElementName(element);
+            if (options.ignoreHiddenFields && $(element).is(':hidden')) {
+                return true;
+            }
 
+            var elementName = getSanitizedElementName(element);
             if (isAnyMatch(elementName, options.ignoredFields)) {
                 return true;
             }
 
-            return options.ignoreHiddenFields && $(element).is(':hidden');
+            if (options.ignoreFieldsWithContent === true) {
+                if (element.type == 'checkbox') {
+                    return false;
+                }
+
+                if (element.type == 'radio') {
+                    if ($('input[name=' + element.name + ']:checked').size() > 0) {
+                        return true;
+                    }
+                }
+
+                if (element.type !== 'checkbox' && element.type != 'radio') {
+                    if ($(element).val().trim().length > 0) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         };
 
     return {

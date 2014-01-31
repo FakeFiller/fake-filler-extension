@@ -77,6 +77,7 @@ $(function() {
             options.passwordSettings = passwordOptions;
             options.triggerClickEvents = ignoreFieldsOptions.triggerClickEvents;
             options.ignoreHiddenFields = ignoreFieldsOptions.ignoreHiddenFields;
+            options.ignoreFieldsWithContent = ignoreFieldsOptions.ignoreFieldsWithContent;
             options.ignoredFields = ignoreFieldsOptions.ignoredFields;
             options.confirmFields = confirmFieldsOptions.confirmFields;
             app.setOptions(options);
@@ -314,6 +315,7 @@ $(function() {
         var otherOptions = {};
         otherOptions.triggerClickEvents = options.triggerClickEvents;
         otherOptions.ignoreHiddenFields = options.ignoreHiddenFields;
+        otherOptions.ignoreFieldsWithContent = options.ignoreFieldsWithContent;
         otherOptions.ignoredFields = options.ignoredFields;
         otherOptions.ignoredFieldsFormatted = function() {
             return this.ignoredFields.join(', ');
@@ -465,11 +467,13 @@ $(function() {
         var options = {},
             match = $('#if-ignore-match'),
             ignoreHidden = $('#if-ignore-hidden'),
+            ignoreWithContent = $('#if-ignore-with-content'),
             triggerClickEvent = $('#if-trigger-click-event');
 
         options.hasErrors = false;
         options.ignoredFields = csvToArray(match.val());
         options.ignoreHiddenFields = ignoreHidden.is(':checked');
+        options.ignoreFieldsWithContent = ignoreWithContent.is(':checked');
         options.triggerClickEvents = triggerClickEvent.is(':checked');
 
         return options;
