@@ -15,7 +15,7 @@ var FormFiller = function($, options) {
 
         isAnyMatch = function(haystack, needles) {
             for (var i = 0, count = needles.length; i < count; i++) {
-                if (haystack.indexOf(needles[i]) >= 0) {
+                if ((new RegExp(needles[i])).test(haystack)){
                     return true;
                 }
             }
