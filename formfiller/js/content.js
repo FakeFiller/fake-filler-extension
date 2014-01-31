@@ -63,7 +63,7 @@ var FormFiller = function($, options) {
             }
 
             if (maxLength && maxLength > 0) {
-                resultPhrase = resultPhrase.substring(0, maxLength - 1);
+                resultPhrase = resultPhrase.substring(0, maxLength);
             }
 
             return resultPhrase;
@@ -161,7 +161,7 @@ var FormFiller = function($, options) {
         },
 
         generatePhrase = function(maxLength) {
-            var length = Math.floor(Math.random()) + 5,
+            var length = generateNumber(5, 20),
                 resultPhrase = generateWords(length, maxLength);
 
             return resultPhrase.replace(/[^\w\s]|_/g, '').replace(/\s+/g, ' ');
