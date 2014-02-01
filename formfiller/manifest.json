@@ -8,7 +8,7 @@
         "48": "img/icon-48.png",
         "128": "img/icon-128.png"
     },
-    "permissions": ["tabs", "http://*/*", "https://*/*"],
+    "permissions": ["contextMenus", "tabs", "http://*/*", "https://*/*"],
     "browser_action": {
         "default_icon": "img/icon-48.png",
         "default_title": "Fill all inputs"

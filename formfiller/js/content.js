@@ -413,153 +413,211 @@ var FormFiller = function($, options) {
             }
 
             return false;
+        },
+
+        fillInputTagElement = function(element) {
+            if (shouldIgnoreField(element)) {
+                return;
+            }
+
+            var jQueryElement = $(element),
+                elementType = jQueryElement.attr('type').toLowerCase();
+
+            if (elementType == 'checkbox') {
+                if (options.triggerClickEvents) {
+                    jQueryElement.prop('checked', (Math.random() > 0.5)).click();
+                }
+                else {
+                    element.checked = (Math.random() > 0.5) ? 'checked' : '';
+                }
+            }
+            else if (elementType == 'date') {
+                element.value = generateDate();
+            }
+            else if (elementType == 'datetime') {
+                element.value = generateDate() + 'T' + generateTime() + 'Z';
+            }
+            else if (elementType == 'datetime-local') {
+                element.value = generateDate() + 'T' + generateTime();
+            }
+            else if (elementType == 'time') {
+                element.value = generateTime();
+            }
+            else if (elementType == 'month') {
+                element.value = generateYear() + '-' + generateMonth();
+            }
+            else if (elementType == 'week') {
+                element.value = generateYear() + '-W' + ('0' + generateNumber(1, 52)).slice(-2);
+            }
+            else if (elementType == 'email') {
+                if (isAnyMatch(element.name.toLowerCase(), options.confirmFields)) {
+                    element.value = previousValue;
+                } else {
+                    previousValue = generateEmail();
+                    element.value = previousValue;
+                }
+            }
+            else if (elementType == 'number' || elementType == 'range') {
+                var min = 1,
+                    max = 100;
+
+                if (element.min) {
+                    min = parseInt(element.min);
+                }
+                if (element.max) {
+                    max = parseInt(element.max);
+                }
+                element.value = generateNumber(min, max);
+            }
+            else if (elementType == 'password') {
+                if (isAnyMatch(element.name.toLowerCase(), options.confirmFields)) {
+                    element.value = previousValue;
+                }
+                else {
+                    previousValue = generatePassword();
+                    element.value = previousValue;
+                }
+            }
+            else if (elementType == 'radio') {
+                selectRandomRadio(element.name);
+            }
+            else if (elementType == 'tel') {
+                var elementName = getSanitizedElementName(element),
+                    telephoneOptions = getFieldFromElement(elementName, 'telephone') || { template: 'Xxxxxxxxx'};
+                element.value = generatePhoneNumber(telephoneOptions.template);
+            }
+            else if (elementType == 'url') {
+                element.value = generateWebsite();
+            }
+            else if (elementType == 'color') {
+                element.value = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+            }
+            else if (elementType == 'search') {
+                element.value = generateWords(1);
+            }
+            else if (elementType == 'text') {
+                if (isAnyMatch(element.name.toLowerCase(), options.confirmFields)) {
+                    element.value = previousValue;
+                } else {
+                    previousValue = generateValueByType(element);
+                    element.value = previousValue;
+                }
+            }
+        },
+
+        fillSelectTagElement = function(element) {
+            if (shouldIgnoreField(element)) {
+                return;
+            }
+
+            if (element.options && element.options.length > 1) {
+                var i = 0,
+                    optionsCount = element.options.length;
+
+                if (element.multiple) {
+                    var count = generateNumber(1, optionsCount);
+
+                    for (; i < optionsCount; i++) {
+                        if (!element.options[i].disabled) {
+                            element.options[i].selected = false;
+                        }
+                    }
+
+                    for (i = 0; i < count; i++) {
+                        if (!element.options[i].disabled) {
+                            element.options[generateNumber(1, optionsCount - 1)].selected = true;
+                        }
+                    }
+                }
+                else {
+                    var iteration = 0;
+
+                    while (iteration < optionsCount) {
+                        var randomOption = Math.floor(Math.random() * (optionsCount - 1)) + 1;
+
+                        if (!element.options[randomOption].disabled) {
+                            element.options[randomOption].selected = true;
+                            break;
+                        }
+                        else {
+                            iteration++;
+                        }
+                    }
+                }
+            }
+        },
+
+        fillTextAreaTagElement = function(element) {
+            if (shouldIgnoreField(element)) {
+                return;
+            }
+
+            var textOptions = getFieldFromElement(getSanitizedElementName(element), 'text') || {min: 10, max: 20};
+            element.value = generateParagraph(textOptions.min, textOptions.max, element.maxLength);
         };
 
     return {
         fillAllInputs: function() {
             $('input:enabled:not([readonly])').each(function() {
-                var element = $(this);
-
-                if (shouldIgnoreField(this)) {
-                    return;
-                }
-
-                var elementType = element.attr('type').toLowerCase();
-
-                if (elementType == 'checkbox') {
-                    if (options.triggerClickEvents) {
-                        element.prop('checked', (Math.random() > 0.5)).click();
-                    }
-                    else {
-                        this.checked = (Math.random() > 0.5) ? 'checked' : '';
-                    }
-                }
-                else if (elementType == 'date') {
-                    this.value = generateDate();
-                }
-                else if (elementType == 'datetime') {
-                    this.value = generateDate() + 'T' + generateTime() + 'Z';
-                }
-                else if (elementType == 'datetime-local') {
-                    this.value = generateDate() + 'T' + generateTime();
-                }
-                else if (elementType == 'time') {
-                    this.value = generateTime();
-                }
-                else if (elementType == 'month') {
-                    this.value = generateYear() + '-' + generateMonth();
-                }
-                else if (elementType == 'week') {
-                    this.value = generateYear() + '-W' + ('0' + generateNumber(1, 52)).slice(-2);
-                }
-                else if (elementType == 'email') {
-                    if (isAnyMatch(this.name.toLowerCase(), options.confirmFields)) {
-                        this.value = previousValue;
-                    } else {
-                        previousValue = generateEmail();
-                        this.value = previousValue;
-                    }
-                }
-                else if (elementType == 'number' || elementType == 'range') {
-                    var min = 1,
-                        max = 100;
-
-                    if (this.min) {
-                        min = parseInt(this.min);
-                    }
-                    if (this.max) {
-                        max = parseInt(this.max);
-                    }
-                    this.value = generateNumber(min, max);
-                }
-                else if (elementType == 'password') {
-                    if (isAnyMatch(this.name.toLowerCase(), options.confirmFields)) {
-                        this.value = previousValue;
-                    }
-                    else {
-                        previousValue = generatePassword();
-                        this.value = previousValue;
-                    }
-                }
-                else if (elementType == 'radio') {
-                    selectRandomRadio(this.name);
-                }
-                else if (elementType == 'tel') {
-                    var elementName = getSanitizedElementName(this),
-                        telephoneOptions = getFieldFromElement(elementName, 'telephone') || { template: 'Xxxxxxxxx'};
-                    this.value = generatePhoneNumber(telephoneOptions.template);
-                }
-                else if (elementType == 'url') {
-                    this.value = generateWebsite();
-                }
-                else if (elementType == 'color') {
-                    this.value = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
-                }
-                else if (elementType == 'search') {
-                    this.value = generateWords(1);
-                }
-                else if (elementType == 'text') {
-                    if (isAnyMatch(this.name.toLowerCase(), options.confirmFields)) {
-                        this.value = previousValue;
-                    } else {
-                        previousValue = generateValueByType(this);
-                        this.value = previousValue;
-                    }
-                }
+                fillInputTagElement(this);
             });
             $('textarea:enabled:not([readonly])').each(function() {
-                if (shouldIgnoreField(this)) {
-                    return;
-                }
-                var textOptions = getFieldFromElement(getSanitizedElementName(this), 'text') || {min: 10, max: 20};
-                this.value = generateParagraph(textOptions.min, textOptions.max, this.maxLength);
+                fillTextAreaTagElement(this);
             });
             $('select:enabled:not([readonly])').each(function() {
-                if (shouldIgnoreField(this)) {
-                    return;
-                }
-
-                if (this.options && this.options.length > 1) {
-                    var i = 0,
-                        optionsCount = this.options.length;
-
-                    if (this.multiple) {
-                        var count = generateNumber(1, optionsCount);
-
-                        for (; i < optionsCount; i++) {
-                            if (!this.options[i].disabled) {
-                                this.options[i].selected = false;
-                            }
-                        }
-
-                        for (i = 0; i < count; i++) {
-                            if (!this.options[i].disabled) {
-                                this.options[generateNumber(1, optionsCount - 1)].selected = true;
-                            }
-                        }
-                    }
-                    else {
-                        var iteration = 0;
-
-                        while (iteration < optionsCount) {
-                            var randomOption = Math.floor(Math.random() * (optionsCount - 1)) + 1;
-
-                            if (!this.options[randomOption].disabled) {
-                                this.options[randomOption].selected = true;
-                                break;
-                            }
-                            else {
-                                iteration++;
-                            }
-                        }
-                    }
-                }
+                fillSelectTagElement(this);
             });
+        },
+        fillThisInput: function() {
+            if (clickedElement) {
+                var tagName = clickedElement.tagName.toLowerCase();
+
+                if (tagName == 'input') {
+                    fillInputTagElement(clickedElement);
+                }
+                if (tagName == 'textarea') {
+                    fillTextAreaTagElement(clickedElement);
+                }
+                if (tagName == 'select') {
+                    fillSelectTagElement(clickedElement);
+                }
+            } else {
+                alert('Unable to determine the input field you right-clicked on.');
+            }
+        },
+        fillThisForm: function() {
+            if (clickedElement) {
+                var form = $(clickedElement).closest('form');
+
+                if (form.size() > 0) {
+                    $('input:enabled:not([readonly])', form[0]).each(function() {
+                        fillInputTagElement(this);
+                    });
+                    $('textarea:enabled:not([readonly])', form[0]).each(function() {
+                        fillTextAreaTagElement(this);
+                    });
+                    $('select:enabled:not([readonly])', form[0]).each(function() {
+                        fillSelectTagElement(this);
+                    });
+                } else {
+                    alert('This input field is not within a form.');
+                }
+            } else {
+                alert('Unable to determine the input field you right-clicked on.');
+            }
         }
     };
 };
 
-chrome.extension.sendMessage(null, 'getOptions', function(response) {
+var clickedElement = null;
+
+document.addEventListener('mousedown', function(event) {
+    if (event.button == 2) {
+        clickedElement = event.target;
+    }
+});
+
+chrome.runtime.sendMessage('getOptions', function(response) {
     if (!window.formFiller) {
         window.formFiller = new FormFiller(jQuery, response.options);
     }

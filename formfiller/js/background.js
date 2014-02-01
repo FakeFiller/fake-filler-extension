@@ -248,11 +248,26 @@ chrome.browserAction.onClicked.addListener(function() {
     chrome.tabs.executeScript(null, { code: 'window.formFiller.fillAllInputs();' })
 });
 
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request == 'getOptions') {
         sendResponse({options: application.getOptions()});
     }
     else if (request == 'trackHotKeyClick') {
         _gaq.push(['_trackEvent', 'extension_hotkey', application.getOptions().hotkey.combination]);
+    }
+});
+
+chrome.runtime.onInstalled.addListener(function() {
+    chrome.contextMenus.create({'title': 'Form Filler', 'contexts': ['editable'], 'id': 'parent'});
+    chrome.contextMenus.create({'title': 'Fill this form', 'contexts': ['editable'], 'parentId': 'parent', 'id': 'form'});
+    chrome.contextMenus.create({'title': 'Fill this input', 'contexts': ['editable'], 'parentId': 'parent', 'id': 'input'});
+});
+
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+    if (info.menuItemId === 'form') {
+        chrome.tabs.executeScript(null, { code: 'window.formFiller.fillThisForm();' })
+    }
+    if (info.menuItemId === 'input') {
+        chrome.tabs.executeScript(null, { code: 'window.formFiller.fillThisInput();' })
     }
 });
