@@ -567,6 +567,11 @@ var FormFiller = function($, options) {
             $('select:enabled:not([readonly])').each(function() {
                 fillSelectTagElement(this);
             });
+            $('[contenteditable]').each(function() {
+                if (this.isContentEditable) {
+                    this.innerHTML = generateParagraph(5, 100);
+                }
+            });
         },
         fillThisInput: function() {
             if (clickedElement) {
@@ -580,6 +585,9 @@ var FormFiller = function($, options) {
                 }
                 if (tagName == 'select') {
                     fillSelectTagElement(clickedElement);
+                }
+                if (clickedElement.isContentEditable) {
+                    clickedElement.innerHTML = generateParagraph(5, 100);
                 }
             } else {
                 alert('Unable to determine the input field you right-clicked on.');
@@ -598,6 +606,11 @@ var FormFiller = function($, options) {
                     });
                     $('select:enabled:not([readonly])', form[0]).each(function() {
                         fillSelectTagElement(this);
+                    });
+                    $('[contenteditable]', form[0]).each(function() {
+                        if (this.isContentEditable) {
+                            this.innerHTML = generateParagraph(5, 100);
+                        }
                     });
                 } else {
                     alert('This input field is not within a form.');
