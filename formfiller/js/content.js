@@ -24,12 +24,17 @@ var FormFiller = function($, options) {
 
         generateScrambledWord = function(minLength, maxLength, firstLetterLower) {
             if (!minLength)
-                minLength = Math.floor(Math.random() * 10) + 3;
+                minLength = generateNumber(3, 15);
 
-            var resultWord = '';
-            var odd = true;
+            var wordLength = minLength,
+                resultWord = '',
+                odd = true;
 
-            while (resultWord.length < minLength) {
+            if (maxLength && maxLength > minLength) {
+                wordLength = generateNumber(minLength, maxLength);
+            }
+
+            while (resultWord.length < wordLength) {
                 var newSymbol = odd ? consonants[Math.floor(Math.random() * consonants.length)] : vowels[Math.floor(Math.random() * vowels.length)];
                 odd = !odd;
                 resultWord += newSymbol;
@@ -37,10 +42,6 @@ var FormFiller = function($, options) {
 
             if (!firstLetterLower) {
                 resultWord = resultWord[0].toUpperCase() + resultWord.substring(1);
-            }
-
-            if (maxLength && maxLength > 0) {
-                resultWord = resultWord.substring(0, maxLength);
             }
 
             return resultWord;
@@ -211,7 +212,7 @@ var FormFiller = function($, options) {
             }
 
             if (username.length == 0) {
-                username = generateScrambledWord(4).toLowerCase();
+                username = generateScrambledWord(4, 10).toLowerCase();
             }
 
             var domain = (options.emailSettings.hostname === 'random')
