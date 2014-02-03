@@ -590,7 +590,7 @@ var FormFiller = function($, options) {
                     clickedElement.innerHTML = generateParagraph(5, 100);
                 }
             } else {
-                alert('Unable to determine the input field you right-clicked on.');
+                alert('Unable to determine the element you right-clicked on.');
             }
         },
         fillThisForm: function() {
@@ -613,10 +613,10 @@ var FormFiller = function($, options) {
                         }
                     });
                 } else {
-                    alert('This input field is not within a form.');
+                    alert('Please right-click on any element that is inside a form tag.');
                 }
             } else {
-                alert('Unable to determine the input field you right-clicked on.');
+                alert('Unable to determine the element you right-clicked on.');
             }
         }
     };

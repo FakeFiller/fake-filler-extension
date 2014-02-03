@@ -258,16 +258,23 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 chrome.runtime.onInstalled.addListener(function() {
-    chrome.contextMenus.create({'title': 'Form Filler', 'contexts': ['editable'], 'id': 'parent'});
-    chrome.contextMenus.create({'title': 'Fill this form', 'contexts': ['editable'], 'parentId': 'parent', 'id': 'form'});
-    chrome.contextMenus.create({'title': 'Fill this input', 'contexts': ['editable'], 'parentId': 'parent', 'id': 'input'});
+    chrome.contextMenus.create({'title': 'Form Filler', contexts: ['all'], 'id': 'parent'});
+    chrome.contextMenus.create({'title': 'Fill all inputs', contexts: ['all'], 'parentId': 'parent', 'id': 'all'});
+    chrome.contextMenus.create({'title': 'Fill this form', contexts: ['all'], 'parentId': 'parent', 'id': 'form'});
+    chrome.contextMenus.create({'title': 'Fill this input', contexts: ['all'], 'parentId': 'parent', 'id': 'input'});
 });
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
+    if (info.menuItemId === 'all') {
+        _gaq.push(['_trackEvent', 'extension_context_menu', 'fill_all_inputs']);
+        chrome.tabs.executeScript(null, { code: 'window.formFiller.fillAllInputs();' })
+    }
     if (info.menuItemId === 'form') {
+        _gaq.push(['_trackEvent', 'extension_context_menu', 'fill_this_form']);
         chrome.tabs.executeScript(null, { code: 'window.formFiller.fillThisForm();' })
     }
     if (info.menuItemId === 'input') {
+        _gaq.push(['_trackEvent', 'extension_context_menu', 'fill_this_input']);
         chrome.tabs.executeScript(null, { code: 'window.formFiller.fillThisInput();' })
     }
 });
