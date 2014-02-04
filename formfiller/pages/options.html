@@ -2,12 +2,13 @@
 <html>
 <head>
     <title>Form Filler Options</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/styles.css">
     <script type="text/javascript" src="../js/jquery-2.1.0.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../js/options.js"></script>
     <script type="text/javascript" src="../js/mustache.js"></script>
     <script type="text/javascript" src="../js/FileSaver.js"></script>
+    <script type="text/javascript" src="../js/options.js"></script>
 </head>
 <body>
 <div class="container">
@@ -20,8 +21,7 @@
             </ul>
             <div id="about">
                 <p>If you like Form Filler, please
-                    <a href="http://bit.ly/FormFiller">rate it on the Chrome Web Store</a>. If you have any suggestions
-                    to make this extension better, or find any issues, please send me an
+                    <a href="http://bit.ly/FormFiller">rate it on the Chrome Web Store</a>. If you have any suggestions to make this extension better, or find any issues, please send me an
                     <a href="mailto:husainsfabbas@gmail.com">email</a>.</p>
             </div>
             <p><a href="#" id="factory-reset">Restore Factory Settings</a></p>
@@ -52,11 +52,9 @@
             </div>
             <div id="tab-fields">
                 <h2>Custom Fields</h2>
-                <p>Form Filler uses the ID, NAME and CLASS values of an input field to determine its data type. You can
-                    adjust the search phrases in the text boxes below to tweak how Form Filler determines the correct
-                    data types.</p>
-                <p>Basically, any partial match in the attributes underlined:<br><code>&lt;input type="<i>anything</i>"
-                    id="<b><u>match</u></b>" name="<b><u>match</u></b>" class="<b><u>match</u></b>" /&gt;</code></p>
+                <p>Form Filler uses the ID, NAME and CLASS values of an input field to determine its data type. You can adjust the search phrases in the text boxes below to tweak how Form Filler determines the correct data types.</p>
+                <p>Basically, any partial match in the attributes underlined:<br><code>&lt;input type="<i>anything</i>" id="<b><u>match</u></b>" name="<b><u>match</u></b>" class="<b><u>match</u></b>" /&gt;
+                </code></p>
                 <p>Please note that attributes take precedence over any configuration and may override it in some cases. Also, fields are matched in the order listed here.</p>
                 <hr>
                 <div class="btn-toolbar">
@@ -169,6 +167,7 @@
 <script type="text/template" id="template-password-editor">
     <div class="form-group">
         <label class="control-label col-xs-3">Password</label>
+
         <div class="col-xs-9">
             <div class="radio">
                 <label><input type="radio" name="pwd" id="if-password-random" {{#random}}checked{{/random}}> Generate a random 8 character password (is logged in the console)</label>
