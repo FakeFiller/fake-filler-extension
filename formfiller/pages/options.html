@@ -18,15 +18,20 @@
             <ul class="nav nav-pills nav-stacked">
                 <li id="nav-general" class="active"><a href="#">General</a></li>
                 <li id="nav-fields"><a href="#">Custom Fields</a></li>
+                <li id="nav-backup"><a href="#">Backup and Restore</a></li>
             </ul>
             <div id="about">
                 <p>If you like Form Filler, please
                     <a href="http://bit.ly/FormFiller">rate it on the Chrome Web Store</a>. If you have any suggestions to make this extension better, or find any issues, please send me an
                     <a href="mailto:husainsfabbas@gmail.com">email</a>.</p>
+
+                <p>
+                    <small>
+                        <a href="#" id="factory-reset">Restore Factory Settings</a> -
+                        <a href="changelog.html" target="_blank">Changelog</a>
+                    </small>
+                </p>
             </div>
-            <p><a href="#" id="factory-reset">Restore Factory Settings</a></p>
-            <p><a href="#" id="export-settings">Export Settings</a></p>
-            <p><a href="#" id="import-settings">Import Settings</a></p>
             <input type="file" id="restore-file-selector" name="restore-file-selector" style="visibility:hidden;position:absolute;"/>
         </div>
         <div class="col-xs-9">
@@ -66,6 +71,13 @@
                 </div>
                 <br>
                 <div id="fields-list-view"></div>
+            </div>
+            <div id="tab-backup">
+                <fieldset class="form-horizontal">
+                    <h2>Backup and Restore</h2>
+                    <p><a href="#" id="export-settings">Export Settings</a></p>
+                    <p><a href="#" id="import-settings">Import Settings</a></p>
+                </fieldset>
             </div>
         </div>
     </div>
@@ -113,6 +125,7 @@
                     <label class="control-label col-xs-3" for="if-match">Match</label>
                     <div class="col-xs-9">
                         <input type="text" id="if-match" class="form-control">
+                        <div class="help-block">Enter comma separated values to match, or a regular expression. Make sure your regular expression does not have a comma.</div>
                     </div>
                 </div>
                 <div id="field-options-area"></div>

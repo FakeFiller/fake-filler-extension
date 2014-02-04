@@ -5,8 +5,10 @@ $(function() {
 
     var navGeneral = $('#nav-general'),
         navFields = $('#nav-fields'),
+        navBackup = $('#nav-backup'),
         tabGeneral = $('#tab-general'),
         tabFields = $('#tab-fields'),
+        tabBackup = $('#tab-backup'),
         factoryReset = $('#factory-reset'),
         savedMessage = $('.saved-msg'),
         emailSettingsArea = $('#email-settings-area'),
@@ -91,28 +93,43 @@ $(function() {
         savedMessage.hide();
         navFields.addClass('active');
         navGeneral.removeClass('active');
+        navBackup.removeClass('active');
         tabFields.show();
         tabGeneral.hide();
+        tabBackup.hide();
     });
 
     navGeneral.on('click', function(e) {
         e.preventDefault();
         savedMessage.hide();
-        navFields.removeClass('active');
         navGeneral.addClass('active');
-        tabFields.hide();
+        navFields.removeClass('active');
+        navBackup.removeClass('active');
         tabGeneral.show();
+        tabFields.hide();
+        tabBackup.hide();
+    });
+
+    navBackup.on('click', function(e) {
+        e.preventDefault();
+        savedMessage.hide();
+        navBackup.addClass('active');
+        navFields.removeClass('active');
+        navGeneral.removeClass('active');
+        tabBackup.show();
+        tabGeneral.hide();
+        tabFields.hide();
     });
 
     addFieldButton.on('click', function(e) {
         e.preventDefault();
         inputFieldIndex.val('-1');
         inputFieldType.val('');
-        inputFieldType.closest('div.control-group').removeClass('error');
+        inputFieldType.closest('div.form-group').removeClass('has-error');
         inputFieldName.val('');
-        inputFieldName.closest('div.control-group').removeClass('error');
+        inputFieldName.closest('div.form-group').removeClass('has-error');
         inputFieldMatch.val('');
-        inputFieldMatch.closest('div.control-group').removeClass('error');
+        inputFieldMatch.closest('div.form-group').removeClass('has-error');
         fieldOptionsArea.html('');
         fieldSettingsModal.modal('show');
         inputFieldType.focus();
@@ -389,27 +406,27 @@ $(function() {
         options.match = csvToArray(inputFieldMatch.val().trim());
 
         if (options.type.length == 0) {
-            inputFieldType.closest('div.control-group').addClass('error');
+            inputFieldType.closest('div.form-group').addClass('has-error');
             options.hasErrors = true;
         }
         else {
-            inputFieldType.closest('div.control-group').removeClass('error');
+            inputFieldType.closest('div.form-group').removeClass('has-error');
         }
 
         if (options.name.length == 0) {
-            inputFieldName.closest('div.control-group').addClass('error');
+            inputFieldName.closest('div.form-group').addClass('has-error');
             options.hasErrors = true;
         }
         else {
-            inputFieldName.closest('div.control-group').removeClass('error');
+            inputFieldName.closest('div.form-group').removeClass('has-error');
         }
 
         if (options.match.length == 0) {
-            inputFieldMatch.closest('div.control-group').addClass('error');
+            inputFieldMatch.closest('div.form-group').addClass('has-error');
             options.hasErrors = true;
         }
         else {
-            inputFieldMatch.closest('div.control-group').removeClass('error');
+            inputFieldMatch.closest('div.form-group').removeClass('has-error');
         }
 
         return options;
@@ -428,17 +445,17 @@ $(function() {
 
         if (options.username == 'list' && options.usernameList.length == 0) {
             options.hasErrors = true;
-            usernameList.closest('div.control-group').addClass('error');
+            usernameList.closest('div.form-group').addClass('has-error');
         }
         else {
-            usernameList.closest('div.control-group').removeClass('error');
+            usernameList.closest('div.form-group').removeClass('has-error');
         }
 
         if (options.hostname == 'list' && options.hostnameList.length == 0) {
             options.hasErrors = true;
-            hostnameList.closest('div.control-group').addClass('error');
+            hostnameList.closest('div.form-group').addClass('has-error');
         } else {
-            hostnameList.closest('div.control-group').removeClass('error');
+            hostnameList.closest('div.form-group').removeClass('has-error');
         }
 
         return options;
@@ -453,11 +470,11 @@ $(function() {
         options.password = $('#if-password').val();
 
         if (options.random == false && options.password.length == 0) {
-            passwordRandom.closest('div.control-group').addClass('error');
+            passwordRandom.closest('div.form-group').addClass('has-error');
             options.hasErrors = true;
         }
         else {
-            passwordRandom.closest('div.control-group').removeClass('error');
+            passwordRandom.closest('div.form-group').removeClass('has-error');
         }
 
         return options;
@@ -498,27 +515,27 @@ $(function() {
         options.max = inputMax.val();
 
         if (!isInteger(options.min)) {
-            inputMin.closest('div.control-group').addClass('error');
+            inputMin.closest('div.form-group').addClass('has-error');
             options.hasErrors = true;
         }
         else {
-            inputMin.closest('div.control-group').removeClass('error');
+            inputMin.closest('div.form-group').removeClass('has-error');
             options.min = parseInt(options.min);
         }
 
         if (!isInteger(options.max)) {
-            inputMax.closest('div.control-group').addClass('error');
+            inputMax.closest('div.form-group').addClass('has-error');
             options.hasErrors = true;
         }
         else {
-            inputMax.closest('div.control-group').removeClass('error');
+            inputMax.closest('div.form-group').removeClass('has-error');
             options.max = parseInt(options.max);
         }
 
         if (options.hasErrors == false && options.min >= options.max) {
             options.hasErrors = true;
-            inputMin.closest('div.control-group').addClass('error');
-            inputMax.closest('div.control-group').addClass('error');
+            inputMin.closest('div.form-group').addClass('has-error');
+            inputMax.closest('div.form-group').addClass('has-error');
         }
 
         return options;
@@ -540,27 +557,27 @@ $(function() {
         options.max = inputMax.val();
 
         if (!isInteger(options.min)) {
-            inputMin.closest('div.control-group').addClass('error');
+            inputMin.closest('div.form-group').addClass('has-error');
             options.hasErrors = true;
         }
         else {
-            inputMin.closest('div.control-group').removeClass('error');
+            inputMin.closest('div.form-group').removeClass('has-error');
             options.min = parseInt(options.min);
         }
 
         if (!isInteger(options.max)) {
-            inputMax.closest('div.control-group').addClass('error');
+            inputMax.closest('div.form-group').addClass('has-error');
             options.hasErrors = true;
         }
         else {
-            inputMax.closest('div.control-group').removeClass('error');
+            inputMax.closest('div.form-group').removeClass('has-error');
             options.max = parseInt(options.max);
         }
 
-        if (options.hasErrors == false && options.min >= options.max) {
+        if (options.hasErrors == false && options.min > options.max) {
             options.hasErrors = true;
-            inputMin.closest('div.control-group').addClass('error');
-            inputMax.closest('div.control-group').addClass('error');
+            inputMin.closest('div.form-group').addClass('has-error');
+            inputMax.closest('div.form-group').addClass('has-error');
         }
 
         return options;
@@ -580,11 +597,11 @@ $(function() {
         options.template = template.val();
 
         if (options.template.length == 0) {
-            template.closest('div.control-group').addClass('error');
+            template.closest('div.form-group').addClass('has-error');
             options.hasErrors = true;
         }
         else {
-            template.closest('div.control-group').removeClass('error');
+            template.closest('div.form-group').removeClass('has-error');
         }
 
         return options;
@@ -603,11 +620,11 @@ $(function() {
         options.template = template.val();
 
         if (options.template.length == 0) {
-            template.closest('div.control-group').addClass('error');
+            template.closest('div.form-group').addClass('has-error');
             options.hasErrors = true;
         }
         else {
-            template.closest('div.control-group').removeClass('error');
+            template.closest('div.form-group').removeClass('has-error');
         }
 
         return options;
@@ -624,11 +641,11 @@ $(function() {
         options.template = template.val();
 
         if (options.template.length == 0) {
-            template.closest('div.control-group').addClass('error');
+            template.closest('div.form-group').addClass('has-error');
             options.hasErrors = true;
         }
         else {
-            template.closest('div.control-group').removeClass('error');
+            template.closest('div.form-group').removeClass('has-error');
         }
 
         return options;
