@@ -504,6 +504,13 @@ var FormFiller = function($, options) {
                     element.value = previousValue;
                 }
             }
+
+            if (elementType != 'checkbox' && elementType != 'radio' && options.triggerClickEvents) {
+                if (window.Event && window.dispatchEvent) {
+                    element.dispatchEvent(new Event('input'));
+                    element.dispatchEvent(new Event('blur'));
+                }
+            }
         },
 
         fillSelectTagElement = function(element) {
@@ -545,6 +552,14 @@ var FormFiller = function($, options) {
                         }
                     }
                 }
+
+                if (options.triggerClickEvents) {
+                    if (window.Event && window.dispatchEvent) {
+                        element.dispatchEvent(new Event('input'));
+                        element.dispatchEvent(new Event('change'));
+                        element.dispatchEvent(new Event('blur'));
+                    }
+                }
             }
         },
 
@@ -555,6 +570,13 @@ var FormFiller = function($, options) {
 
             var textOptions = getFieldFromElement(getSanitizedElementName(element), 'text') || {min: 10, max: 20};
             element.value = generateParagraph(textOptions.min, textOptions.max, element.maxLength);
+
+            if (options.triggerClickEvents) {
+                if (window.Event && window.dispatchEvent) {
+                    element.dispatchEvent(new Event('input'));
+                    element.dispatchEvent(new Event('blur'));
+                }
+            }
         };
 
     return {
