@@ -111,6 +111,7 @@
                             <optgroup label="Other">
                                 <option value="text">Text</option>
                                 <option value="alphanumeric">Alphanumeric</option>
+                                <option value="randomized-list">Randomized List</option>
                             </optgroup>
                         </select>
                     </div>
@@ -407,6 +408,36 @@
             <dd>{{matchFormatted}}</dd>
             <dt>Template</dt>
             <dd class="code">{{template}}</dd>
+        </dl>
+    </div>
+</script>
+
+<script type="text/template" id="template-randomized-list-editor">
+    <div class="form-group">
+        <label class="control-label col-xs-3" for="if-randomized-list">List Items</label>
+        <div class="col-xs-9">
+            <textarea id="if-randomized-list" rows="5" class="form-control">{{listFormatted}}</textarea>
+            <div class="help-block">Enter each item on a new line.</div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="template-randomized-list-view">
+    <div class="well well-small">
+        <div class="pull-right">
+            <a href="#" title="Move Up" class="field-move-up" data-index="{{index}}"><i class="glyphicon glyphicon-circle-arrow-up"></i></a>
+            <a href="#" title="Move Down" class="field-move-down" data-index="{{index}}"><i class="glyphicon glyphicon-circle-arrow-down"></i></a>
+            <a href="#" title="Edit" class="field-edit" data-index="{{index}}"><i class="glyphicon glyphicon-edit"></i></a>
+            <a href="#" title="Delete" class="field-delete" data-index="{{index}}"><i class="glyphicon glyphicon-trash"></i></a>
+        </div>
+        <strong>{{name}}</strong>
+        <dl class="dl-horizontal">
+            <dt>Type</dt>
+            <dd>{{type}}</dd>
+            <dt>Match</dt>
+            <dd>{{matchFormatted}}</dd>
+            <dt>List</dt>
+            <dd>{{{listFormatted}}}</dd>
         </dl>
     </div>
 </script>

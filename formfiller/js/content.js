@@ -358,6 +358,9 @@ var FormFiller = function($, options) {
                 case 'alphanumeric':
                     return generateAlphanumeric(field.template);
 
+                case 'randomized-list':
+                    return field.list[generateNumber(0, field.list.length - 1)];
+
                 default:
                     return generatePhrase(element.maxLength);
             }

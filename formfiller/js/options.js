@@ -36,14 +36,16 @@ $(function() {
         templateTelephoneEditor = $('#template-telephone-editor').html(),
         templateDateEditor = $('#template-date-editor').html(),
         templateAlphanumericEditor = $('#template-alphanumeric-editor').html(),
-        templateTextEditor = $('#template-text-editor').html();
+        templateTextEditor = $('#template-text-editor').html(),
+        templateRandomizedListEditor = $('#template-randomized-list-editor').html();
 
     var templateDefaultView = $('#template-default-view').html(),
         templateTelephoneView = $('#template-telephone-view').html(),
         templateNumberView = $('#template-number-view').html(),
         templateDateView = $('#template-date-view').html(),
         templateAlphanumericView = $('#template-alphanumeric-view').html(),
-        templateTextView = $('#template-text-view').html();
+        templateTextView = $('#template-text-view').html(),
+        templateRandomizedListView = $('#template-randomized-list-view').html();
 
     chrome.runtime.getBackgroundPage(function(page) {
         app = page.application;
@@ -175,6 +177,10 @@ $(function() {
                 options = getTextOptionsFromForm();
                 break;
 
+            case 'randomized-list':
+                options = getRandomizedListOptionsFromForm();
+                break;
+
             default:
                 // first-name
                 // last-name
@@ -296,6 +302,14 @@ $(function() {
                 fieldOptionsArea.html(Mustache.to_html(templateTextEditor, options));
                 break;
 
+            case 'randomized-list':
+                options = options || getRandomizedListOptionsDefaults();
+                if ($.isArray(options.list)) {
+                    options.listFormatted = options.list.join('\n');
+                }
+                fieldOptionsArea.html(Mustache.to_html(templateRandomizedListEditor, options));
+                break;
+
             default:
                 fieldOptionsArea.html('');
                 break;
@@ -378,6 +392,13 @@ $(function() {
 
                 case 'text':
                     fieldsListView.append(Mustache.to_html(templateTextView, field));
+                    break;
+
+                case 'randomized-list':
+                    if ($.isArray(field.list)) {
+                        field.listFormatted = field.list.join('<br/>');
+                    }
+                    fieldsListView.append(Mustache.to_html(templateRandomizedListView, field));
                     break;
 
                 case 'first-name':
@@ -654,6 +675,28 @@ $(function() {
     function getDateOptionsDefaults() {
         var options = {};
         options.template = 'dd-mmm-yyyy';
+        return options;
+    }
+
+    function getRandomizedListOptionsFromForm() {
+        var options = getDefaultOptionsFromForm(),
+            theList = $('#if-randomized-list');
+
+        options.list = theList.val().replace(/\r\n/, '\n').split('\n');
+        options.list = options.list.filter(function (x) {
+            return x.trim().length > 0;
+        });
+
+        if ($.isArray(options.list) == false || options.list.length == 0) {
+            options.hasErrors = true;
+            theList.closest('div.form-group').addClass('has-error');
+        }
+
+        return options;
+    }
+
+    function getRandomizedListOptionsDefaults() {
+        var options = {};
         return options;
     }
 
