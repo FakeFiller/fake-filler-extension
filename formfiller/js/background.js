@@ -258,10 +258,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 chrome.runtime.onInstalled.addListener(function() {
-    chrome.contextMenus.create({'title': 'Form Filler', contexts: ['all'], 'id': 'parent'});
-    chrome.contextMenus.create({'title': 'Fill all inputs', contexts: ['all'], 'parentId': 'parent', 'id': 'all'});
-    chrome.contextMenus.create({'title': 'Fill this form', contexts: ['all'], 'parentId': 'parent', 'id': 'form'});
-    chrome.contextMenus.create({'title': 'Fill this input', contexts: ['all'], 'parentId': 'parent', 'id': 'input'});
+    chrome.contextMenus.create({'title': 'Form Filler', contexts: ['page', 'editable'], 'id': 'parent'});
+    chrome.contextMenus.create({'title': 'Fill all inputs', contexts: ['page', 'editable'], 'parentId': 'parent', 'id': 'all'});
+    chrome.contextMenus.create({'title': 'Fill this form', contexts: ['page', 'editable'], 'parentId': 'parent', 'id': 'form'});
+    chrome.contextMenus.create({'title': 'Fill this input', contexts: ['page', 'editable'], 'parentId': 'parent', 'id': 'input'});
 });
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {

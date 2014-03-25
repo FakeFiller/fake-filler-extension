@@ -15,7 +15,7 @@ var FormFiller = function($, options) {
 
         isAnyMatch = function(haystack, needles) {
             for (var i = 0, count = needles.length; i < count; i++) {
-                if ((new RegExp(needles[i])).test(haystack)) {
+                if ((new RegExp(needles[i], 'i')).test(haystack)) {
                     return true;
                 }
             }
@@ -404,7 +404,7 @@ var FormFiller = function($, options) {
                 }
 
                 if (element.type == 'radio') {
-                    if ($('input[name=' + element.name + ']:checked').size() > 0) {
+                    if ($('input[name="' + element.name + '"]:checked').size() > 0) {
                         return true;
                     }
                 }
