@@ -425,7 +425,10 @@ var FormFiller = function($, options) {
             }
 
             var jQueryElement = $(element),
-                elementType = jQueryElement.attr('type').toLowerCase();
+                elementType = jQueryElement.attr('type');
+
+            if (elementType !== undefined)
+                elementType = elementType.toLowerCase();
 
             if (elementType == 'checkbox') {
                 if (options.triggerClickEvents) {
@@ -499,7 +502,7 @@ var FormFiller = function($, options) {
             else if (elementType == 'search') {
                 element.value = generateWords(1);
             }
-            else if (elementType == 'text') {
+            else if (elementType == 'text' || elementType == '' || elementType == undefined) {
                 if (isAnyMatch(element.name.toLowerCase(), options.confirmFields)) {
                     element.value = previousValue;
                 } else {
