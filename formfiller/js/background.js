@@ -245,7 +245,7 @@ application.showUpgradeMessage();
 
 chrome.browserAction.onClicked.addListener(function() {
     _gaq.push(['_trackEvent', 'extension_button', 'click']);
-    chrome.tabs.executeScript(null, { code: 'window.formFiller.fillAllInputs();' })
+    chrome.tabs.executeScript(null, { code: 'window.formFiller.fillAllInputs();', allFrames: true })
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
@@ -267,14 +267,14 @@ chrome.runtime.onInstalled.addListener(function() {
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
     if (info.menuItemId === 'all') {
         _gaq.push(['_trackEvent', 'extension_context_menu', 'fill_all_inputs']);
-        chrome.tabs.executeScript(null, { code: 'window.formFiller.fillAllInputs();' })
+        chrome.tabs.executeScript(null, { code: 'window.formFiller.fillAllInputs();', allFrames: true })
     }
     if (info.menuItemId === 'form') {
         _gaq.push(['_trackEvent', 'extension_context_menu', 'fill_this_form']);
-        chrome.tabs.executeScript(null, { code: 'window.formFiller.fillThisForm();' })
+        chrome.tabs.executeScript(null, { code: 'window.formFiller.fillThisForm();', allFrames: true })
     }
     if (info.menuItemId === 'input') {
         _gaq.push(['_trackEvent', 'extension_context_menu', 'fill_this_input']);
-        chrome.tabs.executeScript(null, { code: 'window.formFiller.fillThisInput();' })
+        chrome.tabs.executeScript(null, { code: 'window.formFiller.fillThisInput();', allFrames: true })
     }
 });

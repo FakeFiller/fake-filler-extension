@@ -618,9 +618,9 @@ var FormFiller = function($, options) {
                 if (clickedElement.isContentEditable) {
                     clickedElement.innerHTML = generateParagraph(5, 100);
                 }
-            } else {
-                alert('Unable to determine the element you right-clicked on.');
             }
+
+            clickedElement = null;
         },
         fillThisForm: function() {
             if (clickedElement) {
@@ -644,9 +644,9 @@ var FormFiller = function($, options) {
                 } else {
                     alert('Please right-click on any element that is inside a form tag.');
                 }
-            } else {
-                alert('Unable to determine the element you right-clicked on.');
             }
+
+            clickedElement = null;
         }
     };
 };
