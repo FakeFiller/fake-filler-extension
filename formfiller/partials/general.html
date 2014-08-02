@@ -1,0 +1,149 @@
+<form class="form-horizontal" name="generalForm" ng-submit="saveOptions()" novalidate>
+    <h2>Email Settings</h2>
+    <div class="form-group"
+         ng-class="{ 'has-error': generalForm.usernameList.$invalid && !generalForm.usernameList.$pristine }">
+        <label class="control-label col-sm-3">Username</label>
+        <div class="col-sm-9">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="email-username" value="username"
+                           ng-model="options.emailSettings.username">
+                    Use a previously generated username
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="email-username" value="name" ng-model="options.emailSettings.username">
+                    Use a previously generated first and last name
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="email-username" value="random" ng-model="options.emailSettings.username">
+                    Generate a random name
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="email-username" value="list" ng-model="options.emailSettings.username">
+                    Select from the list below:
+                </label>
+            </div>
+            <input type="text" name="usernameList" class="form-control" ng-model="emailUsernameListCsv"
+                   ng-required="options.emailSettings.username == 'list'">
+            <div class="help-block">List each name with a comma.</div>
+        </div>
+    </div>
+    <div class="form-group"
+         ng-class="{ 'has-error': generalForm.hostnameList.$invalid && !generalForm.hostnameList.$pristine }">
+        <label class="control-label col-sm-3">Host name</label>
+        <div class="col-sm-9">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="if-email-hostname" value="random"
+                           ng-model="options.emailSettings.hostname">
+                    Use a randomly generated host name
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="if-email-hostname" value="list" ng-model="options.emailSettings.hostname">
+                    Select from the list below:
+                </label>
+            </div>
+            <input type="text" name="hostnameList" class="form-control" ng-model="emailHostnameListCsv"
+                   ng-required="options.emailSettings.hostname == 'list'">
+            <span class="help-block">List each name with a comma. You may include the @ sign as well.</span>
+        </div>
+    </div>
+
+    <h2>Password Settings</h2>
+    <div class="form-group"
+         ng-class="{ 'has-error': generalForm.definedPassword.$invalid && !generalForm.definedPassword.$pristine }">
+        <label class="control-label col-sm-3">Password</label>
+        <div class="col-sm-9">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="pwd" value="random" ng-model="options.passwordSettings.mode">
+                    Generate a random 8 character password (is logged in the console)
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="pwd" value="defined" ng-model="options.passwordSettings.mode">
+                    Use this:
+                </label>
+            </div>
+            <input type="text" name="definedPassword" class="form-control code"
+                   ng-model="options.passwordSettings.password"
+                   ng-required="options.passwordSettings.mode == 'defined'">
+        </div>
+    </div>
+
+    <h2>Field Options</h2>
+    <div class="form-group"
+         ng-class="{ 'has-error': generalForm.ignoredFields.$invalid && !generalForm.ignoredFields.$pristine }">
+        <label class="control-label col-sm-3" for="ignore-fields-input">Ignore Fields Match</label>
+        <div class="col-sm-9">
+            <input type="text" name="ignoredFields" id="ignore-fields-input" required class="form-control"
+                   ng-model="ignoredFieldsCsv">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="options.ignoreHiddenFields">
+                    Ignore all hidden/invisible fields
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="options.ignoreFieldsWithContent">
+                    Ignore fields that already have content
+                </label>
+            </div>
+            <div class="help-block">
+                <span class="label label-info">Note</span> Inputs with <i>type="hidden"</i> are always ignored.
+            </div>
+        </div>
+    </div>
+    <div class="form-group"
+         ng-class="{ 'has-error': generalForm.confirmFields.$invalid && !generalForm.confirmFields.$pristine }">
+        <label class="control-label col-sm-3" for="confirm-fields">Confirmation Fields Match</label>
+        <div class="col-sm-9">
+            <input type="text" name="confirmFields" id="confirm-fields" class="form-control" required
+                   ng-model="confirmFieldsCsv">
+        </div>
+    </div>
+
+    <h2>General Settings</h2>
+    <div class="form-group">
+        <label class="control-label col-sm-3">Trigger Events</label>
+        <div class="col-sm-9">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="options.triggerClickEvents">
+                    Trigger click/change events on input fields
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3">Context Menu</label>
+        <div class="col-sm-9">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="options.enableContextMenu">
+                    Add items to the right click menu
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+            <button type="submit" class="btn btn-primary" ng-disabled="generalForm.$invalid">Save Settings</button>
+            <button type="button" class="btn btn-link" ng-click="reset()">Reset</button>
+            <span ng-messages="messages">
+                <span class="success" ng-message="success">Settings Saved!</span>
+            </span>
+        </div>
+    </div>
+</form>

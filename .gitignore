@@ -1,3 +1,8 @@
 Thumbs.db
 Desktop.ini
-.idea/*
+.DS_Store
+.idea/
+node_modules/
+*.crx
+*.pem
+*.zip

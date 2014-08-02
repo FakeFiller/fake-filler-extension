@@ -1,26 +1,26 @@
 {
-    "name": "Form Filler",
-    "version": "2.2.2",
     "manifest_version": 2,
+    "name": "Form Filler",
+    "version": "2.3.1",
     "description": "Fills all form inputs in a page with dummy data.",
     "icons": {
-        "16": "img/icon-16.png",
-        "48": "img/icon-48.png",
-        "128": "img/icon-128.png"
+        "16": "images/icon-16.png",
+        "48": "images/icon-48.png",
+        "128": "images/icon-128.png"
     },
     "permissions": ["contextMenus", "tabs", "http://*/*", "https://*/*"],
     "browser_action": {
-        "default_icon": "img/icon-48.png",
-        "default_title": "Fill all inputs"
+        "default_icon": "images/icon-48.png",
+        "default_title": "Fill all inputs with dummy data"
     },
     "content_scripts": [
         {
             "matches": [ "<all_urls>" ],
-            "js": ["js/jquery-2.1.0.min.js", "js/moment.min.js", "js/content.js"],
+            "js": ["lib/jquery-2.1.1.min.js", "lib/moment.min.js", "lib/randexp.min.js", "js-chrome/content.js"],
             "all_frames": true
         }
     ],
-    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+    "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
     "background": {
         "page": "pages/background.html",
         "persistent": false
