@@ -1,8 +1,9 @@
 <h2>Custom Fields</h2>
 <p>Form Filler uses the ID, NAME and CLASS values of an input field to determine its data type. You can adjust the
     search phrases in the text boxes below to tweak how Form Filler determines the correct data types.</p>
-<p>Basically, any partial match in the attributes underlined:<br><code>&lt;label for="match" &gt;<b><u>match</u></b>&lt;/label&gt;</code><br><code>&lt;input type="<i>anything</i>"
-    id="<b><u>match</u></b>" name="<b><u>match</u></b>" class="<b><u>match</u></b>" /&gt;
+<p>Basically, any partial match in the attributes underlined:<br><code>&lt;label for="match"&gt;<b><u>match</u></b>&lt;/label&gt;
+</code><br><code>&lt;input type="<i>anything</i>" id="<b><u>match</u></b>" name="<b><u>match</u></b>"
+    class="<b><u>match</u></b>" /&gt;
 </code></p>
 <p>Please note that attributes take precedence over any configuration and may override it in some cases. Also, fields
     are matched in the order listed here.</p>
@@ -38,7 +39,8 @@
             <dd>{{field.match | toCsv}}</dd>
 
             <dt ng-if="field.template">Template</dt>
-            <dd ng-if="field.template">{{field.template}} <span class="text-muted" ng-if="field.caseInSensitive">(case-insensitive)</span></dd>
+            <dd ng-if="field.template">{{field.template}} <span class="text-muted" ng-if="field.caseInSensitive">(case-insensitive)</span>
+            </dd>
 
             <dt ng-if="field.min">Minimum Value</dt>
             <dd ng-if="field.min">{{field.min}}</dd>
@@ -96,7 +98,8 @@
                 <label class="col-sm-3 control-label" for="min-value">Minimum Value</label>
                 <div class="col-sm-4">
                     <input id="min-value" type="number" name="numberMin" class="form-control" min="0"
-                           ng-model="field.min" ng-required="field.type == 'number'" less-than-or-equal-to="{{field.max}}"/>
+                           ng-model="field.min" ng-required="field.type == 'number'"
+                           less-than-or-equal-to="{{field.max}}"/>
                 </div>
             </div>
             <div class="form-group" ng-if="field.type == 'number'"
