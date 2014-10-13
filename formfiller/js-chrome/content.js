@@ -290,7 +290,11 @@ var FormFiller = function ($, options) {
         },
 
         getSanitizedElementName = function (element) {
-            return sanitizeName(element.name) + ' ' + sanitizeName(element.id) + ' ' + sanitizeName(element.className);
+            var sanitizedElementName = sanitizeName(element.name) + ' ' + sanitizeName(element.id) + ' ' + sanitizeName(element.className);
+            var label = $("label[for='"+ element.id +"']");
+        	if (label.length == 1)
+        		sanitizedElementName += ' ' + sanitizeName(label.html());
+        	return sanitizedElementName;
         },
 
         sanitizeName = function (name) {
