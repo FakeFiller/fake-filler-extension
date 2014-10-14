@@ -19,6 +19,13 @@ function FormFillerDefaultOptions() {
         hostnameList: ['hotmail.com', 'gmail.com', 'yahoo.com']
     };
 
+    options.fieldMatchSettings = {
+        matchLabel: true,
+        matchId: true,
+        matchName: true,
+        matchClass: false
+    };
+
     options.fields = [];
 
     options.fields.push({

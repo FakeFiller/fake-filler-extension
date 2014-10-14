@@ -46,10 +46,17 @@ function handleUpgrade() {
                     options.enableContextMenu = true;
                 }
 
+                if (options.fieldMatchSettings === undefined) {
+                    options.fieldMatchSettings = {
+                        matchLabel: false,
+                        matchId: true,
+                        matchName: true,
+                        matchClass: true
+                    };
+                }
+
                 SaveFormFillerOptions(options);
             }
-
-            chrome.tabs.create({url: chrome.extension.getURL('pages/options.html#/changelog')});
         }
     }
 

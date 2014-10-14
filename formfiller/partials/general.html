@@ -112,6 +112,26 @@
                    ng-model="confirmFieldsCsv">
         </div>
     </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3">Match fields using</label>
+        <div class="col-sm-9">
+            <div></div>
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model="options.fieldMatchSettings.matchLabel" ng-required="isMatchFieldsRequired()" /> Label text for the input tag</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model="options.fieldMatchSettings.matchId" ng-required="isMatchFieldsRequired()" /> ID attribute of the input tag</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model="options.fieldMatchSettings.matchName" ng-required="isMatchFieldsRequired()" /> Name attribute of the input tag</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model="options.fieldMatchSettings.matchClass" ng-required="isMatchFieldsRequired()" /> Class class attribute of the input tag</label>
+            </div>
+            <br/>
+            <p>Please refer to the <a href="#/custom-fields">custom fields section</a> to learn how input elements are matched.</p>
+        </div>
+    </div>
 
     <h2>General Settings</h2>
     <div class="form-group">

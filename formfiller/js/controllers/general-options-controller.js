@@ -28,4 +28,11 @@ app.controller('GeneralOptionsController', ['$scope', '$filter', '$timeout', 'Op
         $scope.emailUsernameListCsv = $filter('toCsv')($scope.options.emailSettings.usernameList);
         $scope.emailHostnameListCsv = $filter('toCsv')($scope.options.emailSettings.hostnameList);
     };
+
+    $scope.isMatchFieldsRequired = function () {
+        return !($scope.options.fieldMatchSettings.matchClass
+            || $scope.options.fieldMatchSettings.matchId
+            || $scope.options.fieldMatchSettings.matchLabel
+            || $scope.options.fieldMatchSettings.matchName)
+    };
 }]);

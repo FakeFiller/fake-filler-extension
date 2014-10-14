@@ -290,11 +290,27 @@ var FormFiller = function ($, options) {
         },
 
         getSanitizedElementName = function (element) {
-            var sanitizedElementName = sanitizeName(element.name) + ' ' + sanitizeName(element.id) + ' ' + sanitizeName(element.className);
-            var label = $("label[for='" + element.id + "']");
-            if (label.length == 1) {
-                sanitizedElementName += ' ' + sanitizeName(label.html());
+            var sanitizedElementName = '';
+
+            if (options.fieldMatchSettings.matchName) {
+                sanitizedElementName += ' ' + sanitizeName(element.name);
             }
+
+            if (options.fieldMatchSettings.matchId) {
+                sanitizedElementName += ' ' + sanitizeName(element.id);
+            }
+
+            if (options.fieldMatchSettings.matchClass) {
+                sanitizedElementName += ' ' + sanitizeName(element.className);
+            }
+
+            if (options.fieldMatchSettings.matchLabel) {
+                var label = $("label[for='" + element.id + "']");
+                if (label.length == 1) {
+                    sanitizedElementName += ' ' + sanitizeName(label.html());
+                }
+            }
+
             return sanitizedElementName;
         },
 
