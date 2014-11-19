@@ -334,9 +334,9 @@ var FormFiller = function ($, options) {
             return null;
         },
 
-        generateValueByType = function (element) {
-            var elementName = getSanitizedElementName(element),
-                field = getFieldFromElement(elementName) || { type: 'unknown' };
+        generateValueByType = function (element, elementName, field) {
+            elementName = elementName || getSanitizedElementName(element);
+            field = field || getFieldFromElement(elementName) || { type: 'unknown' };
 
             switch (field.type) {
                 case 'username':
@@ -551,37 +551,55 @@ var FormFiller = function ($, options) {
             }
 
             if (element.options && element.options.length > 1) {
-                var i = 0,
-                    optionsCount = element.options.length;
 
-                if (element.multiple) {
-                    var count = generateNumber(1, optionsCount);
+                var elementName = getSanitizedElementName(element),
+                    field = getFieldFromElement(elementName);
 
-                    for (; i < optionsCount; i++) {
-                        if (!element.options[i].disabled) {
-                            element.options[i].selected = false;
-                        }
-                    }
+                // First determine if there is a matching type for this field.
+                if(field) {
+                    // Set the value according the field type.
+                    var value = generateValueByType(element, elementName, field);
 
-                    for (i = 0; i < count; i++) {
-                        if (!element.options[i].disabled) {
-                            element.options[generateNumber(1, optionsCount - 1)].selected = true;
-                        }
+                    if(value) {
+                        $(element).val(value);
                     }
                 }
                 else {
-                    var iteration = 0;
+                    // Use the default random option item selection because there was no field type found.
 
-                    while (iteration < optionsCount) {
-                        var randomOption = Math.floor(Math.random() * (optionsCount - 1)) + 1;
+                    var i = 0,
+                        optionsCount = element.options.length;
 
-                        if (!element.options[randomOption].disabled) {
-                            element.options[randomOption].selected = true;
-                            break;
+                    // Use generic random selection process.
+                    if (element.multiple) {
+                        var count = generateNumber(1, optionsCount);
+
+                        for (; i < optionsCount; i++) {
+                            if (!element.options[i].disabled) {
+                                element.options[i].selected = false;
+                            }
                         }
-                        else {
-                            iteration++;
+
+                        for (i = 0; i < count; i++) {
+                            if (!element.options[i].disabled) {
+                                element.options[generateNumber(1, optionsCount - 1)].selected = true;
+                            }
                         }
+                    }
+                    else {
+                        var iteration = 0;
+
+                        while (iteration < optionsCount) {
+                            var randomOption = Math.floor(Math.random() * (optionsCount - 1)) + 1;
+
+                            if (!element.options[randomOption].disabled) {
+                                element.options[randomOption].selected = true;
+                                break;
+                            }
+                            else {
+                                iteration++;
+                            }
+                          }
                     }
                 }
 
