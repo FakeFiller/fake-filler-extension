@@ -336,7 +336,7 @@ var FormFiller = function ($, options) {
 
         generateValueByType = function (element, elementName, field) {
             elementName = elementName || getSanitizedElementName(element);
-            field = field || getFieldFromElement(elementName) || { type: 'unknown' };
+            field = field || getFieldFromElement(elementName) || {type: 'unknown'};
 
             switch (field.type) {
                 case 'username':
@@ -516,7 +516,7 @@ var FormFiller = function ($, options) {
             }
             else if (elementType == 'tel') {
                 var elementName = getSanitizedElementName(element),
-                    telephoneOptions = getFieldFromElement(elementName, 'telephone') || { template: 'Xxxxxxxxx'};
+                    telephoneOptions = getFieldFromElement(elementName, 'telephone') || {template: 'Xxxxxxxxx'};
                 element.value = generatePhoneNumber(telephoneOptions.template);
             }
             else if (elementType == 'url') {
@@ -556,17 +556,16 @@ var FormFiller = function ($, options) {
                     field = getFieldFromElement(elementName);
 
                 // First determine if there is a matching type for this field.
-                if(field) {
+                if (field) {
                     // Set the value according the field type.
                     var value = generateValueByType(element, elementName, field);
 
-                    if(value) {
+                    if (value) {
                         $(element).val(value);
                     }
                 }
                 else {
                     // Use the default random option item selection because there was no field type found.
-
                     var i = 0,
                         optionsCount = element.options.length;
 
@@ -599,7 +598,7 @@ var FormFiller = function ($, options) {
                             else {
                                 iteration++;
                             }
-                          }
+                        }
                     }
                 }
 
