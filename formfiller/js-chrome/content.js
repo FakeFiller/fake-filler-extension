@@ -236,6 +236,8 @@ var FormFiller = function ($, options) {
         },
 
         generatePhoneNumber = function (template) {
+            template = template || '+XXX-Xx-Xxxxxxx';
+
             var i = 0,
                 count = template.length,
                 telephone = '';
