@@ -458,12 +458,20 @@ var FormFiller = function ($, options) {
                 elementType = elementType.toLowerCase();
             }
 
-            if (elementType == 'checkbox') {
-                if (options.triggerClickEvents) {
-                    jQueryElement.prop('checked', (Math.random() > 0.5)).click();
-                }
-                else {
-                    element.checked = (Math.random() > 0.5) ? 'checked' : '';
+           if (elementType == 'checkbox') {
+
+           		console.log(isAnyMatch(element.name.toLowerCase(), options.agreeTermsFields));
+                
+                if (isAnyMatch(element.name.toLowerCase(), options.agreeTermsFields)) {
+                    element.checked = true
+                } else  {
+
+                    if (options.triggerClickEvents) {
+                        jQueryElement.prop('checked', (Math.random() > 0.5)).click();
+                    }
+                    else {
+                        element.checked = (Math.random() > 0.5) ? 'checked' : '';
+                    }
                 }
             }
             else if (elementType == 'date') {

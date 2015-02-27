@@ -112,6 +112,14 @@
                    ng-model="confirmFieldsCsv">
         </div>
     </div>
+    <div class="form-group"
+         ng-class="{ 'has-error': generalForm.agreeTermsFields.$invalid && !generalForm.agreeTermsFields.$pristine }">
+        <label class="control-label col-sm-3" for="agree-terms-fields">Agree to Terms Fields Match</label>
+        <div class="col-sm-9">
+            <input type="text" name="agreeTermsFields" id="agree-terms-fields" class="form-control" required
+                   ng-model="agreeTermsFieldsCsv">
+        </div>
+    </div>
     <div class="form-group">
         <label class="control-label col-sm-3">Match fields using</label>
         <div class="col-sm-9">

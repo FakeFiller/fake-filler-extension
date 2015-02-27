@@ -4,12 +4,14 @@ app.controller('GeneralOptionsController', ['$scope', '$filter', '$timeout', 'Op
 
     $scope.ignoredFieldsCsv = $filter('toCsv')($scope.options.ignoredFields);
     $scope.confirmFieldsCsv = $filter('toCsv')($scope.options.confirmFields);
+    $scope.agreeTermsFieldsCsv = $filter('toCsv')($scope.options.agreeTermsFields);
     $scope.emailUsernameListCsv = $filter('toCsv')($scope.options.emailSettings.usernameList);
     $scope.emailHostnameListCsv = $filter('toCsv')($scope.options.emailSettings.hostnameList);
 
     $scope.saveOptions = function () {
         $scope.options.ignoredFields = OptionsService.convertCsvToArray($scope.ignoredFieldsCsv);
         $scope.options.confirmFields = OptionsService.convertCsvToArray($scope.confirmFieldsCsv);
+        $scope.options.agreeTermsFields = OptionsService.convertCsvToArray($scope.agreeTermsFieldsCsv);
         $scope.options.emailSettings.usernameList = OptionsService.convertCsvToArray($scope.emailUsernameListCsv);
         $scope.options.emailSettings.hostnameList = OptionsService.convertCsvToArray($scope.emailHostnameListCsv);
         OptionsService.saveOptions();
@@ -25,6 +27,7 @@ app.controller('GeneralOptionsController', ['$scope', '$filter', '$timeout', 'Op
 
         $scope.ignoredFieldsCsv = $filter('toCsv')($scope.options.ignoredFields);
         $scope.confirmFieldsCsv = $filter('toCsv')($scope.options.confirmFields);
+        $scope.agreeTermsFieldsCsv = $filter('toCsv')($scope.options.agreeTermsFields);
         $scope.emailUsernameListCsv = $filter('toCsv')($scope.options.emailSettings.usernameList);
         $scope.emailHostnameListCsv = $filter('toCsv')($scope.options.emailSettings.hostnameList);
     };
