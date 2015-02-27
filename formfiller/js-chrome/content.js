@@ -458,10 +458,7 @@ var FormFiller = function ($, options) {
                 elementType = elementType.toLowerCase();
             }
 
-           if (elementType == 'checkbox') {
-
-           		console.log(isAnyMatch(element.name.toLowerCase(), options.agreeTermsFields));
-                
+           if (elementType == 'checkbox') {                
                 if (isAnyMatch(element.name.toLowerCase(), options.agreeTermsFields)) {
                     element.checked = true
                 } else  {
