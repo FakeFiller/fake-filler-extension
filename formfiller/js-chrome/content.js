@@ -704,7 +704,23 @@ document.addEventListener('mousedown', function (event) {
     }
 });
 
+document.addEventListener('keydown', function (event) {
+    if (event.which == 222 && (event.metaKey || event.ctrlKey)) {
+    	
+    	chrome.runtime.sendMessage('getOptions', function (response) {
+	    	if (!window.formFiller) {
+	        	window.formFiller = new FormFiller(jQuery, response.options);
+	    	}
+
+	    	if (response.options.enableKeyboardShortcut) {
+				window.formFiller.fillAllInputs();
+			}
+		});
+    }
+});
+
 chrome.runtime.sendMessage('getOptions', function (response) {
+
     if (!window.formFiller) {
         window.formFiller = new FormFiller(jQuery, response.options);
     }
