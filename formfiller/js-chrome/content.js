@@ -631,6 +631,10 @@ var FormFiller = function ($, options) {
         };
 
     return {
+    	getOptions: function() {
+    		return options;
+    	},
+
         fillAllInputs: function () {
             $('input:enabled:not([readonly])').each(function () {
                 fillInputTagElement(this);
