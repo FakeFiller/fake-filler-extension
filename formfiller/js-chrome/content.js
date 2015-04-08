@@ -717,7 +717,6 @@ document.addEventListener('keydown', function (event) {
 });
 
 chrome.runtime.sendMessage('getOptions', function (response) {
-
     if (!window.formFiller) {
         window.formFiller = new FormFiller(jQuery, response.options);
     }
