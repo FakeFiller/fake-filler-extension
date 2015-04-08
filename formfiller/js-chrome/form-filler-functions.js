@@ -1,6 +1,7 @@
 function FormFillerDefaultOptions() {
     var options = {};
     options.enableContextMenu = true;
+    options.enableKeyboardShortcut = true;
     options.ignoreFieldsWithContent = false;
     options.triggerClickEvents = true;
     options.ignoreHiddenFields = true;
