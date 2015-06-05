@@ -11,7 +11,7 @@ var FormFiller = function ($, options) {
         previousValue = '',
         previousUsername = '',
         previousFirstName = '',
-        previousLastName = '',
+        previousLastName = '',        
 
         isAnyMatch = function (haystack, needles) {
             for (var i = 0, count = needles.length; i < count; i++) {
@@ -547,6 +547,12 @@ var FormFiller = function ($, options) {
             }
         },
 
+        fillContentEditableElement = function (element) {
+            if (element.isContentEditable) {
+                element.innerHTML = generateParagraph(5, 100);
+            }            
+        },
+        
         fillSelectTagElement = function (element) {
             if (shouldIgnoreField(element)) {
                 return;
@@ -631,23 +637,29 @@ var FormFiller = function ($, options) {
         };
 
     return {
-        fillAllInputs: function () {
-            $('input:enabled:not([readonly])').each(function () {
-                fillInputTagElement(this);
+        fillAllInputs: function () {    
+            var timeout = 0;
+            var execAndUpdateTimeout = function (toExec, onItem) {
+                timeout = timeout + Number(options.fillTimeout);                
+                setTimeout(function(){
+                    toExec(onItem);
+                },timeout);
+            };
+            $('input:enabled:not([readonly])').each(function () {                
+                execAndUpdateTimeout(fillInputTagElement,this);                
             });
             $('textarea:enabled:not([readonly])').each(function () {
-                fillTextAreaTagElement(this);
+                execAndUpdateTimeout(fillTextAreaTagElement,this);               
+                           
             });
-            $('select:enabled:not([readonly])').each(function () {
-                fillSelectTagElement(this);
+            $('select:enabled:not([readonly])').each(function () {                
+                execAndUpdateTimeout(fillSelectTagElement,this);
             });
             $('[contenteditable]').each(function () {
-                if (this.isContentEditable) {
-                    this.innerHTML = generateParagraph(5, 100);
-                }
+                execAndUpdateTimeout(fillContentEditableElement,this);                
             });
         },
-        fillThisInput: function () {
+        fillThisInput: function () {             
             if (clickedElement) {
                 var tagName = clickedElement.tagName.toLowerCase();
 
@@ -663,11 +675,10 @@ var FormFiller = function ($, options) {
                 if (clickedElement.isContentEditable) {
                     clickedElement.innerHTML = generateParagraph(5, 100);
                 }
-            }
-
-            clickedElement = null;
+            }    
+            clickedElement = null;        
         },
-        fillThisForm: function () {
+        fillThisForm: function () {            
             if (clickedElement) {
                 var form = $(clickedElement).closest('form');
 
@@ -689,9 +700,9 @@ var FormFiller = function ($, options) {
                 } else {
                     alert('Please right-click on any element that is inside a form tag.');
                 }
-            }
-
-            clickedElement = null;
+            }    
+            
+            clickedElement = null;            
         }
     };
 };
