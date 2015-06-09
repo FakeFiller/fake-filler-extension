@@ -6,7 +6,7 @@ function FormFillerDefaultOptions() {
     options.ignoreHiddenFields = true;
     options.ignoredFields = ['captcha', 'hipinputtext'];
     options.confirmFields = ['confirm', 'reenter', 'retype', 'repeat'];
-    options.fillTimeout = 500;    
+    options.fillTimeout = 0;    
     
     options.passwordSettings = {
         mode: 'defined',
