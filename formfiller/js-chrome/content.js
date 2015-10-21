@@ -317,7 +317,7 @@ var FormFiller = function ($, options) {
         },
 
         sanitizeName = function (name) {
-            return name.replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
+            return name.replace(/[^a-zA-Z0-9\-_]+/g, '').toLowerCase();
         },
 
         getFieldFromElement = function (elementName, matchType) {
