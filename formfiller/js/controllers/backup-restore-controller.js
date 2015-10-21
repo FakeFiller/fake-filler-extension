@@ -8,7 +8,7 @@ app.controller('BackupAndRestoreController', ['$scope', '$route', '$window', 'Op
 
     $scope.exportSettings = function () {
         var options = OptionsService.getOptions(),
-            encodedData = $window.btoa(angular.toJson(options)),
+            encodedData = $scope.utf8_to_b64(angular.toJson(options)),
             dateStamp = moment().format('YYYY-MM-DD');
 
         try {
@@ -28,7 +28,7 @@ app.controller('BackupAndRestoreController', ['$scope', '$route', '$window', 'Op
                 var fileReader = new FileReader();
                 fileReader.onload = function (e) {
                     try {
-                        var decodedData = $window.atob(e.target.result),
+                        var decodedData = $scope.b64_to_utf8(e.target.result),
                             options = angular.fromJson(decodedData);
 
                         OptionsService.saveImportedOptions(options);
@@ -54,5 +54,13 @@ app.controller('BackupAndRestoreController', ['$scope', '$route', '$window', 'Op
                 fileReader.readAsText(inputElement.files[0]);
             }
         }
+    };
+
+    $scope.utf8_to_b64 = function (str) {
+      return $window.btoa(unescape(encodeURIComponent(str)));
+    };
+
+    $scope.b64_to_utf8 = function (str) {
+      return decodeURIComponent(escape($window.atob(str)));
     };
 }]);
