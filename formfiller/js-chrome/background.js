@@ -18,10 +18,7 @@ function handleUpgrade() {
         currentVersion = chrome.app.getDetails().version;
 
     if (currentVersion != previousVersion) {
-        if (typeof previousVersion == 'undefined') {
-            // New installation
-        } else {
-            // Upgrade
+        if (typeof previousVersion != 'undefined') {// If not new instalation then upgrade
 
             if (previousVersion.substr(0, 1) == '1') {
                 SaveFormFillerOptions(FormFillerDefaultOptions());
