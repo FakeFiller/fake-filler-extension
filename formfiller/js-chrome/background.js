@@ -91,3 +91,9 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillThisInput(); }', allFrames: true })
     }
 });
+
+//Shortcut listner
+chrome.commands.onCommand.addListener(function(command) {
+    ga('send', 'event', 'extension_button', 'shortcut');
+    chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillAllInputs(); }', allFrames: true })
+});
