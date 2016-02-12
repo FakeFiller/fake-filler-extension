@@ -4,5 +4,5 @@ This extension allows you to fill all form inputs (textboxes, textareas, radio b
 
 https://chrome.google.com/webstore/detail/bnjjngeaknajbdcgpfkgnonkmififhfo
 
-###### Default shortcut
+##### Default shortcut
 Use ***Alt+Space*** to fire the extension. This can be edited from the Chrome extesnsions -> keyboard shortcuts.
