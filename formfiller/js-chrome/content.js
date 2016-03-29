@@ -636,6 +636,10 @@ var FormFiller = function ($, options) {
         };
 
     return {
+    	getOptions: function() {
+    		return options;
+    	},
+
         fillAllInputs: function () {
             $('input:enabled:not([readonly])').each(function () {
                 fillInputTagElement(this);
@@ -710,6 +714,14 @@ var clickedElement = null;
 document.addEventListener('mousedown', function (event) {
     if (event.button == 2) {
         clickedElement = event.target;
+    }
+});
+
+document.addEventListener('keydown', function (event) {
+    if (event.which == 222 && (event.metaKey || event.ctrlKey)) {
+        if (window.formFiller.getOptions().enableKeyboardShortcut) {
+            window.formFiller.fillAllInputs();
+        }
     }
 });
 

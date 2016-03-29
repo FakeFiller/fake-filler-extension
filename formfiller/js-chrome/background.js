@@ -42,6 +42,10 @@ function handleUpgrade() {
                     options.enableContextMenu = true;
                 }
 
+                if (options.enableKeyboardShortcut === undefined) {
+                    options.enableKeyboardShortcut = true;
+                }
+
                 if (options.fieldMatchSettings === undefined) {
                     options.fieldMatchSettings = {
                         matchLabel: false,
