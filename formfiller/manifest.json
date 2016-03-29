@@ -14,11 +14,11 @@
         "default_title": "Fill all inputs with dummy data"
     },
     "commands": {
-          "fill_all_inputs": {
+        "_execute_browser_action": {
             "suggested_key": {
-              "default": "Alt+Space"
-            },
-            "description": "Fill forms"
+                "default": "Ctrl+Shift+F",
+                "mac": "Command+Shift+F"
+            }
         }
     },
     "content_scripts": [
