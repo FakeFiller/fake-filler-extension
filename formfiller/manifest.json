@@ -14,6 +14,27 @@
         "default_title": "Fill all inputs with dummy data"
     },
     "commands": {
+        "fill_this_form": {
+            "description": "Fill current form",
+            "suggested_key": {
+                "default": "Ctrl+Shift+A",
+                "mac": "Command+Shift+A"
+            }
+        },
+        "fill_this_input": {
+            "description": "Fill current input field",
+            "suggested_key": {
+                "default": "Ctrl+Shift+S",
+                "mac": "Command+Shift+S"
+            }
+        },
+        "fill_all_inputs": {
+            "description": "Fill all inputs",
+            "suggested_key": {
+                "default": "Ctrl+Shift+F",
+                "mac": "Command+Shift+F"
+            }
+        },
         "_execute_browser_action": {
             "suggested_key": {
                 "default": "Ctrl+Shift+F",

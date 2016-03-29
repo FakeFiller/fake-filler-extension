@@ -90,6 +90,16 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
 //Shortcut listener
 chrome.commands.onCommand.addListener(function(command) {
-    ga('send', 'event', 'extension_button', 'shortcut');
-    chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillAllInputs(); }', allFrames: true })
+    if (command === 'fill_all_inputs') {
+        ga('send', 'event', 'keyboard_shortcut', 'fill_all_inputs');
+        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillAllInputs(); }', allFrames: true })
+    }
+    if (command === 'fill_this_form') {
+        ga('send', 'event', 'keyboard_shortcut', 'fill_this_form');
+        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillThisForm(); }', allFrames: true })
+    }
+    if (command === 'fill_this_input') {
+        ga('send', 'event', 'keyboard_shortcut', 'fill_this_input');
+        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillThisInput(); }', allFrames: true })
+    }
 });

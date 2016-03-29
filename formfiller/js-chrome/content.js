@@ -653,28 +653,34 @@ var FormFiller = function ($, options) {
             });
         },
         fillThisInput: function () {
-            if (clickedElement) {
-                var tagName = clickedElement.tagName.toLowerCase();
+            var theElement = clickedElement || document.activeElement;
+            if (theElement) {
+                var tagName = theElement.tagName.toLowerCase();
 
                 if (tagName == 'input') {
-                    fillInputTagElement(clickedElement);
+                    fillInputTagElement(theElement);
                 }
                 if (tagName == 'textarea') {
-                    fillTextAreaTagElement(clickedElement);
+                    fillTextAreaTagElement(theElement);
                 }
                 if (tagName == 'select') {
-                    fillSelectTagElement(clickedElement);
+                    fillSelectTagElement(theElement);
                 }
-                if (clickedElement.isContentEditable) {
-                    clickedElement.innerHTML = generateParagraph(5, 100);
+                if (theElement.isContentEditable) {
+                    theElement.innerHTML = generateParagraph(5, 100);
                 }
             }
 
             clickedElement = null;
         },
         fillThisForm: function () {
-            if (clickedElement) {
-                var form = $(clickedElement).closest('form');
+            var theElement = clickedElement || document.activeElement;
+
+            console.info(clickedElement);
+            console.info(document.activeElement);
+
+            if (theElement && theElement.tagName !== 'BODY') {
+                var form = $(theElement).closest('form');
 
                 if (form.size() > 0) {
                     $('input:enabled:not([readonly])', form[0]).each(function () {
@@ -691,8 +697,6 @@ var FormFiller = function ($, options) {
                             this.innerHTML = generateParagraph(5, 100);
                         }
                     });
-                } else {
-                    alert('Please right-click on any element that is inside a form tag.');
                 }
             }
 
