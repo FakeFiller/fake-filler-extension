@@ -8,7 +8,7 @@
         "48": "images/icon-48.png",
         "128": "images/icon-128.png"
     },
-    "permissions": ["contextMenus", "tabs", "http://*/*", "https://*/*"],
+    "permissions": ["contextMenus", "activeTab"],
     "browser_action": {
         "default_icon": "images/icon-48.png",
         "default_title": "Fill all inputs with dummy data"

@@ -8,7 +8,6 @@
 ga('create', '##', 'auto');
 ga('set', 'checkProtocolTask', function(){}); // Removes failing protocol check. See: http://stackoverflow.com/a/22152353/1958200
 ga('require', 'displayfeatures');
-ga('send', 'pageview', '/pages/background.html');
 // @formatter:on
 
 ga('send', 'event', 'extension_version', chrome.app.getDetails().version);
@@ -18,7 +17,7 @@ function handleUpgrade() {
         currentVersion = chrome.app.getDetails().version;
 
     if (currentVersion != previousVersion) {
-        if (typeof previousVersion != 'undefined') {// If not new instalation then upgrade
+        if (typeof previousVersion != 'undefined') {// If not new installation then upgrade
 
             if (previousVersion.substr(0, 1) == '1') {
                 SaveFormFillerOptions(FormFillerDefaultOptions());
@@ -89,7 +88,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     }
 });
 
-//Shortcut listner
+//Shortcut listener
 chrome.commands.onCommand.addListener(function(command) {
     ga('send', 'event', 'extension_button', 'shortcut');
     chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillAllInputs(); }', allFrames: true })
