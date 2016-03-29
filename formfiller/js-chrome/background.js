@@ -18,10 +18,7 @@ function handleUpgrade() {
         currentVersion = chrome.app.getDetails().version;
 
     if (currentVersion != previousVersion) {
-        if (typeof previousVersion == 'undefined') {
-            // New installation
-        } else {
-            // Upgrade
+        if (typeof previousVersion != 'undefined') {// If not new instalation then upgrade
 
             if (previousVersion.substr(0, 1) == '1') {
                 SaveFormFillerOptions(FormFillerDefaultOptions());
@@ -90,4 +87,10 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         ga('send', 'event', 'extension_context_menu', 'fill_this_input');
         chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillThisInput(); }', allFrames: true })
     }
+});
+
+//Shortcut listner
+chrome.commands.onCommand.addListener(function(command) {
+    ga('send', 'event', 'extension_button', 'shortcut');
+    chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillAllInputs(); }', allFrames: true })
 });

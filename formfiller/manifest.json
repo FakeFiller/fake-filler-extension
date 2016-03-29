@@ -13,6 +13,14 @@
         "default_icon": "images/icon-48.png",
         "default_title": "Fill all inputs with dummy data"
     },
+    "commands": {
+          "fill_all_inputs": {
+            "suggested_key": {
+              "default": "Alt+Space"
+            },
+            "description": "Fill forms"
+        }
+    },
     "content_scripts": [
         {
             "matches": [ "<all_urls>" ],
