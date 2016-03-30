@@ -152,3 +152,21 @@ function CreateContextMenus() {
         chrome.contextMenus.create({'title': 'Fill this input', contexts: ['page', 'editable'], 'parentId': 'parent', 'id': 'input', documentUrlPatterns: ['http://*/*', 'https://*/*']});
     }
 }
+
+function GetKeyboardShortcuts() {
+    var keyboardShortcuts = localStorage.getItem('keyboardShortcuts');
+    return JSON.parse(keyboardShortcuts);
+}
+
+function SaveKeyboardShortcuts() {
+    chrome.commands.getAll(function (command) {
+        var keyboardShortcuts = [];
+        for (var i = 0; i < command.length; i++) {
+            if (command[i].description) {
+                keyboardShortcuts.push(command[i]);
+            }
+        }
+        localStorage.setItem('keyboardShortcuts', JSON.stringify(keyboardShortcuts));
+    });
+}
+SaveKeyboardShortcuts();

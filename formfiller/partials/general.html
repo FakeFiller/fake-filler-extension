@@ -167,6 +167,27 @@
         </div>
     </div>
 
+    <h2>Keyboard Shortcuts</h2>
+    <div class="form-group">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-9">
+            <table class="table table-bordered table-condensed">
+                <tr ng-repeat="command in keyboardShortcuts track by $index">
+                    <td class="narrow">
+                        <kbd ng-if="command.shortcut">{{command.shortcut}}</kbd>
+                        <span ng-if="!command.shortcut">not set</span>
+                    </td>
+                    <td>{{command.description}}</td>
+                </tr>
+            </table>
+            <p>
+                To change these keyboard shortcuts, type <code>chrome://extensions/</code> in the address bar
+                to open up the extensions page. At the bottom of that page you'll see a Keyboard Shortcuts option.
+                Click it, and you can set up custom shortcuts for Form Filler from there.
+            </p>
+        </div>
+    </div>
+
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-9">
             <button type="submit" class="btn btn-primary" ng-disabled="generalForm.$invalid">Save Settings</button>

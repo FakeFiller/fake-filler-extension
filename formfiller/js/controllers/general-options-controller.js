@@ -38,4 +38,6 @@ app.controller('GeneralOptionsController', ['$scope', '$filter', '$timeout', 'Op
             || $scope.options.fieldMatchSettings.matchLabel
             || $scope.options.fieldMatchSettings.matchName)
     };
+
+    $scope.keyboardShortcuts = GetKeyboardShortcuts();
 }]);

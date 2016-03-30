@@ -65,6 +65,7 @@ function handleUpgrade() {
 
 handleUpgrade();
 CreateContextMenus();
+SaveKeyboardShortcuts();
 
 chrome.browserAction.onClicked.addListener(function () {
     ga('send', 'event', 'extension_button', 'click');
