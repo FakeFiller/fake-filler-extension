@@ -676,9 +676,6 @@ var FormFiller = function ($, options) {
         fillThisForm: function () {
             var theElement = clickedElement || document.activeElement;
 
-            console.info(clickedElement);
-            console.info(document.activeElement);
-
             if (theElement && theElement.tagName !== 'BODY') {
                 var form = $(theElement).closest('form');
 

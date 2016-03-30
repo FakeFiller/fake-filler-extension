@@ -50,6 +50,10 @@ function handleUpgrade() {
                         matchClass: true
                     };
                 }
+                
+                if (options.agreeTermsFields === undefined) {
+                    options.agreeTermsFields = ['agree', 'terms', 'conditions'];
+                }
 
                 SaveFormFillerOptions(options);
             }
