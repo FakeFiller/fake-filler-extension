@@ -458,10 +458,10 @@ var FormFiller = function ($, options) {
                 elementType = elementType.toLowerCase();
             }
 
-           if (elementType == 'checkbox') {                
+            if (elementType == 'checkbox') {
                 if (isAnyMatch(element.name.toLowerCase(), options.agreeTermsFields)) {
                     element.checked = true
-                } else  {
+                } else {
 
                     if (options.triggerClickEvents) {
                         jQueryElement.prop('checked', (Math.random() > 0.5)).click();
@@ -560,19 +560,29 @@ var FormFiller = function ($, options) {
             if (element.options && element.options.length > 1) {
 
                 var elementName = getSanitizedElementName(element),
-                    field = getFieldFromElement(elementName);
+                    field = getFieldFromElement(elementName),
+                    value = undefined,
+                    valueExists = false;
 
                 // First determine if there is a matching type for this field.
                 if (field) {
-                    // Set the value according the field type.
-                    var value = generateValueByType(element, elementName, field);
+                    // Get a value according the field type.
+                    value = generateValueByType(element, elementName, field);
 
-                    if (value) {
-                        $(element).val(value);
+                    // Check if the value exists in the select element.
+                    for (var index = 0; index < element.options.length; index++) {
+                        if (element.options[index].value === value) {
+                            valueExists = true;
+                            return false;
+                        }
                     }
                 }
+
+                if (valueExists) {
+                    $(element).val(value);
+                }
                 else {
-                    // Use the default random option item selection because there was no field type found.
+                    // Use the default random option item selection because there was no field type or value found.
                     var i = 0,
                         optionsCount = element.options.length;
 
