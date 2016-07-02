@@ -1,24 +1,11 @@
-// @formatter:off
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-//ga('create', 'UA-9183424-2', 'auto');
-ga('create', '##', 'auto');
-ga('set', 'checkProtocolTask', function(){}); // Removes failing protocol check. See: http://stackoverflow.com/a/22152353/1958200
-ga('require', 'displayfeatures');
-// @formatter:on
-
-ga('send', 'event', 'extension_version', chrome.app.getDetails().version);
+var analyticsTrackingCode = 'UA-XXXXXXX-X'; // UA-9183424-4 / UA-XXXXXXX-X
 
 function handleUpgrade() {
     var previousVersion = localStorage['version'],
         currentVersion = chrome.app.getDetails().version;
 
     if (currentVersion != previousVersion) {
-        if (typeof previousVersion != 'undefined') {// If not new installation then upgrade
-
+        if (typeof previousVersion !== 'undefined') {
             if (previousVersion.substr(0, 1) == '1') {
                 SaveFormFillerOptions(FormFillerDefaultOptions());
             }
@@ -50,7 +37,7 @@ function handleUpgrade() {
                         matchClass: true
                     };
                 }
-                
+
                 if (options.agreeTermsFields === undefined) {
                     options.agreeTermsFields = ['agree', 'terms', 'conditions'];
                 }
@@ -68,43 +55,39 @@ CreateContextMenus();
 SaveKeyboardShortcuts();
 
 chrome.browserAction.onClicked.addListener(function () {
-    ga('send', 'event', 'extension_button', 'click');
-    chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillAllInputs(); }', allFrames: true })
+    chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillAllInputs(); window.formFiller.trackEvent("Extension Button", "Click"); }', allFrames: true })
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request == 'getOptions') {
-        sendResponse({options: GetFormFillerOptions()});
+    if (request === 'getOptions') {
+        sendResponse({
+            options: GetFormFillerOptions(),
+            analyticsTrackingCode: analyticsTrackingCode
+        });
     }
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
     if (info.menuItemId === 'all') {
-        ga('send', 'event', 'extension_context_menu', 'fill_all_inputs');
-        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillAllInputs(); }', allFrames: true })
+        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillAllInputs(); window.formFiller.trackEvent("Context Menu", "fill_all_inputs"); }', allFrames: true })
     }
     if (info.menuItemId === 'form') {
-        ga('send', 'event', 'extension_context_menu', 'fill_this_form');
-        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillThisForm(); }', allFrames: true })
+        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillThisForm(); window.formFiller.trackEvent("Context Menu", "fill_this_form"); }', allFrames: true })
     }
     if (info.menuItemId === 'input') {
-        ga('send', 'event', 'extension_context_menu', 'fill_this_input');
-        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillThisInput(); }', allFrames: true })
+        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillThisInput(); window.formFiller.trackEvent("Context Menu", "fill_this_input"); }', allFrames: true })
     }
 });
 
 //Shortcut listener
 chrome.commands.onCommand.addListener(function(command) {
     if (command === 'fill_all_inputs') {
-        ga('send', 'event', 'keyboard_shortcut', 'fill_all_inputs');
-        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillAllInputs(); }', allFrames: true })
+        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillAllInputs(); window.formFiller.trackEvent("Keyboard Shortcut", "fill_all_inputs"); }', allFrames: true })
     }
     if (command === 'fill_this_form') {
-        ga('send', 'event', 'keyboard_shortcut', 'fill_this_form');
-        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillThisForm(); }', allFrames: true })
+        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillThisForm(); window.formFiller.trackEvent("Keyboard Shortcut", "fill_this_form"); }', allFrames: true })
     }
     if (command === 'fill_this_input') {
-        ga('send', 'event', 'keyboard_shortcut', 'fill_this_input');
-        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillThisInput(); }', allFrames: true })
+        chrome.tabs.executeScript(null, { code: 'if (window.formFiller) { window.formFiller.fillThisInput(); window.formFiller.trackEvent("Keyboard Shortcut", "fill_this_input"); }', allFrames: true })
     }
 });

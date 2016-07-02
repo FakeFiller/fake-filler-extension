@@ -8,7 +8,12 @@
         "48": "images/icon-48.png",
         "128": "images/icon-128.png"
     },
-    "permissions": ["contextMenus", "activeTab"],
+    "permissions": [
+        "contextMenus",
+        "activeTab",
+        "https://www.google-analytics.com/",
+        "storage"
+    ],
     "browser_action": {
         "default_icon": "images/icon-48.png",
         "default_title": "Fill all inputs with dummy data"
@@ -39,7 +44,7 @@
     "content_scripts": [
         {
             "matches": [ "<all_urls>" ],
-            "js": ["lib/jquery-2.1.1.min.js", "lib/moment.min.js", "lib/randexp.min.js", "js-chrome/content.js"],
+            "js": ["lib/jquery-2.1.1.min.js", "lib/moment.min.js", "lib/randexp.min.js", "lib/google-analytics-bundle.js", "js-chrome/content.js"],
             "all_frames": true
         }
     ],
