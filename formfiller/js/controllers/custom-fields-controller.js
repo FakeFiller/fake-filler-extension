@@ -1,4 +1,4 @@
-app.controller('CustomFieldsController', ['$scope', '$modal', 'OptionsService', function ($scope, $modal, OptionsService) {
+app.controller('CustomFieldsController', ['$scope', '$uibModal', 'OptionsService', function ($scope, $uibModal, OptionsService) {
     $scope.options = OptionsService.getOptions();
 
     $scope.sortableOptions = {
@@ -12,7 +12,7 @@ app.controller('CustomFieldsController', ['$scope', '$modal', 'OptionsService', 
     $scope.editField = function (field, index) {
         $scope.fieldCopy = angular.copy(field);
 
-        var modalInstance = $modal.open({
+        var modalInstance = $uibModal.open({
             templateUrl: 'editCustomFieldModal.html',
             controller: EditCustomFieldController,
             resolve: {
@@ -36,7 +36,7 @@ app.controller('CustomFieldsController', ['$scope', '$modal', 'OptionsService', 
     };
 }]);
 
-var EditCustomFieldController = function ($scope, $modalInstance, $filter, OptionsService, field) {
+var EditCustomFieldController = function ($scope, $uibModalInstance, $filter, OptionsService, field) {
     $scope.field = angular.copy(field);
     $scope.field.match = $filter('toCsv')($scope.field.match);
     $scope.field.list = $scope.field.list ? $scope.field.list.join('\n') : '';
@@ -111,11 +111,11 @@ var EditCustomFieldController = function ($scope, $modalInstance, $filter, Optio
             delete $scope.field.list;
         }
 
-        $modalInstance.close($scope.field);
+        $uibModalInstance.close($scope.field);
     };
 
     $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
     };
 };
-EditCustomFieldController.$inject = ['$scope', '$modalInstance', '$filter', 'OptionsService', 'field'];
+EditCustomFieldController.$inject = ['$scope', '$uibModalInstance', '$filter', 'OptionsService', 'field'];
