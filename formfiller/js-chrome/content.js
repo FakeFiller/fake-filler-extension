@@ -689,7 +689,7 @@ var FormFiller = function ($, options, analyticsTrackingCode) {
             if (theElement && theElement.tagName !== 'BODY') {
                 var form = $(theElement).closest('form');
 
-                if (form.size() > 0) {
+                if (form.length > 0) {
                     $('input:enabled:not([readonly])', form[0]).each(function () {
                         fillInputTagElement(this);
                     });
