@@ -559,6 +559,7 @@ var FormFiller = function ($, options, analyticsTrackingCode) {
             if (elementType != 'checkbox' && elementType != 'radio' && options.triggerClickEvents) {
                 if (window.Event && window.dispatchEvent) {
                     element.dispatchEvent(new Event('input'));
+                    element.dispatchEvent(new Event('change'));
                     element.dispatchEvent(new Event('blur'));
                 }
             }
@@ -652,6 +653,7 @@ var FormFiller = function ($, options, analyticsTrackingCode) {
             if (options.triggerClickEvents) {
                 if (window.Event && window.dispatchEvent) {
                     element.dispatchEvent(new Event('input'));
+                    element.dispatchEvent(new Event('change'));
                     element.dispatchEvent(new Event('blur'));
                 }
             }
