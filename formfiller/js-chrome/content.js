@@ -507,6 +507,13 @@ var FormFiller = function ($, options, analyticsTrackingCode) {
                 if (element.max) {
                     max = parseInt(element.max);
                 }
+
+                var numberOptions = getFieldFromElement(getSanitizedElementName(element), 'number');
+                if (numberOptions) {
+                    min = numberOptions.min;
+                    max = numberOptions.max;
+                }
+
                 element.value = generateNumber(min, max);
             }
             else if (elementType == 'password') {
@@ -523,8 +530,13 @@ var FormFiller = function ($, options, analyticsTrackingCode) {
             }
             else if (elementType == 'tel') {
                 var elementName = getSanitizedElementName(element),
-                    telephoneOptions = getFieldFromElement(elementName, 'telephone') || {template: 'Xxxxxxxxx'};
-                element.value = generatePhoneNumber(telephoneOptions.template);
+                    telephoneOptions = getFieldFromElement(elementName, 'telephone');
+
+                if (telephoneOptions) {
+                    element.value = generateValueByType(element, elementName, telephoneOptions);
+                } else {
+                    element.value = generatePhoneNumber();
+                }
             }
             else if (elementType == 'url') {
                 element.value = generateWebsite();
