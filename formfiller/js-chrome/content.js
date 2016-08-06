@@ -325,10 +325,11 @@ var FormFiller = function ($, options, analyticsTrackingCode) {
             var doMatchType = matchType.length > 0;
             for (var i = 0; i < options.fields.length; i++) {
                 if (isAnyMatch(elementName, options.fields[i].match)) {
-                    if (doMatchType && options.fields[i].type == matchType) {
-                        return options.fields[i];
-                    }
-                    else {
+                    if (doMatchType) {
+                        if (options.fields[i].type == matchType) {
+                            return options.fields[i];
+                        }
+                    } else {
                         return options.fields[i];
                     }
                 }
@@ -530,7 +531,7 @@ var FormFiller = function ($, options, analyticsTrackingCode) {
             }
             else if (elementType == 'tel') {
                 var elementName = getSanitizedElementName(element),
-                    telephoneOptions = getFieldFromElement(elementName, 'telephone');
+                    telephoneOptions = getFieldFromElement(elementName);
 
                 if (telephoneOptions) {
                     element.value = generateValueByType(element, elementName, telephoneOptions);
