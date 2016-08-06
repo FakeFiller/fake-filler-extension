@@ -48,12 +48,6 @@ function FormFillerDefaultOptions() {
     });
 
     options.fields.push({
-        type: 'full-name',
-        name: 'Full Name',
-        match: ['fullname', 'name']
-    });
-
-    options.fields.push({
         type: 'email',
         name: 'Email Address',
         match: ['email']
@@ -63,6 +57,12 @@ function FormFillerDefaultOptions() {
         type: 'organization',
         name: 'Organization or Company Name',
         match: ['organization', 'organisation', 'company']
+    });
+
+    options.fields.push({
+        type: 'full-name',
+        name: 'Full Name',
+        match: ['fullname', 'name']
     });
 
     options.fields.push({
@@ -123,6 +123,20 @@ function FormFillerDefaultOptions() {
         type: 'url',
         name: 'Website Address',
         match: ['website']
+    });
+
+    options.fields.push({
+        type: 'regex',
+        name: 'Address Line 1',
+        match: ['address1', 'addressline1'],
+        template: '([1-9][0-9][0-9]?) (North |East |West |South |||||)(Green |White |Rocky ||||||||)(Nobel|Fabien|Hague|Oak|Second|First|Cowley|Clarendon|New|Old|Milton) (Avenue|Boulevard|Court|Drive|Extension|Freeway|Lane|Parkway|Road|Street)'
+    });
+
+    options.fields.push({
+        type: 'regex',
+        name: 'P.O. Box',
+        match: ['pobox', 'postbox'],
+        template: '((P\\.O\\.)|(PO)) Box [1-9][0-9]{0,4}'
     });
 
     return options;
