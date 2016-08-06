@@ -530,7 +530,7 @@ var FormFiller = function ($, options, analyticsTrackingCode) {
                 element.value = generateWebsite();
             }
             else if (elementType == 'color') {
-                element.value = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+                element.value = '#' + ('000000' + Math.random().toString(16).slice(2, 8).toUpperCase()).slice(-6);
             }
             else if (elementType == 'search') {
                 element.value = generateWords(1);
