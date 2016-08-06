@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Form Filler",
-    "version": "2.4.5",
+    "version": "2.5.0",
     "description": "Fills all form inputs in a page with dummy data.",
     "icons": {
         "16": "images/icon-16.png",
