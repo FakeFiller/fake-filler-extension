@@ -180,11 +180,12 @@
                     <td>{{command.description}}</td>
                 </tr>
             </table>
-            <p>
+            <p ng-if="canChangeKeyboardShortcuts">
                 To change these keyboard shortcuts, type <code>chrome://extensions/</code> in the address bar
                 to open up the extensions page. At the bottom of that page you'll see a Keyboard Shortcuts option.
                 Click it, and you can set up custom shortcuts for Form Filler from there.
             </p>
+            <p ng-if="!canChangeKeyboardShortcuts">Ability to change the keyboard shortcuts will be added soon.</p>
         </div>
     </div>
 

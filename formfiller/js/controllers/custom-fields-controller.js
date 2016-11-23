@@ -1,5 +1,7 @@
 app.controller('CustomFieldsController', ['$scope', '$uibModal', 'OptionsService', function ($scope, $uibModal, OptionsService) {
-    $scope.options = OptionsService.getOptions();
+    OptionsService.getOptions().then(function (options) {
+        $scope.options = options;
+    });
 
     $scope.sortableOptions = {
         handle: '.sort-handle',

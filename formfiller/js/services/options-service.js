@@ -1,4 +1,4 @@
-app.factory('OptionsService', function () {
+app.factory('OptionsService', ['$q', '$rootScope', function ($q, $rootScope) {
     var factoryMethods = {};
     var options = null;
 
@@ -86,7 +86,6 @@ app.factory('OptionsService', function () {
 
     factoryMethods.saveOptions = function () {
         SaveFormFillerOptions(options);
-        CreateContextMenus();
     };
 
     factoryMethods.saveImportedOptions = function (importedOptions) {
@@ -100,8 +99,28 @@ app.factory('OptionsService', function () {
     };
 
     factoryMethods.getOptions = function () {
-        options = GetFormFillerOptions();
-        return options;
+        var deferred = $q.defer();
+
+        GetFormFillerOptions().then(function (result) {
+            options = result;
+            $rootScope.$apply(function () {
+                deferred.resolve(options);
+            });
+        });
+
+        return deferred.promise;
+    };
+
+    factoryMethods.getKeyboardShortcuts = function () {
+        var deferred = $q.defer();
+
+        GetKeyboardShortcuts().then(function (result) {
+            $rootScope.$apply(function () {
+                deferred.resolve(result);
+            });
+        });
+        
+        return deferred.promise;
     };
 
     factoryMethods.addCustomField = function (field) {
@@ -155,4 +174,4 @@ app.factory('OptionsService', function () {
     };
 
     return factoryMethods;
-});
+}]);
