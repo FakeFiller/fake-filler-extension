@@ -438,7 +438,7 @@ var FormFiller = function ($, options, analyticsTrackingCode) {
                 }
 
                 if (element.type !== 'checkbox' && element.type != 'radio') {
-                    if ($(element).val().trim().length > 0) {
+                    if ($(element).val() && $(element).val().trim().length > 0) {
                         return true;
                     }
                 }
