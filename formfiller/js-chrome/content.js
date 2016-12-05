@@ -585,7 +585,7 @@ var FormFiller = function ($, options, analyticsTrackingCode) {
 
                     // Check if the value exists in the select element.
                     for (var index = 0; index < element.options.length; index++) {
-                        if (element.options[index].value === value) {
+                        if (!element.options[index].disabled && element.options[index].value === value) {
                             valueExists = true;
                             return false;
                         }
