@@ -1,0 +1,26 @@
+{
+  "appName": {
+    "message": "Form Filler",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Fill all inputs in a page with dummy data.",
+    "description": "The description of the application"
+  },
+  "appButtonTooltip": {
+    "message": "Fill all inputs with dummy data.",
+    "description": "Tooltip to show when a user overs over the application icon next to the omnibar."
+  },
+  "commandFillThisForm": {
+    "message": "Fill this form",
+    "description": "Context menu text to fill all inputs in the current form."
+  },
+  "commandFillThisInput": {
+    "message": "Fill current input field",
+    "description": "Context menu text to fill the current input."
+  },
+  "commandFillAllInputs": {
+    "message": "Fill all inputs",
+    "description": "Context menu text to fill all inputs in the page."
+  }
+}

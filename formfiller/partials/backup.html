@@ -1,9 +1,0 @@
-<h2>Backup and Restore</h2>
-<p><a href="" ng-click="exportSettings()">Export Settings</a></p>
-<p><a href="" ng-click="openFileDialog()">Import Settings</a></p>
-<input id="restoreFileSelector" type="file" class="hide" file-on-change="importSettings"/>
-<p>&nbsp;</p>
-<div ng-messages="messages">
-    <div class="alert alert-danger" ng-message="error">{{messages.errorMessage}}</div>
-    <div class="alert alert-success" ng-message="success">Settings imported successfully! You will need to reload all your tabs for the settings to take effect.</div>
-</div>

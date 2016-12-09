@@ -1,0 +1,56 @@
+{
+  "manifest_version": 2,
+  "name": "__MSG_appName__",
+  "version": "0.0.1",
+  "description": "__MSG_appDescription__",
+  "icons": {
+    "16": "images/icon-16.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
+  },
+  "default_locale": "en",
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "storage"
+  ],
+  "browser_action": {
+    "default_icon": "images/icon-48.png",
+    "default_title": "__MSG_appButtonTooltip__"
+  },
+  "commands": {
+    "fill_this_form": {
+      "description": "__MSG_commandFillThisForm__",
+      "suggested_key": {
+        "default": "Alt+Shift+A"
+      }
+    },
+    "fill_this_input": {
+      "description": "__MSG_commandFillThisInput__",
+      "suggested_key": {
+        "default": "Alt+Shift+Z"
+      }
+    },
+    "fill_all_inputs": {
+      "description": "__MSG_commandFillAllInputs__",
+      "suggested_key": {
+        "default": "Ctrl+Shift+F"
+      }
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [ "<all_urls>" ],
+      "js": ["scripts/content-script.js"],
+      "all_frames": true
+    }
+  ],
+  "background": {
+    "scripts": ["scripts/background.js"],
+    "persistent": false
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}

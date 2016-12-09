@@ -1,0 +1,17 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "react"
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "chrome": true,
+    "window": true
+  },
+  "rules": {
+    "jsx-a11y/label-has-for": [0]
+  }
+}
