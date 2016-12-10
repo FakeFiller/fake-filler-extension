@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { reset } from 'redux-form';
 
 import GeneralSettingsForm from './general-settings/GeneralSettingsForm';
 import { getOptions, saveOptions } from '../actions';
@@ -17,7 +16,6 @@ class GeneralSettingsPage extends Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleReset = this.handleReset.bind(this);
   }
 
   componentDidMount() {
@@ -48,10 +46,6 @@ class GeneralSettingsPage extends Component {
     }, 5000);
   }
 
-  handleReset() {
-    this.dispatch(reset('settingsForm'));
-  }
-
   render() {
     if (this.props.isFetching) {
       return (<div>Loading...</div>);
@@ -77,7 +71,6 @@ class GeneralSettingsPage extends Component {
       <GeneralSettingsForm
         options={options}
         onSubmit={this.handleSubmit}
-        onReset={this.handleReset}
         showSavedMessage={this.state.showSavedMessage}
         {...initialValues}
       />

@@ -1,114 +1,67 @@
 import React, { PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router';
+import { Field, Fields, reduxForm } from 'redux-form';
 
 import toggleInput from '../shared/ToggleInput';
+import EmailUsernameField from './EmailUsernameField';
+import EmailHostnameField from './EmailHostnameField';
+import PasswordSettingsField from './PasswordSettingsField';
+import MatchFieldsToggleField from './MatchFieldsToggleField';
+
+const validate = (values) => {
+  const errors = {
+    emailSettings: {},
+    passwordSettings: {},
+    fieldMatchSettings: {},
+  };
+
+  if (values.emailSettings) {
+    if (values.emailSettings.username === 'list' && !values.emailSettings.usernameList) {
+      errors.emailSettings.usernameList = 'Please enter a list of usernames.';
+    }
+
+    if (values.emailSettings.hostname === 'list' && !values.emailSettings.hostnameList) {
+      errors.emailSettings.hostnameList = 'Please enter a list of hostnames.';
+    }
+  }
+
+  if (values.passwordSettings) {
+    if (values.passwordSettings.mode === 'defined' && !values.passwordSettings.password) {
+      errors.passwordSettings.password = 'Please enter a password.';
+    }
+  }
+
+  if (values.fieldMatchSettings) {
+    if (!values.fieldMatchSettings.matchLabel
+      && !values.fieldMatchSettings.matchId
+      && !values.fieldMatchSettings.matchName
+      && !values.fieldMatchSettings.matchClass
+    ) {
+      errors.fieldMatchSettings.matchId = 'You must select at least one option.';
+    }
+  }
+
+  return errors;
+};
 
 const GeneralSettingsForm = (props) => {
-  const { handleSubmit, onReset, showSavedMessage } = props;
+  const { handleSubmit, showSavedMessage, pristine, reset, submitting, valid } = props;
 
   return (
     <form className="form-horizontal" onSubmit={handleSubmit}>
       <h2>Email Settings</h2>
-      <div className="form-group">
-        <label className="control-label col-sm-3">Username</label>
-        <div className="col-sm-9">
-          <Field
-            name="emailSettings.username"
-            component={toggleInput}
-            type="radio"
-            value="username"
-            label="Use a previously generated username"
-          />
-          <Field
-            name="emailSettings.username"
-            component={toggleInput}
-            type="radio"
-            value="name"
-            label="Use a previously generated first and last name"
-          />
-          <Field
-            name="emailSettings.username"
-            component={toggleInput}
-            type="radio"
-            value="random"
-            label="Use a random name"
-          />
-          <Field
-            name="emailSettings.username"
-            component={toggleInput}
-            type="radio"
-            value="list"
-            label="Select from the list below:"
-          />
-          <Field
-            name="emailSettings.usernameList"
-            type="text"
-            component="input"
-            className="form-control"
-            autoComplete={false}
-          />
-          <div className="help-block">
-            List each name with a comma.
-          </div>
-        </div>
-      </div>
-      <div className="form-group">
-        <label className="control-label col-sm-3">Host name</label>
-        <div className="col-sm-9">
-          <Field
-            name="emailSettings.hostname"
-            component={toggleInput}
-            type="radio"
-            value="random"
-            label="Use a randomly generated host name"
-          />
-          <Field
-            name="emailSettings.hostname"
-            component={toggleInput}
-            type="radio"
-            value="list"
-            label="Select from the list below:"
-          />
-          <Field
-            name="emailSettings.hostnameList"
-            type="text"
-            component="input"
-            className="form-control"
-            autoComplete={false}
-          />
-          <div className="help-block">
-            List each name with a comma. You may include the @ sign as well.
-          </div>
-        </div>
-      </div>
+      <Fields
+        names={['emailSettings.username', 'emailSettings.usernameList']}
+        component={EmailUsernameField}
+      />
+      <Fields
+        names={['emailSettings.hostname', 'emailSettings.hostnameList']}
+        component={EmailHostnameField}
+      />
       <h2>Password Settings</h2>
-      <div className="form-group">
-        <label className="control-label col-sm-3">Password</label>
-        <div className="col-sm-9">
-          <Field
-            name="passwordSettings.mode"
-            component={toggleInput}
-            type="radio"
-            value="random"
-            label="Generate a random 8 character password (is logged in the console)"
-          />
-          <Field
-            name="passwordSettings.mode"
-            component={toggleInput}
-            type="radio"
-            value="defined"
-            label="Use this:"
-          />
-          <Field
-            name="passwordSettings.password"
-            type="text"
-            component="input"
-            className="form-control"
-            autoComplete={false}
-          />
-        </div>
-      </div>
+      <Fields
+        names={['passwordSettings.mode', 'passwordSettings.password']}
+        component={PasswordSettingsField}
+      />
       <h2>Field Options</h2>
       <div className="form-group">
         <label className="control-label col-sm-3">Ignore Fields Match</label>
@@ -119,6 +72,7 @@ const GeneralSettingsForm = (props) => {
             component="input"
             className="form-control"
             autoComplete={false}
+            placeholder="Enter comma-separated values."
           />
           <Field
             name="ignoreHiddenFields"
@@ -147,6 +101,7 @@ const GeneralSettingsForm = (props) => {
             component="input"
             className="form-control"
             autoComplete={false}
+            placeholder="Enter comma-separated values."
           />
           <div className="help-block">
             Data entered in a preceding input field will be used for inputs
@@ -163,46 +118,22 @@ const GeneralSettingsForm = (props) => {
             component="input"
             className="form-control"
             autoComplete={false}
+            placeholder="Enter comma-separated values."
           />
           <div className="help-block">
             Checkboxes matching any of these values will always be checked.
           </div>
         </div>
       </div>
-      <div className="form-group">
-        <label className="control-label col-sm-3">Match Fields Using</label>
-        <div className="col-sm-9">
-          <Field
-            name="fieldMatchSettings.matchLabel"
-            component={toggleInput}
-            type="checkbox"
-            label="Label text for the input tag"
-          />
-          <Field
-            name="fieldMatchSettings.matchId"
-            component={toggleInput}
-            type="checkbox"
-            label="ID attribute of the input tag"
-          />
-          <Field
-            name="fieldMatchSettings.matchName"
-            component={toggleInput}
-            type="checkbox"
-            label="Name attribute of the input tag"
-          />
-          <Field
-            name="fieldMatchSettings.matchClass"
-            component={toggleInput}
-            type="checkbox"
-            label="Class class attribute of the input tag"
-          />
-          <br />
-          <p>
-            Please refer to the <Link to="/custom-fields">custom fields section</Link> to
-            learn how input elements are matched.
-          </p>
-        </div>
-      </div>
+      <Fields
+        names={[
+          'fieldMatchSettings.matchLabel',
+          'fieldMatchSettings.matchId',
+          'fieldMatchSettings.matchName',
+          'fieldMatchSettings.matchClass',
+        ]}
+        component={MatchFieldsToggleField}
+      />
       <h2>General Settings</h2>
       <div className="form-group">
         <label className="control-label col-sm-3">Trigger Events</label>
@@ -229,8 +160,21 @@ const GeneralSettingsForm = (props) => {
       <h2>Keyboard Shortcuts</h2>
       <div className="form-group">
         <div className="col-sm-offset-3 col-sm-9">
-          <button type="submit" className="btn btn-primary">Save Settings</button>
-          <button type="button" className="btn btn-link" onClick={onReset}>Reset</button>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={pristine || !valid}
+          >
+            Save Settings
+          </button>
+          <button
+            type="button"
+            className="btn btn-link"
+            disabled={pristine || submitting}
+            onClick={reset}
+          >
+            Reset
+          </button>
           { showSavedMessage && <span className="saved-msg">Saved settings.</span> }
         </div>
       </div>
@@ -240,12 +184,15 @@ const GeneralSettingsForm = (props) => {
 
 GeneralSettingsForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  onReset: PropTypes.func.isRequired,
   showSavedMessage: PropTypes.bool.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  reset: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  valid: PropTypes.bool.isRequired,
 };
 
 export default reduxForm({
   form: 'settingsForm',
+  validate,
   enableReinitialize: true,
 })(GeneralSettingsForm);
-
