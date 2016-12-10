@@ -1,5 +1,29 @@
 import { PropTypes } from 'react';
 
+const shapeOfCustomField = PropTypes.shape({
+  match: PropTypes.arrayOf(PropTypes.string),
+  max: PropTypes.number,
+  min: PropTypes.number,
+  name: PropTypes.string,
+  template: PropTypes.string,
+  type: PropTypes.oneOf([
+    'alphanumeric',
+    'date',
+    'email',
+    'first-name',
+    'full-name',
+    'last-name',
+    'number',
+    'organization',
+    'randomized-list',
+    'regex',
+    'telephone',
+    'text',
+    'url',
+    'username',
+  ]),
+});
+
 const shapeOfOptions = PropTypes.shape({
   agreeTermsFields: PropTypes.arrayOf(PropTypes.string),
   confirmFields: PropTypes.arrayOf(PropTypes.string),
@@ -16,29 +40,7 @@ const shapeOfOptions = PropTypes.shape({
     matchLabel: PropTypes.bool,
     matchName: PropTypes.bool,
   }),
-  fields: PropTypes.arrayOf(PropTypes.shape({
-    match: PropTypes.arrayOf(PropTypes.string),
-    max: PropTypes.number,
-    min: PropTypes.number,
-    name: PropTypes.string,
-    template: PropTypes.string,
-    type: PropTypes.oneOf([
-      'alphanumeric',
-      'date',
-      'email',
-      'first-name',
-      'full-name',
-      'last-name',
-      'number',
-      'organization',
-      'randomized-list',
-      'regex',
-      'telephone',
-      'text',
-      'url',
-      'username',
-    ]),
-  })),
+  fields: PropTypes.arrayOf(shapeOfCustomField),
   ignoreFieldsWithContent: PropTypes.bool,
   ignoreHiddenFields: PropTypes.bool,
   ignoredFields: PropTypes.arrayOf(PropTypes.string),
@@ -49,4 +51,4 @@ const shapeOfOptions = PropTypes.shape({
   triggerClickEvents: PropTypes.bool,
 });
 
-export { shapeOfOptions };
+export { shapeOfCustomField, shapeOfOptions };
