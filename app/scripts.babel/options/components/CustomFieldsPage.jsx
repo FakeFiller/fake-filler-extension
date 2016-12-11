@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import CustomFieldsList from './custom-fields/CustomFieldsList';
-import { getOptions, deleteCustomField } from '../actions';
+import { getOptions, deleteCustomField, saveSortedCustomFields } from '../actions';
 import { shapeOfOptions } from '../prop-types';
 
 class CustomFieldsPage extends Component {
@@ -12,6 +12,7 @@ class CustomFieldsPage extends Component {
     this.dispatch = props.dispatch;
 
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleSort = this.handleSort.bind(this);
   }
 
   componentDidMount() {
@@ -23,6 +24,10 @@ class CustomFieldsPage extends Component {
     if (confirm('Are you sure you want to delete this custom field?')) {
       this.dispatch(deleteCustomField(this.props.options, index));
     }
+  }
+
+  handleSort(sortedCustomFields) {
+    this.dispatch(saveSortedCustomFields(this.props.options, sortedCustomFields));
   }
 
   render() {
@@ -75,6 +80,7 @@ class CustomFieldsPage extends Component {
         <CustomFieldsList
           customFields={this.props.options.fields}
           onDelete={this.handleDelete}
+          onSort={this.handleSort}
         />
       </div>
     );

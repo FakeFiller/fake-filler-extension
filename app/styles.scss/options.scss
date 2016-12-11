@@ -29,6 +29,7 @@ $input-border-radius: 0;
 
 .well {
   @include box-shadow(none);
+  overflow-wrap: break-word;
 }
 
 body {

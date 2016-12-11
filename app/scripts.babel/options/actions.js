@@ -39,3 +39,12 @@ export function deleteCustomField(options, index) {
     dispatch({ type: AppConstants.RECEIVED_OPTIONS, options: newOptions });
   };
 }
+
+export function saveSortedCustomFields(options, customFields) {
+  return (dispatch) => {
+    const newOptions = Object.assign({}, options);
+    newOptions.fields = customFields;
+    SaveFormFillerOptions(newOptions);
+    dispatch({ type: AppConstants.RECEIVED_OPTIONS, options: newOptions });
+  };
+}
