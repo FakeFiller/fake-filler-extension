@@ -212,6 +212,20 @@ function CsvToArray(csvString) {
   return arrayData;
 }
 
+function MultipleLinesToArray(text) {
+  const splitValues = text && text.length > 0 ? text.split('\n') : [];
+  const arrayData = [];
+
+  for (let i = 0; i < splitValues.length; i += 1) {
+    splitValues[i] = splitValues[i].replace(/^\s*/, '').replace(/\s*$/, '');
+    if (splitValues[i].length > 0) {
+      arrayData.push(splitValues[i]);
+    }
+  }
+
+  return arrayData;
+}
+
 export {
   FormFillerDefaultOptions,
   GetFormFillerOptions,
@@ -219,4 +233,5 @@ export {
   SaveFormFillerOptions,
   GetKeyboardShortcuts,
   CsvToArray,
+  MultipleLinesToArray,
 };

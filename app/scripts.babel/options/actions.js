@@ -48,3 +48,18 @@ export function saveSortedCustomFields(options, customFields) {
     dispatch({ type: AppConstants.RECEIVED_OPTIONS, options: newOptions });
   };
 }
+
+export function saveCustomField(options, customField, customFieldIndex) {
+  return (dispatch) => {
+    const newOptions = Object.assign({}, options);
+
+    if (customFieldIndex < 0) {
+      newOptions.fields.push(customField);
+    } else {
+      newOptions.fields[customFieldIndex] = customField;
+    }
+
+    SaveFormFillerOptions(newOptions);
+    dispatch({ type: AppConstants.RECEIVED_OPTIONS, options: newOptions });
+  };
+}
