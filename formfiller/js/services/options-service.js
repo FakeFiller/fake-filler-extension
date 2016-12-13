@@ -1,4 +1,4 @@
-app.factory('OptionsService', ['$q', '$rootScope', function ($q, $rootScope) {
+app.factory('OptionsService', function () {
     var factoryMethods = {};
     var options = null;
 
@@ -86,6 +86,7 @@ app.factory('OptionsService', ['$q', '$rootScope', function ($q, $rootScope) {
 
     factoryMethods.saveOptions = function () {
         SaveFormFillerOptions(options);
+        CreateContextMenus();
     };
 
     factoryMethods.saveImportedOptions = function (importedOptions) {
@@ -99,28 +100,8 @@ app.factory('OptionsService', ['$q', '$rootScope', function ($q, $rootScope) {
     };
 
     factoryMethods.getOptions = function () {
-        var deferred = $q.defer();
-
-        GetFormFillerOptions().then(function (result) {
-            options = result;
-            $rootScope.$apply(function () {
-                deferred.resolve(options);
-            });
-        });
-
-        return deferred.promise;
-    };
-
-    factoryMethods.getKeyboardShortcuts = function () {
-        var deferred = $q.defer();
-
-        GetKeyboardShortcuts().then(function (result) {
-            $rootScope.$apply(function () {
-                deferred.resolve(result);
-            });
-        });
-        
-        return deferred.promise;
+        options = GetFormFillerOptions();
+        return options;
     };
 
     factoryMethods.addCustomField = function (field) {
@@ -174,4 +155,4 @@ app.factory('OptionsService', ['$q', '$rootScope', function ($q, $rootScope) {
     };
 
     return factoryMethods;
-}]);
+});

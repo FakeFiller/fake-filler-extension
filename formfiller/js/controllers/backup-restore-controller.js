@@ -7,19 +7,18 @@ app.controller('BackupAndRestoreController', ['$scope', '$route', '$window', 'Op
     };
 
     $scope.exportSettings = function () {
-        OptionsService.getOptions().then(function (options) {
-            var encodedData = $scope.utf8_to_b64(angular.toJson(options)),
-                dateStamp = moment().format('YYYY-MM-DD');
+        var options = OptionsService.getOptions(),
+            encodedData = $scope.utf8_to_b64(angular.toJson(options)),
+            dateStamp = moment().format('YYYY-MM-DD');
 
-            try {
-                var blob = new Blob([encodedData], {type: 'text/plain;charset=utf-8'});
-                saveAs(blob, 'form-filler-' + dateStamp + '.txt');
-            } catch (e) {
-                $scope.messages.errorMessage = 'Error creating a backup file: ' + e.toString();
-                $scope.messages.error = true;
-                console.error(e);
-            }
-        });
+        try {
+            var blob = new Blob([encodedData], {type: 'text/plain;charset=utf-8'});
+            saveAs(blob, 'form-filler-' + dateStamp + '.txt');
+        } catch (e) {
+            $scope.messages.errorMessage = 'Error creating a backup file: ' + e.toString();
+            $scope.messages.error = true;
+            console.error(e);
+        }
     };
 
     $scope.importSettings = function ($event) {

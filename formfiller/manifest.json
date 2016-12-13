@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Form Filler",
-    "version": "2.6.0",
+    "version": "2.5.0",
     "description": "Fills all form inputs in a page with dummy data.",
     "icons": {
         "16": "images/icon-16.png",
@@ -22,45 +22,36 @@
         "fill_this_form": {
             "description": "Fill current form",
             "suggested_key": {
-                "default": "Alt+Shift+A"
+                "default": "Ctrl+Shift+A",
+                "mac": "Command+Shift+A"
             }
         },
         "fill_this_input": {
             "description": "Fill current input field",
             "suggested_key": {
-                "default": "Alt+Shift+Z"
+                "default": "Ctrl+Shift+S",
+                "mac": "Command+Shift+S"
             }
         },
         "fill_all_inputs": {
             "description": "Fill all inputs",
             "suggested_key": {
-                "default": "Ctrl+Shift+F"
+                "default": "Ctrl+Shift+F",
+                "mac": "Command+Shift+F"
             }
         }
     },
     "content_scripts": [
         {
             "matches": [ "<all_urls>" ],
-            "js": [
-                "lib/jquery-3.0.0.min.js",
-                "lib/moment.min.js",
-                "lib/randexp.min.js",
-                "lib/google-analytics-bundle.js",
-                "js-chrome/content.js"
-            ],
+            "js": ["lib/jquery-3.0.0.min.js", "lib/moment.min.js", "lib/randexp.min.js", "lib/google-analytics-bundle.js", "js-chrome/content.js"],
             "all_frames": true
         }
     ],
     "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
     "background": {
-        "scripts": [
-            "js-chrome/form-filler-functions.js",
-            "js-chrome/background.js"
-        ],
+        "page": "pages/background.html",
         "persistent": false
     },
-    "options_ui": {
-        "page": "pages/options.html",
-        "open_in_tab": true
-    }
+    "options_page": "pages/options.html"
 }

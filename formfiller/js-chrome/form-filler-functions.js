@@ -143,58 +143,44 @@ function FormFillerDefaultOptions() {
 }
 
 function GetFormFillerOptions() {
-    var promise = new Promise(function (resolve, reject) {
-        chrome.storage.local.get('options', function (result) {
-            if (result && Object.keys(result).length > 0) {
-                resolve(result.options);
-            }
-            else {
-                resolve(FormFillerDefaultOptions());
-            }
-        });
-    });
-
-    return promise;
+    var optionsString = localStorage.getItem('options');
+    var options = optionsString
+        ? JSON.parse(optionsString)
+        : FormFillerDefaultOptions();
+    return options;
 }
 
 function SaveFormFillerOptions(options) {
-    chrome.storage.local.set({
-        options: options
-    });
-
-    CreateContextMenus(options.enableContextMenu)
+    localStorage.setItem('options', JSON.stringify(options));
 }
 
-function CreateContextMenus(enableContextMenu) {
+function CreateContextMenus() {
     chrome.contextMenus.removeAll();
 
-    if (enableContextMenu) {
-        chrome.contextMenus.create({
-            id: 'form-filler-all',
-            title: 'Fill all inputs',
-            contexts: ['page', 'editable']
-        });
+    var options = GetFormFillerOptions();
 
-        chrome.contextMenus.create({
-            id: 'form-filler-form',
-            title: 'Fill this form',
-            contexts: ['editable']
-        });
-
-        chrome.contextMenus.create({
-            id: 'form-filler-input',
-            title: 'Fill this input',
-            contexts: ['editable']
-        });
+    if (options.enableContextMenu) {
+        chrome.contextMenus.create({'title': 'Form Filler', contexts: ['page', 'editable'], 'id': 'parent', documentUrlPatterns: ['http://*/*', 'https://*/*']});
+        chrome.contextMenus.create({'title': 'Fill all inputs', contexts: ['page', 'editable'], 'parentId': 'parent', 'id': 'all', documentUrlPatterns: ['http://*/*', 'https://*/*']});
+        chrome.contextMenus.create({'title': 'Fill this form', contexts: ['page', 'editable'], 'parentId': 'parent', 'id': 'form', documentUrlPatterns: ['http://*/*', 'https://*/*']});
+        chrome.contextMenus.create({'title': 'Fill this input', contexts: ['page', 'editable'], 'parentId': 'parent', 'id': 'input', documentUrlPatterns: ['http://*/*', 'https://*/*']});
     }
 }
 
 function GetKeyboardShortcuts() {
-    var promise = new Promise(function (resolve, reject) {
-        chrome.commands.getAll(function (result) {
-            resolve(result);
-        });
-    });
-
-    return promise;
+    var keyboardShortcuts = localStorage.getItem('keyboardShortcuts');
+    return JSON.parse(keyboardShortcuts);
 }
+
+function SaveKeyboardShortcuts() {
+    chrome.commands.getAll(function (command) {
+        var keyboardShortcuts = [];
+        for (var i = 0; i < command.length; i++) {
+            if (command[i].description) {
+                keyboardShortcuts.push(command[i]);
+            }
+        }
+        localStorage.setItem('keyboardShortcuts', JSON.stringify(keyboardShortcuts));
+    });
+}
+SaveKeyboardShortcuts();
