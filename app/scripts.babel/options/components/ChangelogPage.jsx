@@ -8,6 +8,11 @@ const ChangelogPage = () => (
       <li>Form Filler is now on Firefox!</li>
     </ul>
     <hr />
+    <p><strong>Version 2.5.1</strong></p>
+    <ul>
+      <li>Handling selects with a disabled selected value correctly. (<a href="https://github.com/husainshabbir/form-filler/pull/33" target="_blank" rel="noopener noreferrer">#33</a>)</li>
+    </ul>
+    <hr />
     <p><strong>Version 2.5.0</strong></p>
     <ul>
       <li>

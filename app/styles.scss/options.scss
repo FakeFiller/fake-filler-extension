@@ -1,6 +1,7 @@
-$brand-primary: #0da5ce;
+$brand-primary: #44a4e0;
 $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-$input-border-radius: 0;
+$input-border-radius: 2px;
+$input-border-focus: $brand-primary;
 
 @import "bootstrap/_bootstrap";
 
@@ -25,6 +26,10 @@ $input-border-radius: 0;
       @include box-shadow($shadow);
     }
   }
+}
+
+.control-label {
+  font-weight: normal;
 }
 
 .well {

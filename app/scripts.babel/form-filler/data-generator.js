@@ -198,7 +198,7 @@ class DataGenerator {
   generatePassword() {
     if (this.options.passwordSettings.mode === 'random') {
       const password = this.generateScrambledWord(8).toLowerCase();
-      console.log(`Generated Password: ${password}`);
+      console.info(`Generated Password: ${password}`);
       return password;
     }
 

@@ -35,7 +35,12 @@ function buildScript(entryFile, outputFile, excludeVendors = false) {
     .pipe(gulp.dest('./app/scripts'));
 }
 
-gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
+gulp.task('clean', del.bind(null, [
+  'dist',
+  'package',
+  'app/scripts',
+  'app/styles',
+]));
 
 gulp.task('options-styles', () => {
   return gulp.src('app/styles.scss/*.scss')
@@ -90,10 +95,6 @@ gulp.task('script-content-script', () => {
   return buildScript('app/scripts.babel/content-script.js', 'content-script.js');
 });
 
-gulp.task('lint', () => {
-  // Do nothing for now...
-});
-
 gulp.task('html', ['options-styles'], () => {
   return gulp.src('app/*.html')
     .pipe($.useref({ searchPath: ['.tmp', 'app', '.'] }))
@@ -129,7 +130,7 @@ gulp.task('chromeManifest', () => {
 
 gulp.task('build-scripts', ['script-options', 'script-background', 'script-content-script']);
 
-gulp.task('build', ['build-vendor', 'lint'], (cb) => {
+gulp.task('build', ['build-vendor'], (cb) => {
   runSequence(
     'build-scripts',
     'options-styles',
@@ -140,7 +141,7 @@ gulp.task('build', ['build-vendor', 'lint'], (cb) => {
 });
 
 gulp.task('watch', ['build'], () => {
-  gulp.watch('app/scripts.babel/**/*.{js,jsx}', ['lint', 'build-scripts']);
+  gulp.watch('app/scripts.babel/**/*.{js,jsx}', ['build-scripts']);
   gulp.watch('app/styles.scss/**/*.scss', ['options-styles']);
 });
 
