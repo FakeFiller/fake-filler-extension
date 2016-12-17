@@ -4,6 +4,7 @@ import {
   FormFillerDefaultOptions,
   GetFormFillerOptions,
   SaveFormFillerOptions,
+  GetKeyboardShortcuts,
 } from '../form-filler/helpers';
 
 export function getOptions() {
@@ -61,5 +62,15 @@ export function saveCustomField(options, customField, customFieldIndex) {
 
     SaveFormFillerOptions(newOptions);
     dispatch({ type: AppConstants.RECEIVED_OPTIONS, options: newOptions });
+  };
+}
+
+export function getKeyboardShortcuts() {
+  return (dispatch) => {
+    dispatch({ type: AppConstants.FETCHING_KEYBOARD_SHORTCUTS });
+
+    GetKeyboardShortcuts().then((shortcuts) => {
+      dispatch({ type: AppConstants.RECEIVED_KEYBOARD_SHORTCUTS, shortcuts });
+    });
   };
 }

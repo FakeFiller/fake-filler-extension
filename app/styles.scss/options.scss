@@ -74,6 +74,11 @@ h2 {
   padding: 12px;
 }
 
+.narrow {
+  width: 1%;
+  white-space: nowrap;
+}
+
 .ReactModal__Overlay {
   perspective: 600;
   opacity: 0;

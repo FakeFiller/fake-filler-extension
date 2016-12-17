@@ -32,13 +32,13 @@
     "fill_this_form": {
       "description": "__MSG_commandFillThisForm__",
       "suggested_key": {
-        "default": "Alt+Shift+A"
+        "default": "Ctrl+Shift+A"
       }
     },
     "fill_this_input": {
       "description": "__MSG_commandFillThisInput__",
       "suggested_key": {
-        "default": "Alt+Shift+Z"
+        "default": "Ctrl+Shift+S"
       }
     },
     "fill_all_inputs": {

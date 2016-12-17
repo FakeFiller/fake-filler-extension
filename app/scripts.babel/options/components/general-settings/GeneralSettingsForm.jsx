@@ -157,7 +157,7 @@ const GeneralSettingsForm = (props) => {
           />
         </div>
       </div>
-      <h2>Keyboard Shortcuts</h2>
+      <br />
       <div className="form-group">
         <div className="col-sm-offset-3 col-sm-9">
           <button

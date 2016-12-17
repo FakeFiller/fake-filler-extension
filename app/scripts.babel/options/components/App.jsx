@@ -33,6 +33,7 @@ class App extends Component {
             <ul className="nav nav-pills nav-stacked">
               <NavItem to="/">General</NavItem>
               <NavItem to="/custom-fields">Custom Fields</NavItem>
+              <NavItem to="/keyboard-shortcuts">Keyboard Shortcuts</NavItem>
               <NavItem to="/backup">Backup and Restore</NavItem>
             </ul>
             <div id="about">
