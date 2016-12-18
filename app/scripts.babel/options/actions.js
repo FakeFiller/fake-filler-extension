@@ -5,6 +5,8 @@ import {
   GetFormFillerOptions,
   SaveFormFillerOptions,
   GetKeyboardShortcuts,
+  CsvToArray,
+  MultipleLinesToArray,
 } from '../form-filler/helpers';
 
 export function getOptions() {
@@ -54,10 +56,66 @@ export function saveCustomField(options, customField, customFieldIndex) {
   return (dispatch) => {
     const newOptions = Object.assign({}, options);
 
+    const newCustomField = Object.assign({}, customField, {
+      match: CsvToArray(customField.match),
+    });
+
+    if (newCustomField.type === 'number') {
+      newCustomField.min = newCustomField.numberMin;
+      newCustomField.max = newCustomField.numberMax;
+    }
+
+    if (newCustomField.type === 'text') {
+      newCustomField.min = newCustomField.textMin;
+      newCustomField.max = newCustomField.textMax;
+    }
+
+    if (newCustomField.type === 'telephone') {
+      newCustomField.template = newCustomField.telephoneTemplate;
+    }
+
+    if (newCustomField.type === 'date') {
+      newCustomField.template = newCustomField.dateTemplate;
+    }
+
+    if (newCustomField.type === 'alphanumeric') {
+      newCustomField.template = newCustomField.alphanumericTemplate;
+    }
+
+    if (newCustomField.type === 'regex') {
+      newCustomField.template = newCustomField.regexTemplate;
+    }
+
+    if (newCustomField.type === 'randomized-list') {
+      newCustomField.list = customField.list ? MultipleLinesToArray(customField.list) : null;
+    }
+
+    if (!newCustomField.type.match(/^(number|text)$/)) {
+      delete newCustomField.min;
+      delete newCustomField.max;
+    }
+
+    if (!newCustomField.type.match(/^(telephone|date|alphanumeric|regex)$/)) {
+      delete newCustomField.template;
+    }
+
+    if (newCustomField.type !== 'randomized-list') {
+      delete newCustomField.list;
+    }
+
+    delete newCustomField.numberMin;
+    delete newCustomField.numberMax;
+    delete newCustomField.textMin;
+    delete newCustomField.textMax;
+    delete newCustomField.telephoneTemplate;
+    delete newCustomField.dateTemplate;
+    delete newCustomField.alphanumericTemplate;
+    delete newCustomField.regexTemplate;
+
     if (customFieldIndex < 0) {
-      newOptions.fields.push(customField);
+      newOptions.fields.push(newCustomField);
     } else {
-      newOptions.fields[customFieldIndex] = customField;
+      newOptions.fields[customFieldIndex] = newCustomField;
     }
 
     SaveFormFillerOptions(newOptions);

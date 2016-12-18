@@ -24,12 +24,7 @@ class CustomFieldModal extends Component {
   }
 
   handleSubmit(customField) {
-    const preparedCustomField = Object.assign({}, customField, {
-      match: CsvToArray(customField.match),
-      list: customField.list ? MultipleLinesToArray(customField.list) : undefined,
-    });
-
-    this.props.onSave(preparedCustomField);
+    this.props.onSave(customField);
   }
 
   render() {

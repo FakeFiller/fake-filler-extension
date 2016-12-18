@@ -27,32 +27,44 @@ const validate = (values) => {
   }
 
   if (hasValidType) {
-    if (values.type === 'telephone' && (!values.template || values.template.length === 0)) {
+    if (values.type === 'telephone' && (!values.telephoneTemplate || values.telephoneTemplate.length === 0)) {
       errors.template = 'Please enter a template for the telephone number.';
     }
 
-    if (values.type === 'number' || values.type === 'text') {
-      if (!values.min || values.min.length === 0) {
-        errors.min = 'Please enter a minimum value.';
+    if (values.type === 'number') {
+      if (!values.numberMin || values.numberMin.length === 0) {
+        errors.numberMin = 'Please enter a minimum value.';
       }
-      if (!values.max || values.max.length === 0) {
-        errors.max = 'Please enter a maximum value.';
+      if (!values.numberMax || values.numberMax.length === 0) {
+        errors.numberMax = 'Please enter a maximum value.';
       }
-      if (values.min && values.max && values.max < values.min) {
-        errors.max = 'The maximum value cannot be less than the minimum values.';
+      if (values.numberMin && values.numberMax && values.numberMax < values.numberMin) {
+        errors.numberMax = 'The maximum value cannot be less than the minimum values.';
       }
     }
 
-    if (values.type === 'date' && (!values.template || values.template.length === 0)) {
-      errors.template = 'Please enter a template for the date.';
+    if (values.type === 'text') {
+      if (!values.textMin || values.textMin.length === 0) {
+        errors.textMin = 'Please enter a minimum value.';
+      }
+      if (!values.textMax || values.textMax.length === 0) {
+        errors.textMax = 'Please enter a maximum value.';
+      }
+      if (values.textMin && values.textMax && values.textMax < values.textMin) {
+        errors.textMax = 'The maximum value cannot be less than the minimum values.';
+      }
     }
 
-    if (values.type === 'alphanumeric' && (!values.template || values.template.length === 0)) {
-      errors.template = 'Please specify a format template for this field.';
+    if (values.type === 'date' && (!values.dateTemplate || values.dateTemplate.length === 0)) {
+      errors.dateTemplate = 'Please enter a template for the date.';
     }
 
-    if (values.type === 'regex' && (!values.template || values.template.length === 0)) {
-      errors.template = 'Please enter a regular expression.';
+    if (values.type === 'alphanumeric' && (!values.alphanumericTemplate || values.alphanumericTemplate.length === 0)) {
+      errors.alphanumericTemplate = 'Please specify a format template for this field.';
+    }
+
+    if (values.type === 'regex' && (!values.regexTemplate || values.regexTemplate.length === 0)) {
+      errors.regexTemplate = 'Please enter a regular expression.';
     }
 
     if (values.type === 'randomized-list' && (!values.list || values.list.length === 0)) {
@@ -75,11 +87,11 @@ class CustomFieldForm extends Component {
   }
 
   generateRadomRegExString() {
-    if (this.props.regexPatternValue) {
+    if (this.props.regexTemplateValue) {
       let randomValue;
 
       try {
-        randomValue = new RandExp(this.props.regexPatternValue).gen();
+        randomValue = new RandExp(this.props.regexTemplateValue).gen();
       } catch (e) {
         randomValue = e.toString();
       }
@@ -180,7 +192,7 @@ class CustomFieldForm extends Component {
             {
               typeValue === 'telephone' &&
               <Field
-                name="template"
+                name="telephoneTemplate"
                 type="text"
                 component={TextField}
                 label="Template"
@@ -190,7 +202,7 @@ class CustomFieldForm extends Component {
             {
               typeValue === 'number' &&
               <Field
-                name="min"
+                name="numberMin"
                 type="number"
                 component={TextField}
                 label="Minimum Value"
@@ -199,7 +211,7 @@ class CustomFieldForm extends Component {
             {
               typeValue === 'number' &&
               <Field
-                name="max"
+                name="numberMax"
                 type="number"
                 component={TextField}
                 label="Maximum Value"
@@ -208,7 +220,7 @@ class CustomFieldForm extends Component {
             {
               typeValue === 'date' &&
               <Field
-                name="template"
+                name="dateTemplate"
                 type="text"
                 component={TextField}
                 label="Template"
@@ -218,7 +230,7 @@ class CustomFieldForm extends Component {
             {
               typeValue === 'text' &&
               <Field
-                name="min"
+                name="textMin"
                 type="number"
                 component={TextField}
                 label="Minimum Words"
@@ -227,7 +239,7 @@ class CustomFieldForm extends Component {
             {
               typeValue === 'text' &&
               <Field
-                name="max"
+                name="textMax"
                 type="number"
                 component={TextField}
                 label="Maximum Words"
@@ -236,7 +248,7 @@ class CustomFieldForm extends Component {
             {
               typeValue === 'alphanumeric' &&
               <Field
-                name="template"
+                name="alphanumericTemplate"
                 type="text"
                 component={TextField}
                 label="Format"
@@ -246,7 +258,7 @@ class CustomFieldForm extends Component {
             {
               typeValue === 'regex' &&
               <Field
-                name="template"
+                name="regexTemplate"
                 type="text"
                 component={TextField}
                 label="Pattern"
@@ -287,37 +299,74 @@ CustomFieldForm.propTypes = {
   pristine: PropTypes.bool.isRequired,
   valid: PropTypes.bool.isRequired,
   typeValue: PropTypes.string,
-  regexPatternValue: PropTypes.string,
+  regexTemplateValue: PropTypes.string,
 };
 
 const FormComponent = reduxForm({
   form: 'customFieldForm',
   validate,
   enableReinitialize: true,
+  keepDirtyOnReinitialize: true,
 })(CustomFieldForm);
 
 const selector = formValueSelector('customFieldForm');
 
 function mapStateToProps(state, ownProps) {
+  const customField = ownProps.customField;
   const typeValue = selector(state, 'type');
-  const regexPatternValue = selector(state, 'template');
+  const regexTemplateValue = selector(state, 'regexTemplate');
+  const telephoneTemplateValue = selector(state, 'telephoneTemplate');
+  const dateTemplateValue = selector(state, 'dateTemplate');
+  const alphanumericTemplateValue = selector(state, 'alphanumericTemplate');
+  const numberMinValue = selector(state, 'numberMin');
+  const numberMaxValue = selector(state, 'numberMax');
+  const textMinValue = selector(state, 'textMin');
+  const textMaxValue = selector(state, 'textMax');
 
-  const initialValues = Object.assign({}, ownProps.customField, {
-    match: ownProps.customField.match ? ownProps.customField.match.join(', ') : '',
-    list: ownProps.customField.list ? ownProps.customField.list.join('\n') : '',
+  const initialValues = Object.assign({}, customField, {
+    match: customField.match ? customField.match.join(', ') : '',
+    list: customField.list ? customField.list.join('\n') : '',
+    telephoneTemplate: '+XXX-Xx-Xxxxxxx',
+    dateTemplate: 'DD-MMM-YYYY',
+    numberMin: 0,
+    numberMax: 99999,
+    textMin: 1,
+    textMax: 20,
   });
 
-  // if (typeValue === 'telephone' && !ownProps.customField.template) {
-  //   initialValues.template = '+XXX-Xx-Xxxxxxx';
-  // }
+  if (typeValue === 'telephone') {
+    initialValues.telephoneTemplate = telephoneTemplateValue || customField.template || '+XXX-Xx-Xxxxxxx';
+  }
 
-  // if (typeValue === 'date' && !ownProps.customField.template) {
-  //   initialValues.template = 'DD-MMM-YYYY';
-  // }
+  if (typeValue === 'date') {
+    initialValues.dateTemplate = dateTemplateValue || customField.template || 'DD-MMM-YYYY';
+  }
+
+  if (typeValue === 'alphanumeric') {
+    initialValues.alphanumericTemplate = alphanumericTemplateValue || customField.template;
+  }
+
+  if (typeValue === 'regex') {
+    initialValues.regexTemplate = regexTemplateValue || customField.template;
+  }
+
+  if (typeValue === 'number') {
+    initialValues.numberMin = numberMinValue || customField.min || 0;
+    initialValues.numberMax = numberMaxValue || customField.max || 99999;
+  }
+
+  if (typeValue === 'text') {
+    initialValues.textMin = textMinValue || customField.min || 1;
+    initialValues.textMax = textMaxValue || customField.max || 20;
+  }
+
+  delete initialValues.template;
+  delete initialValues.min;
+  delete initialValues.max;
 
   return {
     typeValue,
-    regexPatternValue,
+    regexTemplateValue,
     initialValues,
   };
 }
