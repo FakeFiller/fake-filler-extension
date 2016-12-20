@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "__MSG_appName__",
+  "name": "Form Filler",
   "version": "0.0.1",
-  "description": "__MSG_appDescription__",
+  "description": "Fill all inputs in a page with dummy data.",
   "icons": {
     "16": "images/icon-16.png",
     "32": "images/icon-32.png",
@@ -11,7 +11,6 @@
     "96": "images/icon-96.png",
     "128": "images/icon-128.png"
   },
-  "default_locale": "en",
   "permissions": [
     "contextMenus",
     "activeTab",
@@ -26,23 +25,23 @@
       "96": "images/icon-96.png",
       "128": "images/icon-128.png"
     },
-    "default_title": "__MSG_appButtonTooltip__"
+    "default_title": "Fill all inputs with dummy data."
   },
   "commands": {
     "fill_this_form": {
-      "description": "__MSG_commandFillThisForm__",
+      "description": "Fill this form",
       "suggested_key": {
         "default": "Ctrl+Shift+A"
       }
     },
     "fill_this_input": {
-      "description": "__MSG_commandFillThisInput__",
+      "description": "Fill this input field",
       "suggested_key": {
         "default": "Ctrl+Shift+S"
       }
     },
     "fill_all_inputs": {
-      "description": "__MSG_commandFillAllInputs__",
+      "description": "Fill all inputs",
       "suggested_key": {
         "default": "Ctrl+Shift+F"
       }
