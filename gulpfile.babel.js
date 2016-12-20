@@ -57,6 +57,7 @@ gulp.task('extras', () => {
   return gulp.src([
     'app/*.*',
     'app/fonts/**',
+    'app/images/**',
     '!app/scripts.babel',
     '!app/*.json',
     '!app/*.html',
@@ -99,22 +100,7 @@ gulp.task('html', ['options-styles'], () => {
     .pipe($.useref({ searchPath: ['.tmp', 'app', '.'] }))
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.cleanCss({ compatibility: '*' })))
-    .pipe($.if('*.html', $.htmlmin({ removeComments: true, collapseWhitespace: true })))
     .pipe(gulp.dest('dist'));
-});
-
-gulp.task('images', () => {
-  return gulp.src('app/images/**/*')
-    .pipe($.if($.if.isFile, $.cache($.imagemin({
-      progressive: true,
-      interlaced: true,
-      svgoPlugins: [{ cleanupIDs: false }],
-    }))
-    .on('error', (err) => {
-      console.log(err);
-      this.end();
-    })))
-    .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('chromeManifest', () => {
@@ -122,9 +108,9 @@ gulp.task('chromeManifest', () => {
     .pipe($.chromeManifest({
       buildnumber: formFillerVersion,
     }))
-  .pipe($.if('*.css', $.cleanCss({ compatibility: '*' })))
-  .pipe($.if('*.js', $.uglify()))
-  .pipe(gulp.dest('dist'));
+    .pipe($.if('*.css', $.cleanCss({ compatibility: '*' })))
+    .pipe($.if('*.js', $.uglify()))
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('build-scripts', ['script-options', 'script-background', 'script-content-script']);
@@ -134,7 +120,7 @@ gulp.task('build', ['build-vendor'], (cb) => {
     'build-scripts',
     'options-styles',
     'chromeManifest',
-    ['html', 'images', 'extras'],
+    ['html', 'extras'],
     cb,
     );
 });

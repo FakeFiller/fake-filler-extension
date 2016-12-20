@@ -38,9 +38,10 @@ class App extends Component {
             </ul>
             <div id="about">
               <p>
-                If you like Form Filler, please <a href="">rate it on the Chrome Web Store.</a> If
-                you have any suggestions to make this extension better, or find any issues, please
-                send me an <a href="mailto:husainsfabbas@gmail.com">email</a>.
+                If you like Form Filler, please <a href="https://bit.ly/FormFiller">rate it on
+                the Chrome Web Store.</a> If you have any suggestions to make this extension
+                better, or find any issues, please send me
+                an <a href="mailto:husainsfabbas@gmail.com">email</a>.
               </p>
               <ul className="list-inline">
                 <li><a href="" onClick={this.resetSettings}>Restore Factory Settings</a></li>

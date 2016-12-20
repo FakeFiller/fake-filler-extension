@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import Modal from 'react-modal';
 
 import CustomFieldForm from './CustomFieldForm';
-import { CsvToArray, MultipleLinesToArray } from '../../../form-filler/helpers';
 import { shapeOfCustomField } from '../../prop-types';
 
 const customStyles = {
@@ -30,12 +29,6 @@ class CustomFieldModal extends Component {
   render() {
     const customField = this.props.customField;
 
-    // const initialValues = {
-    //   initialValues: Object.assign({}, customField, {
-    //     match: customField.match ? customField.match.join(', ') : '',
-    //   }),
-    // };
-
     return (
       <Modal
         className="modal-dialog"
@@ -48,7 +41,6 @@ class CustomFieldModal extends Component {
           customField={customField}
           onSubmit={this.handleSubmit}
           onClose={this.handleClose}
-          // {...initialValues}
         />
       </Modal>
     );
