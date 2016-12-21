@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { getKeyboardShortcuts } from '../actions';
+import { GetBrowser } from '../../form-filler/helpers';
 
 class KeyboardShortcutsPage extends Component {
   constructor(props) {
@@ -19,6 +20,8 @@ class KeyboardShortcutsPage extends Component {
     }
 
     const keyboardShortcuts = this.props.keyboardShortcuts;
+
+    const isFirefox = GetBrowser() === 'Firefox';
 
     return (
       <div>
@@ -41,12 +44,15 @@ class KeyboardShortcutsPage extends Component {
             }
           </tbody>
         </table>
-        <p>
-          To change these keyboard shortcuts, type <code>chrome://extensions/</code> in the
-          address bar to open up the extensions page. At the bottom of that page you will see
-          a Keyboard Shortcuts option. Click it, and you can set up custom shortcuts for
-          Form Filler from there.
-        </p>
+        { isFirefox && (<p>Ability to change keyboard shortcuts in Firefox will come soon.</p>) }
+        { !isFirefox && (
+          <p>
+            To change these keyboard shortcuts, type <code>chrome://extensions/</code> in the
+            address bar to open up the extensions page. At the bottom of that page you will see
+            a Keyboard Shortcuts option. Click it, and you can set up custom shortcuts for
+            Form Filler from there.
+          </p>
+        )}
       </div>
     );
   }

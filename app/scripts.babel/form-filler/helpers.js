@@ -226,6 +226,16 @@ function MultipleLinesToArray(text) {
   return arrayData;
 }
 
+function GetBrowser() {
+  const tempUrl = chrome.runtime.getURL('images/logo.svg');
+
+  if (tempUrl.startsWith('moz')) {
+    return 'Firefox';
+  }
+
+  return 'Chrome';
+}
+
 export {
   FormFillerDefaultOptions,
   GetFormFillerOptions,
@@ -234,4 +244,5 @@ export {
   GetKeyboardShortcuts,
   CsvToArray,
   MultipleLinesToArray,
+  GetBrowser,
 };

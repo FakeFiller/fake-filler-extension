@@ -5,6 +5,7 @@ import { reset } from 'redux-form';
 
 import NavItem from './NavItem';
 import { resetOptions } from '../actions';
+import { GetBrowser } from '../../form-filler/helpers';
 
 class App extends Component {
   constructor(props) {
@@ -23,6 +24,14 @@ class App extends Component {
   }
 
   render() {
+    let rateLink;
+
+    if (GetBrowser() === 'Firefox') {
+      rateLink = <a href="https://bit.ly/FormFillerFirefox">rate it on the addons.mozilla.org</a>;
+    } else {
+      rateLink = <a href="https://bit.ly/FormFiller">rate it on the Chrome Web Store</a>;
+    }
+
     return (
       <div className="container">
         <div className="row">
@@ -38,9 +47,8 @@ class App extends Component {
             </ul>
             <div id="about">
               <p>
-                If you like Form Filler, please <a href="https://bit.ly/FormFiller">rate it on
-                the Chrome Web Store.</a> If you have any suggestions to make this extension
-                better, or find any issues, please send me
+                If you like Form Filler, please {rateLink}. If you have any suggestions to
+                make this extension better, or find any issues, please send me
                 an <a href="mailto:husainsfabbas@gmail.com">email</a>.
               </p>
               <ul className="list-inline">
