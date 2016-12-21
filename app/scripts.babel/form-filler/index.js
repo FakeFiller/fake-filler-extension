@@ -29,13 +29,12 @@ class FormFiller {
       this.dataGenerator.fillSelectTagElement(element);
     });
 
-    // TODO: Handle contentEditable elements.
-
-    // jQuery('[contenteditable]').each((index, element) => {
-    //   if (element.isContentEditable) {
-    //     element.innerHTML = this.dataGenerator.generateParagraph(5, 100);
-    //   }
-    // });
+    jQuery('[contenteditable]').each((index, element) => {
+      if (element.isContentEditable) {
+        // eslint-disable-next-line no-param-reassign
+        element.textContent = this.dataGenerator.generateParagraph(5, 100);
+      }
+    });
   }
 
   fillThisInput() {
@@ -53,7 +52,7 @@ class FormFiller {
       } else if (tagName === 'select') {
         this.dataGenerator.fillSelectTagElement(element);
       } else if (element.isContentEditable) {
-        // TODO: Handle contentEditable elements.
+        element.textContent = this.dataGenerator.generateParagraph(5, 100);
       }
     }
 
@@ -81,13 +80,12 @@ class FormFiller {
           this.dataGenerator.fillSelectTagElement(element);
         });
 
-        // TODO: Handle contentEditable elements.
-
-        // jQuery('[contenteditable]', form[0]).each((index, element) => {
-        //   if (element.isContentEditable) {
-        //     element.innerHTML = this.dataGenerator.generateParagraph(5, 100);
-        //   }
-        // });
+        jQuery('[contenteditable]', form[0]).each((index, element) => {
+          if (element.isContentEditable) {
+            // eslint-disable-next-line no-param-reassign
+            element.textContent = this.dataGenerator.generateParagraph(5, 100);
+          }
+        });
       }
     }
 
