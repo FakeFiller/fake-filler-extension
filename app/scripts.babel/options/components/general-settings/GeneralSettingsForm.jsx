@@ -71,7 +71,7 @@ const GeneralSettingsForm = (props) => {
             type="text"
             component="input"
             className="form-control"
-            autoComplete={false}
+            autoComplete="off"
             placeholder="Enter comma-separated values."
           />
           <Field
@@ -100,7 +100,7 @@ const GeneralSettingsForm = (props) => {
             type="text"
             component="input"
             className="form-control"
-            autoComplete={false}
+            autoComplete="off"
             placeholder="Enter comma-separated values."
           />
           <div className="help-block">
@@ -117,7 +117,7 @@ const GeneralSettingsForm = (props) => {
             type="text"
             component="input"
             className="form-control"
-            autoComplete={false}
+            autoComplete="off"
             placeholder="Enter comma-separated values."
           />
           <div className="help-block">

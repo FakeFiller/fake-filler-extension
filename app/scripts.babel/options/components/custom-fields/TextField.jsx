@@ -9,6 +9,7 @@ const TextField = ({ input, label, type, placeholder, helpText, meta: { touched,
         type={type}
         className="form-control"
         placeholder={placeholder}
+        autoComplete="off"
       />
       { helpText && <div className="help-block">{helpText}</div> }
       {touched && ((error && <span className="help-block">{error}</span>))}

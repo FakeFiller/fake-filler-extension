@@ -32,7 +32,7 @@ const PasswordSettingsField = (fields) => {
           type="text"
           component="input"
           className="form-control"
-          autoComplete={false}
+          autoComplete="off"
         />
         {
           passwordField.meta.error &&

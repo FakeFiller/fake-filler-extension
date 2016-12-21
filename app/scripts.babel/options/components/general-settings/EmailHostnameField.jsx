@@ -32,7 +32,7 @@ const EmailHostnameField = (fields) => {
           type="text"
           component="input"
           className="form-control"
-          autoComplete={false}
+          autoComplete="off"
           placeholder="Enter comma-separated values."
         />
         <div className="help-block">
