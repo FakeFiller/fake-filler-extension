@@ -3,7 +3,7 @@ import React from 'react';
 const ChangelogPage = () => (
   <div>
     <h2>Form Filler has been updated!</h2>
-    <p><strong>Version 2.6.0</strong></p>
+    <p><strong>Version 2.7.0</strong></p>
     <ul>
       <li>Form Filler is now on Firefox!</li>
     </ul>
