@@ -15,8 +15,6 @@ class FormFiller {
   }
 
   fillAllInputs() {
-    console.log('fillAllInputs');
-
     jQuery('input:enabled:not([readonly])').each((index, element) => {
       this.dataGenerator.fillInputTagElement(element);
     });
@@ -38,8 +36,6 @@ class FormFiller {
   }
 
   fillThisInput() {
-    console.log('fillThisInput');
-
     const element = this.clickedElement || document.activeElement;
 
     if (element) {
@@ -60,8 +56,6 @@ class FormFiller {
   }
 
   fillThisForm() {
-    console.info('fillThisForm');
-
     const theElement = this.clickedElement || document.activeElement;
 
     if (theElement && theElement.tagName.toLowerCase() !== 'body') {
@@ -90,12 +84,6 @@ class FormFiller {
     }
 
     this.setClickedElement(null);
-  }
-
-  trackEvent(category, action) {
-    if (this.trackingCode) {
-      console.log(`Tracked Event - Category: ${category}, Action: ${action}`);
-    }
   }
 }
 

@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener(handleMessage);
 
 chrome.browserAction.onClicked.addListener(() => {
   chrome.tabs.executeScript({
-    code: 'window.formFiller.fillAllInputs(); window.formFiller.trackEvent("Extension Button", "Click");',
+    code: 'window.formFiller.fillAllInputs();',
     allFrames: true,
   });
 });
@@ -32,19 +32,19 @@ GetFormFillerOptions().then((options) => {
 chrome.contextMenus.onClicked.addListener((info) => {
   if (info.menuItemId === 'form-filler-all') {
     chrome.tabs.executeScript({
-      code: 'window.formFiller.fillAllInputs(); window.formFiller.trackEvent("Context Menu", "fill_all_inputs");',
+      code: 'window.formFiller.fillAllInputs();',
       allFrames: true,
     });
   }
   if (info.menuItemId === 'form-filler-form') {
     chrome.tabs.executeScript({
-      code: 'window.formFiller.fillThisForm(); window.formFiller.trackEvent("Context Menu", "fill_this_form");',
+      code: 'window.formFiller.fillThisForm();',
       allFrames: true,
     });
   }
   if (info.menuItemId === 'form-filler-input') {
     chrome.tabs.executeScript({
-      code: 'window.formFiller.fillThisInput(); window.formFiller.trackEvent("Context Menu", "fill_this_input");',
+      code: 'window.formFiller.fillThisInput();',
       allFrames: true,
     });
   }
@@ -53,19 +53,19 @@ chrome.contextMenus.onClicked.addListener((info) => {
 chrome.commands.onCommand.addListener((command) => {
   if (command === 'fill_all_inputs') {
     chrome.tabs.executeScript({
-      code: 'window.formFiller.fillAllInputs(); window.formFiller.trackEvent("Keyboard Shortcut", "fill_all_inputs");',
+      code: 'window.formFiller.fillAllInputs();',
       allFrames: true,
     });
   }
   if (command === 'fill_this_form') {
     chrome.tabs.executeScript({
-      code: 'window.formFiller.fillThisForm(); window.formFiller.trackEvent("Keyboard Shortcut", "fill_this_form");',
+      code: 'window.formFiller.fillThisForm();',
       allFrames: true,
     });
   }
   if (command === 'fill_this_input') {
     chrome.tabs.executeScript({
-      code: 'window.formFiller.fillThisInput(); window.formFiller.trackEvent("Keyboard Shortcut", "fill_this_input");',
+      code: 'window.formFiller.fillThisInput();',
       allFrames: true,
     });
   }
