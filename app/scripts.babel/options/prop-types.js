@@ -30,7 +30,7 @@ const shapeOfOptions = PropTypes.shape({
   emailSettings: PropTypes.shape({
     hostname: PropTypes.oneOf(['list', 'random']),
     hostnameList: PropTypes.arrayOf(PropTypes.string),
-    username: PropTypes.oneOf(['list', 'name', 'random', 'username']),
+    username: PropTypes.oneOf(['list', 'name', 'random', 'username', 'regex']),
     usernameList: PropTypes.arrayOf(PropTypes.string),
   }),
   enableContextMenu: PropTypes.bool,

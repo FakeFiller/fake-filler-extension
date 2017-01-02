@@ -16,6 +16,7 @@ function FormFillerDefaultOptions() {
   options.emailSettings = {
     username: 'random',
     usernameList: ['jack', 'sparrow', 'frodo', 'baggins'],
+    usernameRegEx: '',
     hostname: 'list',
     hostnameList: ['hotmail.com', 'gmail.com', 'yahoo.com'],
   };

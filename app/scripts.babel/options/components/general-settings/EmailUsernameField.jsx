@@ -6,8 +6,12 @@ import toggleInput from '../shared/ToggleInput';
 const EmailUsernameField = (fields) => {
   const usernameField = fields.emailSettings.username;
   const usernameListField = fields.emailSettings.usernameList;
+  const usernameRegExField = fields.emailSettings.usernameRegEx;
 
-  const fieldHasError = usernameField.meta.invalid || usernameListField.meta.invalid;
+  const fieldHasError = usernameField.meta.invalid
+    || usernameListField.meta.invalid
+    || usernameRegExField.meta.invalid
+    ;
 
   return (
     <div className={`form-group${(fieldHasError) ? ' has-error' : ''}`}>
@@ -39,7 +43,7 @@ const EmailUsernameField = (fields) => {
           component={toggleInput}
           type="radio"
           value="list"
-          label="Select from the list below:"
+          label="Select from the list below (List each name with a comma.):"
         />
         <Field
           {...usernameListField.input}
@@ -49,12 +53,28 @@ const EmailUsernameField = (fields) => {
           autoComplete="off"
           placeholder="Enter comma-separated values."
         />
-        <div className="help-block">
-          List each name with a comma.
-        </div>
         {
           usernameListField.meta.error &&
           <div className="help-block">{usernameListField.meta.error}</div>
+        }
+        <Field
+          {...usernameField.input}
+          component={toggleInput}
+          type="radio"
+          value="regex"
+          label="Use this regular expression:"
+        />
+        <Field
+          {...usernameRegExField.input}
+          type="text"
+          component="input"
+          className="form-control"
+          autoComplete="off"
+          placeholder="A regular expression."
+        />
+        {
+          usernameRegExField.meta.error &&
+          <div className="help-block">{usernameRegExField.meta.error}</div>
         }
       </div>
     </div>

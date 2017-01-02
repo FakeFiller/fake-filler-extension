@@ -2,7 +2,12 @@ import React from 'react';
 
 const ChangelogPage = () => (
   <div>
-    <h2>Form Filler has been updated!</h2>
+    <h2>Form Filler Changelog</h2>
+    <p><strong>Version 2.8.0</strong></p>
+    <ul>
+      <li>Added option to generate email username segment using regular expressions.</li>
+    </ul>
+    <hr />
     <p><strong>Version 2.7.0</strong></p>
     <ul>
       <li>Form Filler is now on Firefox!</li>

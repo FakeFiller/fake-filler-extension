@@ -205,13 +205,14 @@ class DataGenerator {
     return this.options.passwordSettings.password;
   }
 
-  generateEmail() {
+  generateEmail(emailSettings) {
     let username = '';
 
-    switch (this.options.emailSettings.username) {
+    switch (emailSettings.username) {
       case 'list':
-        username = this.options.emailSettings.usernameList[Math.floor(Math.random() *
-          (this.options.emailSettings.usernameList.length))];
+        username = emailSettings.usernameList[
+          Math.floor(Math.random() * (emailSettings.usernameList.length))
+        ];
         break;
 
       case 'username':
@@ -233,20 +234,32 @@ class DataGenerator {
         }
         break;
 
+      case 'regex':
+        try {
+          username = new RandExp(emailSettings.usernameRegEx).gen();
+        } catch (ex) {
+          // Do nothing.
+        }
+        break;
+
       default:
         break;
     }
 
-    if (username.length === 0) {
+    if (!username || username.length === 0) {
       username = this.generateScrambledWord(4, 10).toLowerCase();
     }
 
-    const randomNumber = Math.floor(Math.random() *
-      (this.options.emailSettings.hostnameList.length));
+    let domain = '';
 
-    let domain = (this.options.emailSettings.hostname === 'random')
-      ? `${this.generateScrambledWord().toLowerCase()}.com`
-      : this.options.emailSettings.hostnameList[randomNumber];
+    if (emailSettings.hostname === 'list') {
+      const randomNumber = Math.floor(Math.random() * (emailSettings.hostnameList.length));
+      domain = emailSettings.hostnameList[randomNumber];
+    }
+
+    if (!domain || domain.length === 0) {
+      domain = `${this.generateScrambledWord().toLowerCase()}.com`;
+    }
 
     if (domain.indexOf('@') === -1) {
       domain = `@${domain}`;
@@ -389,7 +402,7 @@ class DataGenerator {
         return `${this.previousFirstName} ${this.previousLastName}`;
 
       case 'email':
-        return this.generateEmail();
+        return this.generateEmail(this.options.emailSettings);
 
       case 'organization':
         return this.generateOrganizationName();
@@ -514,7 +527,7 @@ class DataGenerator {
       if (this.isAnyMatch(element.name.toLowerCase(), this.options.confirmFields)) {
         element.value = this.previousValue;
       } else {
-        this.previousValue = this.generateEmail();
+        this.previousValue = this.generateEmail(this.options.emailSettings);
         element.value = this.previousValue;
       }
     } else if (elementType === 'number' || elementType === 'range') {
