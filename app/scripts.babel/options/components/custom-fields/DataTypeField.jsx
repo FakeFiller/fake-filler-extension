@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
-const DataTypeField = ({ input, label, helpText, meta: { touched, error } }) => (
-  <div className={`form-group${touched && error ? ' has-error' : ''}`}>
+const DataTypeField = ({ input, label, helpText, meta: { dirty, touched, error } }) => (
+  <div className={`form-group${touched && dirty && error ? ' has-error' : ''}`}>
     <label className="control-label col-sm-3">{label}</label>
     <div className="col-sm-9">
       <select {...input} className="form-control">
@@ -26,7 +26,7 @@ const DataTypeField = ({ input, label, helpText, meta: { touched, error } }) => 
         </optgroup>
       </select>
       { helpText && <div className="help-block">{helpText}</div> }
-      {touched && ((error && <span className="help-block">{error}</span>))}
+      { touched && dirty && ((error && <span className="help-block">{error}</span>)) }
     </div>
   </div>
 );

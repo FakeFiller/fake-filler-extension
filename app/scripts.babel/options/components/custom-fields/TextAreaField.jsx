@@ -1,7 +1,17 @@
 import React, { PropTypes } from 'react';
 
-const TextAreaField = ({ input, label, placeholder, helpText, meta: { touched, error } }) => (
-  <div className={`form-group${touched && error ? ' has-error' : ''}`}>
+const TextAreaField = ({
+  input,
+  label,
+  placeholder,
+  helpText,
+  meta: {
+    dirty,
+    touched,
+    error,
+  },
+}) => (
+  <div className={`form-group${touched && dirty && error ? ' has-error' : ''}`}>
     <label className="control-label col-sm-3">{label}</label>
     <div className="col-sm-9">
       <textarea
@@ -10,7 +20,7 @@ const TextAreaField = ({ input, label, placeholder, helpText, meta: { touched, e
         placeholder={placeholder}
       />
       { helpText && <div className="help-block">{helpText}</div> }
-      {touched && ((error && <span className="help-block">{error}</span>))}
+      { touched && dirty && ((error && <span className="help-block">{error}</span>)) }
     </div>
   </div>
 );

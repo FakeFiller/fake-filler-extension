@@ -1,7 +1,18 @@
 import React, { PropTypes } from 'react';
 
-const TextField = ({ input, label, type, placeholder, helpText, meta: { touched, error } }) => (
-  <div className={`form-group${touched && error ? ' has-error' : ''}`}>
+const TextField = ({
+  input,
+  label,
+  type,
+  placeholder,
+  helpText,
+  meta: {
+    dirty,
+    touched,
+    error,
+  },
+}) => (
+  <div className={`form-group${touched && dirty && error ? ' has-error' : ''}`}>
     <label className="control-label col-sm-3">{label}</label>
     <div className={type === 'number' ? 'col-sm-4' : 'col-sm-9'}>
       <input
@@ -12,7 +23,7 @@ const TextField = ({ input, label, type, placeholder, helpText, meta: { touched,
         autoComplete="off"
       />
       { helpText && <div className="help-block">{helpText}</div> }
-      {touched && ((error && <span className="help-block">{error}</span>))}
+      { touched && dirty && ((error && <span className="help-block">{error}</span>)) }
     </div>
   </div>
 );
