@@ -28,7 +28,7 @@ class DataGenerator {
   }
 
   generateNumber(start, end) {
-    return Math.floor((Math.random() * (end - (start + 1))) + start);
+    return Math.floor((Math.random() * ((end - start) + 1)) + start);
   }
 
   generateScrambledWord(minLength, maxLength, firstLetterLower) {

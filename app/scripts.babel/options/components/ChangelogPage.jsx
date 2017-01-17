@@ -3,6 +3,11 @@ import React from 'react';
 const ChangelogPage = () => (
   <div>
     <h2>Form Filler Changelog</h2>
+    <p><strong>Version 2.8.2</strong></p>
+    <ul>
+      <li>Fixed a random number generation bug.</li>
+    </ul>
+    <hr />
     <p><strong>Version 2.8.1</strong></p>
     <ul>
       <li>Options from the old version of the extension are migrated to the new one.</li>
