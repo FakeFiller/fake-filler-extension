@@ -30,10 +30,10 @@ const SortableItem = SortableElement(({ customField, itemIndex, onEdit, onDelete
       <dd>{customField.match.join(', ')}</dd>
       {customField.template && <dt>Template</dt>}
       {customField.template && <dd>{customField.template}</dd>}
-      {customField.min && <dt>Minimum Value</dt>}
-      {customField.min && <dd>{customField.min}</dd>}
-      {customField.max && <dt>Maximum Value</dt>}
-      {customField.max && <dd>{customField.max}</dd>}
+      {customField.min !== undefined && customField.min !== null && <dt>Minimum Value</dt>}
+      {customField.min !== undefined && customField.min !== null && <dd>{customField.min}</dd>}
+      {customField.max !== undefined && customField.max !== null && <dt>Maximum Value</dt>}
+      {customField.max !== undefined && customField.max !== null && <dd>{customField.max}</dd>}
       {customField.list && <dt>List Items</dt>}
       {customField.list && <dd>{customField.list.join(', ')}</dd>}
     </dl>

@@ -61,13 +61,13 @@ export function saveCustomField(options, customField, customFieldIndex) {
     });
 
     if (newCustomField.type === 'number') {
-      newCustomField.min = newCustomField.numberMin;
-      newCustomField.max = newCustomField.numberMax;
+      newCustomField.min = parseInt(newCustomField.numberMin, 10);
+      newCustomField.max = parseInt(newCustomField.numberMax, 10);
     }
 
     if (newCustomField.type === 'text') {
-      newCustomField.min = newCustomField.textMin;
-      newCustomField.max = newCustomField.textMax;
+      newCustomField.min = parseInt(newCustomField.textMin, 10);
+      newCustomField.max = parseInt(newCustomField.textMax, 10);
     }
 
     if (newCustomField.type === 'telephone') {

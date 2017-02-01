@@ -3,6 +3,11 @@ import React from 'react';
 const ChangelogPage = () => (
   <div>
     <h2>Form Filler Changelog</h2>
+    <p><strong>Version 2.8.3</strong></p>
+    <ul>
+      <li>Fixed issue in validating and saving Number custom field types.</li>
+    </ul>
+    <hr />
     <p><strong>Version 2.8.2</strong></p>
     <ul>
       <li>Fixed a random number generation bug.</li>

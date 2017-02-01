@@ -38,7 +38,7 @@ const validate = (values) => {
       if (!values.numberMax || values.numberMax.length === 0) {
         errors.numberMax = 'Please enter a maximum value.';
       }
-      if (values.numberMin && values.numberMax && values.numberMax < values.numberMin) {
+      if (values.numberMin && values.numberMax && parseInt(values.numberMax, 10) < parseInt(values.numberMin, 10)) {
         errors.numberMax = 'The maximum value cannot be less than the minimum values.';
       }
     }
@@ -50,7 +50,10 @@ const validate = (values) => {
       if (!values.textMax || values.textMax.length === 0) {
         errors.textMax = 'Please enter a maximum value.';
       }
-      if (values.textMin && values.textMax && values.textMax < values.textMin) {
+      if (values.textMin && parseInt(values.textMin, 10) < 1) {
+        errors.textMin = 'The minimum value must be greater than one.'
+      }
+      if (values.textMin && values.textMax && parseInt(values.textMax, 10) < parseInt(values.textMin, 10)) {
         errors.textMax = 'The maximum value cannot be less than the minimum values.';
       }
     }
@@ -351,13 +354,13 @@ function mapStateToProps(state, ownProps) {
   }
 
   if (typeValue === 'number') {
-    initialValues.numberMin = numberMinValue || customField.min || 0;
-    initialValues.numberMax = numberMaxValue || customField.max || 99999;
+    initialValues.numberMin = customField.min || numberMinValue || 0;
+    initialValues.numberMax = customField.max || numberMaxValue || 99999;
   }
 
   if (typeValue === 'text') {
-    initialValues.textMin = textMinValue || customField.min || 1;
-    initialValues.textMax = textMaxValue || customField.max || 20;
+    initialValues.textMin = customField.min || textMinValue || 1;
+    initialValues.textMax = customField.max || textMaxValue || 20;
   }
 
   delete initialValues.template;
