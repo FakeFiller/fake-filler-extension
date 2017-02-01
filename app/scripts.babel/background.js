@@ -16,23 +16,28 @@ function handleMessage(request, sender, sendResponse) {
   return null;
 }
 
-chrome.runtime.onInstalled.addListener((details) => {
-  if (details.reason === 'update') {
-    try {
-      const optionsString = localStorage.getItem('options');
-      if (optionsString) {
-        const options = JSON.parse(optionsString);
-        if (options) {
-          SaveFormFillerOptions(options);
-          localStorage.removeItem('options');
+if (chrome.runtime.onInstalled) {
+  chrome.runtime.onInstalled.addListener((details) => {
+    console.info('onInstalled');
+    console.log(details.reason);
+
+    if (details.reason === 'update') {
+      try {
+        const optionsString = localStorage.getItem('options');
+        if (optionsString) {
+          const options = JSON.parse(optionsString);
+          if (options) {
+            SaveFormFillerOptions(options);
+            localStorage.removeItem('options');
+          }
         }
+      } catch (ex) {
+        // eslint-disable-next-line no-alert
+        alert(`An error occurred while migrating Form Filler options: ${ex.message}`);
       }
-    } catch (ex) {
-      // eslint-disable-next-line no-alert
-      alert('An error occurred while migrating Form Filler options: ' + ex.message);
     }
-  }
-});
+  });
+}
 
 chrome.runtime.onMessage.addListener(handleMessage);
 
