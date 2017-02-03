@@ -12,6 +12,7 @@
     "window": true
   },
   "rules": {
+    "max-len": ["error", 120],
     "jsx-a11y/label-has-for": [0]
   }
 }

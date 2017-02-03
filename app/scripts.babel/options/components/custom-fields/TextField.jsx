@@ -37,7 +37,12 @@ TextField.propTypes = {
     PropTypes.string,
     PropTypes.element,
   ]),
-  meta: PropTypes.shape({}),
+  meta: PropTypes.shape({}).isRequired,
+};
+
+TextField.defaultProps = {
+  placeholder: '',
+  helpText: '',
 };
 
 export default TextField;

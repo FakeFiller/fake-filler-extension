@@ -245,6 +245,10 @@ GeneralSettingsForm.propTypes = {
   emailSettings: PropTypes.shape({}),
 };
 
+GeneralSettingsForm.defaultProps = {
+  emailSettings: null,
+};
+
 const FormComponent = reduxForm({
   form: 'settingsForm',
   validate,

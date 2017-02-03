@@ -37,7 +37,7 @@ class App extends Component {
         <div className="row">
           <div className="col-sm-3">
             <h1>
-              <img src="images/logo.svg" height="32" role="presentation" />
+              <img src="images/logo.svg" height="32" alt="Form Filler" />
             </h1>
             <ul className="nav nav-pills nav-stacked">
               <NavItem to="/">General</NavItem>

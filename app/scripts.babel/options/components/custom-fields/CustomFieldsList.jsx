@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+
 import React, { Component, PropTypes } from 'react';
 import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'react-sortable-hoc';
 
@@ -87,6 +89,10 @@ CustomFieldsList.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onSort: PropTypes.func.isRequired,
+};
+
+CustomFieldsList.defaultProps = {
+  customFields: [],
 };
 
 export default CustomFieldsList;

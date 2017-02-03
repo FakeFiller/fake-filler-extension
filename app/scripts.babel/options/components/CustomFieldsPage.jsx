@@ -105,7 +105,11 @@ class CustomFieldsPage extends Component {
 CustomFieldsPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   options: shapeOfOptions,
-  isFetching: PropTypes.bool,
+  isFetching: PropTypes.bool.isRequired,
+};
+
+CustomFieldsPage.defaultProps = {
+  options: null,
 };
 
 function mapStateToProps(state) {

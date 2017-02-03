@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
@@ -65,7 +67,11 @@ KeyboardShortcutsPage.propTypes = {
     shortcut: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
   })),
-  isFetching: PropTypes.bool,
+  isFetching: PropTypes.bool.isRequired,
+};
+
+KeyboardShortcutsPage.defaultProps = {
+  keyboardShortcuts: null,
 };
 
 function mapStateToProps(state) {

@@ -71,7 +71,11 @@ class DataGenerator {
       word = data.wordBank[Math.floor(Math.random() * (data.wordBank.length - 1))];
       const phraseLength = resultPhrase.length;
 
-      if (phraseLength === 0 || resultPhrase.substring(phraseLength - 1, phraseLength) === '.' || resultPhrase.substring(phraseLength - 1, phraseLength) === '?') {
+      if (
+        phraseLength === 0
+        || resultPhrase.substring(phraseLength - 1, phraseLength) === '.'
+        || resultPhrase.substring(phraseLength - 1, phraseLength) === '?'
+      ) {
         word = word.substring(0, 1).toUpperCase() + word.substring(1, word.length);
       }
 

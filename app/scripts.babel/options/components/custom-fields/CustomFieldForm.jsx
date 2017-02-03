@@ -7,6 +7,7 @@ import DataTypeField from './DataTypeField';
 import TextField from './TextField';
 import TextAreaField from './TextAreaField';
 
+// eslint-disable-next-line max-len
 const customFieldMatchRegEx = /^(first-name|last-name|full-name|username|email|organization|telephone|number|date|url|text|alphanumeric|regex|randomized-list)$/;
 
 const validate = (values) => {
@@ -51,7 +52,7 @@ const validate = (values) => {
         errors.textMax = 'Please enter a maximum value.';
       }
       if (values.textMin && parseInt(values.textMin, 10) < 1) {
-        errors.textMin = 'The minimum value must be greater than one.'
+        errors.textMin = 'The minimum value must be greater than one.';
       }
       if (values.textMin && values.textMax && parseInt(values.textMax, 10) < parseInt(values.textMin, 10)) {
         errors.textMax = 'The maximum value cannot be less than the minimum values.';
@@ -190,7 +191,7 @@ class CustomFieldForm extends Component {
               component={TextField}
               label="Match"
               placeholder="Comma-separated values or a regular expression."
-              helpText="Enter comma separated values (in lowercase) to match, or a regular expression. Make sure your regular expression does not have a comma."
+              helpText="Enter comma separated values (in lowercase) to match, or a regular expression. Make sure your regular expression does not have a comma." // eslint-disable-line max-len
             />
             {
               typeValue === 'telephone' &&
@@ -302,6 +303,11 @@ CustomFieldForm.propTypes = {
   valid: PropTypes.bool.isRequired,
   typeValue: PropTypes.string,
   regexTemplateValue: PropTypes.string,
+};
+
+CustomFieldForm.defaultProps = {
+  typeValue: '',
+  regexTemplateValue: '',
 };
 
 const FormComponent = reduxForm({

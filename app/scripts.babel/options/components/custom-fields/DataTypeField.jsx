@@ -38,7 +38,11 @@ DataTypeField.propTypes = {
     PropTypes.string,
     PropTypes.element,
   ]),
-  meta: PropTypes.shape({}),
+  meta: PropTypes.shape({}).isRequired,
+};
+
+DataTypeField.defaultProps = {
+  helpText: '',
 };
 
 export default DataTypeField;

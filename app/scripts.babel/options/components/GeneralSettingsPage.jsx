@@ -81,7 +81,11 @@ class GeneralSettingsPage extends Component {
 GeneralSettingsPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   options: shapeOfOptions,
-  isFetching: PropTypes.bool,
+  isFetching: PropTypes.bool.isRequired,
+};
+
+GeneralSettingsPage.defaultProps = {
+  options: null,
 };
 
 function mapStateToProps(state) {

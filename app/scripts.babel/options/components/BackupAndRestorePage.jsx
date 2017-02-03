@@ -130,7 +130,11 @@ class BackupAndRestorePage extends Component {
 BackupAndRestorePage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   options: shapeOfOptions,
-  isFetching: PropTypes.bool,
+  isFetching: PropTypes.bool.isRequired,
+};
+
+BackupAndRestorePage.defaultProps = {
+  options: null,
 };
 
 function mapStateToProps(state) {
