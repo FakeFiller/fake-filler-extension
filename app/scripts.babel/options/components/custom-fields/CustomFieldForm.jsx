@@ -28,7 +28,7 @@ const validate = (values) => {
 
   if (hasValidType) {
     if (values.type === 'telephone' && (!values.telephoneTemplate || values.telephoneTemplate.length === 0)) {
-      errors.template = 'Please enter a template for the telephone number.';
+      errors.telephoneTemplate = 'Please enter a template for the telephone number.';
     }
 
     if (values.type === 'number') {
@@ -106,7 +106,7 @@ class CustomFieldForm extends Component {
   }
 
   render() {
-    const { typeValue, onClose, handleSubmit, pristine, valid } = this.props;
+    const { typeValue, onClose, handleSubmit, valid } = this.props;
 
     const dateTypeHelpText = (
       <span>
@@ -286,7 +286,7 @@ class CustomFieldForm extends Component {
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-default" onClick={onClose}>Cancel</button>
-            <button type="submit" className="btn btn-primary" disabled={pristine || !valid}>
+            <button type="submit" className="btn btn-primary" disabled={!valid}>
               Save
             </button>
           </div>
@@ -299,7 +299,6 @@ class CustomFieldForm extends Component {
 CustomFieldForm.propTypes = {
   onClose: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
   valid: PropTypes.bool.isRequired,
   typeValue: PropTypes.string,
   regexTemplateValue: PropTypes.string,
@@ -318,13 +317,6 @@ function mapStateToProps(state, ownProps) {
   const customField = ownProps.customField;
   const typeValue = selector(state, 'type');
   const regexTemplateValue = selector(state, 'regexTemplate');
-  const telephoneTemplateValue = selector(state, 'telephoneTemplate');
-  const dateTemplateValue = selector(state, 'dateTemplate');
-  const alphanumericTemplateValue = selector(state, 'alphanumericTemplate');
-  const numberMinValue = selector(state, 'numberMin');
-  const numberMaxValue = selector(state, 'numberMax');
-  const textMinValue = selector(state, 'textMin');
-  const textMaxValue = selector(state, 'textMax');
 
   const initialValues = Object.assign({}, customField, {
     match: customField.match ? customField.match.join(', ') : '',
@@ -338,29 +330,29 @@ function mapStateToProps(state, ownProps) {
   });
 
   if (typeValue === 'telephone') {
-    initialValues.telephoneTemplate = telephoneTemplateValue || customField.template || '+XXX-Xx-Xxxxxxx';
+    initialValues.telephoneTemplate = customField.template || '+XXX-Xx-Xxxxxxx';
   }
 
   if (typeValue === 'date') {
-    initialValues.dateTemplate = dateTemplateValue || customField.template || 'DD-MMM-YYYY';
+    initialValues.dateTemplate = customField.template || 'DD-MMM-YYYY';
   }
 
   if (typeValue === 'alphanumeric') {
-    initialValues.alphanumericTemplate = alphanumericTemplateValue || customField.template;
+    initialValues.alphanumericTemplate = customField.template;
   }
 
   if (typeValue === 'regex') {
-    initialValues.regexTemplate = regexTemplateValue || customField.template;
+    initialValues.regexTemplate = customField.template;
   }
 
   if (typeValue === 'number') {
-    initialValues.numberMin = customField.min || numberMinValue || 0;
-    initialValues.numberMax = customField.max || numberMaxValue || 99999;
+    initialValues.numberMin = customField.min || 0;
+    initialValues.numberMax = customField.max || 99999;
   }
 
   if (typeValue === 'text') {
-    initialValues.textMin = customField.min || textMinValue || 1;
-    initialValues.textMax = customField.max || textMaxValue || 20;
+    initialValues.textMin = customField.min || 1;
+    initialValues.textMax = customField.max || 20;
   }
 
   delete initialValues.template;
