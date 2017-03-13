@@ -5,6 +5,11 @@ import React from 'react';
 const ChangelogPage = () => (
   <div>
     <h2>Form Filler Changelog</h2>
+    <p><strong>Version 2.8.9</strong></p>
+    <ul>
+      <li>Workaround for Firefox problem with backup settings.</li>
+    </ul>
+    <hr />
     <p><strong>Version 2.8.4</strong></p>
     <ul>
       <li>Fixed change tracking in custom fields.</li>

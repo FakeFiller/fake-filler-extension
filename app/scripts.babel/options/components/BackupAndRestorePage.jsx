@@ -5,6 +5,7 @@ import fileSaver from 'file-saver';
 
 import { getOptions, saveOptions } from '../actions';
 import { shapeOfOptions } from '../prop-types';
+import { GetBrowser } from '../../form-filler/helpers';
 
 function utf8ToBase64(str) {
   return window.btoa(unescape(encodeURIComponent(str)));
@@ -23,6 +24,7 @@ class BackupAndRestorePage extends Component {
       showSuccess: false,
       hasError: false,
       errorMessage: '',
+      backupData: '',
     };
 
     this.exportSettings = this.exportSettings.bind(this);
@@ -46,12 +48,19 @@ class BackupAndRestorePage extends Component {
   exportSettings() {
     const encodedData = utf8ToBase64(JSON.stringify(this.props.options));
     const dateStamp = moment().format('YYYY-MM-DD');
+    const isFirefox = GetBrowser() === 'Firefox';
 
-    try {
-      const blob = new Blob([encodedData], { type: 'text/plain;charset=utf-8' });
-      fileSaver.saveAs(blob, `form-filler-${dateStamp}.txt`);
-    } catch (e) {
-      this.setErrorMessage(`Error creating a backup file: ${e.toString()}`);
+    if (isFirefox) {
+      this.setState({
+        backupData: encodedData,
+      });
+    } else {
+      try {
+        const blob = new Blob([encodedData], { type: 'text/plain;charset=utf-8' });
+        fileSaver.saveAs(blob, `form-filler-${dateStamp}.txt`);
+      } catch (e) {
+        this.setErrorMessage(`Error creating a backup file: ${e.toString()}`);
+      }
     }
   }
 
@@ -94,9 +103,33 @@ class BackupAndRestorePage extends Component {
     document.getElementById('file').click();
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  selectTextAreaText() {
+    document.getElementById('backupTextArea').select();
+  }
+
   render() {
     if (this.props.isFetching) {
       return (<div>Loading...</div>);
+    }
+
+    let backupDataElements = null;
+
+    if (this.state.backupData) {
+      backupDataElements = (
+        <div className="form-group">
+          <textarea
+            id="backupTextArea"
+            className="form-control"
+            rows="10"
+            onClick={this.selectTextAreaText}
+            readOnly
+          >
+            {this.state.backupData}
+          </textarea>
+          <div className="help-text">Copy and save this to a text file.</div>
+        </div>
+      );
     }
 
     return (
@@ -112,6 +145,7 @@ class BackupAndRestorePage extends Component {
             Import Settings
           </button>
         </p>
+        {backupDataElements}
         <input type="file" className="hide" id="file" onChange={this.importSettings} />
         { this.state.hasError && <p className="alert alert-danger">{this.state.errorMessage}</p> }
         { this.state.showSuccess &&
