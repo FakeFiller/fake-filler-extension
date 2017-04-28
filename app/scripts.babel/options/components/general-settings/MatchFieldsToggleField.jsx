@@ -3,6 +3,7 @@ import { Field } from 'redux-form';
 import { Link } from 'react-router';
 
 import toggleInput from '../shared/ToggleInput';
+import language from '../../../form-filler/language'
 
 const MatchFieldsToggleField = (fields) => {
   const matchLabelField = fields.fieldMatchSettings.matchLabel;
@@ -18,40 +19,40 @@ const MatchFieldsToggleField = (fields) => {
 
   return (
     <div className={`form-group${(fieldHasError) ? ' has-error' : ''}`}>
-      <label className="control-label col-sm-3">Match Fields Using</label>
+      <label className="control-label col-sm-3">{language("matchFieldUse")}</label>
       <div className="col-sm-9">
         <Field
           {...matchLabelField.input}
           component={toggleInput}
           type="checkbox"
-          label="Label text for the input tag"
+          label={language("labelForInput")}
         />
         <Field
           {...matchIdField.input}
           component={toggleInput}
           type="checkbox"
-          label="ID attribute of the input tag"
+          label={language("IDForInput")}
         />
         <Field
           {...matchNameField.input}
           component={toggleInput}
           type="checkbox"
-          label="Name attribute of the input tag"
+          label={language("nameForInput")}
         />
         <Field
           {...matchClassField.input}
           component={toggleInput}
           type="checkbox"
-          label="Class class attribute of the input tag"
+          label={language("classForInput")}
         />
         <br />
         <p>
-          Please refer to the <Link to="/custom-fields">custom fields section</Link> to
-          learn how input elements are matched.
+            {language("pleaseRefer")} <Link to="/custom-fields">{language("customSection")}</Link>
+            {language("learnHowInputMatch")}
         </p>
         {
           fieldHasError &&
-          <div className="help-block">You must select at least one option.</div>
+          <div className="help-block">{language("atLeastOne")}</div>
         }
       </div>
     </div>

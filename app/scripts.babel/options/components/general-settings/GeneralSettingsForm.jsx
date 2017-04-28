@@ -9,6 +9,7 @@ import EmailUsernameField from './EmailUsernameField';
 import EmailHostnameField from './EmailHostnameField';
 import PasswordSettingsField from './PasswordSettingsField';
 import MatchFieldsToggleField from './MatchFieldsToggleField';
+import language from '../../../form-filler/language';
 
 const validate = (values) => {
   const errors = {
@@ -53,7 +54,6 @@ const validate = (values) => {
 class GeneralSettingsForm extends Component {
   constructor(props) {
     super(props);
-
     this.generateRandomEmail = this.generateRandomEmail.bind(this);
 
     this.state = {
@@ -87,7 +87,7 @@ class GeneralSettingsForm extends Component {
 
     return (
       <form className="form-horizontal" onSubmit={handleSubmit}>
-        <h2>Email Settings</h2>
+        <h2>{language("emailSetting")}</h2>
         <Fields
           names={['emailSettings.username', 'emailSettings.usernameList', 'emailSettings.usernameRegEx']}
           component={EmailUsernameField}
@@ -103,20 +103,20 @@ class GeneralSettingsForm extends Component {
               className="btn btn-xs btn-default"
               onClick={this.generateRandomEmail}
             >
-              Test Me
+                {language("testMe")}
             </button>
             {' '}
             {this.state.emailSample}
           </div>
         </div>
-        <h2>Password Settings</h2>
+        <h2>{language("passwordSetting")}</h2>
         <Fields
           names={['passwordSettings.mode', 'passwordSettings.password']}
           component={PasswordSettingsField}
         />
-        <h2>Field Options</h2>
+        <h2>{language("fieldOptions")}</h2>
         <div className="form-group">
-          <label className="control-label col-sm-3">Ignore Fields Match</label>
+          <label className="control-label col-sm-3">{language("ignoreMatch")}</label>
           <div className="col-sm-9">
             <Field
               name="ignoredFields"
@@ -130,22 +130,22 @@ class GeneralSettingsForm extends Component {
               name="ignoreHiddenFields"
               component={toggleInput}
               type="checkbox"
-              label="Ignore all hidden/invisible fields"
+              label={language("ignoreHidden")}
             />
             <Field
               name="ignoreFieldsWithContent"
               component={toggleInput}
               type="checkbox"
-              label="Ignore fields that already have content"
+              label={language("ignoreExist")}
             />
             <div className="help-block">
-              <span className="label label-info">Note</span> Inputs
-              with <i>type=&quot;hidden&quot;</i> are always ignored.
+              <span className="label label-info">{language("note")}</span>
+              <span dangerouslySetInnerHTML={{__html: language("ignoreFile")}}></span>
             </div>
           </div>
         </div>
         <div className="form-group">
-          <label className="control-label col-sm-3">Confirmation Fields Match</label>
+          <label className="control-label col-sm-3">{language("confirmation")}</label>
           <div className="col-sm-9">
             <Field
               name="confirmFields"
@@ -156,13 +156,12 @@ class GeneralSettingsForm extends Component {
               placeholder="Enter comma-separated values."
             />
             <div className="help-block">
-              Data entered in a preceding input field will be used for inputs
-              matching any of these values.
+                {language("matchTip")}
             </div>
           </div>
         </div>
         <div className="form-group">
-          <label className="control-label col-sm-3">Agree to Terms Fields Match</label>
+          <label className="control-label col-sm-3">{language("agreeFieldMatch")}</label>
           <div className="col-sm-9">
             <Field
               name="agreeTermsFields"
@@ -173,7 +172,7 @@ class GeneralSettingsForm extends Component {
               placeholder="Enter comma-separated values."
             />
             <div className="help-block">
-              Checkboxes matching any of these values will always be checked.
+                {language("agreeFieldMatchTip")}
             </div>
           </div>
         </div>
@@ -186,26 +185,26 @@ class GeneralSettingsForm extends Component {
           ]}
           component={MatchFieldsToggleField}
         />
-        <h2>General Settings</h2>
+        <h2>{language("generalSetting")}</h2>
         <div className="form-group">
-          <label className="control-label col-sm-3">Trigger Events</label>
+          <label className="control-label col-sm-3">{language("trigger")}</label>
           <div className="col-sm-9">
             <Field
               name="triggerClickEvents"
               component={toggleInput}
               type="checkbox"
-              label="Trigger click/change events on input fields"
+              label={language("triggerLabel")}
             />
           </div>
         </div>
         <div className="form-group">
-          <label className="control-label col-sm-3">Context Menu</label>
+          <label className="control-label col-sm-3">{language("contextMenu")}</label>
           <div className="col-sm-9">
             <Field
               name="enableContextMenu"
               component={toggleInput}
               type="checkbox"
-              label="Add items to the right click menu"
+              label={language("clickMenu")}
             />
           </div>
         </div>
@@ -217,7 +216,7 @@ class GeneralSettingsForm extends Component {
               className="btn btn-primary"
               disabled={pristine || !valid}
             >
-              Save Settings
+                {language("saveSetting")}
             </button>
             <button
               type="button"
@@ -225,9 +224,9 @@ class GeneralSettingsForm extends Component {
               disabled={pristine || submitting}
               onClick={reset}
             >
-              Reset
+                {language("reset")}
             </button>
-            { showSavedMessage && <span className="saved-msg">Saved settings.</span> }
+            { showSavedMessage && <span className="saved-msg">{language("saveSetting")}</span> }
           </div>
         </div>
       </form>

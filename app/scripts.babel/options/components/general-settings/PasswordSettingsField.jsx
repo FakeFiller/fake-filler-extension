@@ -2,7 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 
 import toggleInput from '../shared/ToggleInput';
-
+import language from '../../../form-filler/language'
 const PasswordSettingsField = (fields) => {
   const modeField = fields.passwordSettings.mode;
   const passwordField = fields.passwordSettings.password;
@@ -11,21 +11,21 @@ const PasswordSettingsField = (fields) => {
 
   return (
     <div className={`form-group${(fieldHasError) ? ' has-error' : ''}`}>
-      <label className="control-label col-sm-3">Password</label>
+      <label className="control-label col-sm-3">{language("password")}</label>
       <div className="col-sm-9">
         <Field
           {...modeField.input}
           component={toggleInput}
           type="radio"
           value="random"
-          label="Generate a random 8 character password (is logged in the console)"
+          label={language("randomPassword")}
         />
         <Field
           {...modeField.input}
           component={toggleInput}
           type="radio"
           value="defined"
-          label="Use this:"
+          label={language("useThis")}
         />
         <Field
           {...passwordField.input}
