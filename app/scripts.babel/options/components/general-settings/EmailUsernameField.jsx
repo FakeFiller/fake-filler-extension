@@ -2,6 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 
 import toggleInput from '../shared/ToggleInput';
+import language from '../../../form-filler/language';
 
 const EmailUsernameField = (fields) => {
   const usernameField = fields.emailSettings.username;
@@ -15,35 +16,35 @@ const EmailUsernameField = (fields) => {
 
   return (
     <div className={`form-group${(fieldHasError) ? ' has-error' : ''}`}>
-      <label className="control-label col-sm-3">Username</label>
+      <label className="control-label col-sm-3">{language("username")}</label>
       <div className="col-sm-9">
         <Field
           {...usernameField.input}
           component={toggleInput}
           type="radio"
           value="username"
-          label="Use a previously generated username"
+          label={language("lastUsername")}
         />
         <Field
           {...usernameField.input}
           component={toggleInput}
           type="radio"
           value="name"
-          label="Use a previously generated first and last name"
+          label={language("lastName")}
         />
         <Field
           {...usernameField.input}
           component={toggleInput}
           type="radio"
           value="random"
-          label="Use a random name"
+          label={language("randomName")}
         />
         <Field
           {...usernameField.input}
           component={toggleInput}
           type="radio"
           value="list"
-          label="Select from the list below (List each name with a comma.):"
+          label={language("listName")}
         />
         <Field
           {...usernameListField.input}
@@ -62,7 +63,7 @@ const EmailUsernameField = (fields) => {
           component={toggleInput}
           type="radio"
           value="regex"
-          label="Use this regular expression:"
+          label={language("regexUsername")}
         />
         <Field
           {...usernameRegExField.input}
@@ -70,7 +71,7 @@ const EmailUsernameField = (fields) => {
           component="input"
           className="form-control"
           autoComplete="off"
-          placeholder="A regular expression."
+          placeholder={language("placeholderRegex")}
         />
         {
           usernameRegExField.meta.error &&

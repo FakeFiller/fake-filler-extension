@@ -6,6 +6,7 @@ import { reset } from 'redux-form';
 import NavItem from './NavItem';
 import { resetOptions } from '../actions';
 import { GetBrowser } from '../../form-filler/helpers';
+import language  from '../../form-filler/language'
 
 class App extends Component {
   constructor(props) {
@@ -25,11 +26,10 @@ class App extends Component {
 
   render() {
     let rateLink;
-
     if (GetBrowser() === 'Firefox') {
-      rateLink = <a href="https://bit.ly/FormFillerFirefox">rate it on the addons.mozilla.org</a>;
+      rateLink = <a href="https://bit.ly/FormFillerFirefox">{language("appStore")}</a>;
     } else {
-      rateLink = <a href="https://bit.ly/FormFiller">rate it on the Chrome Web Store</a>;
+        rateLink = <a href="https://bit.ly/FormFillerFirefox">{language("appStore")}</a>;
     }
 
     return (
@@ -40,10 +40,10 @@ class App extends Component {
               <img src="images/logo.svg" height="32" alt="Form Filler" />
             </h1>
             <ul className="nav nav-pills nav-stacked">
-              <NavItem to="/">General</NavItem>
-              <NavItem to="/custom-fields">Custom Fields</NavItem>
-              <NavItem to="/keyboard-shortcuts">Keyboard Shortcuts</NavItem>
-              <NavItem to="/backup">Backup and Restore</NavItem>
+              <NavItem to="/">{language("general")}</NavItem>
+              <NavItem to="/custom-fields">{language("custom")}</NavItem>
+              <NavItem to="/keyboard-shortcuts">{language("shortcuts")}</NavItem>
+              <NavItem to="/backup">{language("backup")}</NavItem>
             </ul>
             <div id="about">
               <p>
@@ -52,9 +52,9 @@ class App extends Component {
                 an <a href="mailto:husainsfabbas@gmail.com">email</a>.
               </p>
               <ul className="list-inline">
-                <li><a href="" onClick={this.resetSettings}>Restore Factory Settings</a></li>
-                <li><Link to="/changelog">Changelog</Link></li>
-                <li><a href="https://github.com/husainshabbir/form-filler/">Source</a></li>
+                <li><a href="" onClick={this.resetSettings}>{language("restore")}</a></li>
+                <li><Link to="/changelog">{language("changelog")}</Link></li>
+                <li><a href="https://github.com/husainshabbir/form-filler/">{language("source")}</a></li>
               </ul>
             </div>
           </div>
@@ -71,5 +71,5 @@ App.propTypes = {
   children: React.PropTypes.element.isRequired,
   dispatch: React.PropTypes.func.isRequired,
 };
-
+/**connect方法将ui组件变为容器组件 将ui组件和前面的组件连接起来*/
 export default connect()(App);
