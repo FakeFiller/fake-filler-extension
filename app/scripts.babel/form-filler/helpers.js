@@ -237,6 +237,10 @@ function GetBrowser() {
   return 'Chrome';
 }
 
+function GetMessage(key, parameters) {
+  return chrome.i18n.getMessage(key, parameters);
+}
+
 export {
   FormFillerDefaultOptions,
   GetFormFillerOptions,
@@ -246,4 +250,5 @@ export {
   CsvToArray,
   MultipleLinesToArray,
   GetBrowser,
+  GetMessage,
 };

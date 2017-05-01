@@ -1,0 +1,443 @@
+{
+  "extensionName": {
+    "message": "Form Filler"
+  },
+  "extensionDescription": {
+    "message": "Fill all inputs in a page with dummy data."
+  },
+  "browserActionTitle": {
+    "message": "Fill all inputs with dummy data."
+  },
+  "commands_FillThisForm": {
+    "message": "Fill this form"
+  },
+  "commands_fillThisInput": {
+    "message": "Fill this input field"
+  },
+  "commands_fillAllInputs": {
+    "message": "Fill all inputs"
+  },
+  "bgPage_errorMigratingOptions": {
+    "message": "An error occurred while migrating Form Filler options: $1"
+  },
+  "close": {
+    "message": "Close"
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "saveSettings": {
+    "message": "Save Settings"
+  },
+  "reset": {
+    "message": "Reset"
+  },
+  "edit": {
+    "message": "Edit"
+  },
+  "loading": {
+    "message": "Loading..."
+  },
+  "testMe": {
+    "message": "Test Me"
+  },
+  "enterCsv": {
+    "message": "Enter comma-separated values."
+  },
+  "leftNav_General": {
+    "message": "General"
+  },
+  "leftNav_customFields": {
+    "message": "Custom Fields"
+  },
+  "leftNav_keyboardShortcuts": {
+    "message": "Keyboard Shortcuts"
+  },
+  "leftNav_backupRestore": {
+    "message": "Backup and Restore"
+  },
+  "leftNav_restoreFactorySettings": {
+    "message": "Restore Factory Settings"
+  },
+  "leftNav_changelog": {
+    "message": "Changelog"
+  },
+  "leftNav_source": {
+    "message": "Source"
+  },
+  "leftNav_confirmResetSettings": {
+    "message": "Are you sure you want to reset to the default settings?"
+  },
+  "leftNav_rate_AMO": {
+    "message": "If you like Form Filler, please <a href=\"$1\" target=\"_blank\">rate it on addons.mozilla.org</a>."
+  },
+  "leftNav_rate_Chrome": {
+    "message": "If you like Form Filler, please <a href=\"$1\" target=\"_blank\">rate it on the Chrome Web Store</a>."
+  },
+  "leftNav_sendFeedback": {
+    "message": "If you have any suggestions to make this extension better, or find any issues, please send me an <a href=\"mailto:$1\">email</a>."
+  },
+  "backupRestore_title": {
+    "message": "Backup and Restore"
+  },
+  "backupRestore_exportSettings": {
+    "message": "Export Settings"
+  },
+  "backupRestore_importSettings": {
+    "message": "Import Settings"
+  },
+  "backupRestore_errorCreatingBackupFile": {
+    "message": "Error creating backup file: $1"
+  },
+  "backupRestore_settingImportSuccessMessage": {
+    "message": "Settings imported successfully! You will need to reload all your tabs for the settings to take effect."
+  },
+  "backupRestore_confirmRestore": {
+    "message": "Are you sure you want to restore the settings?\n\nNote: Existing settings will be replaced."
+  },
+  "backupRestore_errorImporting": {
+    "message": "Error importing from file: $1"
+  },
+  "backupRestore_errorReadingFile": {
+    "message": "There was an error while reading the backup file."
+  },
+  "backupRestore_copyAndSaveToFile": {
+    "message": "Copy and save this to a text file."
+  },
+  "kbdShortcuts_title": {
+    "message": "Keyboard Shortcuts"
+  },
+  "kbdShortcuts_notSet": {
+    "message": "Not Set"
+  },
+  "kbdShortcuts_firefoxComingSoon": {
+    "message": "Ability to change keyboard shortcuts in Firefox will come soon."
+  },
+  "kbdShortcuts_changeInstructions": {
+    "message": "To change these keyboard shortcuts, type <code>chrome://extensions/</code> in the address bar to open up the extensions page. At the bottom of that page you will see a Keyboard Shortcuts option. Click it, and you can set up custom shortcuts for Form Filler from there."
+  },
+  "customFields_title": {
+    "message": "Custom Fields"
+  },
+  "customFields_intro": {
+    "message": "Form Filler can use the ID, NAME and CLASS values of an input field in addition to the label text to determine its data type."
+  },
+  "customFields_getMoreInfo": {
+    "message": "More information on how the extension matches custom fields"
+  },
+  "customFields_addFieldButtonText": {
+    "message": "Add Field"
+  },
+  "customFields_validation_missingType": {
+    "message": "Please select a type."
+  },
+  "customFields_validation_missingName": {
+    "message": "Please enter a name for this custom field."
+  },
+  "customFields_validation_missingMatch": {
+    "message": "Please enter comma-separated values or a regular expression."
+  },
+  "customFields_validation_missingTelephoneTemplate": {
+    "message": "Please enter a template for the telephone number."
+  },
+  "customFields_validation_missingMinValue": {
+    "message": "Please enter a minimum value."
+  },
+  "customFields_validation_missingMaxValue": {
+    "message": "Please enter a maximum value."
+  },
+  "customFields_validation_invalidMinMaxValue": {
+    "message": "The maximum value cannot be less than the minimum value."
+  },
+  "customFields_validation_invalidMaxValue": {
+    "message": "The minimum value must be greater than one."
+  },
+  "customFields_validation_missingDateTemplate": {
+    "message": "Please enter a template for the date."
+  },
+  "customFields_validation_missingAlNumTemplate": {
+    "message": "Please specify a format template for this field."
+  },
+  "customFields_validation_missingRegEx": {
+    "message": "Please enter a regular expression."
+  },
+  "customFields_validation_missingRandomItems": {
+    "message": "Please enter some items."
+  },
+  "customFields_dateTypeHelp": {
+    "message": "Uses moment.js to format date/time values. Please refer to the moment.js <a href=\"http://momentjs.com/docs/#/displaying/format/\" target=\"_blank\" rel=\"noopener noreferrer\">documentation</a>."
+  },
+  "customFields_alNumHelp_uppercaseLetter": {
+    "message": "An uppercase LETTER."
+  },
+  "customFields_alNumHelp_lowercaseLetter": {
+    "message": "A lowercase letter."
+  },
+  "customFields_alNumHelp_upperAndLowercaseLetter": {
+    "message": "A letter (UPPER or lower)."
+  },
+  "customFields_alNumHelp_uppercaseConsonant": {
+    "message": "An uppercase CONSONANT."
+  },
+  "customFields_alNumHelp_lowercaseConsonant": {
+    "message": "An uppercase consonant."
+  },
+  "customFields_alNumHelp_upperAndLowercaseConsonant": {
+    "message": "A consonant (UPPER or lower)."
+  },
+  "customFields_alNumHelp_uppercaseVowel": {
+    "message": "An uppercase VOWEL."
+  },
+  "customFields_alNumHelp_lowercaseVowel": {
+    "message": "An lowercase vowel."
+  },
+  "customFields_alNumHelp_upperAndLowercaseVowel": {
+    "message": "A vowel (UPPER or lower)."
+  },
+  "customFields_alNumHelp_number09": {
+    "message": "Any number, 0-9."
+  },
+  "customFields_alNumHelp_number19": {
+    "message": "Any number, 1-9."
+  },
+  "customFields_alNumHelp_otherCharactersAsIs": {
+    "message": "Any other character will be output as-is. The above characters can be escaped by wrapping them in [square brackets]."
+  },
+  "customFields_regExHelp": {
+    "message": "Uses <a href=\"http://fent.github.io/randexp.js/\" target=\"_blank\" rel=\"noreferrer noopener\">randexp.js</a> to generate random data based on a regular expression pattern."
+  },
+  "customFields_customFieldDetails": {
+    "message": "Custom Field Details"
+  },
+  "customFields_label_dataType": {
+    "message": "Data Type"
+  },
+  "customFields_label_friendlyName": {
+    "message": "Friendly Name"
+  },
+  "customFields_label_match": {
+    "message": "Match"
+  },
+  "customFields_label_match_placeholder": {
+    "message": "Comma-separated values or a regular expression."
+  },
+  "customFields_label_match_helpText": {
+    "message": "Enter comma separated values (in lowercase) to match, or a regular expression. Make sure your regular expression does not have a comma."
+  },
+  "customFields_label_template": {
+    "message": "Template"
+  },
+  "customFields_label_telephoneTemplate_helpText": {
+    "message": "Use X for a number between 1-9 and x for 0-9."
+  },
+  "customFields_label_minValue": {
+    "message": "Minimum Value"
+  },
+  "customFields_label_maxValue": {
+    "message": "Maximum Value"
+  },
+  "customFields_label_minWords": {
+    "message": "Minimum Words"
+  },
+  "customFields_label_maxWords": {
+    "message": "Maximum Words"
+  },
+  "customFields_label_format": {
+    "message": "Format"
+  },
+  "customFields_label_pattern": {
+    "message": "Pattern"
+  },
+  "customFields_label_listItems": {
+    "message": "List Items"
+  },
+  "customFields_label_listItems_placeholder": {
+    "message": "Enter each item on a new line."
+  },
+  "customFields_dataType_select": {
+    "message": "-- select --"
+  },
+  "customFields_dataType_humanDataLabel": {
+    "message": "Human Data"
+  },
+  "customFields_dataType_firstName": {
+    "message": "First Name"
+  },
+  "customFields_dataType_lastName": {
+    "message": "Last Name"
+  },
+  "customFields_dataType_fullName": {
+    "message": "Full Name"
+  },
+  "customFields_dataType_username": {
+    "message": "Username"
+  },
+  "customFields_dataType_emailAddress": {
+    "message": "Email Address"
+  },
+  "customFields_dataType_companyName": {
+    "message": "Organization/Company Name"
+  },
+  "customFields_dataType_telephone": {
+    "message": "Telephone Number"
+  },
+  "customFields_dataType_number": {
+    "message": "Number"
+  },
+  "customFields_dataType_date": {
+    "message": "Date"
+  },
+  "customFields_dataType_url": {
+    "message": "URL/Website Address"
+  },
+  "customFields_dataType_otherLabel": {
+    "message": "Other"
+  },
+  "customFields_dataType_text": {
+    "message": "Text"
+  },
+  "customFields_dataType_alphaNumeric": {
+    "message": "Alphanumeric"
+  },
+  "customFields_dataType_regEx": {
+    "message": "Regular Expression"
+  },
+  "customFields_dataType_randomizedList": {
+    "message": "Randomized List"
+  },
+  "generalSettings_label_hostName": {
+    "message": "Host name"
+  },
+  "generalSettings_label_hostName_randomLabel": {
+    "message": "Use a randomly generated host name"
+  },
+  "generalSettings_label_hostName_listLabel": {
+    "message": "Select from the list below:"
+  },
+  "generalSettings_label_hostName_listTextHelp": {
+    "message": "List each name with a comma. You may include the @ sign as well."
+  },
+  "generalSettings_label_username": {
+    "message": "Username"
+  },
+  "generalSettings_label_username_usernameLabel": {
+    "message": "Use a previously generated username"
+  },
+  "generalSettings_label_username_nameLabel": {
+    "message": "Use a previously generated first and last name"
+  },
+  "generalSettings_label_username_randomLabel": {
+    "message": "Use a random name"
+  },
+  "generalSettings_label_username_listLabel": {
+    "message": "Select from the list below (List each name with a comma.):"
+  },
+  "generalSettings_label_username_regExLabel": {
+    "message": "Use this regular expression:"
+  },
+  "generalSettings_label_username_regExTextPlaceholder": {
+    "message": "A regular expression."
+  },
+  "generalSettings_validation_enterUsernames": {
+    "message": "Please enter a list of usernames."
+  },
+  "generalSettings_validation_enterRegEx": {
+    "message": "Please enter a regular expression."
+  },
+  "generalSettings_validation_enterHostname": {
+    "message": "Please enter a list of hostnames."
+  },
+  "generalSettings_validation_enterPassword": {
+    "message": "Please enter a password."
+  },
+  "generalSettings_validation_enterAtLeastOneMatch": {
+    "message": "You must select at least one option."
+  },
+  "generalSettings_emailSettings": {
+    "message": "Email Settings"
+  },
+  "generalSettings_passwordSettings": {
+    "message": "Password Settings"
+  },
+  "generalSettings_fieldOptions": {
+    "message": "Field Options"
+  },
+  "generalSettings_ignoreFieldsMatch": {
+    "message": "Ignore Fields Match"
+  },
+  "generalSettings_ignoreHiddenFieldsLabel": {
+    "message": "Ignore all hidden/invisible fields"
+  },
+  "generalSettings_ignoreFieldsWithContentLabel": {
+    "message": "Ignore fields that already have content"
+  },
+  "generalSettings_note": {
+    "message": "Note"
+  },
+  "generalSettings_ignoreFieldsWithContentHelp": {
+    "message": "Inputs with <i>type=&quot;hidden&quot;</i> are always ignored."
+  },
+  "generalSettings_confirmationFieldsMatch": {
+    "message": "Confirmation Fields Match"
+  },
+  "generalSettings_confirmFieldsHelp": {
+    "message": "Data entered in a preceding input field will be used for inputs matching any of these values."
+  },
+  "generalSettings_agreeToTermsMatch": {
+    "message": "Agree to Terms Fields Match"
+  },
+  "generalSettings_agreeToTermsMatchHelp": {
+    "message": "Checkboxes matching any of these values will always be checked."
+  },
+  "generalSettings": {
+    "message": "General Settings"
+  },
+  "generalSettings_triggerEvents": {
+    "message": "Trigger Events"
+  },
+  "generalSettings_triggerEventsLabel": {
+    "message": "Trigger click/change events on input fields"
+  },
+  "generalSettings_contextMenu": {
+    "message": "Context Menu"
+  },
+  "generalSettings_contextMenuLabel": {
+    "message": "Add items to the right click menu"
+  },
+  "generalSettings_settingsSaved": {
+    "message": "Saved settings."
+  },
+  "generalSettings_matchFieldsUsing": {
+    "message": "Match Fields Using"
+  },
+  "generalSettings_matchFields_useLabel": {
+    "message": "Label text for the input tag"
+  },
+  "generalSettings_matchFields_useId": {
+    "message": "ID attribute of the input tag"
+  },
+  "generalSettings_matchFields_useName": {
+    "message": "Name attribute of the input tag"
+  },
+  "generalSettings_matchFields_useClass": {
+    "message": "Class class attribute of the input tag"
+  },
+  "generalSettings_matchFields_mustSelectOneOption": {
+    "message": "You must select at least one option."
+  },
+  "generalSettings_matchFields_help": {
+    "message": "Please refer to the custom fields section to learn how input elements are matched."
+  },
+  "generalSettings_password": {
+    "message": "Password"
+  },
+  "generalSettings_password_randomLabel": {
+    "message": "Generate a random 8 character password (is logged in the console)"
+  },
+  "generalSettings_password_useThisLabel": {
+    "message": "Use this:"
+  }
+}

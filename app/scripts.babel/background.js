@@ -1,4 +1,4 @@
-import { GetFormFillerOptions, SaveFormFillerOptions, CreateContextMenus } from './form-filler/helpers';
+import { GetFormFillerOptions, SaveFormFillerOptions, CreateContextMenus, GetMessage } from './form-filler/helpers';
 
 const analyticsTrackingCode = 'UA-XXXXXXX-X'; // UA-9183424-4 / UA-XXXXXXX-X
 
@@ -18,9 +18,6 @@ function handleMessage(request, sender, sendResponse) {
 
 if (chrome.runtime.onInstalled) {
   chrome.runtime.onInstalled.addListener((details) => {
-    console.info('onInstalled');
-    console.log(details.reason);
-
     if (details.reason === 'update') {
       try {
         const optionsString = localStorage.getItem('options');
@@ -33,7 +30,7 @@ if (chrome.runtime.onInstalled) {
         }
       } catch (ex) {
         // eslint-disable-next-line no-alert
-        alert(`An error occurred while migrating Form Filler options: ${ex.message}`);
+        alert(GetMessage('bgPage_errorMigratingOptions', [ex.message]));
       }
     }
   });

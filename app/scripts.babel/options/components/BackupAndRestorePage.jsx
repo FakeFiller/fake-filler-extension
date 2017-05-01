@@ -5,7 +5,7 @@ import fileSaver from 'file-saver';
 
 import { getOptions, saveOptions } from '../actions';
 import { shapeOfOptions } from '../prop-types';
-import { GetBrowser } from '../../form-filler/helpers';
+import { GetBrowser, GetMessage } from '../../form-filler/helpers';
 
 function utf8ToBase64(str) {
   return window.btoa(unescape(encodeURIComponent(str)));
@@ -59,7 +59,7 @@ class BackupAndRestorePage extends Component {
         const blob = new Blob([encodedData], { type: 'text/plain;charset=utf-8' });
         fileSaver.saveAs(blob, `form-filler-${dateStamp}.txt`);
       } catch (e) {
-        this.setErrorMessage(`Error creating a backup file: ${e.toString()}`);
+        this.setErrorMessage(GetMessage('backupRestore_errorCreatingBackupFile', e.toString()));
       }
     }
   }
@@ -69,7 +69,7 @@ class BackupAndRestorePage extends Component {
 
     if (fileElement.files.length === 1 && fileElement.files[0].name.length > 0) {
       // eslint-disable-next-line no-alert
-      if (confirm('Are you sure you want to restore the settings?\n\nNote: Existing settings will be replaced.')) {
+      if (confirm(GetMessage('backupRestore_confirmRestore'))) {
         const fileReader = new FileReader();
 
         fileReader.onload = (e) => {
@@ -85,12 +85,12 @@ class BackupAndRestorePage extends Component {
               errorMessage: '',
             });
           } catch (ex) {
-            this.setErrorMessage(`Error importing from file: ${ex.toString()}`);
+            this.setErrorMessage(GetMessage('backupRestore_errorImporting', ex.toString()));
           }
         };
 
         fileReader.onerror = () => {
-          this.setErrorMessage('Error reading backup file.');
+          this.setErrorMessage(GetMessage('backupRestore_errorReadingFile'));
         };
 
         fileReader.readAsText(fileElement.files[0]);
@@ -110,7 +110,7 @@ class BackupAndRestorePage extends Component {
 
   render() {
     if (this.props.isFetching) {
-      return (<div>Loading...</div>);
+      return (<div>{GetMessage('loading')}</div>);
     }
 
     let backupDataElements = null;
@@ -127,34 +127,30 @@ class BackupAndRestorePage extends Component {
           >
             {this.state.backupData}
           </textarea>
-          <div className="help-text">Copy and save this to a text file.</div>
+          <div className="help-text">{GetMessage('backupRestore_copyAndSaveToFile')}</div>
         </div>
       );
     }
 
     return (
       <div>
-        <h2>Backup and Restore</h2>
+        <h2>{GetMessage('backupRestore_title')}</h2>
         <p>
           <button type="button" className="btn btn-link" onClick={this.exportSettings}>
-            Export Settings
+            {GetMessage('backupRestore_exportSettings')}
           </button>
         </p>
         <p>
           <button type="button" className="btn btn-link" onClick={this.triggerImportSettings}>
-            Import Settings
+            {GetMessage('backupRestore_importSettings')}
           </button>
         </p>
         {backupDataElements}
         <input type="file" className="hide" id="file" onChange={this.importSettings} />
         { this.state.hasError && <p className="alert alert-danger">{this.state.errorMessage}</p> }
-        { this.state.showSuccess &&
-          (
-            <p className="alert alert-success">
-              Settings imported successfully! You will need to reload all your tabs for the
-              settings to take effect.
-            </p>
-          )
+        {
+          this.state.showSuccess &&
+          <p className="alert alert-success">{GetMessage('backupRestore_settingImportSuccessMessage')}</p>
         }
       </div>
     );

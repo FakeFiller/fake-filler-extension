@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { getKeyboardShortcuts } from '../actions';
-import { GetBrowser } from '../../form-filler/helpers';
+import { GetBrowser, GetMessage } from '../../form-filler/helpers';
 
 class KeyboardShortcutsPage extends Component {
   constructor(props) {
@@ -16,18 +16,29 @@ class KeyboardShortcutsPage extends Component {
     this.dispatch(getKeyboardShortcuts());
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  getHtmlMessage(key) {
+    return { __html: chrome.i18n.getMessage(key) };
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  sanitizeDescriptionKey(key) {
+    return key.replace('__MSG_', '').replace('__', '');
+  }
+
   render() {
     if (this.props.isFetching) {
-      return (<div>Loading...</div>);
+      return (<div>{GetMessage('loading')}</div>);
     }
 
     const keyboardShortcuts = this.props.keyboardShortcuts;
-
     const isFirefox = GetBrowser() === 'Firefox';
+
+    const notSetText = GetMessage('kbdShortcuts_notSet');
 
     return (
       <div>
-        <h2>Keyboard Shortcuts</h2>
+        <h2>{GetMessage('kbdShortcuts_title')}</h2>
         <table className="table table-bordered table-condensed">
           <tbody>
             {
@@ -35,8 +46,8 @@ class KeyboardShortcutsPage extends Component {
                 if (item.description) {
                   return (
                     <tr key={index}>
-                      <td className="narrow">{item.shortcut ? <kbd>{item.shortcut}</kbd> : 'not set'}</td>
-                      <td>{item.description}</td>
+                      <td className="narrow">{item.shortcut ? <kbd>{item.shortcut}</kbd> : notSetText}</td>
+                      <td>{GetMessage(this.sanitizeDescriptionKey(item.description))}</td>
                     </tr>
                   );
                 }
@@ -46,15 +57,8 @@ class KeyboardShortcutsPage extends Component {
             }
           </tbody>
         </table>
-        { isFirefox && (<p>Ability to change keyboard shortcuts in Firefox will come soon.</p>) }
-        { !isFirefox && (
-          <p>
-            To change these keyboard shortcuts, type <code>chrome://extensions/</code> in the
-            address bar to open up the extensions page. At the bottom of that page you will see
-            a Keyboard Shortcuts option. Click it, and you can set up custom shortcuts for
-            Form Filler from there.
-          </p>
-        )}
+        { isFirefox && <p dangerouslySetInnerHTML={this.getHtmlMessage('kbdShortcuts_firefoxComingSoon')} /> }
+        { !isFirefox && <p dangerouslySetInnerHTML={this.getHtmlMessage('kbdShortcuts_changeInstructions')} /> }
       </div>
     );
   }

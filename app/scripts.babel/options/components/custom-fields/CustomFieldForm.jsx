@@ -1,3 +1,5 @@
+/* eslint-disable react/no-danger */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
@@ -6,6 +8,7 @@ import RandExp from 'randexp';
 import DataTypeField from './DataTypeField';
 import TextField from './TextField';
 import TextAreaField from './TextAreaField';
+import { GetMessage } from '../../../form-filler/helpers';
 
 // eslint-disable-next-line max-len
 const customFieldMatchRegEx = /^(first-name|last-name|full-name|username|email|organization|telephone|number|date|url|text|alphanumeric|regex|randomized-list)$/;
@@ -15,64 +18,64 @@ const validate = (values) => {
   let hasValidType = true;
 
   if (!values.type || !values.type.match(customFieldMatchRegEx)) {
-    errors.type = 'Please select a type.';
+    errors.type = GetMessage('customFields_validation_missingType');
     hasValidType = false;
   }
 
   if (!values.name || values.name.length === 0) {
-    errors.name = 'Please enter a name for this custom field.';
+    errors.name = GetMessage('customFields_validation_missingName');
   }
 
   if (!values.match || values.match.length === 0) {
-    errors.match = 'Please enter comma-separated values or a regular expression.';
+    errors.match = GetMessage('customFields_validation_missingMatch');
   }
 
   if (hasValidType) {
     if (values.type === 'telephone' && (!values.telephoneTemplate || values.telephoneTemplate.length === 0)) {
-      errors.telephoneTemplate = 'Please enter a template for the telephone number.';
+      errors.telephoneTemplate = GetMessage('customFields_validation_missingTelephoneTemplate');
     }
 
     if (values.type === 'number') {
       if (!values.numberMin || values.numberMin.length === 0) {
-        errors.numberMin = 'Please enter a minimum value.';
+        errors.numberMin = GetMessage('customFields_validation_missingMinValue');
       }
       if (!values.numberMax || values.numberMax.length === 0) {
-        errors.numberMax = 'Please enter a maximum value.';
+        errors.numberMax = GetMessage('customFields_validation_missingMaxValue');
       }
       if (values.numberMin && values.numberMax && parseInt(values.numberMax, 10) < parseInt(values.numberMin, 10)) {
-        errors.numberMax = 'The maximum value cannot be less than the minimum values.';
+        errors.numberMax = GetMessage('customFields_validation_invalidMinMaxValue');
       }
     }
 
     if (values.type === 'text') {
       if (!values.textMin || values.textMin.length === 0) {
-        errors.textMin = 'Please enter a minimum value.';
+        errors.textMin = GetMessage('customFields_validation_missingMinValue');
       }
       if (!values.textMax || values.textMax.length === 0) {
-        errors.textMax = 'Please enter a maximum value.';
+        errors.textMax = GetMessage('customFields_validation_missingMaxValue');
       }
       if (values.textMin && parseInt(values.textMin, 10) < 1) {
-        errors.textMin = 'The minimum value must be greater than one.';
+        errors.textMin = GetMessage('customFields_validation_invalidMaxValue');
       }
       if (values.textMin && values.textMax && parseInt(values.textMax, 10) < parseInt(values.textMin, 10)) {
-        errors.textMax = 'The maximum value cannot be less than the minimum values.';
+        errors.textMax = GetMessage('customFields_validation_invalidMinMaxValue');
       }
     }
 
     if (values.type === 'date' && (!values.dateTemplate || values.dateTemplate.length === 0)) {
-      errors.dateTemplate = 'Please enter a template for the date.';
+      errors.dateTemplate = GetMessage('customFields_validation_missingDateTemplate');
     }
 
     if (values.type === 'alphanumeric' && (!values.alphanumericTemplate || values.alphanumericTemplate.length === 0)) {
-      errors.alphanumericTemplate = 'Please specify a format template for this field.';
+      errors.alphanumericTemplate = GetMessage('customFields_validation_missingAlNumTemplate');
     }
 
     if (values.type === 'regex' && (!values.regexTemplate || values.regexTemplate.length === 0)) {
-      errors.regexTemplate = 'Please enter a regular expression.';
+      errors.regexTemplate = GetMessage('customFields_validation_missingRegEx');
     }
 
     if (values.type === 'randomized-list' && (!values.list || values.list.length === 0)) {
-      errors.list = 'Please enter some items.';
+      errors.list = GetMessage('customFields_validation_missingRandomItems');
     }
   }
 
@@ -88,6 +91,11 @@ class CustomFieldForm extends Component {
     this.state = {
       regexSample: '',
     };
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getHtmlMarkup(text) {
+    return { __html: text };
   }
 
   generateRadomRegExString() {
@@ -110,55 +118,42 @@ class CustomFieldForm extends Component {
     const { typeValue, onClose, handleSubmit, valid } = this.props;
 
     const dateTypeHelpText = (
-      <span>
-        Uses moment.js to format date/time values. Please refer to the
-        moment.js <a
-          href="http://momentjs.com/docs/#/displaying/format/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >documentation</a>.
-      </span>
+      <span dangerouslySetInnerHTML={this.getHtmlMarkup(GetMessage('customFields_dateTypeHelp'))} />
     );
 
     const alphanumericTypeHelpText = (
       <div>
         <div className="row">
           <div className="col-sm-6">
-            <code>L</code> An uppercase Letter.<br />
-            <code>l</code> lowercase letter.<br />
-            <code>D</code> A letter (upper or lower).<br />
-            <code>C</code> An uppercase Consonant.<br />
-            <code>c</code> A lowercase consonant.<br />
-            <code>E</code> A consonant (upper or lower).
+            <code>L</code> {GetMessage('customFields_alNumHelp_uppercaseLetter')}<br />
+            <code>l</code> {GetMessage('customFields_alNumHelp_lowercaseLetter')}<br />
+            <code>D</code> {GetMessage('customFields_alNumHelp_upperAndLowercaseLetter')}<br />
+            <code>C</code> {GetMessage('customFields_alNumHelp_uppercaseConsonant')}<br />
+            <code>c</code> {GetMessage('customFields_alNumHelp_lowercaseConsonant')}<br />
+            <code>E</code> {GetMessage('customFields_alNumHelp_upperAndLowercaseConsonant')}
           </div>
           <div className="col-sm-6">
-            <code>V</code> An uppercase Vowel.<br />
-            <code>v</code> A lowercase vowel.<br />
-            <code>F</code> A vowel (upper or lower).<br />
-            <code>x</code> Any number, 0-9.<br />
-            <code>X</code> Any number, 1-9.
+            <code>V</code> {GetMessage('customFields_alNumHelp_uppercaseVowel')}<br />
+            <code>v</code> {GetMessage('customFields_alNumHelp_lowercaseVowel')}<br />
+            <code>F</code> {GetMessage('customFields_alNumHelp_upperAndLowercaseVowel')}<br />
+            <code>x</code> {GetMessage('customFields_alNumHelp_number09')}<br />
+            <code>X</code> {GetMessage('customFields_alNumHelp_number19')}
           </div>
         </div>
         <br />
-        <p>
-          Any other character will be output as-is. The above characters can be escaped by wrapping
-          them in [square brackets].
-        </p>
+        <p>{GetMessage('customFields_alNumHelp_otherCharactersAsIs')}</p>
       </div>
     );
 
     const regexTypeHelpText = (
       <div>
-        <p>
-          Uses <a href="http://fent.github.io/randexp.js/" target="_blank" rel="noreferrer noopener">
-          randexp.js</a> to generate random data based on a regular expression pattern.
-        </p>
+        <p dangerouslySetInnerHTML={this.getHtmlMarkup(GetMessage('customFields_regExHelp'))} />
         <button
           type="button"
           className="btn btn-xs btn-default"
           onClick={this.generateRadomRegExString}
         >
-          Test Me
+          {GetMessage('testMe')}
         </button>
       </div>
     );
@@ -169,29 +164,29 @@ class CustomFieldForm extends Component {
           <div className="modal-header">
             <button type="button" className="close" onClick={onClose}>
               <span aria-hidden="true">&times;</span>
-              <span className="sr-only">Close</span>
+              <span className="sr-only">{GetMessage('close')}</span>
             </button>
-            <h4 className="modal-title">Custom Field Details</h4>
+            <h4 className="modal-title">{GetMessage('customFields_customFieldDetails')}</h4>
           </div>
           <div className="modal-body">
             <Field
               name="type"
               component={DataTypeField}
-              label="Data Type"
+              label={GetMessage('customFields_label_dataType')}
             />
             <Field
               name="name"
               type="text"
               component={TextField}
-              label="Friendly Name"
+              label={GetMessage('customFields_label_friendlyName')}
             />
             <Field
               name="match"
               type="text"
               component={TextField}
-              label="Match"
-              placeholder="Comma-separated values or a regular expression."
-              helpText="Enter comma separated values (in lowercase) to match, or a regular expression. Make sure your regular expression does not have a comma." // eslint-disable-line max-len
+              label={GetMessage('customFields_label_match')}
+              placeholder={GetMessage('customFields_label_match_placeholder')}
+              helpText={GetMessage('customFields_label_match_helpText')}
             />
             {
               typeValue === 'telephone' &&
@@ -199,8 +194,8 @@ class CustomFieldForm extends Component {
                 name="telephoneTemplate"
                 type="text"
                 component={TextField}
-                label="Template"
-                helpText="Use X for a number between 1-9 and x for 0-9."
+                label={GetMessage('customFields_label_template')}
+                helpText={GetMessage('customFields_label_telephoneTemplate_helpText')}
               />
             }
             {
@@ -209,7 +204,7 @@ class CustomFieldForm extends Component {
                 name="numberMin"
                 type="number"
                 component={TextField}
-                label="Minimum Value"
+                label={GetMessage('customFields_label_minValue')}
               />
             }
             {
@@ -218,7 +213,7 @@ class CustomFieldForm extends Component {
                 name="numberMax"
                 type="number"
                 component={TextField}
-                label="Maximum Value"
+                label={GetMessage('customFields_label_maxValue')}
               />
             }
             {
@@ -227,7 +222,7 @@ class CustomFieldForm extends Component {
                 name="dateTemplate"
                 type="text"
                 component={TextField}
-                label="Template"
+                label={GetMessage('customFields_label_template')}
                 helpText={dateTypeHelpText}
               />
             }
@@ -237,7 +232,7 @@ class CustomFieldForm extends Component {
                 name="textMin"
                 type="number"
                 component={TextField}
-                label="Minimum Words"
+                label={GetMessage('customFields_label_minWords')}
               />
             }
             {
@@ -246,7 +241,7 @@ class CustomFieldForm extends Component {
                 name="textMax"
                 type="number"
                 component={TextField}
-                label="Maximum Words"
+                label={GetMessage('customFields_label_maxWords')}
               />
             }
             {
@@ -255,7 +250,7 @@ class CustomFieldForm extends Component {
                 name="alphanumericTemplate"
                 type="text"
                 component={TextField}
-                label="Format"
+                label={GetMessage('customFields_label_format')}
                 helpText={alphanumericTypeHelpText}
               />
             }
@@ -265,7 +260,7 @@ class CustomFieldForm extends Component {
                 name="regexTemplate"
                 type="text"
                 component={TextField}
-                label="Pattern"
+                label={GetMessage('customFields_label_pattern')}
                 helpText={regexTypeHelpText}
               />
             }
@@ -280,16 +275,14 @@ class CustomFieldForm extends Component {
               <Field
                 name="list"
                 component={TextAreaField}
-                label="List Items"
-                placeholder="Enter each item on a new line."
+                label={GetMessage('customFields_label_listItems')}
+                placeholder={GetMessage('customFields_label_listItems_placeholder')}
               />
             }
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-default" onClick={onClose}>Cancel</button>
-            <button type="submit" className="btn btn-primary" disabled={!valid}>
-              Save
-            </button>
+            <button type="button" className="btn btn-default" onClick={onClose}>{GetMessage('cancel')}</button>
+            <button type="submit" className="btn btn-primary" disabled={!valid}>{GetMessage('save')}</button>
           </div>
         </div>
       </form>

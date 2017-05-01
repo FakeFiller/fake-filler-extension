@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Field, Fields, reduxForm, formValueSelector } from 'redux-form';
 
-import { CsvToArray } from '../../../form-filler/helpers';
+import { CsvToArray, GetMessage } from '../../../form-filler/helpers';
 import DataGenerator from '../../../form-filler/data-generator';
 import toggleInput from '../shared/ToggleInput';
 import EmailUsernameField from './EmailUsernameField';
@@ -19,21 +19,21 @@ const validate = (values) => {
 
   if (values.emailSettings) {
     if (values.emailSettings.username === 'list' && !values.emailSettings.usernameList) {
-      errors.emailSettings.usernameList = 'Please enter a list of usernames.';
+      errors.emailSettings.usernameList = GetMessage('generalSettings_validation_enterUsernames');
     }
 
     if (values.emailSettings.username === 'regex' && !values.emailSettings.usernameRegEx) {
-      errors.emailSettings.usernameRegEx = 'Please enter a regular expression.';
+      errors.emailSettings.usernameRegEx = GetMessage('generalSettings_validation_enterRegEx');
     }
 
     if (values.emailSettings.hostname === 'list' && !values.emailSettings.hostnameList) {
-      errors.emailSettings.hostnameList = 'Please enter a list of hostnames.';
+      errors.emailSettings.hostnameList = GetMessage('generalSettings_validation_enterHostname');
     }
   }
 
   if (values.passwordSettings) {
     if (values.passwordSettings.mode === 'defined' && !values.passwordSettings.password) {
-      errors.passwordSettings.password = 'Please enter a password.';
+      errors.passwordSettings.password = GetMessage('generalSettings_validation_enterPassword');
     }
   }
 
@@ -43,7 +43,7 @@ const validate = (values) => {
       && !values.fieldMatchSettings.matchName
       && !values.fieldMatchSettings.matchClass
     ) {
-      errors.fieldMatchSettings.matchId = 'You must select at least one option.';
+      errors.fieldMatchSettings.matchId = GetMessage('generalSettings_validation_enterAtLeastOneMatch');
     }
   }
 
@@ -59,6 +59,11 @@ class GeneralSettingsForm extends Component {
     this.state = {
       emailSample: '',
     };
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getHtmlMarkup(markup) {
+    return { __html: markup };
   }
 
   generateRandomEmail() {
@@ -87,7 +92,7 @@ class GeneralSettingsForm extends Component {
 
     return (
       <form className="form-horizontal" onSubmit={handleSubmit}>
-        <h2>Email Settings</h2>
+        <h2>{GetMessage('generalSettings_emailSettings')}</h2>
         <Fields
           names={['emailSettings.username', 'emailSettings.usernameList', 'emailSettings.usernameRegEx']}
           component={EmailUsernameField}
@@ -103,20 +108,20 @@ class GeneralSettingsForm extends Component {
               className="btn btn-xs btn-default"
               onClick={this.generateRandomEmail}
             >
-              Test Me
+              {GetMessage('testMe')}
             </button>
             {' '}
             {this.state.emailSample}
           </div>
         </div>
-        <h2>Password Settings</h2>
+        <h2>{GetMessage('generalSettings_passwordSettings')}</h2>
         <Fields
           names={['passwordSettings.mode', 'passwordSettings.password']}
           component={PasswordSettingsField}
         />
-        <h2>Field Options</h2>
+        <h2>{GetMessage('generalSettings_fieldOptions')}</h2>
         <div className="form-group">
-          <label className="control-label col-sm-3">Ignore Fields Match</label>
+          <label className="control-label col-sm-3">{GetMessage('generalSettings_ignoreFieldsMatch')}</label>
           <div className="col-sm-9">
             <Field
               name="ignoredFields"
@@ -124,28 +129,28 @@ class GeneralSettingsForm extends Component {
               component="input"
               className="form-control"
               autoComplete="off"
-              placeholder="Enter comma-separated values."
+              placeholder={GetMessage('enterCsv')}
             />
             <Field
               name="ignoreHiddenFields"
               component={toggleInput}
               type="checkbox"
-              label="Ignore all hidden/invisible fields"
+              label={GetMessage('generalSettings_ignoreHiddenFieldsLabel')}
             />
             <Field
               name="ignoreFieldsWithContent"
               component={toggleInput}
               type="checkbox"
-              label="Ignore fields that already have content"
+              label={GetMessage('generalSettings_ignoreFieldsWithContentLabel')}
             />
             <div className="help-block">
-              <span className="label label-info">Note</span> Inputs
-              with <i>type=&quot;hidden&quot;</i> are always ignored.
+              <span className="label label-info">{GetMessage('note')}</span>
+              <span dangerouslySetInnerHTML={this.getHtmlMarkup(GetMessage('generalSettings_ignoreFieldsWithContentHelp'))} />
             </div>
           </div>
         </div>
         <div className="form-group">
-          <label className="control-label col-sm-3">Confirmation Fields Match</label>
+          <label className="control-label col-sm-3">{GetMessage('generalSettings_confirmationFieldsMatch')}</label>
           <div className="col-sm-9">
             <Field
               name="confirmFields"
@@ -153,16 +158,13 @@ class GeneralSettingsForm extends Component {
               component="input"
               className="form-control"
               autoComplete="off"
-              placeholder="Enter comma-separated values."
+              placeholder={GetMessage('enterCsv')}
             />
-            <div className="help-block">
-              Data entered in a preceding input field will be used for inputs
-              matching any of these values.
-            </div>
+            <div className="help-block">{GetMessage('generalSettings_confirmFieldsHelp')}</div>
           </div>
         </div>
         <div className="form-group">
-          <label className="control-label col-sm-3">Agree to Terms Fields Match</label>
+          <label className="control-label col-sm-3">{GetMessage('generalSettings_agreeToTermsMatch')}</label>
           <div className="col-sm-9">
             <Field
               name="agreeTermsFields"
@@ -170,11 +172,9 @@ class GeneralSettingsForm extends Component {
               component="input"
               className="form-control"
               autoComplete="off"
-              placeholder="Enter comma-separated values."
+              placeholder={GetMessage('enterCsv')}
             />
-            <div className="help-block">
-              Checkboxes matching any of these values will always be checked.
-            </div>
+            <div className="help-block">{GetMessage('generalSettings_agreeToTermsMatchHelp')}</div>
           </div>
         </div>
         <Fields
@@ -186,26 +186,26 @@ class GeneralSettingsForm extends Component {
           ]}
           component={MatchFieldsToggleField}
         />
-        <h2>General Settings</h2>
+        <h2>{GetMessage('generalSettings')}</h2>
         <div className="form-group">
-          <label className="control-label col-sm-3">Trigger Events</label>
+          <label className="control-label col-sm-3">{GetMessage('generalSettings_triggerEvents')}</label>
           <div className="col-sm-9">
             <Field
               name="triggerClickEvents"
               component={toggleInput}
               type="checkbox"
-              label="Trigger click/change events on input fields"
+              label={GetMessage('generalSettings_triggerEventsLabel')}
             />
           </div>
         </div>
         <div className="form-group">
-          <label className="control-label col-sm-3">Context Menu</label>
+          <label className="control-label col-sm-3">{GetMessage('generalSettings_contextMenu')}</label>
           <div className="col-sm-9">
             <Field
               name="enableContextMenu"
               component={toggleInput}
               type="checkbox"
-              label="Add items to the right click menu"
+              label={GetMessage('generalSettings_contextMenuLabel')}
             />
           </div>
         </div>
@@ -217,7 +217,7 @@ class GeneralSettingsForm extends Component {
               className="btn btn-primary"
               disabled={pristine || !valid}
             >
-              Save Settings
+              {GetMessage('saveSettings')}
             </button>
             <button
               type="button"
@@ -225,9 +225,9 @@ class GeneralSettingsForm extends Component {
               disabled={pristine || submitting}
               onClick={reset}
             >
-              Reset
+              {GetMessage('reset')}
             </button>
-            { showSavedMessage && <span className="saved-msg">Saved settings.</span> }
+            { showSavedMessage && <span className="saved-msg">{GetMessage('generalSettings_settingsSaved')}</span> }
           </div>
         </div>
       </form>

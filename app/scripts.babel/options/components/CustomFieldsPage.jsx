@@ -6,6 +6,7 @@ import CustomFieldsList from './custom-fields/CustomFieldsList';
 import CustomFieldModal from './custom-fields/CustomFieldModal';
 import { getOptions, deleteCustomField, saveCustomField, saveSortedCustomFields } from '../actions';
 import { shapeOfOptions } from '../prop-types';
+import { GetMessage } from '../../form-filler/helpers';
 
 class CustomFieldsPage extends Component {
   constructor(props) {
@@ -72,17 +73,17 @@ class CustomFieldsPage extends Component {
 
   render() {
     if (this.props.isFetching) {
-      return (<div>Loading...</div>);
+      return (<div>{GetMessage('loading')}</div>);
     }
 
     return (
       <div>
-        <h2>Custom Fields</h2>
+        <h2>{GetMessage('customFields_title')}</h2>
         <Introduction />
         <hr />
         <p>
           <button className="btn btn-sm btn-primary" onClick={this.newCustomField}>
-            <i className="glyphicon glyphicon-plus-sign" /> Add Field
+            <i className="glyphicon glyphicon-plus-sign" /> {GetMessage('customFields_addFieldButtonText')}
           </button>
         </p>
         <CustomFieldsList

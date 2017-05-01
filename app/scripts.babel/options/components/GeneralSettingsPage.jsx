@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import GeneralSettingsForm from './general-settings/GeneralSettingsForm';
 import { getOptions, saveOptions } from '../actions';
-import { CsvToArray } from '../../form-filler/helpers';
+import { CsvToArray, GetMessage } from '../../form-filler/helpers';
 import { shapeOfOptions } from '../prop-types';
 
 class GeneralSettingsPage extends Component {
@@ -48,7 +48,7 @@ class GeneralSettingsPage extends Component {
 
   render() {
     if (this.props.isFetching) {
-      return (<div>Loading...</div>);
+      return (<div>{GetMessage('loading')}</div>);
     }
 
     const options = this.props.options;

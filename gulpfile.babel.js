@@ -56,6 +56,7 @@ gulp.task('options-styles', () => {
 gulp.task('extras', () => {
   return gulp.src([
     'app/*.*',
+    'app/_locales/**',
     'app/fonts/**',
     'app/images/**',
     '!app/scripts.babel',

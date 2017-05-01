@@ -4,6 +4,11 @@ import React, { Component, PropTypes } from 'react';
 import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'react-sortable-hoc';
 
 import { shapeOfCustomField } from '../../prop-types';
+import { GetMessage } from '../../../form-filler/helpers';
+
+function isNotEmpty(item) {
+  return item !== undefined && item !== null;
+}
 
 const DragHandle = SortableHandle(() => (
   <button type="button" className="btn btn-xs btn-default">
@@ -18,7 +23,7 @@ const SortableItem = SortableElement(({ customField, itemIndex, onEdit, onDelete
       <div className="btn-group">
         <DragHandle />
         <button className="btn btn-xs btn-default" onClick={() => onEdit(customField, itemIndex)}>
-          <i className="glyphicon glyphicon-edit" /> Edit
+          <i className="glyphicon glyphicon-edit" /> {GetMessage('edit')}
         </button>
         <button className="btn btn-xs btn-default" onClick={() => onDelete(itemIndex)}>
           <i className="glyphicon glyphicon-trash" />
@@ -26,18 +31,18 @@ const SortableItem = SortableElement(({ customField, itemIndex, onEdit, onDelete
       </div>
     </div>
     <dl className="dl-horizontal">
-      <dt>Type</dt>
+      <dt>{GetMessage('customFields_label_dataType')}</dt>
       <dd>{customField.type}</dd>
-      <dt>Match</dt>
+      <dt>{GetMessage('customFields_label_match')}</dt>
       <dd>{customField.match.join(', ')}</dd>
-      {customField.template && <dt>Template</dt>}
-      {customField.template && <dd>{customField.template}</dd>}
-      {customField.min !== undefined && customField.min !== null && <dt>Minimum Value</dt>}
-      {customField.min !== undefined && customField.min !== null && <dd>{customField.min}</dd>}
-      {customField.max !== undefined && customField.max !== null && <dt>Maximum Value</dt>}
-      {customField.max !== undefined && customField.max !== null && <dd>{customField.max}</dd>}
-      {customField.list && <dt>List Items</dt>}
-      {customField.list && <dd>{customField.list.join(', ')}</dd>}
+      { customField.template && <dt>{GetMessage('customFields_label_template')}</dt> }
+      { customField.template && <dd>{customField.template}</dd> }
+      { isNotEmpty(customField.min) && <dt>{GetMessage('customFields_label_minValue')}</dt> }
+      { isNotEmpty(customField.min) && <dd>{customField.min}</dd> }
+      { isNotEmpty(customField.max) && <dt>{GetMessage('customFields_label_minValue')}</dt> }
+      { isNotEmpty(customField.max) && <dd>{customField.max}</dd> }
+      { customField.list && <dt>{GetMessage('customFields_label_listItems')}</dt> }
+      { customField.list && <dd>{customField.list.join(', ')}</dd> }
     </dl>
   </div>
 ));
