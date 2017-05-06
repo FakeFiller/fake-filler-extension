@@ -1,0 +1,443 @@
+{
+  "extensionName": {
+    "message": "表单君"
+  },
+  "extensionDescription": {
+    "message": "自动填充页面中的表单."
+  },
+  "browserActionTitle": {
+    "message": "自动填充你的表单."
+  },
+  "commands_FillThisForm": {
+    "message": "填充这个 form 表单"
+  },
+  "commands_fillThisInput": {
+    "message": "填充这个input区域"
+  },
+  "commands_fillAllInputs": {
+    "message": "填充所有input区域"
+  },
+  "bgPage_errorMigratingOptions": {
+    "message": "更新选项时运行错误，错误信息: $1"
+  },
+  "close": {
+    "message": "关闭"
+  },
+  "cancel": {
+    "message": "取消"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "saveSettings": {
+    "message": "保存设置"
+  },
+  "reset": {
+    "message": "重置"
+  },
+  "edit": {
+    "message": "编辑"
+  },
+  "loading": {
+    "message": "加载中..."
+  },
+  "testMe": {
+    "message": "测试"
+  },
+  "enterCsv": {
+    "message": "输入值，使用英文逗号分隔."
+  },
+  "leftNav_General": {
+    "message": "常用设置"
+  },
+  "leftNav_customFields": {
+    "message": "自定义"
+  },
+  "leftNav_keyboardShortcuts": {
+    "message": "快捷键设置"
+  },
+  "leftNav_backupRestore": {
+    "message": "备份/重置"
+  },
+  "leftNav_restoreFactorySettings": {
+    "message": "初始化设置"
+  },
+  "leftNav_changelog": {
+    "message": "版本日志"
+  },
+  "leftNav_source": {
+    "message": "源码"
+  },
+  "leftNav_confirmResetSettings": {
+    "message": "确定要重置默认设置？"
+  },
+  "leftNav_rate_AMO": {
+    "message": "如果你喜欢表单君, 请 <a href=\"$1\" target=\"_blank\">到 addons.mozilla.org为我打分吧</a>."
+  },
+  "leftNav_rate_Chrome": {
+    "message": "如果你喜欢表单君, 请 <a href=\"$1\" target=\"_blank\">到 Chrome 商店为我打分吧</a>."
+  },
+  "leftNav_sendFeedback": {
+    "message": "如果你关于本插件有更多的建议或者issue，请联系我 <a href=\"mailto:$1\">email</a>."
+  },
+  "backupRestore_title": {
+    "message": "备份/重置"
+  },
+  "backupRestore_exportSettings": {
+    "message": "导出设置"
+  },
+  "backupRestore_importSettings": {
+    "message": "导入设置"
+  },
+  "backupRestore_errorCreatingBackupFile": {
+    "message": "创建备份文件错误： $1"
+  },
+  "backupRestore_settingImportSuccessMessage": {
+    "message": "成功导入设置！页面刷新后生效."
+  },
+  "backupRestore_confirmRestore": {
+    "message": "确定要重置设置？\n\n注: 已经修改的设置将丢失."
+  },
+  "backupRestore_errorImporting": {
+    "message": "导入文件失败: $1"
+  },
+  "backupRestore_errorReadingFile": {
+    "message": "读取备份文件异常！"
+  },
+  "backupRestore_copyAndSaveToFile": {
+    "message": "复制并保存到文本中."
+  },
+  "kbdShortcuts_title": {
+    "message": "快捷键设置"
+  },
+  "kbdShortcuts_notSet": {
+    "message": "没有设置"
+  },
+  "kbdShortcuts_firefoxComingSoon": {
+    "message": "Firefox 中设置快捷键功能敬请期待."
+  },
+  "kbdShortcuts_changeInstructions": {
+    "message": "修改快捷键设置，<a href='chrome://extensions/configureCommands'>keyboard shortcuts</a> "
+  },
+  "customFields_title": {
+    "message": "自定义字段"
+  },
+  "customFields_intro": {
+    "message": "表单君可以通过input元素的 ID, NAME 以及 CLASS 属性来决定填充进去对应的数据，如 ID 为'password'则填充的数据则为密码类型的."
+  },
+  "customFields_getMoreInfo": {
+    "message": "了解更多关于匹配规则"
+  },
+  "customFields_addFieldButtonText": {
+    "message": "增加字段"
+  },
+  "customFields_validation_missingType": {
+    "message": "请选择一种类型."
+  },
+  "customFields_validation_missingName": {
+    "message": "请为自定义字段输入一个名字."
+  },
+  "customFields_validation_missingMatch": {
+    "message": "请输入一个或多个值（用英文逗号分隔）或者输入一个正则表达式."
+  },
+  "customFields_validation_missingTelephoneTemplate": {
+    "message": "请输入一个电话号码的模板."
+  },
+  "customFields_validation_missingMinValue": {
+    "message": "请输入最小值."
+  },
+  "customFields_validation_missingMaxValue": {
+    "message": "请输入一个最大值."
+  },
+  "customFields_validation_invalidMinMaxValue": {
+    "message": "最大值不能小于最小值."
+  },
+  "customFields_validation_invalidMaxValue": {
+    "message": "最小值不能大于最大值."
+  },
+  "customFields_validation_missingDateTemplate": {
+    "message": "请输入日期值的模板."
+  },
+  "customFields_validation_missingAlNumTemplate": {
+    "message": "请为这个字段指定一个模板."
+  },
+  "customFields_validation_missingRegEx": {
+    "message": "请输入一个正则表达式."
+  },
+  "customFields_validation_missingRandomItems": {
+    "message": "请输入一些项目."
+  },
+  "customFields_dateTypeHelp": {
+    "message": "使用 moment.js 格式化日期或时间值. 请参照 moment.js <a href=\"http://momentjs.com/docs/#/displaying/format/\" target=\"_blank\" rel=\"noopener noreferrer\">文档</a>."
+  },
+  "customFields_alNumHelp_uppercaseLetter": {
+    "message": "一个大写的字母."
+  },
+  "customFields_alNumHelp_lowercaseLetter": {
+    "message": "一个小写的字母."
+  },
+  "customFields_alNumHelp_upperAndLowercaseLetter": {
+    "message": "一个字母 (大写或小写)."
+  },
+  "customFields_alNumHelp_uppercaseConsonant": {
+    "message": "一个大写的常量."
+  },
+  "customFields_alNumHelp_lowercaseConsonant": {
+    "message": "一个大写的常量."
+  },
+  "customFields_alNumHelp_upperAndLowercaseConsonant": {
+    "message": "一个常量 (大写或小写)."
+  },
+  "customFields_alNumHelp_uppercaseVowel": {
+    "message": "一个大写元音字母 VOWEL."
+  },
+  "customFields_alNumHelp_lowercaseVowel": {
+    "message": "一个小写元音字母 vowel."
+  },
+  "customFields_alNumHelp_upperAndLowercaseVowel": {
+    "message": "一个元音字母 (大写或小写)."
+  },
+  "customFields_alNumHelp_number09": {
+    "message": "任意 0-9 的数值."
+  },
+  "customFields_alNumHelp_number19": {
+    "message": "任意 1-9 的数值."
+  },
+  "customFields_alNumHelp_otherCharactersAsIs": {
+    "message": "任意其他字符都会按原样输出。但以上在[方括号]内的字符除外."
+  },
+  "customFields_regExHelp": {
+    "message": "使用 <a href=\"http://fent.github.io/randexp.js/\" target=\"_blank\" rel=\"noreferrer noopener\">randexp.js</a> 根据正则表达式生成符合要求的数据."
+  },
+  "customFields_customFieldDetails": {
+    "message": "自定义字段详情"
+  },
+  "customFields_label_dataType": {
+    "message": "自定义类型"
+  },
+  "customFields_label_friendlyName": {
+    "message": "标识名称"
+  },
+  "customFields_label_match": {
+    "message": "匹配"
+  },
+  "customFields_label_match_placeholder": {
+    "message": "输入一个或多个值（用英文逗号分隔）或者一个正则表达式."
+  },
+  "customFields_label_match_helpText": {
+    "message": "输入一个或多个值（小写，用英文逗号分隔）或者一个正则表达式去匹配. 注：确保你的正则表达式没有逗号."
+  },
+  "customFields_label_template": {
+    "message": "模板"
+  },
+  "customFields_label_telephoneTemplate_helpText": {
+    "message": "使用 'X' 代表 '1-9'，使用'x'代表 '0-9'."
+  },
+  "customFields_label_minValue": {
+    "message": "最小值"
+  },
+  "customFields_label_maxValue": {
+    "message": "最大值"
+  },
+  "customFields_label_minWords": {
+    "message": "最少字数"
+  },
+  "customFields_label_maxWords": {
+    "message": "最多字数"
+  },
+  "customFields_label_format": {
+    "message": "格式"
+  },
+  "customFields_label_pattern": {
+    "message": "模式"
+  },
+  "customFields_label_listItems": {
+    "message": "项目列表"
+  },
+  "customFields_label_listItems_placeholder": {
+    "message": "每行输入一个项目."
+  },
+  "customFields_dataType_select": {
+    "message": "-- 选择 --"
+  },
+  "customFields_dataType_humanDataLabel": {
+    "message": "名字相关数据"
+  },
+  "customFields_dataType_firstName": {
+    "message": "姓"
+  },
+  "customFields_dataType_lastName": {
+    "message": "名"
+  },
+  "customFields_dataType_fullName": {
+    "message": "全名"
+  },
+  "customFields_dataType_username": {
+    "message": "用户名"
+  },
+  "customFields_dataType_emailAddress": {
+    "message": "邮箱地址"
+  },
+  "customFields_dataType_companyName": {
+    "message": "机构/公司名称"
+  },
+  "customFields_dataType_telephone": {
+    "message": "手机号码"
+  },
+  "customFields_dataType_number": {
+    "message": "数值"
+  },
+  "customFields_dataType_date": {
+    "message": "日期"
+  },
+  "customFields_dataType_url": {
+    "message": "URL/网址"
+  },
+  "customFields_dataType_otherLabel": {
+    "message": "其他"
+  },
+  "customFields_dataType_text": {
+    "message": "文本"
+  },
+  "customFields_dataType_alphaNumeric": {
+    "message": "字母数字"
+  },
+  "customFields_dataType_regEx": {
+    "message": "正则表达式"
+  },
+  "customFields_dataType_randomizedList": {
+    "message": "随机列表"
+  },
+  "generalSettings_label_hostName": {
+    "message": "域名"
+  },
+  "generalSettings_label_hostName_randomLabel": {
+    "message": "使用一个随机生成的域名"
+  },
+  "generalSettings_label_hostName_listLabel": {
+    "message": "从下列列表中选择："
+  },
+  "generalSettings_label_hostName_listTextHelp": {
+    "message": "列出选项（英文逗号分隔），可以包含 @ 字符."
+  },
+  "generalSettings_label_username": {
+    "message": "用户名"
+  },
+  "generalSettings_label_username_usernameLabel": {
+    "message": "使用先前生成的用户名"
+  },
+  "generalSettings_label_username_nameLabel": {
+    "message": "使用先前生产的名和姓"
+  },
+  "generalSettings_label_username_randomLabel": {
+    "message": "使用随机生成的名字"
+  },
+  "generalSettings_label_username_listLabel": {
+    "message": "从列表中选择 (用英文逗号分隔):"
+  },
+  "generalSettings_label_username_regExLabel": {
+    "message": "使用正则表达式:"
+  },
+  "generalSettings_label_username_regExTextPlaceholder": {
+    "message": "一个正则表达式."
+  },
+  "generalSettings_validation_enterUsernames": {
+    "message": "请输入用户名列表."
+  },
+  "generalSettings_validation_enterRegEx": {
+    "message": "请输入一个正则表达式."
+  },
+  "generalSettings_validation_enterHostname": {
+    "message": "请输入域名列表."
+  },
+  "generalSettings_validation_enterPassword": {
+    "message": "输入一个密码."
+  },
+  "generalSettings_validation_enterAtLeastOneMatch": {
+    "message": "你需要至少选择一个选项."
+  },
+  "generalSettings_emailSettings": {
+    "message": "邮箱设置"
+  },
+  "generalSettings_passwordSettings": {
+    "message": "密码设置"
+  },
+  "generalSettings_fieldOptions": {
+    "message": "字段选择"
+  },
+  "generalSettings_ignoreFieldsMatch": {
+    "message": "忽略字段匹配"
+  },
+  "generalSettings_ignoreHiddenFieldsLabel": {
+    "message": "忽略所有不可见的/被隐藏的字段"
+  },
+  "generalSettings_ignoreFieldsWithContentLabel": {
+    "message": "忽略已经有值的字段"
+  },
+  "generalSettings_note": {
+    "message": "注"
+  },
+  "generalSettings_ignoreFieldsWithContentHelp": {
+    "message": "input 标签 type 类型为 <i>type=&quot;hidden&quot;</i> 的字段会被忽略填充数据."
+  },
+  "generalSettings_confirmationFieldsMatch": {
+    "message": "确认字段匹配"
+  },
+  "generalSettings_confirmFieldsHelp": {
+    "message": "在前面的输入字段中输入数据将用于输入匹配这些值."
+  },
+  "generalSettings_agreeToTermsMatch": {
+    "message": "“同意条款”字段匹配"
+  },
+  "generalSettings_agreeToTermsMatchHelp": {
+    "message": "匹配到这些值的复选框将会被选中."
+  },
+  "generalSettings": {
+    "message": "常用设置"
+  },
+  "generalSettings_triggerEvents": {
+    "message": "触发器事件"
+  },
+  "generalSettings_triggerEventsLabel": {
+    "message": "对input字段触发click/change 事件"
+  },
+  "generalSettings_contextMenu": {
+    "message": "右击菜单"
+  },
+  "generalSettings_contextMenuLabel": {
+    "message": "添加到右击菜单中"
+  },
+  "generalSettings_settingsSaved": {
+    "message": "保存设置."
+  },
+  "generalSettings_matchFieldsUsing": {
+    "message": "匹配字段依据"
+  },
+  "generalSettings_matchFields_useLabel": {
+    "message": "Label 标签指向的input"
+  },
+  "generalSettings_matchFields_useId": {
+    "message": "input标签的 ID 属性"
+  },
+  "generalSettings_matchFields_useName": {
+    "message": "input 标签的 Name 属性"
+  },
+  "generalSettings_matchFields_useClass": {
+    "message": "input 标签的 Class 属性"
+  },
+  "generalSettings_matchFields_mustSelectOneOption": {
+    "message": "至少选择一个选项"
+  },
+  "generalSettings_matchFields_help": {
+    "message": "请参考“自定义设置”模块了解input 是如何被匹配的。"
+  },
+  "generalSettings_password": {
+    "message": "密码"
+  },
+  "generalSettings_password_randomLabel": {
+    "message": "随机生成一个8位的密码"
+  },
+  "generalSettings_password_useThisLabel": {
+    "message": "使用这个："
+  }
+}
