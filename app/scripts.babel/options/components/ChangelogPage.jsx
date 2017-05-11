@@ -5,7 +5,13 @@ import React from 'react';
 const ChangelogPage = () => (
   <div>
     <h2>Form Filler Changelog</h2>
-    <p><strong>Version 2.8.9</strong></p>
+    <p><strong>Version 2.8.6</strong></p>
+    <ul>
+      <li>Added Chinese localization (<a href="https://github.com/rowthan">rowthan</a>)</li>
+      <li>Data generation for textarea fields can be customized using Text, Alphanumeric, Regular Expression and Randomized List custom field types.</li>
+    </ul>
+    <hr />
+    <p><strong>Version 2.8.5</strong></p>
     <ul>
       <li>Workaround for Firefox problem with backup settings.</li>
     </ul>
