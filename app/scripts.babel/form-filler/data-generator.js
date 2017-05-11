@@ -365,14 +365,16 @@ class DataGenerator {
     return sanitizedElementName;
   }
 
-  getFieldFromElement(elementName, matchType = '') {
-    const doMatchType = matchType.length > 0;
+  getFieldFromElement(elementName, matchTypes = []) {
+    const doMatchType = matchTypes.length > 0;
 
     for (let i = 0; i < this.options.fields.length; i += 1) {
       if (this.isAnyMatch(elementName, this.options.fields[i].match)) {
         if (doMatchType) {
-          if (this.options.fields[i].type === matchType) {
-            return this.options.fields[i];
+          for (let j = 0; j < matchTypes.length; j += 1) {
+            if (this.options.fields[i].type === matchTypes[j]) {
+              return this.options.fields[i];
+            }
           }
         } else {
           return this.options.fields[i];
@@ -383,10 +385,7 @@ class DataGenerator {
     return null;
   }
 
-  generateValueByType(element, currentElementName, currentField) {
-    const elementName = currentElementName || this.getSanitizedElementName(element);
-    const field = currentField || this.getFieldFromElement(elementName) || { type: 'unknown' };
-
+  getRandomDataForField(field, element) {
     switch (field.type) {
       case 'username':
         this.previousUsername = this.generateScrambledWord(5, 10, true);
@@ -438,6 +437,12 @@ class DataGenerator {
       default:
         return this.generatePhrase(element.maxLength);
     }
+  }
+
+  generateValueByType(element, currentElementName, currentField) {
+    const elementName = currentElementName || this.getSanitizedElementName(element);
+    const field = currentField || this.getFieldFromElement(elementName) || { type: 'unknown' };
+    return this.getRandomDataForField(field, element);
   }
 
   selectRandomRadio(name) {
@@ -545,7 +550,7 @@ class DataGenerator {
         max = parseInt(element.max, 10);
       }
 
-      const numberOptions = this.getFieldFromElement(this.getSanitizedElementName(element), 'number');
+      const numberOptions = this.getFieldFromElement(this.getSanitizedElementName(element), ['number']);
       if (numberOptions) {
         min = numberOptions.min;
         max = numberOptions.max;
@@ -602,8 +607,10 @@ class DataGenerator {
       return;
     }
 
-    const textOptions = this.getFieldFromElement(this.getSanitizedElementName(element), 'text') || { min: 10, max: 20 };
-    element.value = this.generateParagraph(textOptions.min, textOptions.max, element.maxLength);
+    const fieldMatches = ['text', 'alphanumeric', 'regex', 'randomized-list'];
+    const field = this.getFieldFromElement(this.getSanitizedElementName(element), fieldMatches) || { min: 10, max: 20 };
+
+    element.value = this.getRandomDataForField(field, element);
 
     if (this.options.triggerClickEvents) {
       if (window.Event && window.dispatchEvent) {
