@@ -643,7 +643,7 @@ class DataGenerator {
         for (let index = 0; index < element.options.length; index += 1) {
           if (element.options[index].value === value) {
             valueExists = true;
-            return;
+            break;
           }
         }
       }
