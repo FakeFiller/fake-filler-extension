@@ -22,8 +22,11 @@ class KeyboardShortcutsPage extends Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  sanitizeDescriptionKey(key) {
-    return key.replace('__MSG_', '').replace('__', '');
+  getTranslatedDescription(key) {
+    if (key.startsWith('__MSG_')) {
+      return GetMessage(key.replace('__MSG_', '').replace('__', ''));
+    }
+    return key;
   }
 
   render() {
@@ -47,7 +50,7 @@ class KeyboardShortcutsPage extends Component {
                   return (
                     <tr key={index}>
                       <td className="narrow">{item.shortcut ? <kbd>{item.shortcut}</kbd> : notSetText}</td>
-                      <td>{GetMessage(this.sanitizeDescriptionKey(item.description))}</td>
+                      <td>{this.getTranslatedDescription(item.description)}</td>
                     </tr>
                   );
                 }
