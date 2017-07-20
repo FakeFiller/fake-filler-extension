@@ -5,6 +5,12 @@ import React from 'react';
 const ChangelogPage = () => (
   <div>
     <h2>Form Filler Changelog</h2>
+    <p><strong>Version 2.8.7</strong></p>
+    <ul>
+      <li>Fixed issue in setting select fields via custom field rules. (<a href="https://github.com/husainshabbir/form-filler/pull/54" target="_blank" rel="noopener noreferrer">#54</a>)</li>
+      <li>Fixed issue with displaying keyboard shortcut descriptions in Chrome.</li>
+    </ul>
+    <hr />
     <p><strong>Version 2.8.6</strong></p>
     <ul>
       <li>Added Chinese localization (<a href="https://github.com/rowthan">rowthan</a>)</li>
