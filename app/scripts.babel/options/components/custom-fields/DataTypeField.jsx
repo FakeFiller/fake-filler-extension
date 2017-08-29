@@ -23,6 +23,7 @@ const DataTypeField = ({ input, label, helpText, meta: { dirty, touched, error }
         <optgroup label={GetMessage('customFields_dataType_otherLabel')}>
           <option value="text">{GetMessage('customFields_dataType_text')}</option>
           <option value="alphanumeric">{GetMessage('customFields_dataType_alphaNumeric')}</option>
+          <option value="increasing-number">{GetMessage('customFields_dataType_increasingNumber')}</option>
           <option value="regex">{GetMessage('customFields_dataType_regEx')}</option>
           <option value="randomized-list">{GetMessage('customFields_dataType_randomizedList')}</option>
         </optgroup>
