@@ -21,6 +21,7 @@ const shapeOfCustomField = PropTypes.shape({
     'text',
     'url',
     'username',
+    'increasing-number'
   ]),
 });
 

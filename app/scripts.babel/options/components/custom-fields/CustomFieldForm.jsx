@@ -11,7 +11,7 @@ import TextAreaField from './TextAreaField';
 import { GetMessage } from '../../../form-filler/helpers';
 
 // eslint-disable-next-line max-len
-const customFieldMatchRegEx = /^(first-name|last-name|full-name|username|email|organization|telephone|number|date|url|text|alphanumeric|regex|randomized-list)$/;
+const customFieldMatchRegEx = /^(first-name|last-name|full-name|username|email|organization|telephone|number|date|url|text|alphanumeric|regex|randomized-list|increasing-number)$/;
 
 const validate = (values) => {
   const errors = {};
@@ -158,6 +158,10 @@ class CustomFieldForm extends Component {
       </div>
     );
 
+    const incrementTypeHelper = (
+        <p dangerouslySetInnerHTML={this.getHtmlMarkup(GetMessage('customFields_increasingNumberHelp'))}/>
+    )
+
     return (
       <form className="form-horizontal" onSubmit={handleSubmit}>
         <div className="modal-content">
@@ -279,6 +283,25 @@ class CustomFieldForm extends Component {
                 placeholder={GetMessage('customFields_label_listItems_placeholder')}
               />
             }
+            {
+              typeValue === 'increasing-number' &&
+              <Field
+                name="startValue"
+                type="number"
+                label={GetMessage('customFields_label_increasingNumbers_startValue')}
+                helpText={incrementTypeHelper}
+                component={TextField}
+              />
+            }
+              {
+                  typeValue === 'increasing-number' &&
+                  <Field
+                      name="interval"
+                      type="number"
+                      label={GetMessage('customFields_label_increasingNumbers_intervalValue')}
+                      component={TextField}
+                  />
+              }
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-default" onClick={onClose}>{GetMessage('cancel')}</button>
@@ -326,6 +349,8 @@ function mapStateToProps(state, ownProps) {
     numberMax: 99999,
     textMin: 1,
     textMax: 20,
+    startValue:1,
+    interval:1
   });
 
   if (typeValue === 'telephone') {
@@ -352,6 +377,11 @@ function mapStateToProps(state, ownProps) {
   if (typeValue === 'text') {
     initialValues.textMin = customField.min || 1;
     initialValues.textMax = customField.max || 20;
+  }
+
+  if(typeValue === 'increasing-number'){
+    initialValues.startValue = customField.startValue || 0;
+    initialValues.interval = customField.interval || 1;
   }
 
   delete initialValues.template;

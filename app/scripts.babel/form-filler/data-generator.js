@@ -434,6 +434,10 @@ class DataGenerator {
       case 'randomized-list':
         return field.list[this.generateNumber(0, field.list.length - 1)];
 
+      case 'increasing-number':
+        const index = jQuery("input[name="+element.name+"]").index(jQuery(element));
+        return field.startValue+(field.interval* (index >-1?index:0));
+
       default:
         return this.generatePhrase(element.maxLength);
     }

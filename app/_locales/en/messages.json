@@ -209,6 +209,9 @@
   "customFields_regExHelp": {
     "message": "Uses <a href=\"http://fent.github.io/randexp.js/\" target=\"_blank\" rel=\"noreferrer noopener\">randexp.js</a> to generate random data based on a regular expression pattern."
   },
+  "customFields_increasingNumberHelp": {
+    "message": "Allow you to fill a list of input with the same name regularly,you can set the start and step"
+  },
   "customFields_customFieldDetails": {
     "message": "Custom Field Details"
   },
@@ -253,6 +256,12 @@
   },
   "customFields_label_listItems": {
     "message": "List Items"
+  },
+  "customFields_label_increasingNumbers_startValue": {
+    "message": "The start of increasing number"
+  },
+  "customFields_label_increasingNumbers_intervalValue": {
+    "message": "The step of increasing number"
   },
   "customFields_label_listItems_placeholder": {
     "message": "Enter each item on a new line."
@@ -307,6 +316,9 @@
   },
   "customFields_dataType_randomizedList": {
     "message": "Randomized List"
+  },
+  "customFields_dataType_increasingNumber":{
+    "message":"Increasing Numbers"
   },
   "generalSettings_label_hostName": {
     "message": "Host name"

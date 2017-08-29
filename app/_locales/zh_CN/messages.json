@@ -209,6 +209,9 @@
   "customFields_regExHelp": {
     "message": "使用 <a href=\"http://fent.github.io/randexp.js/\" target=\"_blank\" rel=\"noreferrer noopener\">randexp.js</a> 根据正则表达式生成符合要求的数据."
   },
+  "customFields_increasingNumberHelp": {
+    "message": " 适用于以下情况：页面中存在多个 name 为A的标签，希望在填充着一组时，采用递增的方式（允许您设置一个初始值）。与“随机范围数值”不同的是，本类型能够保证多个input填充之后每个值唯一，并且有规律递增，而前者做不到这一点。"
+  },
   "customFields_customFieldDetails": {
     "message": "自定义字段详情"
   },
@@ -254,6 +257,12 @@
   "customFields_label_listItems": {
     "message": "项目列表"
   },
+  "customFields_label_increasingNumbers_startValue": {
+    "message": "递增数起始值"
+  },
+  "customFields_label_increasingNumbers_intervalValue": {
+    "message": "递增步长"
+  },
   "customFields_label_listItems_placeholder": {
     "message": "每行输入一个项目."
   },
@@ -261,7 +270,7 @@
     "message": "-- 选择 --"
   },
   "customFields_dataType_humanDataLabel": {
-    "message": "名字相关数据"
+    "message": "用户相关数据"
   },
   "customFields_dataType_firstName": {
     "message": "姓"
@@ -285,7 +294,7 @@
     "message": "手机号码"
   },
   "customFields_dataType_number": {
-    "message": "数值"
+    "message": "随机范围数值"
   },
   "customFields_dataType_date": {
     "message": "日期"
@@ -307,6 +316,9 @@
   },
   "customFields_dataType_randomizedList": {
     "message": "随机列表"
+  },
+  "customFields_dataType_increasingNumber":{
+    "message":"递增数字"
   },
   "generalSettings_label_hostName": {
     "message": "域名"

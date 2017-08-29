@@ -65,6 +65,11 @@ export function saveCustomField(options, customField, customFieldIndex) {
       newCustomField.max = parseInt(newCustomField.numberMax, 10);
     }
 
+    if (newCustomField.type === 'increasing-number') {
+       newCustomField.startValue = parseInt(newCustomField.startValue,10);
+       newCustomField.interval = parseInt(newCustomField.interval,10);
+    }
+
     if (newCustomField.type === 'text') {
       newCustomField.min = parseInt(newCustomField.textMin, 10);
       newCustomField.max = parseInt(newCustomField.textMax, 10);
