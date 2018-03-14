@@ -39,7 +39,7 @@ const SortableItem = SortableElement(({ customField, itemIndex, onEdit, onDelete
       { customField.template && <dd>{customField.template}</dd> }
       { isNotEmpty(customField.min) && <dt>{GetMessage('customFields_label_minValue')}</dt> }
       { isNotEmpty(customField.min) && <dd>{customField.min}</dd> }
-      { isNotEmpty(customField.max) && <dt>{GetMessage('customFields_label_minValue')}</dt> }
+      { isNotEmpty(customField.max) && <dt>{GetMessage('customFields_label_maxValue')}</dt> }
       { isNotEmpty(customField.max) && <dd>{customField.max}</dd> }
       { customField.list && <dt>{GetMessage('customFields_label_listItems')}</dt> }
       { customField.list && <dd>{customField.list.join(', ')}</dd> }
