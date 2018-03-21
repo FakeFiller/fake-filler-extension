@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 
+import jQuery from 'jquery';
 import DataGenerator from './data-generator';
 
 class FormFiller {
@@ -14,19 +15,19 @@ class FormFiller {
   }
 
   fillAllInputs() {
-    document.querySelectorAll('input:enabled:not([readonly])').forEach((element) => {
+    jQuery('input:enabled:not([readonly])').each((index, element) => {
       this.dataGenerator.fillInputTagElement(element);
     });
 
-    document.querySelectorAll('textarea:enabled:not([readonly])').forEach((element) => {
+    jQuery('textarea:enabled:not([readonly])').each((index, element) => {
       this.dataGenerator.fillTextAreaTagElement(element);
     });
 
-    document.querySelectorAll('select:enabled:not([readonly])').forEach((element) => {
+    jQuery('select:enabled:not([readonly])').each((index, element) => {
       this.dataGenerator.fillSelectTagElement(element);
     });
 
-    document.querySelectorAll('[contenteditable]').forEach((element) => {
+    jQuery('[contenteditable]').each((index, element) => {
       if (element.isContentEditable) {
         // eslint-disable-next-line no-param-reassign
         element.textContent = this.dataGenerator.generateParagraph(5, 100);
@@ -58,22 +59,22 @@ class FormFiller {
     const theElement = this.clickedElement || document.activeElement;
 
     if (theElement && theElement.tagName.toLowerCase() !== 'body') {
-      const form = theElement.closest('form');
+      const form = jQuery(theElement).closest('form');
 
-      if (form) {
-        form.querySelectorAll('input:enabled:not([readonly])').forEach((element) => {
+      if (form.length > 0) {
+        jQuery('input:enabled:not([readonly])', form[0]).each((index, element) => {
           this.dataGenerator.fillInputTagElement(element);
         });
 
-        form.querySelectorAll('textarea:enabled:not([readonly])').forEach((element) => {
+        jQuery('textarea:enabled:not([readonly])', form[0]).each((index, element) => {
           this.dataGenerator.fillTextAreaTagElement(element);
         });
 
-        form.querySelectorAll('select:enabled:not([readonly])').forEach((element) => {
+        jQuery('select:enabled:not([readonly])', form[0]).each((index, element) => {
           this.dataGenerator.fillSelectTagElement(element);
         });
 
-        form.querySelectorAll('[contenteditable]').forEach((element) => {
+        jQuery('[contenteditable]', form[0]).each((index, element) => {
           if (element.isContentEditable) {
             // eslint-disable-next-line no-param-reassign
             element.textContent = this.dataGenerator.generateParagraph(5, 100);
