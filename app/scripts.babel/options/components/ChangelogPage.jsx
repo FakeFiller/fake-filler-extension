@@ -5,6 +5,12 @@ import React from 'react';
 const ChangelogPage = () => (
   <div>
     <h2>Form Filler Changelog</h2>
+    <p><strong>Version 2.8.8</strong></p>
+    <ul>
+      <li>Fixed a typo. (<a href="https://github.com/husainshabbir/form-filler/pull/71" target="_blank" rel="noopener noreferrer">#71</a>)</li>
+      <li>Use all labels of fields for matching (<a href="https://github.com/husainshabbir/form-filler/pull/66" target="_blank" rel="noopener noreferrer">#66</a>).</li>
+    </ul>
+    <hr />
     <p><strong>Version 2.8.7</strong></p>
     <ul>
       <li>Fixed issue in setting select fields via custom field rules. (<a href="https://github.com/husainshabbir/form-filler/pull/54" target="_blank" rel="noopener noreferrer">#54</a>)</li>
