@@ -18,7 +18,7 @@ function FormFillerDefaultOptions() {
     usernameList: ['jack', 'sparrow', 'frodo', 'baggins'],
     usernameRegEx: '',
     hostname: 'list',
-    hostnameList: ['hotmail.com', 'gmail.com', 'yahoo.com'],
+    hostnameList: ['mailinator.com', 'mailinator.net'],
   };
 
   options.fieldMatchSettings = {
