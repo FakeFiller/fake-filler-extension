@@ -1,4 +1,4 @@
-import { PropTypes } from 'react';
+import PropTypes from 'prop-types';
 
 const shapeOfCustomField = PropTypes.shape({
   match: PropTypes.arrayOf(PropTypes.string),

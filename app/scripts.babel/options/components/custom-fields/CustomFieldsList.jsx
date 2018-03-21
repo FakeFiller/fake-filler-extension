@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'react-sortable-hoc';
 
 import { shapeOfCustomField } from '../../prop-types';

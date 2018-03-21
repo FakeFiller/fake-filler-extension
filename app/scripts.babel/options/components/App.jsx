@@ -1,13 +1,18 @@
 /* eslint-disable react/no-danger */
 
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import { Link, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reset } from 'redux-form';
 
-import NavItem from './NavItem';
 import { resetOptions } from '../actions';
 import { GetBrowser, GetMessage } from '../../form-filler/helpers';
+import GeneralSettingsPage from './GeneralSettingsPage';
+import CustomFieldsPage from './CustomFieldsPage';
+import KeyboardShortcutsPage from './KeyboardShortcutsPage';
+import BackupAndRestorePage from './BackupAndRestorePage';
+import ChangelogPage from './ChangelogPage';
 
 class App extends Component {
   constructor(props) {
@@ -37,6 +42,18 @@ class App extends Component {
     return { __html: chrome.i18n.getMessage('leftNav_sendFeedback', ['husainsfabbas@gmail.com']) };
   }
 
+  getActiveClass(match, exact) {
+    if (exact) {
+      if (this.props.location.pathname === match) {
+        return 'active';
+      }
+    } else if (this.props.location.pathname.startsWith(match)) {
+      return 'active';
+    }
+
+    return '';
+  }
+
   resetSettings(event) {
     event.preventDefault();
     // eslint-disable-next-line no-alert
@@ -55,10 +72,18 @@ class App extends Component {
               <img src="images/logo.svg" height="32" alt={GetMessage('extensionName')} />
             </h1>
             <ul className="nav nav-pills nav-stacked">
-              <NavItem to="/">{GetMessage('leftNav_General')}</NavItem>
-              <NavItem to="/custom-fields">{GetMessage('leftNav_customFields')}</NavItem>
-              <NavItem to="/keyboard-shortcuts">{GetMessage('leftNav_keyboardShortcuts')}</NavItem>
-              <NavItem to="/backup">{GetMessage('leftNav_backupRestore')}</NavItem>
+              <li className={this.getActiveClass('/', true)}>
+                <Link to="/">{GetMessage('leftNav_General')}</Link>
+              </li>
+              <li className={this.getActiveClass('/custom-fields')}>
+                <Link to="/custom-fields">{GetMessage('leftNav_customFields')}</Link>
+              </li>
+              <li className={this.getActiveClass('/keyboard-shortcuts')}>
+                <Link to="/keyboard-shortcuts">{GetMessage('leftNav_keyboardShortcuts')}</Link>
+              </li>
+              <li className={this.getActiveClass('/backup')}>
+                <Link to="/backup">{GetMessage('leftNav_backupRestore')}</Link>
+              </li>
             </ul>
             <div id="about">
               <p>
@@ -82,7 +107,11 @@ class App extends Component {
             </div>
           </div>
           <div className="col-sm-9">
-            {this.props.children}
+            <Route path="/" exact component={GeneralSettingsPage} />
+            <Route path="/custom-fields" component={CustomFieldsPage} />
+            <Route path="/keyboard-shortcuts" component={KeyboardShortcutsPage} />
+            <Route path="/backup" component={BackupAndRestorePage} />
+            <Route path="/changelog" component={ChangelogPage} />
           </div>
         </div>
       </div>
@@ -91,8 +120,10 @@ class App extends Component {
 }
 
 App.propTypes = {
-  children: React.PropTypes.element.isRequired,
-  dispatch: React.PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default connect()(App);

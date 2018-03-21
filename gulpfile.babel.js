@@ -123,7 +123,7 @@ gulp.task('build', ['build-vendor'], (cb) => {
     'chromeManifest',
     ['html', 'extras'],
     cb,
-    );
+  );
 });
 
 gulp.task('watch', ['build'], () => {
