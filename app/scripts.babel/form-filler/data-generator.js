@@ -356,9 +356,9 @@ class DataGenerator {
     }
 
     if (this.options.fieldMatchSettings.matchLabel) {
-      const label = jQuery(`label[for='${element.id}']`);
-      if (label.length === 1) {
-        sanitizedElementName += ` ${this.sanitizeName(label.html())}`;
+      const labels = jQuery(`label[for='${element.id}']`);
+      for (let i = 0; i < labels.length; i += 1) {
+        sanitizedElementName += ` ${this.sanitizeName(labels[i].innerHTML)}`;
       }
     }
 
