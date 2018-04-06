@@ -12,9 +12,9 @@ function isNotEmpty(item) {
 }
 
 const DragHandle = SortableHandle(() => (
-  <button type="button" className="btn btn-xs btn-default">
+  <div className="btn btn-xs btn-default">
     <i className="glyphicon glyphicon-sort" />
-  </button>
+  </div>
 ));
 
 const SortableItem = SortableElement(({ customField, itemIndex, onEdit, onDelete }) => (
