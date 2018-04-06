@@ -5,6 +5,11 @@ import React from 'react';
 const ChangelogPage = () => (
   <div>
     <h2>Form Filler Changelog</h2>
+    <p><strong>Version 2.8.10</strong></p>
+    <ul>
+      <li>Fixed an error with sorting custom fields in Firefox.</li>
+    </ul>
+    <hr />
     <p><strong>Version 2.8.8</strong></p>
     <ul>
       <li>Fixed a typo. (<a href="https://github.com/husainshabbir/form-filler/pull/71" target="_blank" rel="noopener noreferrer">#71</a>)</li>
