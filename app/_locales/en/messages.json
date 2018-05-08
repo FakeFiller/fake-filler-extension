@@ -425,6 +425,12 @@
   "generalSettings_matchFields_useClass": {
     "message": "Class class attribute of the input tag"
   },
+  "generalSettings_matchFields_useAttributeNames": {
+    "message": "All attribute names of the input tag"
+  },
+  "generalSettings_matchFields_useAllAttributeValues": {
+    "message": "All attribute values of the input tag"
+  },
   "generalSettings_matchFields_mustSelectOneOption": {
     "message": "You must select at least one option."
   },

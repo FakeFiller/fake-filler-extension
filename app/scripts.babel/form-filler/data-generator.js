@@ -355,6 +355,16 @@ class DataGenerator {
       sanitizedElementName += ` ${this.sanitizeName(element.className)}`;
     }
 
+    for (let i = 0; i < element.attributes.length; i++) {
+      let attr = element.attributes[i];
+      if (this.options.fieldMatchSettings.matchAttributeNames) {
+        sanitizedElementName += ` ${this.sanitizeName(attr.name)}`;
+      }
+      if (this.options.fieldMatchSettings.matchAllAttributeValues) {
+        sanitizedElementName += ` ${this.sanitizeName(attr.value)}`;
+      }
+    }
+
     if (this.options.fieldMatchSettings.matchLabel) {
       const labels = jQuery(`label[for='${element.id}']`);
       for (let i = 0; i < labels.length; i += 1) {

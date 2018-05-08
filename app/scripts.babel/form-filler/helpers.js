@@ -26,6 +26,8 @@ function FormFillerDefaultOptions() {
     matchId: true,
     matchName: true,
     matchClass: false,
+    matchAttributeNames: true,
+    matchAllAttributeValues: false
   };
 
   options.fields = [];

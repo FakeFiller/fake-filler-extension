@@ -39,6 +39,8 @@ const shapeOfOptions = PropTypes.shape({
     matchId: PropTypes.bool,
     matchLabel: PropTypes.bool,
     matchName: PropTypes.bool,
+    matchAttributeNames: PropTypes.bool,
+    matchAllAttributeValues: PropTypes.bool,
   }),
   fields: PropTypes.arrayOf(shapeOfCustomField),
   ignoreFieldsWithContent: PropTypes.bool,

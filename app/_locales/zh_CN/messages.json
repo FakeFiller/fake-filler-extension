@@ -425,6 +425,12 @@
   "generalSettings_matchFields_useClass": {
     "message": "input 标签的 Class 属性"
   },
+  "generalSettings_matchFields_useAttributeNames": {
+    "message": "input 标签的 Attribute Names 属性"
+  },
+  "generalSettings_matchFields_useAllAttributeValues": {
+    "message": "input 标签的 All Attribute Values 属性"
+  },
   "generalSettings_matchFields_mustSelectOneOption": {
     "message": "至少选择一个选项"
   },
