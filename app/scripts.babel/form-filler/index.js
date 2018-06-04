@@ -14,33 +14,30 @@ class FormFiller {
     this.clickedElement = element;
   }
 
-  fillAllInputs() {
-    jQuery('input:enabled:not([readonly])').each((index, element) => {
-      this.dataGenerator.fillInputTagElement(element);
+  fillAllInputs(context) {
+
+    context = context || document;
+
+    jQuery('input:enabled:not([readonly])', context).each((index, element) => {
+      this.fillInput(element);
     });
 
-    jQuery('textarea:enabled:not([readonly])').each((index, element) => {
-      this.dataGenerator.fillTextAreaTagElement(element);
+    jQuery('textarea:enabled:not([readonly])', context).each((index, element) => {
+      this.fillInput(element);
     });
 
-    jQuery('select:enabled:not([readonly])').each((index, element) => {
-      this.dataGenerator.fillSelectTagElement(element);
+    jQuery('select:enabled:not([readonly])', context).each((index, element) => {
+      this.fillInput(element);
     });
 
-    jQuery('[contenteditable]').each((index, element) => {
-      if (element.isContentEditable) {
-        // eslint-disable-next-line no-param-reassign
-        element.textContent = this.dataGenerator.generateParagraph(5, 100);
-      }
+    jQuery('[contenteditable]', context).each((index, element) => {
+      this.fillInput(element);
     });
   }
 
-  fillThisInput() {
-    const element = this.clickedElement || document.activeElement;
-
+  fillInput(element) {
     if (element) {
       const tagName = element.tagName.toLowerCase();
-
       if (tagName === 'input') {
         this.dataGenerator.fillInputTagElement(element);
       } else if (tagName === 'textarea') {
@@ -50,7 +47,20 @@ class FormFiller {
       } else if (element.isContentEditable) {
         element.textContent = this.dataGenerator.generateParagraph(5, 100);
       }
+      var evt = document.createEvent('HTMLEvents');
+      evt.initEvent('change', true, true);
+      element.dispatchEvent(evt);
+      if (!element.trigger) {
+        element = jQuery(element);
+      }
+      element.trigger('change');
     }
+  }
+
+  fillThisInput() {
+    const element = this.clickedElement || document.activeElement;
+
+    this.fillInput(element);
 
     this.setClickedElement(null);
   }
@@ -62,24 +72,7 @@ class FormFiller {
       const form = jQuery(theElement).closest('form');
 
       if (form.length > 0) {
-        jQuery('input:enabled:not([readonly])', form[0]).each((index, element) => {
-          this.dataGenerator.fillInputTagElement(element);
-        });
-
-        jQuery('textarea:enabled:not([readonly])', form[0]).each((index, element) => {
-          this.dataGenerator.fillTextAreaTagElement(element);
-        });
-
-        jQuery('select:enabled:not([readonly])', form[0]).each((index, element) => {
-          this.dataGenerator.fillSelectTagElement(element);
-        });
-
-        jQuery('[contenteditable]', form[0]).each((index, element) => {
-          if (element.isContentEditable) {
-            // eslint-disable-next-line no-param-reassign
-            element.textContent = this.dataGenerator.generateParagraph(5, 100);
-          }
-        });
+        this.fillAllInputs(form[0]);
       }
     }
 

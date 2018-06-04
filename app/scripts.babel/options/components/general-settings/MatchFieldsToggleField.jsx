@@ -9,11 +9,15 @@ const MatchFieldsToggleField = (fields) => {
   const matchIdField = fields.fieldMatchSettings.matchId;
   const matchNameField = fields.fieldMatchSettings.matchName;
   const matchClassField = fields.fieldMatchSettings.matchClass;
+  const matchAttributeNamesField = fields.fieldMatchSettings.matchAttributeNames;
+  const matchAllAttributeValuesField = fields.fieldMatchSettings.matchAllAttributeValues;
 
   const fieldHasError = matchLabelField.meta.invalid
     || matchIdField.meta.invalid
     || matchNameField.meta.invalid
     || matchClassField.meta.invalid
+    || matchAttributeNamesField.meta.invalid
+    || matchAllAttributeValuesField.meta.invalid
     ;
 
   return (
@@ -43,6 +47,18 @@ const MatchFieldsToggleField = (fields) => {
           component={toggleInput}
           type="checkbox"
           label={GetMessage('generalSettings_matchFields_useClass')}
+        />
+        <Field
+          {...matchAttributeNamesField.input}
+          component={toggleInput}
+          type="checkbox"
+          label={GetMessage('generalSettings_matchFields_useAttributeNames')}
+        />
+        <Field
+          {...matchAllAttributeValuesField.input}
+          component={toggleInput}
+          type="checkbox"
+          label={GetMessage('generalSettings_matchFields_useAllAttributeValues')}
         />
         <br />
         <p>{GetMessage('generalSettings_matchFields_help')}</p>

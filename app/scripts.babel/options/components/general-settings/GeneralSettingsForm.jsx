@@ -43,6 +43,8 @@ const validate = (values) => {
       && !values.fieldMatchSettings.matchId
       && !values.fieldMatchSettings.matchName
       && !values.fieldMatchSettings.matchClass
+      && !values.fieldMatchSettings.matchAttributeNames
+      && !values.fieldMatchSettings.matchAllAttributeValues
     ) {
       errors.fieldMatchSettings.matchId = GetMessage('generalSettings_validation_enterAtLeastOneMatch');
     }
@@ -184,6 +186,8 @@ class GeneralSettingsForm extends Component {
             'fieldMatchSettings.matchId',
             'fieldMatchSettings.matchName',
             'fieldMatchSettings.matchClass',
+            'fieldMatchSettings.matchAttributeNames',
+            'fieldMatchSettings.matchAllAttributeValues'
           ]}
           component={MatchFieldsToggleField}
         />
