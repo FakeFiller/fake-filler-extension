@@ -7,6 +7,7 @@ function FormFillerDefaultOptions() {
   options.ignoredFields = ['captcha', 'hipinputtext'];
   options.confirmFields = ['confirm', 'reenter', 'retype', 'repeat'];
   options.agreeTermsFields = ['agree', 'terms', 'conditions'];
+  options.maxWords = 5;
 
   options.passwordSettings = {
     mode: 'defined',

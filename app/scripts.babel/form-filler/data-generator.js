@@ -193,8 +193,7 @@ class DataGenerator {
   }
 
   generatePhrase(maxLength) {
-    const length = this.generateNumber(5, 20);
-    const resultPhrase = this.generateWords(length, maxLength);
+    const resultPhrase = this.generateWords(this.options.maxWords, maxLength);
 
     return resultPhrase.replace(/[^\w\s]|_/g, '').replace(/\s+/g, ' ');
   }

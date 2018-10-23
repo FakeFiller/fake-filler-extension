@@ -407,6 +407,12 @@
   "generalSettings_contextMenuLabel": {
     "message": "添加到右击菜单中"
   },
+  "generalSettings_maxWords": {
+    "message": "最大词"
+  },
+  "generalSettings_maxWordsHelp": {
+    "message": "在使用虚拟文本填充输入时，默认情况下输入最大单词"
+  },
   "generalSettings_settingsSaved": {
     "message": "保存设置."
   },

@@ -210,6 +210,20 @@ class GeneralSettingsForm extends Component {
             />
           </div>
         </div>
+        <div className="form-">
+          <label className="control-label col-sm-3">{GetMessage('generalSettings_maxWords')}</label>
+          <div className="col-sm-9">
+            <Field
+              name="maxWords"
+              type="text"
+              component="input"
+              className="form-control"
+              autoComplete="off"
+              placeholder="5"
+            />
+            <div className="help-block">{GetMessage('generalSettings_maxWordsHelp')}</div>
+          </div>
+        </div>
         <br />
         <div className="form-group">
           <div className="col-sm-offset-3 col-sm-9">

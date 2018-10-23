@@ -407,6 +407,12 @@
   "generalSettings_contextMenuLabel": {
     "message": "Add items to the right click menu"
   },
+  "generalSettings_maxWords": {
+    "message": "Max Words"
+  },
+  "generalSettings_maxWordsHelp": {
+    "message": "Enter the maximum words by default when filling an input with dummy text"
+  },
   "generalSettings_settingsSaved": {
     "message": "Saved settings."
   },
