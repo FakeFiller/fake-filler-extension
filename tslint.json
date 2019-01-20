@@ -1,0 +1,31 @@
+{
+  "extends": ["tslint-config-airbnb", "tslint-react"],
+  "rules": {
+    "import-name": false,
+    "jsx-boolean-value": false,
+    "jsx-no-multiline-js": false,
+    "linebreak-style": [true, "CRLF"],
+    "max-line-length": [true, 120],
+    "no-any": true,
+    "no-console": [true, "debug", "info", "log", "time", "timeEnd", "trace"],
+    "object-shorthand-properties-first": false,
+    "ordered-imports": true,
+    "react-this-binding-issue": true,
+    "space-before-function-paren": false,
+    "ter-arrow-parens": false,
+    "trailing-comma": [true, { "singleline": "never", "multiline": "always" }],
+    "typedef": [
+      true,
+      "call-signature", // checks return type of functions.
+      // "arrow-call-signature", // checks return type of arrow functions.
+      // "parameter", // checks type specifier of function parameters for non-arrow functions.
+      // "arrow-parameter", // checks type specifier of function parameters for arrow functions.
+      "property-declaration", // checks return types of interface properties.
+      // "variable-declaration", // checks non-binding variable declarations.
+      "member-variable-declaration" // checks member variable declarations.
+      // "object-destructuring", // checks object destructuring declarations.
+      // "array-destructuring", // checks array destructuring declarations.
+    ],
+    "variable-name": [true, "check-format", "allow-pascal-case"]
+  }
+}

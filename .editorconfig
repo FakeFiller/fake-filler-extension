@@ -2,12 +2,13 @@ root = true
 
 [*]
 charset = utf-8
-end_of_line = lf
+end_of_line = crlf
 indent_size = 2
 indent_style = space
+max_line_length = 120
 trim_trailing_whitespace = true
 
-[*.{js,jsx,less,scss,sass}]
+[*.{js,jsx,ts,tsx,less,scss,sass}]
 insert_final_newline = true
 
 [*.md]

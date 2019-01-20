@@ -1,0 +1,124 @@
+$primary: #44a4e0;
+$font-size-base: 0.9rem;
+
+@import '~bootstrap/scss/bootstrap';
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+  col,
+  td,
+  th {
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+      @for $i from 1 through $grid-columns {
+        &.col#{$infix}-#{$i} {
+          width: 100% / $grid-columns * $i;
+        }
+      }
+    }
+  }
+}
+
+::selection {
+  background-color: #c1e7ff;
+  color: #000;
+}
+
+body {
+  margin-top: 30px;
+  padding-bottom: 30px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+#main-bar {
+  position: sticky;
+  top: 30px;
+}
+
+#about {
+  margin-top: 50px;
+  color: $gray-600;
+  font-size: 0.85em;
+
+  .list-inline-item {
+    font-size: 0.9em;
+    padding: 0 0.6rem 0 0;
+  }
+}
+
+h2 {
+  font-size: 17px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+}
+
+.saved-msg {
+  font-weight: bold;
+  color: $success;
+  padding: 12px;
+}
+
+.narrow {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.custom-field {
+  margin-bottom: 1.5rem;
+}
+
+.custom-field-buttons {
+  float: right;
+
+  .custom-field-button {
+    padding: 0;
+    margin: 0 1em;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .custom-field-button.drag-handle {
+    cursor: move;
+    position: relative;
+
+    // Hack to get drag-drop to work in Firefox.
+    // https://github.com/clauderic/react-sortable-hoc/issues/321
+    &:after {
+      position: absolute;
+      content: '';
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+  }
+
+  .custom-field-button:last-child {
+    margin-right: 0;
+  }
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}

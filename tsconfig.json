@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "jsx": "react",
+    "target": "esnext",
+    "outDir": "dist/tsc_output",
+    "sourceMap": true,
+    "strict": true,
+    "noEmitOnError": true
+  },
+  "include": ["src", "webpack.config.ts"],
+  "exclude": ["node_modules"]
+}
