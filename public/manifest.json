@@ -29,13 +29,13 @@
     "fill_this_form": {
       "description": "__MSG_commands_fillThisForm__",
       "suggested_key": {
-        "default": "Ctrl+Alt+Z"
+        "default": "Ctrl+Shift+Down"
       }
     },
     "fill_this_input": {
       "description": "__MSG_commands_fillThisInput__",
       "suggested_key": {
-        "default": "Ctrl+Alt+F"
+        "default": "Ctrl+Shift+Insert"
       }
     },
     "fill_all_inputs": {
