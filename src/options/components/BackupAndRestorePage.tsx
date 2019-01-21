@@ -2,7 +2,7 @@ import * as fileSaver from 'file-saver';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { GetBrowser, GetMessage } from '../../common/helpers';
+import { GetMessage } from '../../common/helpers';
 import { DispatchProps, getOptions, saveOptions } from '../actions';
 
 function utf8ToBase64(str: string): string {
@@ -66,19 +66,15 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
   private exportSettings(): void {
     const encodedData = utf8ToBase64(JSON.stringify(this.props.options));
     const dateStamp = this.getDateString(new Date());
-    const isFirefox = GetBrowser() === 'Firefox';
 
-    if (isFirefox) {
+    try {
+      const blob = new Blob([encodedData], { type: 'text/plain;charset=utf-8' });
+      fileSaver.saveAs(blob, `form-filler-${dateStamp}.txt`);
+    } catch (e) {
+      this.setErrorMessage(GetMessage('backupRestore_errorCreatingBackupFile', e.toString()));
       this.setState({
         backupData: encodedData,
       });
-    } else {
-      try {
-        const blob = new Blob([encodedData], { type: 'text/plain;charset=utf-8' });
-        fileSaver.saveAs(blob, `form-filler-${dateStamp}.txt`);
-      } catch (e) {
-        this.setErrorMessage(GetMessage('backupRestore_errorCreatingBackupFile', e.toString()));
-      }
     }
   }
 

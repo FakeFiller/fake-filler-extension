@@ -67,39 +67,41 @@ export function resetOptions(): MyDefaultThunkResult {
   };
 }
 
-export function saveOptions(options: IFormFillerOptions, formValues: IFormFillerOptionsForm): MyDefaultThunkResult {
+export function saveOptions(options: IFormFillerOptions, formValues?: IFormFillerOptionsForm): MyDefaultThunkResult {
   return dispatch => {
     const newOptions = Object.assign({}, options, { fields: [...options.fields] });
 
-    newOptions.agreeTermsFields = CsvToArray(formValues.agreeTermsFields);
-    newOptions.confirmFields = CsvToArray(formValues.confirmFields);
-    newOptions.defaultMaxLength = parseInt(formValues.defaultMaxLength, 10);
-    newOptions.enableContextMenu = formValues.enableContextMenu;
-    newOptions.ignoreFieldsWithContent = formValues.ignoreFieldsWithContent;
-    newOptions.ignoreHiddenFields = formValues.ignoreHiddenFields;
-    newOptions.ignoredFields = CsvToArray(formValues.ignoredFields);
-    newOptions.triggerClickEvents = formValues.triggerClickEvents;
+    if (formValues) {
+      newOptions.agreeTermsFields = CsvToArray(formValues.agreeTermsFields);
+      newOptions.confirmFields = CsvToArray(formValues.confirmFields);
+      newOptions.defaultMaxLength = parseInt(formValues.defaultMaxLength, 10);
+      newOptions.enableContextMenu = formValues.enableContextMenu;
+      newOptions.ignoreFieldsWithContent = formValues.ignoreFieldsWithContent;
+      newOptions.ignoreHiddenFields = formValues.ignoreHiddenFields;
+      newOptions.ignoredFields = CsvToArray(formValues.ignoredFields);
+      newOptions.triggerClickEvents = formValues.triggerClickEvents;
 
-    newOptions.passwordSettings = {
-      mode: formValues.passwordSettingsMode,
-      password: formValues.passwordSettingsPassword,
-    };
+      newOptions.passwordSettings = {
+        mode: formValues.passwordSettingsMode,
+        password: formValues.passwordSettingsPassword,
+      };
 
-    newOptions.fieldMatchSettings = {
-      matchClass: formValues.fieldMatchClass,
-      matchId: formValues.fieldMatchId,
-      matchLabel: formValues.fieldMatchLabel,
-      matchName: formValues.fieldMatchName,
-      matchPlaceholder: formValues.fieldMatchPlaceholder,
-    };
+      newOptions.fieldMatchSettings = {
+        matchClass: formValues.fieldMatchClass,
+        matchId: formValues.fieldMatchId,
+        matchLabel: formValues.fieldMatchLabel,
+        matchName: formValues.fieldMatchName,
+        matchPlaceholder: formValues.fieldMatchPlaceholder,
+      };
 
-    newOptions.emailSettings = {
-      hostname: formValues.emailSettingsHostnameType,
-      hostnameList: CsvToArray(formValues.emailSettingsHostnameList),
-      username: formValues.emailSettingsUsernameType,
-      usernameList: CsvToArray(formValues.emailSettingsUsernameList),
-      usernameRegEx: formValues.emailSettingsUsernameRegEx,
-    };
+      newOptions.emailSettings = {
+        hostname: formValues.emailSettingsHostnameType,
+        hostnameList: CsvToArray(formValues.emailSettingsHostnameList),
+        username: formValues.emailSettingsUsernameType,
+        usernameList: CsvToArray(formValues.emailSettingsUsernameList),
+        usernameRegEx: formValues.emailSettingsUsernameRegEx,
+      };
+    }
 
     SaveFormFillerOptions(newOptions);
     dispatch({ type: 'RECEIVED_OPTIONS', options: newOptions });
