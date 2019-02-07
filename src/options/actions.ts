@@ -129,6 +129,62 @@ export function saveSortedCustomFields(
   };
 }
 
+function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField {
+  const customField: ICustomField = {
+    match: CsvToArray(formData.match),
+    name: formData.name,
+    type: formData.type,
+  };
+
+  if (customField.type === 'number') {
+    customField.min = parseInt(formData.numberMin, 10);
+    customField.max = parseInt(formData.numberMax, 10);
+  }
+
+  if (customField.type === 'text') {
+    customField.min = parseInt(formData.textMin, 10);
+    customField.max = parseInt(formData.textMax, 10);
+    customField.maxLength = parseInt(formData.textMaxLength, 10);
+  }
+
+  if (customField.type === 'telephone') {
+    customField.template = formData.telephoneTemplate;
+  }
+
+  if (customField.type === 'date') {
+    customField.template = formData.dateTemplate;
+  }
+
+  if (customField.type === 'alphanumeric') {
+    customField.template = formData.alphanumericTemplate;
+  }
+
+  if (customField.type === 'regex') {
+    customField.template = formData.regexTemplate;
+  }
+
+  if (customField.type === 'randomized-list') {
+    customField.list = formData.list ? MultipleLinesToArray(formData.list) : undefined;
+  }
+
+  return customField;
+}
+
+export function createCustomField(
+  options: IFormFillerOptions,
+  customField: ICustomFieldForm,
+  customFieldIndex: number,
+): MyDefaultThunkResult {
+  return dispatch => {
+    const newOptions = Object.assign({}, options, { fields: [...options.fields] });
+    const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
+    newOptions.fields.splice(customFieldIndex, 0, newCustomField);
+    console.log(customFieldIndex, newOptions);
+    SaveFormFillerOptions(newOptions);
+    dispatch({ type: 'RECEIVED_OPTIONS', options: newOptions });
+  };
+}
+
 export function saveCustomField(
   options: IFormFillerOptions,
   customField: ICustomFieldForm,
@@ -136,50 +192,8 @@ export function saveCustomField(
 ): MyDefaultThunkResult {
   return dispatch => {
     const newOptions = Object.assign({}, options, { fields: [...options.fields] });
-
-    const newCustomField: ICustomField = {
-      match: CsvToArray(customField.match),
-      name: customField.name,
-      type: customField.type,
-    };
-
-    if (newCustomField.type === 'number') {
-      newCustomField.min = parseInt(customField.numberMin, 10);
-      newCustomField.max = parseInt(customField.numberMax, 10);
-    }
-
-    if (newCustomField.type === 'text') {
-      newCustomField.min = parseInt(customField.textMin, 10);
-      newCustomField.max = parseInt(customField.textMax, 10);
-      newCustomField.maxLength = parseInt(customField.textMaxLength, 10);
-    }
-
-    if (newCustomField.type === 'telephone') {
-      newCustomField.template = customField.telephoneTemplate;
-    }
-
-    if (newCustomField.type === 'date') {
-      newCustomField.template = customField.dateTemplate;
-    }
-
-    if (newCustomField.type === 'alphanumeric') {
-      newCustomField.template = customField.alphanumericTemplate;
-    }
-
-    if (newCustomField.type === 'regex') {
-      newCustomField.template = customField.regexTemplate;
-    }
-
-    if (newCustomField.type === 'randomized-list') {
-      newCustomField.list = customField.list ? MultipleLinesToArray(customField.list) : undefined;
-    }
-
-    if (customFieldIndex < 0) {
-      newOptions.fields.push(newCustomField);
-    } else {
-      newOptions.fields[customFieldIndex] = newCustomField;
-    }
-
+    const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
+    newOptions.fields[customFieldIndex] = newCustomField;
     SaveFormFillerOptions(newOptions);
     dispatch({ type: 'RECEIVED_OPTIONS', options: newOptions });
   };

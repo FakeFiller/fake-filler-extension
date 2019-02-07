@@ -73,8 +73,24 @@ h2 {
   white-space: nowrap;
 }
 
-.custom-field {
-  margin-bottom: 1.5rem;
+.add-field-bar {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.add-field-bar-button {
+  padding: 2px 8px;
+  background: transparent;
+  border: 1px solid $primary;
+  color: $primary;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  cursor: pointer;
+
+  &:hover {
+    background: $primary;
+    color: #fff;
+  }
 }
 
 .custom-field-buttons {

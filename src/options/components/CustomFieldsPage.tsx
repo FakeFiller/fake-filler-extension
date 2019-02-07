@@ -2,8 +2,16 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { GetMessage } from '../../common/helpers';
-import { deleteCustomField, DispatchProps, getOptions, saveCustomField, saveSortedCustomFields } from '../actions';
+import {
+  createCustomField,
+  deleteCustomField,
+  DispatchProps,
+  getOptions,
+  saveCustomField,
+  saveSortedCustomFields,
+} from '../actions';
 
+import AddFieldButton from './custom-fields/AddFieldButton';
 import CustomFieldModal from './custom-fields/CustomFieldModal';
 import CustomFieldsList from './custom-fields/CustomFieldsList';
 import Introduction from './custom-fields/Introduction';
@@ -12,6 +20,7 @@ interface IState {
   modalIsOpen: boolean;
   customField: ICustomField | null;
   customFieldIndex: number;
+  actionType: 'create' | 'edit' | undefined;
 }
 
 interface IOwnProps {}
@@ -31,6 +40,7 @@ class CustomFieldsPage extends React.PureComponent<IProps, IState> {
       modalIsOpen: false,
       customField: null,
       customFieldIndex: -1,
+      actionType: undefined,
     };
 
     this.handleEdit = this.handleEdit.bind(this);
@@ -46,6 +56,7 @@ class CustomFieldsPage extends React.PureComponent<IProps, IState> {
       modalIsOpen: true,
       customFieldIndex: index,
       customField,
+      actionType: 'edit',
     });
   }
 
@@ -62,24 +73,32 @@ class CustomFieldsPage extends React.PureComponent<IProps, IState> {
   }
 
   private handleSave(formValues: ICustomFieldForm): void {
-    // @ts-ignore
-    this.props.dispatch(saveCustomField(this.props.options, formValues, this.state.customFieldIndex));
+    if (this.state.actionType === 'edit') {
+      // @ts-ignore
+      this.props.dispatch(saveCustomField(this.props.options, formValues, this.state.customFieldIndex));
+    } else {
+      // @ts-ignore
+      this.props.dispatch(createCustomField(this.props.options, formValues, this.state.customFieldIndex));
+    }
+
     this.closeModal();
   }
 
-  private newCustomField(): void {
+  private newCustomField(index: number): void {
     this.setState({
       modalIsOpen: true,
-      customFieldIndex: -1,
+      customFieldIndex: index,
       customField: null,
+      actionType: 'create',
     });
   }
 
   private closeModal(): void {
     this.setState({
       modalIsOpen: false,
-      customFieldIndex: -1,
+      customFieldIndex: 0,
       customField: null,
+      actionType: undefined,
     });
   }
 
@@ -97,13 +116,10 @@ class CustomFieldsPage extends React.PureComponent<IProps, IState> {
         <h2>{GetMessage('customFields_title')}</h2>
         <Introduction />
         <hr />
-        <p>
-          <button className="btn btn-sm btn-primary" onClick={this.newCustomField}>
-            {GetMessage('customFields_addFieldButtonText')}
-          </button>
-        </p>
+        <AddFieldButton index={0} onClick={this.newCustomField} />
         <CustomFieldsList
           customFields={this.props.options.fields}
+          onAdd={this.newCustomField}
           onEdit={this.handleEdit}
           onDelete={this.handleDelete}
           onSort={this.handleSort}

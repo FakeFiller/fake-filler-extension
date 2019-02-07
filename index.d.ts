@@ -124,6 +124,7 @@ interface IAppState {
   keyboardShortcutsData: IKeyboardShortcutsState;
 }
 
+type CustomFieldAddFunction = (itemIndex: number) => void;
 type CustomFieldEditFunction = (customField: ICustomField, itemIndex: number) => void;
 type CustomFieldDeleteFunction = (itemIndex: number) => void;
 type CustomFieldSortFunction = (customFields: ICustomField[]) => void;

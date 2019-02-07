@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { arrayMove, SortableContainer, SortableElement, SortEnd } from 'react-sortable-hoc';
 
+import AddFieldButton from './AddFieldButton';
 import CustomFieldsListItem from './CustomFieldsListItem';
 
 interface ISortableItemProps {
@@ -16,21 +17,25 @@ const SortableItem = SortableElement<ISortableItemProps>(({ customField, itemInd
 
 interface ISortableCustomFieldsListProps {
   customFields: ICustomField[];
+  onAdd: CustomFieldAddFunction;
   onEdit: CustomFieldEditFunction;
   onDelete: CustomFieldDeleteFunction;
 }
 
 const SortableCustomFieldsList = SortableContainer<ISortableCustomFieldsListProps>(
-  ({ customFields, onEdit, onDelete }) => {
+  ({ customFields, onEdit, onDelete, onAdd }) => {
     const customFieldItems = customFields.map((item, index) => (
-      <SortableItem
-        key={index}
-        index={index}
-        itemIndex={index}
-        customField={item}
-        onEdit={onEdit}
-        onDelete={onDelete}
-      />
+      <>
+        <SortableItem
+          key={index}
+          index={index}
+          itemIndex={index}
+          customField={item}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+        <AddFieldButton index={index + 1} onClick={onAdd} />
+      </>
     ));
 
     return <div className="custom-fields-list">{customFieldItems}</div>;
@@ -39,6 +44,7 @@ const SortableCustomFieldsList = SortableContainer<ISortableCustomFieldsListProp
 
 interface IOwnProps {
   customFields: ICustomField[];
+  onAdd: CustomFieldAddFunction;
   onDelete: CustomFieldDeleteFunction;
   onEdit: CustomFieldEditFunction;
   onSort: CustomFieldSortFunction;
@@ -62,6 +68,7 @@ class CustomFieldsList extends React.PureComponent<IOwnProps> {
         customFields={this.props.customFields}
         onEdit={this.props.onEdit}
         onDelete={this.props.onDelete}
+        onAdd={this.props.onAdd}
         onSortEnd={this.onSortEnd}
         useDragHandle
         useWindowAsScrollContainer
