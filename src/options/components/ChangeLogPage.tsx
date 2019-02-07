@@ -8,6 +8,14 @@ class ChangeLogPage extends React.PureComponent {
       <div>
         <h2>Form Filler Changelog</h2>
         <p>
+          <strong>Version 2.10.0</strong>
+        </p>
+        <ul>
+          <li>Use the pattern attribute to generate dummy data.</li>
+          <li>Allow adding custom fields in the middle of the list.</li>
+        </ul>
+        <hr />
+        <p>
           <strong>Version 2.9.0</strong>
         </p>
         <ul>
