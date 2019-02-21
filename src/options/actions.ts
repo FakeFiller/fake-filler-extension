@@ -179,7 +179,6 @@ export function createCustomField(
     const newOptions = Object.assign({}, options, { fields: [...options.fields] });
     const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
     newOptions.fields.splice(customFieldIndex, 0, newCustomField);
-    console.log(customFieldIndex, newOptions);
     SaveFormFillerOptions(newOptions);
     dispatch({ type: 'RECEIVED_OPTIONS', options: newOptions });
   };

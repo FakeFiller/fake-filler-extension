@@ -8,6 +8,14 @@ class ChangeLogPage extends React.PureComponent {
       <div>
         <h2>Form Filler Changelog</h2>
         <p>
+          <strong>Version 2.10.1</strong>
+        </p>
+        <ul>
+          <li>Fixed message for keyboard shortcuts for Chrome.</li>
+          <li>Allow input type="tel" fields to be filled using RegEx and Randomized List custom fields.</li>
+        </ul>
+        <hr />
+        <p>
           <strong>Version 2.10.0</strong>
         </p>
         <ul>
