@@ -114,7 +114,7 @@
     "message": "Ability to change keyboard shortcuts in Firefox will come soon."
   },
   "kbdShortcuts_changeInstructions": {
-    "message": "To change these keyboard shortcuts, type <code>chrome://extensions/</code> in the address bar to open up the extensions page. At the bottom of that page you will see a Keyboard Shortcuts option. Click it, and you can set up custom shortcuts for Form Filler from there."
+    "message": "To change these keyboard shortcuts, type <code>chrome://extensions/shortcuts</code> in the address bar to open up the shortcuts page for extensions. Find the section for Form Filler and make the changes as necessary."
   },
   "customFields_title": {
     "message": "Custom Fields"
