@@ -172,13 +172,6 @@ class ElementFiller {
     customField: ICustomField | undefined,
     element: HTMLInputElement | HTMLTextAreaElement | undefined = undefined,
   ): string {
-    // If the current element has a pattern attribute, we use that to generate random data and
-    // skip everything else.
-    const elementPattern = (element && element.getAttribute('pattern')) || null;
-    if (elementPattern) {
-      return new RandExp(elementPattern).gen();
-    }
-
     if (!customField) {
       return this.generator.phrase(this.getElementMaxLength(element));
     }
@@ -344,13 +337,7 @@ class ElementFiller {
         if (telephoneCustomField) {
           element.value = this.generateDummyDataForCustomField(telephoneCustomField, element);
         } else {
-          // If the telephone element has a pattern attribute, we use that instead of the custom field.
-          const elementPattern = element.getAttribute('pattern') || null;
-          if (elementPattern) {
-            element.value = new RandExp(elementPattern).gen();
-          } else {
-            element.value = this.generator.phoneNumber();
-          }
+          element.value = this.generator.phoneNumber();
         }
         break;
 
