@@ -8,6 +8,13 @@ class ChangeLogPage extends React.PureComponent {
       <div>
         <h2>Form Filler Changelog</h2>
         <p>
+          <strong>Version 2.10.2</strong>
+        </p>
+        <ul>
+          <li>Revert pattern support.</li>
+        </ul>
+        <hr />
+        <p>
           <strong>Version 2.10.1</strong>
         </p>
         <ul>
