@@ -94,7 +94,9 @@ if (isProd()) {
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify('production') },
     }),
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [path.join(__dirname, 'dist')],
+    }),
   ]);
 } else {
   buildConfig.plugins = (buildConfig.plugins || []).concat([

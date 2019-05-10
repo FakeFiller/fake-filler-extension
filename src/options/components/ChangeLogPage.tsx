@@ -8,6 +8,16 @@ class ChangeLogPage extends React.PureComponent {
       <div>
         <h2>Form Filler Changelog</h2>
         <p>
+          <strong>Version 2.10.3</strong>
+        </p>
+        <ul>
+          <li>
+            Check name attribute before filling a radio input. (
+            <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/102">#102</ExternalLink>)
+          </li>
+        </ul>
+        <hr />
+        <p>
           <strong>Version 2.10.2</strong>
         </p>
         <ul>
