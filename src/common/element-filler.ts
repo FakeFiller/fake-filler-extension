@@ -323,7 +323,9 @@ class ElementFiller {
         break;
 
       case 'radio':
-        this.selectRandomRadio(element.name);
+        if (element.name) {
+          this.selectRandomRadio(element.name);
+        }
         fireEvent = false;
         break;
 
