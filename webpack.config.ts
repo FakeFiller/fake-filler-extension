@@ -3,7 +3,7 @@
 import * as path from 'path';
 import * as webpack from 'webpack';
 
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
@@ -38,12 +38,7 @@ const buildConfig: webpack.Configuration = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => [
-                autoprefixer({
-                  browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9'],
-                }),
-                cssnano(),
-              ],
+              plugins: () => [autoprefixer(), cssnano()],
             },
           },
           { loader: 'sass-loader' },
