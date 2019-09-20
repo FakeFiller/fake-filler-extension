@@ -228,7 +228,11 @@ class DataGenerator {
           // Do nothing.
         }
         break;
-
+        
+      case 'timestamp':
+        username += `${emailSettings.usernameTimestamp}+${new Date().getTime() / 1000 | 0}`;
+        break;
+        
       default:
         break;
     }

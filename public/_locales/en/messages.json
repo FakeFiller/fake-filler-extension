@@ -47,6 +47,9 @@
   "enterCsv": {
     "message": "Enter comma-separated values."
   },
+  "enterName": {
+    "message": "Enter name."
+  },
   "leftNav_General": {
     "message": "General"
   },
@@ -347,11 +350,20 @@
   "generalSettings_label_username_regExTextPlaceholder": {
     "message": "A regular expression."
   },
+  "generalSettings_label_username_timestampLabel": {
+    "message": "Use {{ name }}+{{ current timestamp }}"
+  },
+  "generalSettings_label_username_timestampLabelHelp": {
+    "message": "ex: john+1568987874@example.org"
+  },
   "generalSettings_validation_enterUsernames": {
     "message": "Please enter a list of usernames."
   },
   "generalSettings_validation_enterRegEx": {
     "message": "Please enter a regular expression."
+  },
+  "generalSettings_validation_enterUsernameTimestamp": {
+    "message": "Please enter a name."
   },
   "generalSettings_validation_enterHostname": {
     "message": "Please enter a list of hostnames."

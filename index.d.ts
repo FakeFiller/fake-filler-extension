@@ -53,9 +53,10 @@ interface ICustomFieldForm {
 interface IEmailSettings {
   hostname: 'list' | 'random';
   hostnameList: string[];
-  username: 'list' | 'name' | 'random' | 'username' | 'regex';
+  username: 'list' | 'name' | 'random' | 'username' | 'regex' | 'timestamp';
   usernameList: string[];
   usernameRegEx: string;
+  usernameTimestamp: string;
 }
 
 interface IFieldMatchSettings {
@@ -90,9 +91,10 @@ interface IFormFillerOptionsForm {
   agreeTermsFields: string;
   confirmFields: string;
   defaultMaxLength: string;
-  emailSettingsUsernameType: 'list' | 'name' | 'random' | 'username' | 'regex';
+  emailSettingsUsernameType: 'list' | 'name' | 'random' | 'username' | 'regex' | 'timestamp';
   emailSettingsUsernameList: string;
   emailSettingsUsernameRegEx: string;
+  emailSettingsUsernameTimestamp: string;
   emailSettingsHostnameType: 'list' | 'random';
   emailSettingsHostnameList: string;
   enableContextMenu: boolean;

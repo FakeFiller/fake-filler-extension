@@ -100,6 +100,7 @@ export function saveOptions(options: IFormFillerOptions, formValues?: IFormFille
         username: formValues.emailSettingsUsernameType,
         usernameList: CsvToArray(formValues.emailSettingsUsernameList),
         usernameRegEx: formValues.emailSettingsUsernameRegEx,
+        usernameTimestamp: formValues.emailSettingsUsernameTimestamp,
       };
     }
 

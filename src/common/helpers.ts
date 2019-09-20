@@ -13,6 +13,7 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
       username: 'random',
       usernameList: ['jack', 'sparrow', 'frodo', 'baggins'],
       usernameRegEx: '',
+      usernameTimestamp: 'john',
       hostname: 'list',
       hostnameList: ['mailinator.com', 'mailinator.net'],
     },

@@ -16,6 +16,10 @@ const validate = (values: IFormFillerOptionsForm): FormikErrors<IFormFillerOptio
   if (values.emailSettingsUsernameType === 'regex' && !values.emailSettingsUsernameRegEx) {
     errors.emailSettingsUsernameRegEx = GetMessage('generalSettings_validation_enterRegEx');
   }
+  
+  if (values.emailSettingsUsernameType === 'timestamp' && !values.emailSettingsUsernameTimestamp) {
+    errors.emailSettingsUsernameTimestamp = GetMessage('generalSettings_validation_enterUsernameTimestamp');
+  }
 
   if (values.emailSettingsHostnameType === 'list' && !values.emailSettingsHostnameList) {
     errors.emailSettingsHostnameList = GetMessage('generalSettings_validation_enterHostname');
@@ -87,6 +91,7 @@ class GeneralSettingsForm extends React.PureComponent<IOwnProps> {
     initialValues.emailSettingsUsernameType = this.props.options.emailSettings.username;
     initialValues.emailSettingsUsernameList = this.props.options.emailSettings.usernameList.join(', ');
     initialValues.emailSettingsUsernameRegEx = this.props.options.emailSettings.usernameRegEx;
+    initialValues.emailSettingsUsernameTimestamp = this.props.options.emailSettings.usernameTimestamp;
 
     return (
       <Formik
@@ -130,6 +135,17 @@ class GeneralSettingsForm extends React.PureComponent<IOwnProps> {
                   label={GetMessage('generalSettings_label_username_regExTextPlaceholder')}
                 />
                 <TextField name="emailSettingsUsernameRegEx" placeholder={GetMessage('enterCsv')} />
+                <RadioButtonField
+                  name="emailSettingsUsernameType"
+                  value="timestamp"
+                  label={GetMessage('generalSettings_label_username_timestampLabel')}
+                />
+                <div className="form-text text-muted">
+                  <span
+                    dangerouslySetInnerHTML={GetHtmlMarkup(GetMessage('generalSettings_label_username_timestampLabelHelp'))}
+                  />
+                </div>
+                <TextField name="emailSettingsUsernameTimestamp" placeholder={GetMessage('enterName')} />
               </div>
             </div>
 
