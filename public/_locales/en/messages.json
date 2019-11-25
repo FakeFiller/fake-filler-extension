@@ -242,6 +242,9 @@
   "customFields_label_maxValue": {
     "message": "Maximum Value"
   },
+  "customFields_label_decimalPlaces": {
+    "message": "Decimal Places (e.g. 2 would result in a 1.00, 3 in 1.000, etc. Default: 0 )"
+  },
   "customFields_label_minWords": {
     "message": "Minimum Words"
   },
