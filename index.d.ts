@@ -27,6 +27,7 @@ interface ICustomField {
   match: string[];
   max?: number;
   min?: number;
+  decimalPlaces?: number;
   maxLength?: number;
   name: string;
   template?: string;
@@ -39,6 +40,7 @@ interface ICustomFieldForm {
   name: string;
   numberMin: string;
   numberMax: string;
+  numberPlaces: string;
   textMin: string;
   textMax: string;
   textMaxLength: string;
