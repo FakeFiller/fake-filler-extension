@@ -9,7 +9,7 @@ import {
   GetKeyboardShortcuts,
   MultipleLinesToArray,
   SaveFormFillerOptions,
-  SaveKeyboardShortcuts,
+  SaveKeyboardShortcuts
 } from '../common/helpers';
 
 export interface IFetchingOptionsAction {
@@ -83,7 +83,7 @@ export function saveOptions(options: IFormFillerOptions, formValues?: IFormFille
 
       newOptions.passwordSettings = {
         mode: formValues.passwordSettingsMode,
-        password: formValues.passwordSettingsPassword,
+        password: formValues.passwordSettingsPassword
       };
 
       newOptions.fieldMatchSettings = {
@@ -91,7 +91,7 @@ export function saveOptions(options: IFormFillerOptions, formValues?: IFormFille
         matchId: formValues.fieldMatchId,
         matchLabel: formValues.fieldMatchLabel,
         matchName: formValues.fieldMatchName,
-        matchPlaceholder: formValues.fieldMatchPlaceholder,
+        matchPlaceholder: formValues.fieldMatchPlaceholder
       };
 
       newOptions.emailSettings = {
@@ -99,7 +99,7 @@ export function saveOptions(options: IFormFillerOptions, formValues?: IFormFille
         hostnameList: CsvToArray(formValues.emailSettingsHostnameList),
         username: formValues.emailSettingsUsernameType,
         usernameList: CsvToArray(formValues.emailSettingsUsernameList),
-        usernameRegEx: formValues.emailSettingsUsernameRegEx,
+        usernameRegEx: formValues.emailSettingsUsernameRegEx
       };
     }
 
@@ -119,7 +119,7 @@ export function deleteCustomField(options: IFormFillerOptions, index: number): M
 
 export function saveSortedCustomFields(
   options: IFormFillerOptions,
-  customFields: ICustomField[],
+  customFields: ICustomField[]
 ): MyDefaultThunkResult {
   return dispatch => {
     const newOptions = Object.assign({}, options);
@@ -133,12 +133,13 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
   const customField: ICustomField = {
     match: CsvToArray(formData.match),
     name: formData.name,
-    type: formData.type,
+    type: formData.type
   };
 
   if (customField.type === 'number') {
     customField.min = parseInt(formData.numberMin, 10);
     customField.max = parseInt(formData.numberMax, 10);
+    customField.decimalPlaces = parseInt(formData.numberPlaces, 10);
   }
 
   if (customField.type === 'text') {
@@ -173,7 +174,7 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
 export function createCustomField(
   options: IFormFillerOptions,
   customField: ICustomFieldForm,
-  customFieldIndex: number,
+  customFieldIndex: number
 ): MyDefaultThunkResult {
   return dispatch => {
     const newOptions = Object.assign({}, options, { fields: [...options.fields] });
@@ -187,7 +188,7 @@ export function createCustomField(
 export function saveCustomField(
   options: IFormFillerOptions,
   customField: ICustomFieldForm,
-  customFieldIndex: number,
+  customFieldIndex: number
 ): MyDefaultThunkResult {
   return dispatch => {
     const newOptions = Object.assign({}, options, { fields: [...options.fields] });
