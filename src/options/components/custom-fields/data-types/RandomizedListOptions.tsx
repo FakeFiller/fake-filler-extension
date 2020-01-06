@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { GetMessage } from '../../../../common/helpers';
-import TextAreaField from '../../common/TextAreaField';
+import { GetMessage } from 'src/common/helpers';
+import TextAreaField from 'src/options/components/common/TextAreaField';
 
 class RandomizedListOptions extends React.PureComponent {
   public render(): JSX.Element {

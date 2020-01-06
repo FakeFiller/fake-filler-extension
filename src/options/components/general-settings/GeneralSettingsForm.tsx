@@ -1,10 +1,10 @@
-import { Form, Formik, FormikActions, FormikErrors } from 'formik';
+import { Form, Formik, FormikErrors, FormikHelpers } from 'formik';
 import * as React from 'react';
 
-import { GetHtmlMarkup, GetMessage } from '../../../common/helpers';
-import CheckboxField from '../common/CheckboxField';
-import RadioButtonField from '../common/RadioButtonField';
-import TextField from '../common/TextField';
+import { GetHtmlMarkup, GetMessage } from 'src/common/helpers';
+import CheckboxField from 'src/options/components/common/CheckboxField';
+import RadioButtonField from 'src/options/components/common/RadioButtonField';
+import TextField from 'src/options/components/common/TextField';
 
 const validate = (values: IFormFillerOptionsForm): FormikErrors<IFormFillerOptionsForm> => {
   const errors: FormikErrors<IFormFillerOptionsForm> = {};
@@ -59,7 +59,7 @@ class GeneralSettingsForm extends React.PureComponent<IOwnProps> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  private handleSubmit(values: IFormFillerOptionsForm, actions: FormikActions<IFormFillerOptionsForm>): void {
+  private handleSubmit(values: IFormFillerOptionsForm, actions: FormikHelpers<IFormFillerOptionsForm>): void {
     this.props.onSave(values);
     actions.setSubmitting(false);
   }

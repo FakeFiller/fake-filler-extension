@@ -1,75 +1,60 @@
-import { ErrorMessage, Field, FieldProps } from 'formik';
+import { useField } from 'formik';
 import * as React from 'react';
 
-interface IOwnProps {
+type Props = {
   label: string;
   name: string;
   title?: string;
   helpText?: string | React.ReactNode;
-}
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
-class CheckboxField extends React.PureComponent<IOwnProps> {
-  constructor(props: IOwnProps) {
-    super(props);
+const CheckboxField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputElement>) => {
+  const [field, meta] = useField(props);
+  const { name, id, label, helpText, className, title, ...rest } = props;
 
-    this.renderCheckbox = this.renderCheckbox.bind(this);
-  }
+  let validationCssClass = '';
 
-  private renderCheckbox(fieldProps: FieldProps<ICustomFieldForm>): JSX.Element {
-    // @ts-ignore
-    const hasError = !!fieldProps.form.errors[fieldProps.field.name];
-    // @ts-ignore
-    const isTouched = !!fieldProps.form.touched[fieldProps.field.name];
-
-    let className = '';
-
-    if (isTouched) {
-      if (hasError) {
-        className += ' is-invalid';
-      }
+  if (meta.touched) {
+    if (meta.error) {
+      validationCssClass = 'is-invalid';
     }
-
-    const isChecked = !!fieldProps.field.value;
-
-    return (
-      <>
-        <input
-          {...fieldProps.field}
-          type="checkbox"
-          id={this.props.name}
-          className={`form-check-input ${className}`}
-          checked={isChecked}
-          onChange={fieldProps.form.handleChange}
-        />
-        <label className={`form-check-label ${className}`} htmlFor={this.props.name}>
-          {this.props.label}
-        </label>
-      </>
-    );
   }
 
-  public render(): JSX.Element {
-    const controlMarkup = (
-      <div className="form-check">
-        <Field name={this.props.name} render={this.renderCheckbox} />
-        {this.props.helpText && <div className="form-text text-muted">{this.props.helpText}</div>}
-        <ErrorMessage name={this.props.name}>
-          {errorMessage => <div className="invalid-feedback">{errorMessage}</div>}
-        </ErrorMessage>
+  const componentId = id || name;
+
+  const controlMarkup = (
+    <div className={`form-check ${className}`}>
+      <input
+        name={name}
+        id={componentId}
+        type="checkbox"
+        ref={ref}
+        className={`form-check-input ${validationCssClass}`}
+        {...field}
+        {...rest}
+      />
+      <label htmlFor={componentId} className="form-check-label">
+        {label}
+      </label>
+      {helpText && <div className="form-text text-muted">{helpText}</div>}
+      {meta.touched && meta.error ? <div className="invalid-feedback">{meta.error}</div> : null}
+    </div>
+  );
+
+  if (title) {
+    return (
+      <div className="form-group row">
+        <div className="col-sm-3 text-right">{title}</div>
+        <div className="col-sm-9">{controlMarkup}</div>
       </div>
     );
-
-    if (this.props.title) {
-      return (
-        <div className="form-group row">
-          <div className="col-sm-3 text-right">{this.props.title}</div>
-          <div className="col-sm-9">{controlMarkup}</div>
-        </div>
-      );
-    }
-
-    return controlMarkup;
   }
-}
+
+  return controlMarkup;
+});
+
+CheckboxField.defaultProps = {
+  type: 'checkbox',
+};
 
 export default CheckboxField;

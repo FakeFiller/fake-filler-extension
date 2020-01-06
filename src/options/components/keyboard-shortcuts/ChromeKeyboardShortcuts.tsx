@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { GetHtmlMarkup, GetMessage } from '../../../common/helpers';
+import { GetHtmlMarkup, GetMessage } from 'src/common/helpers';
 
 interface IOwnProps {
   keyboardShortcuts: chrome.commands.Command[];

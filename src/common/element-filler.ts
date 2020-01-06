@@ -4,8 +4,8 @@ import cssesc from 'cssesc';
 import moment from 'moment';
 import RandExp from 'randexp';
 
-import DataGenerator from './data-generator';
-import { SanitizeText } from './helpers';
+import DataGenerator from 'src/common/data-generator';
+import { SanitizeText } from 'src/common/helpers';
 
 type FillableElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
@@ -170,7 +170,7 @@ class ElementFiller {
 
   private generateDummyDataForCustomField(
     customField: ICustomField | undefined,
-    element: HTMLInputElement | HTMLTextAreaElement | undefined = undefined
+    element: HTMLInputElement | HTMLTextAreaElement | undefined = undefined,
   ): string {
     if (!customField) {
       return this.generator.phrase(this.getElementMaxLength(element));
@@ -210,7 +210,7 @@ class ElementFiller {
 
       case 'number':
         return String(
-          this.generator.randomNumber(customField.min || 1, customField.max || 100, customField.decimalPlaces || 0)
+          this.generator.randomNumber(customField.min || 1, customField.max || 100, customField.decimalPlaces || 0),
         );
 
       case 'date':
@@ -335,7 +335,7 @@ class ElementFiller {
         const telephoneCustomField = this.findCustomField(this.getElementName(element), [
           'telephone',
           'regex',
-          'randomized-list'
+          'randomized-list',
         ]);
 
         if (telephoneCustomField) {
@@ -382,7 +382,7 @@ class ElementFiller {
       'text',
       'alphanumeric',
       'regex',
-      'randomized-list'
+      'randomized-list',
     ]);
 
     element.value = this.generateDummyDataForCustomField(matchingCustomField, element);

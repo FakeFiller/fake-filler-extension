@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { GetMessage } from '../../../common/helpers';
+import { GetMessage } from 'src/common/helpers';
 
 interface IOwnProps {
   onClick: CustomFieldAddFunction;

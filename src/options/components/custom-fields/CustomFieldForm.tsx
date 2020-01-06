@@ -1,17 +1,17 @@
 import { Form, Formik, FormikErrors } from 'formik';
 import * as React from 'react';
 
-import { GetMessage } from '../../../common/helpers';
-import TextField from '../common/TextField';
-import DataTypeSelectField from './DataTypeSelectField';
+import { GetMessage } from 'src/common/helpers';
+import TextField from 'src/options/components/common/TextField';
+import DataTypeSelectField from 'src/options/components/custom-fields/DataTypeSelectField';
 
-import AlphanumericOptions from './data-types/AlphanumericOptions';
-import DateOptions from './data-types/DateOptions';
-import NumberOptions from './data-types/NumberOptions';
-import RandomizedListOptions from './data-types/RandomizedListOptions';
-import RegExOptions from './data-types/RegExOptions';
-import TelephoneOptions from './data-types/TelephoneOptions';
-import TextOptions from './data-types/TextOptions';
+import AlphanumericOptions from 'src/options/components/custom-fields/data-types/AlphanumericOptions';
+import DateOptions from 'src/options/components/custom-fields/data-types/DateOptions';
+import NumberOptions from 'src/options/components/custom-fields/data-types/NumberOptions';
+import RandomizedListOptions from 'src/options/components/custom-fields/data-types/RandomizedListOptions';
+import RegExOptions from 'src/options/components/custom-fields/data-types/RegExOptions';
+import TelephoneOptions from 'src/options/components/custom-fields/data-types/TelephoneOptions';
+import TextOptions from 'src/options/components/custom-fields/data-types/TextOptions';
 
 const validate = (values: ICustomFieldForm): FormikErrors<ICustomFieldForm> => {
   const errors: FormikErrors<ICustomFieldForm> = {};

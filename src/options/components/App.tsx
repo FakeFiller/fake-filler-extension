@@ -2,17 +2,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, Route, RouteComponentProps } from 'react-router-dom';
 
-import { GetBrowser, GetMessage } from '../../common/helpers';
-import { DispatchProps, resetOptions } from '../actions';
+import { GetBrowser, GetMessage } from 'src/common/helpers';
+import { DispatchProps, resetOptions } from 'src/options/actions';
 
-import BackupAndRestorePage from './BackupAndRestorePage';
-import ChangeLogPage from './ChangeLogPage';
-import CustomFieldsPage from './CustomFieldsPage';
-import GeneralSettingsPage from './GeneralSettingsPage';
-import KeyboardShortcutsPage from './KeyboardShortcutsPage';
+import BackupAndRestorePage from 'src/options/components/BackupAndRestorePage';
+import ChangeLogPage from 'src/options/components/ChangeLogPage';
+import ExternalLink from 'src/options/components/common/ExternalLink';
+import CustomFieldsPage from 'src/options/components/CustomFieldsPage';
+import GeneralSettingsPage from 'src/options/components/GeneralSettingsPage';
+import KeyboardShortcutsPage from 'src/options/components/KeyboardShortcutsPage';
 
-import './App.scss';
-import ExternalLink from './common/ExternalLink';
+import 'src/options/components/App.scss';
 
 interface IOwnProps extends RouteComponentProps<{}> {}
 
@@ -110,9 +110,7 @@ class App extends React.Component<IProps> {
                     </a>
                   </li>
                   <li className="list-inline-item">
-                    <Link to="/changelog">
-                      {GetMessage('leftNav_changelog')}
-                    </Link>
+                    <Link to="/changelog">{GetMessage('leftNav_changelog')}</Link>
                   </li>
                   <li className="list-inline-item">
                     <ExternalLink url="https://github.com/husainshabbir/form-filler/">
@@ -136,4 +134,4 @@ class App extends React.Component<IProps> {
   }
 }
 
-export default connect()(App) as React.ComponentClass<IOwnProps>;
+export default connect()(App);

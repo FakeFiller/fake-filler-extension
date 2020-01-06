@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
+    "baseUrl": "./",
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "moduleResolution": "node",
@@ -17,6 +18,6 @@
     "strict": true,
     "noEmitOnError": true
   },
-  "include": ["src", "webpack.config.ts"],
+  "include": ["src", "webpack.config.ts", "webpack.config.dev.ts", "webpack.config.prod.ts"],
   "exclude": ["node_modules"]
 }

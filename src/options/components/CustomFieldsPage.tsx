@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { GetMessage } from '../../common/helpers';
+import { GetMessage } from 'src/common/helpers';
 import {
   createCustomField,
   deleteCustomField,
@@ -9,12 +9,12 @@ import {
   getOptions,
   saveCustomField,
   saveSortedCustomFields,
-} from '../actions';
+} from 'src/options/actions';
 
-import AddFieldButton from './custom-fields/AddFieldButton';
-import CustomFieldModal from './custom-fields/CustomFieldModal';
-import CustomFieldsList from './custom-fields/CustomFieldsList';
-import Introduction from './custom-fields/Introduction';
+import AddFieldButton from 'src/options/components/custom-fields/AddFieldButton';
+import CustomFieldModal from 'src/options/components/custom-fields/CustomFieldModal';
+import CustomFieldsList from 'src/options/components/custom-fields/CustomFieldsList';
+import Introduction from 'src/options/components/custom-fields/Introduction';
 
 interface IState {
   modalIsOpen: boolean;
@@ -151,4 +151,4 @@ function mapStateToProps(state: IAppState): IStateProps {
   };
 }
 
-export default connect(mapStateToProps)(CustomFieldsPage) as React.ComponentClass<IOwnProps>;
+export default connect(mapStateToProps)(CustomFieldsPage);

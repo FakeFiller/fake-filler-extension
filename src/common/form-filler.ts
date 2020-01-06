@@ -1,4 +1,4 @@
-import ElementFiller from './element-filler';
+import ElementFiller from 'src/common/element-filler';
 
 class FormFiller {
   private elementFiller: ElementFiller;

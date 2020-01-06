@@ -1,7 +1,18 @@
 {
-    "cSpell.words": [
-        "Formik",
-        "datetime",
-        "randexp"
-    ]
+  "cSpell.words": [
+    "Droppable",
+    "Shabbir",
+    "borderless",
+    "cssesc",
+    "datetime",
+    "devtool",
+    "formik",
+    "randexp"
+  ],
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "files.trimTrailingWhitespace": true,
+  "html.format.wrapLineLength": 0,
+  "editor.formatOnSave": true,
+  "files.trimFinalNewlines": true,
+  "typescript.tsdk": "./node_modules/typescript/lib"
 }

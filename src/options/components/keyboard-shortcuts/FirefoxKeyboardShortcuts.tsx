@@ -1,7 +1,7 @@
-import { Field, Form, Formik, FormikActions, FormikErrors } from 'formik';
+import { Field, Form, Formik, FormikErrors, FormikHelpers } from 'formik';
 import * as React from 'react';
 
-import { GetMessage, SaveKeyboardShortcuts } from '../../../common/helpers';
+import { GetMessage, SaveKeyboardShortcuts } from 'src/common/helpers';
 
 interface IFormCommandValue {
   name: BrowserCommandName;
@@ -23,30 +23,28 @@ function hasDuplicates(array: string[]): boolean {
 }
 
 const validate = (values: IFormValues): FormikErrors<IFormValues> => {
-  const errors: FormikErrors<IFormValues> = {
-    commands: [],
-  };
-
+  const errors: FormikErrors<IFormValues> = {};
+  const commandErrors: FormikErrors<IFormCommandValue>[] = [];
   const shortcuts: string[] = [];
 
   values.commands.forEach((command, index) => {
     if (command.modifier1 || command.modifier2 || command.key) {
-      if (command.modifier1 === command.modifier2 && errors.commands) {
-        errors.commands[index] = 'Required';
+      if (command.modifier1 === command.modifier2 && commandErrors) {
+        commandErrors[index] = { name: 'Required' };
       }
-      if (!command.key && errors.commands) {
-        errors.commands[index] = 'Required';
+      if (!command.key && commandErrors) {
+        commandErrors[index] = { name: 'Required' };
       }
       shortcuts.push(`${command.modifier1}${command.modifier2}${command.key}`);
     }
   });
 
-  if (hasDuplicates(shortcuts) && errors.commands) {
-    errors.commands.push('Duplicates');
+  if (hasDuplicates(shortcuts) && commandErrors) {
+    commandErrors.push({ name: 'Duplicates' });
   }
 
-  if (errors.commands && errors.commands.length === 0) {
-    return {};
+  if (commandErrors.length > 0) {
+    errors.commands = commandErrors;
   }
 
   return errors;
@@ -133,7 +131,7 @@ class FirefoxKeyboardShortcuts extends React.PureComponent<IOwnProps, IState> {
     return <div />;
   }
 
-  private handleSubmit(values: IFormValues, actions: FormikActions<IFormValues>): void {
+  private handleSubmit(values: IFormValues, actions: FormikHelpers<IFormValues>): void {
     const commands: IFormFillerBrowserCommand[] = [];
 
     values.commands.forEach(item => {

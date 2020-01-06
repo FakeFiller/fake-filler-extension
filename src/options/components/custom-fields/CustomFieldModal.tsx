@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Modal from 'react-modal';
 
-import CustomFieldForm from './CustomFieldForm';
+import CustomFieldForm from 'src/options/components/custom-fields/CustomFieldForm';
 
 const customStyles = {
   overlay: {

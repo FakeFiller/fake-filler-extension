@@ -1,46 +1,14 @@
 import * as React from 'react';
-import { arrayMove, SortableContainer, SortableElement, SortEnd } from 'react-sortable-hoc';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
-import AddFieldButton from './AddFieldButton';
-import CustomFieldsListItem from './CustomFieldsListItem';
+import CustomFieldsListItem from 'src/options/components/custom-fields/CustomFieldsListItem';
 
-interface ISortableItemProps {
-  customField: ICustomField;
-  itemIndex: number;
-  onEdit: CustomFieldEditFunction;
-  onDelete: CustomFieldDeleteFunction;
+function reorder(list: ICustomField[], startIndex: number, endIndex: number): ICustomField[] {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
 }
-
-const SortableItem = SortableElement<ISortableItemProps>(({ customField, itemIndex, onEdit, onDelete }) => (
-  <CustomFieldsListItem customField={customField} itemIndex={itemIndex} onEdit={onEdit} onDelete={onDelete} />
-));
-
-interface ISortableCustomFieldsListProps {
-  customFields: ICustomField[];
-  onAdd: CustomFieldAddFunction;
-  onEdit: CustomFieldEditFunction;
-  onDelete: CustomFieldDeleteFunction;
-}
-
-const SortableCustomFieldsList = SortableContainer<ISortableCustomFieldsListProps>(
-  ({ customFields, onEdit, onDelete, onAdd }) => {
-    const customFieldItems = customFields.map((item, index) => (
-      <>
-        <SortableItem
-          key={index}
-          index={index}
-          itemIndex={index}
-          customField={item}
-          onEdit={onEdit}
-          onDelete={onDelete}
-        />
-        <AddFieldButton index={index + 1} onClick={onAdd} />
-      </>
-    ));
-
-    return <div className="custom-fields-list">{customFieldItems}</div>;
-  },
-);
 
 interface IOwnProps {
   customFields: ICustomField[];
@@ -57,23 +25,36 @@ class CustomFieldsList extends React.PureComponent<IOwnProps> {
     this.onSortEnd = this.onSortEnd.bind(this);
   }
 
-  private onSortEnd({ oldIndex, newIndex }: SortEnd): void {
-    const sortedCustomFields = arrayMove(this.props.customFields, oldIndex, newIndex);
+  private onSortEnd(result: DropResult): void {
+    if (!result.destination) {
+      return;
+    }
+
+    const sortedCustomFields = reorder(this.props.customFields, result.source.index, result.destination.index);
     this.props.onSort(sortedCustomFields);
   }
 
   public render(): JSX.Element {
     return (
-      <SortableCustomFieldsList
-        customFields={this.props.customFields}
-        onEdit={this.props.onEdit}
-        onDelete={this.props.onDelete}
-        onAdd={this.props.onAdd}
-        onSortEnd={this.onSortEnd}
-        useDragHandle
-        useWindowAsScrollContainer
-        lockAxis="y"
-      />
+      <DragDropContext onDragEnd={this.onSortEnd}>
+        <Droppable droppableId="droppable">
+          {provided => (
+            <div className="custom-fields-list" ref={provided.innerRef} {...provided.droppableProps}>
+              {this.props.customFields.map((item, index) => (
+                <CustomFieldsListItem
+                  key={index}
+                  customField={item}
+                  itemIndex={index}
+                  onAdd={this.props.onAdd}
+                  onEdit={this.props.onEdit}
+                  onDelete={this.props.onDelete}
+                />
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     );
   }
 }

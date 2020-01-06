@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { GetMessage } from '../../../../common/helpers';
-import TextField from '../../common/TextField';
+import { GetMessage } from 'src/common/helpers';
+import TextField from 'src/options/components/common/TextField';
 
 class TextOptions extends React.PureComponent {
   public render(): JSX.Element {

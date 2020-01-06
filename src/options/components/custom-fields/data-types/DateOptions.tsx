@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { GetHtmlMarkup, GetMessage } from '../../../../common/helpers';
-import TextField from '../../common/TextField';
+import { GetHtmlMarkup, GetMessage } from 'src/common/helpers';
+import TextField from 'src/options/components/common/TextField';
 
 class DateOptions extends React.PureComponent {
   public render(): JSX.Element {

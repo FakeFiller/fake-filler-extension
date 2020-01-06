@@ -1,79 +1,64 @@
-import { ErrorMessage, Field, FieldProps } from 'formik';
+import { useField } from 'formik';
 import * as React from 'react';
-import { SanitizeText } from '../../../common/helpers';
 
-interface IOwnProps {
+import { SanitizeText } from 'src/common/helpers';
+
+type Props = {
   label: string;
   name: string;
   value: string;
   title?: string;
   helpText?: string | React.ReactNode;
-}
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
-class RadioButtonField extends React.PureComponent<IOwnProps> {
-  constructor(props: IOwnProps) {
-    super(props);
+const RadioButtonField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputElement>) => {
+  const [field, meta] = useField(props);
+  const { name, type, id, label, helpText, className, value, title, ...rest } = props;
 
-    this.renderCheckbox = this.renderCheckbox.bind(this);
-  }
+  let validationCssClass = '';
 
-  private renderCheckbox(fieldProps: FieldProps<ICustomFieldForm>): JSX.Element {
-    // @ts-ignore
-    const hasError = !!fieldProps.form.errors[fieldProps.field.name];
-    // @ts-ignore
-    const isTouched = !!fieldProps.form.touched[fieldProps.field.name];
-
-    let className = '';
-
-    if (isTouched) {
-      if (hasError) {
-        className += ' is-invalid';
-      }
+  if (meta.touched) {
+    if (meta.error) {
+      validationCssClass = 'is-invalid';
     }
-
-    const isChecked = fieldProps.field.value === this.props.value;
-    const componentId = `${this.props.name}_${SanitizeText(this.props.value)}`;
-
-    return (
-      <>
-        <input
-          {...fieldProps.field}
-          type="radio"
-          id={componentId}
-          className={`form-check-input ${className}`}
-          value={this.props.value}
-          checked={isChecked}
-          onChange={fieldProps.form.handleChange}
-        />
-        <label className={`form-check-label ${className}`} htmlFor={componentId}>
-          {this.props.label}
-        </label>
-      </>
-    );
   }
 
-  public render(): JSX.Element {
-    const controlMarkup = (
-      <div className="form-check">
-        <Field name={this.props.name} render={this.renderCheckbox} />
-        {this.props.helpText && <div className="form-text text-muted">{this.props.helpText}</div>}
-        <ErrorMessage name={this.props.name}>
-          {errorMessage => <div className="invalid-feedback">{errorMessage}</div>}
-        </ErrorMessage>
+  const componentId = `${id || name}_${SanitizeText(value)}`;
+
+  const controlMarkup = (
+    <div className={`form-check ${className}`}>
+      <input
+        name={name}
+        id={componentId}
+        type="radio"
+        ref={ref}
+        className={`form-check-input ${validationCssClass}`}
+        value={value}
+        {...field}
+        {...rest}
+      />
+      <label htmlFor={componentId} className="form-check-label">
+        {label}
+      </label>
+      {helpText && <div className="form-text text-muted">{helpText}</div>}
+      {meta.touched && meta.error ? <div className="invalid-feedback">{meta.error}</div> : null}
+    </div>
+  );
+
+  if (title) {
+    return (
+      <div className="form-group row">
+        <div className="col-sm-3 text-right">{title}</div>
+        <div className="col-sm-9">{controlMarkup}</div>
       </div>
     );
-
-    if (this.props.title) {
-      return (
-        <div className="form-group row">
-          <div className="col-sm-3 text-right">{this.props.title}</div>
-          <div className="col-sm-9">{controlMarkup}</div>
-        </div>
-      );
-    }
-
-    return controlMarkup;
   }
-}
+
+  return controlMarkup;
+});
+
+RadioButtonField.defaultProps = {
+  type: 'radio',
+};
 
 export default RadioButtonField;

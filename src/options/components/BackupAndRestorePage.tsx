@@ -2,8 +2,8 @@ import * as fileSaver from 'file-saver';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { GetMessage } from '../../common/helpers';
-import { DispatchProps, getOptions, saveOptions } from '../actions';
+import { GetMessage } from 'src/common/helpers';
+import { DispatchProps, getOptions, saveOptions } from 'src/options/actions';
 
 function utf8ToBase64(str: string): string {
   return window.btoa(unescape(encodeURIComponent(str)));
@@ -183,4 +183,4 @@ function mapStateToProps(state: IAppState): IStateProps {
   };
 }
 
-export default connect(mapStateToProps)(BackupAndRestorePage) as React.ComponentClass<IOwnProps>;
+export default connect(mapStateToProps)(BackupAndRestorePage);

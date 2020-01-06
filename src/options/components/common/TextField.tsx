@@ -1,72 +1,54 @@
-import { ErrorMessage, Field, FieldProps } from 'formik';
-import * as React from 'react';
+import { useField } from 'formik';
+import React from 'react';
 
-interface IOwnProps {
+type Props = {
   name: string;
   label?: string;
-  type?: string;
-  placeholder?: string;
   helpText?: string | React.ReactNode;
-}
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
-class TextField extends React.PureComponent<IOwnProps> {
-  constructor(props: IOwnProps) {
-    super(props);
+const TextField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputElement>) => {
+  const [field, meta] = useField(props);
+  const { name, id, label, helpText, className, ...rest } = props;
 
-    this.renderInput = this.renderInput.bind(this);
+  let controlCssClass = 'form-control';
+
+  if (meta.touched) {
+    if (meta.error) {
+      controlCssClass += ' is-invalid';
+    } else {
+      controlCssClass += ' is-valid';
+    }
   }
 
-  private renderInput(fieldProps: FieldProps<ICustomFieldForm>): JSX.Element {
-    // @ts-ignore
-    const hasError = !!fieldProps.form.errors[fieldProps.field.name];
-    // @ts-ignore
-    const isTouched = !!fieldProps.form.touched[fieldProps.field.name];
+  if (className) {
+    controlCssClass += ` ${className}`;
+  }
 
-    let className = 'form-control';
+  const controlMarkup = (
+    <React.Fragment>
+      <input name={name} id={id || name} ref={ref} className={controlCssClass} {...field} {...rest} />
+      {helpText && <div className="form-text text-muted">{helpText}</div>}
+      {meta.touched && meta.error ? <div className="invalid-feedback">{meta.error}</div> : null}
+    </React.Fragment>
+  );
 
-    if (isTouched) {
-      if (hasError) {
-        className += ' is-invalid';
-      }
-    }
-
-    const fieldType = this.props.type || 'text';
-
+  if (label) {
     return (
-      <input
-        {...fieldProps.field}
-        type={fieldType}
-        id={this.props.name}
-        className={className}
-        placeholder={this.props.placeholder}
-      />
+      <div className="form-group row">
+        <label htmlFor={id || name} className="col-sm-3 col-form-label text-right">
+          {label}
+        </label>
+        <div className="col-sm-9">{controlMarkup}</div>
+      </div>
     );
   }
 
-  public render(): JSX.Element {
-    const controlMarkup = (
-      <>
-        <Field name={this.props.name} render={this.renderInput} />
-        {this.props.helpText && <div className="form-text text-muted">{this.props.helpText}</div>}
-        <ErrorMessage name={this.props.name}>
-          {errorMessage => <div className="invalid-feedback">{errorMessage}</div>}
-        </ErrorMessage>
-      </>
-    );
+  return controlMarkup;
+});
 
-    if (this.props.label) {
-      return (
-        <div className="form-group row">
-          <label className="col-sm-3 col-form-label text-right" htmlFor={this.props.name}>
-            {this.props.label}
-          </label>
-          <div className="col-sm-9">{controlMarkup}</div>
-        </div>
-      );
-    }
-
-    return controlMarkup;
-  }
-}
+TextField.defaultProps = {
+  type: 'text',
+};
 
 export default TextField;

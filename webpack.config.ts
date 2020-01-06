@@ -1,20 +1,12 @@
-// https://github.com/libertylocked/chrome-extension-typescript-react
-
 import * as path from 'path';
 import * as webpack from 'webpack';
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 
-const isProd = (): boolean => {
-  return process.env.NODE_ENV === 'production';
-};
-
-const buildConfig: webpack.Configuration = {
-  mode: 'production',
+const webpackConfig: webpack.Configuration = {
   cache: false,
   entry: {
     background_script: path.join(__dirname, 'src/background_script/index.ts'),
@@ -77,29 +69,11 @@ const buildConfig: webpack.Configuration = {
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias: {
+      src: path.resolve(__dirname, 'src'),
+    },
   },
-  performance: {
-    hints: false,
-  },
+  stats: 'minimal',
 };
 
-if (isProd()) {
-  buildConfig.devtool = false;
-  buildConfig.plugins = (buildConfig.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify('production') },
-    }),
-    new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: [path.join(__dirname, 'dist')],
-    }),
-  ]);
-} else {
-  buildConfig.plugins = (buildConfig.plugins || []).concat([
-    new webpack.SourceMapDevToolPlugin({
-      exclude: /^vendor.*.\.js$/,
-      filename: '[file].map',
-    }),
-  ]);
-}
-
-export default buildConfig;
+export default webpackConfig;

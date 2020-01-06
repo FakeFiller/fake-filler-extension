@@ -1,64 +1,50 @@
-import { ErrorMessage, Field, FieldProps } from 'formik';
+import { useField } from 'formik';
 import * as React from 'react';
 
-interface IOwnProps {
+type Props = {
   name: string;
   label?: string;
-  helpText?: string;
-}
+  helpText?: string | React.ReactNode;
+} & React.InputHTMLAttributes<HTMLSelectElement>;
 
-class SelectField extends React.PureComponent<IOwnProps> {
-  constructor(props: IOwnProps) {
-    super(props);
+const SelectField = React.forwardRef((props: Props, ref: React.Ref<HTMLSelectElement>) => {
+  const [field, meta] = useField(props);
+  const { name, id, label, helpText, className, ...rest } = props;
 
-    this.renderSelect = this.renderSelect.bind(this);
+  let controlCssClass = 'form-control';
+
+  if (meta.touched) {
+    if (meta.error) {
+      controlCssClass += ' is-invalid';
+    } else {
+      controlCssClass += ' is-valid';
+    }
   }
 
-  private renderSelect(fieldProps: FieldProps<ICustomFieldForm>): JSX.Element {
-    // @ts-ignore
-    const hasError = !!fieldProps.form.errors[fieldProps.field.name];
-    // @ts-ignore
-    const isTouched = !!fieldProps.form.touched[fieldProps.field.name];
+  if (className) {
+    controlCssClass += ` ${className}`;
+  }
 
-    let className = 'form-control';
+  const controlMarkup = (
+    <>
+      <select name={name} id={id || name} className={controlCssClass} ref={ref} {...field} {...rest} />
+      {helpText && <div className="form-text text-muted">{helpText}</div>}
+      {meta.touched && meta.error ? <div className="invalid-feedback">{meta.error}</div> : null}
+    </>
+  );
 
-    if (isTouched) {
-      if (hasError) {
-        className += ' is-invalid';
-      }
-    }
-
+  if (label) {
     return (
-      <select {...fieldProps.field} id={this.props.name} className={className}>
-        {this.props.children}
-      </select>
+      <div className="form-group row">
+        <label className="col-sm-3 col-form-label text-right" htmlFor={name}>
+          {label}
+        </label>
+        <div className="col-sm-9">{controlMarkup}</div>
+      </div>
     );
   }
 
-  public render(): JSX.Element {
-    const controlMarkup = (
-      <>
-        <Field name={this.props.name} render={this.renderSelect} />
-        {this.props.helpText && <div className="form-text text-muted">{this.props.helpText}</div>}
-        <ErrorMessage name={this.props.name}>
-          {errorMessage => <div className="invalid-feedback">{errorMessage}</div>}
-        </ErrorMessage>
-      </>
-    );
-
-    if (this.props.label) {
-      return (
-        <div className="form-group row">
-          <label className="col-sm-3 col-form-label text-right" htmlFor={this.props.name}>
-            {this.props.label}
-          </label>
-          <div className="col-sm-9">{controlMarkup}</div>
-        </div>
-      );
-    }
-
-    return controlMarkup;
-  }
-}
+  return controlMarkup;
+});
 
 export default SelectField;

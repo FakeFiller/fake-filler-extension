@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { GetMessage } from '../../common/helpers';
-import { DispatchProps, getOptions, saveOptions } from '../actions';
-import GeneralSettingsForm from './general-settings/GeneralSettingsForm';
+import { GetMessage } from 'src/common/helpers';
+import { DispatchProps, getOptions, saveOptions } from 'src/options/actions';
+import GeneralSettingsForm from 'src/options/components/general-settings/GeneralSettingsForm';
 
 interface IState {
   showSavedMessage: boolean;
@@ -63,4 +63,4 @@ function mapStateToProps(state: IAppState): IStateProps {
   };
 }
 
-export default connect(mapStateToProps)(GeneralSettingsPage) as React.ComponentClass<IOwnProps>;
+export default connect(mapStateToProps)(GeneralSettingsPage);

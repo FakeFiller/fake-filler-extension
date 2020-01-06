@@ -2,8 +2,8 @@
 
 import RandExp from 'randexp';
 
-import * as data from './dummy-data';
-import { DEFAULT_TELEPHONE_TEMPLATE, SanitizeText } from './helpers';
+import * as data from 'src/common/dummy-data';
+import { DEFAULT_TELEPHONE_TEMPLATE, SanitizeText } from 'src/common/helpers';
 
 class DataGenerator {
   private options: IFormFillerOptions;

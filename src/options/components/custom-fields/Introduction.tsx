@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { GetMessage } from '../../../common/helpers';
-import ExternalLink from '../common/ExternalLink';
+import { GetMessage } from 'src/common/helpers';
+import ExternalLink from 'src/options/components/common/ExternalLink';
 
 class Introduction extends React.PureComponent {
   public render(): JSX.Element {

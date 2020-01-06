@@ -1,4 +1,4 @@
-import { CreateContextMenus, GetFormFillerOptions, GetMessage, SaveFormFillerOptions } from '../common/helpers';
+import { CreateContextMenus, GetFormFillerOptions, GetMessage, SaveFormFillerOptions } from 'src/common/helpers';
 
 function handleMessage(request: string, sender: {}, sendResponse: Function): boolean | null {
   if (request === 'getOptions') {

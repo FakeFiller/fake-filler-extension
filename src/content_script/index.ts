@@ -1,4 +1,4 @@
-import FormFiller from '../common/form-filler';
+import FormFiller from 'src/common/form-filler';
 
 declare global {
   interface Window {

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { GetBrowser, GetMessage } from '../../common/helpers';
-import { DispatchProps, getKeyboardShortcuts } from '../actions';
-import ChromeKeyboardShortcuts from './keyboard-shortcuts/ChromeKeyboardShortcuts';
-import FirefoxKeyboardShortcuts from './keyboard-shortcuts/FirefoxKeyboardShortcuts';
+import { GetBrowser, GetMessage } from 'src/common/helpers';
+import { DispatchProps, getKeyboardShortcuts } from 'src/options/actions';
+import ChromeKeyboardShortcuts from 'src/options/components/keyboard-shortcuts/ChromeKeyboardShortcuts';
+import FirefoxKeyboardShortcuts from 'src/options/components/keyboard-shortcuts/FirefoxKeyboardShortcuts';
 
 interface IOwnProps {}
 
@@ -70,4 +70,4 @@ function mapStateToProps(state: IAppState): IStateProps {
   };
 }
 
-export default connect(mapStateToProps)(KeyboardShortcutsPage) as React.ComponentClass<IOwnProps>;
+export default connect(mapStateToProps)(KeyboardShortcutsPage);

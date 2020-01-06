@@ -3,8 +3,8 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter, Route } from 'react-router-dom';
 
-import App from './components/App';
-import Store from './store';
+import App from 'src/options/components/App';
+import Store from 'src/options/store';
 
 const optionsApp = (
   <Provider store={Store}>
