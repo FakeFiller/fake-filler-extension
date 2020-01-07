@@ -14,7 +14,7 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
       usernameList: ['jack', 'sparrow', 'frodo', 'baggins'],
       usernameRegEx: '',
       hostname: 'list',
-      hostnameList: ['mailinator.com', 'mailinator.net'],
+      hostnameList: ['mailinator.com', 'mailinator.net']
     },
     enableContextMenu: true,
     fieldMatchSettings: {
@@ -22,7 +22,7 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
       matchId: true,
       matchName: true,
       matchClass: false,
-      matchPlaceholder: false,
+      matchPlaceholder: false
     },
     fields: [],
     ignoreFieldsWithContent: false,
@@ -30,60 +30,61 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
     ignoredFields: ['captcha', 'hipinputtext'],
     passwordSettings: {
       mode: 'defined',
-      password: 'Pa$$w0rd!',
+      password: 'Pa$$w0rd!'
     },
-    triggerClickEvents: true,
+    triggerClickEvents: true
   };
 
   options.fields.push({
     type: 'username',
     name: 'Username',
-    match: ['userid', 'username'],
+    match: ['userid', 'username']
   });
 
   options.fields.push({
     type: 'first-name',
     name: 'First Name',
-    match: ['firstname'],
+    match: ['firstname']
   });
 
   options.fields.push({
     type: 'last-name',
     name: 'Last Name',
-    match: ['lastname', 'surname', 'secondname'],
+    match: ['lastname', 'surname', 'secondname']
   });
 
   options.fields.push({
     type: 'email',
     name: 'Email Address',
-    match: ['email'],
+    match: ['email']
   });
 
   options.fields.push({
     type: 'organization',
     name: 'Organization or Company Name',
-    match: ['organization', 'organisation', 'company'],
+    match: ['organization', 'organisation', 'company']
   });
 
   options.fields.push({
     type: 'full-name',
     name: 'Full Name',
-    match: ['fullname', 'name'],
+    match: ['fullname', 'name']
   });
 
   options.fields.push({
     type: 'telephone',
     name: 'Telephone Number',
     match: ['phone', 'fax'],
-    template: '+1 (XxX) XxX-XxxX',
+    template: '+1 (XxX) XxX-XxxX'
   });
 
   options.fields.push({
     type: 'number',
     name: 'A Random Number between 1 and 1000',
-    match: ['integer', 'number', 'numeric', 'price', 'qty', 'quantity'],
+    match: ['integer', 'number', 'numeric', 'income', 'price', 'qty', 'quantity'],
     min: 1,
     max: 1000,
+    decimalPlaces: 0
   });
 
   options.fields.push({
@@ -91,7 +92,7 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
     name: 'Zip Code',
     match: ['zip'],
     min: 10000,
-    max: 99999,
+    max: 99999
   });
 
   options.fields.push({
@@ -99,7 +100,7 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
     name: 'Day',
     match: ['day'],
     min: 1,
-    max: 28,
+    max: 28
   });
 
   options.fields.push({
@@ -107,7 +108,7 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
     name: 'Month',
     match: ['month'],
     min: 1,
-    max: 12,
+    max: 12
   });
 
   options.fields.push({
@@ -115,20 +116,20 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
     name: 'Year',
     match: ['year'],
     min: 1970,
-    max: 2019,
+    max: 2019
   });
 
   options.fields.push({
     type: 'date',
     name: 'Date',
     match: ['date'],
-    template: 'DD-MMM-YYYY',
+    template: 'DD-MMM-YYYY'
   });
 
   options.fields.push({
     type: 'url',
     name: 'Website Address',
-    match: ['website'],
+    match: ['website']
   });
 
   options.fields.push({
@@ -137,14 +138,14 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
     match: ['address1', 'addressline1'],
     template:
       // tslint:disable-next-line:max-line-length
-      '([1-9][0-9][0-9]?) (North |East |West |South |||||)(Green |White |Rocky ||||||||)(Nobel|Fabien|Hague|Oak|Second|First|Cowley|Clarendon|New|Old|Milton) (Avenue|Boulevard|Court|Drive|Extension|Freeway|Lane|Parkway|Road|Street)',
+      '([1-9][0-9][0-9]?) (North |East |West |South |||||)(Green |White |Rocky ||||||||)(Nobel|Fabien|Hague|Oak|Second|First|Cowley|Clarendon|New|Old|Milton) (Avenue|Boulevard|Court|Drive|Extension|Freeway|Lane|Parkway|Road|Street)'
   });
 
   options.fields.push({
     type: 'regex',
     name: 'P.O. Box',
     match: ['pobox', 'postbox'],
-    template: '((P\\.O\\.)|(PO)) Box [1-9][0-9]{0,4}',
+    template: '((P\\.O\\.)|(PO)) Box [1-9][0-9]{0,4}'
   });
 
   return options;
@@ -183,26 +184,26 @@ const CreateContextMenus = (enableContextMenu: boolean): void => {
     chrome.contextMenus.create({
       id: 'form-filler-all',
       title: 'Fill all inputs',
-      contexts: ['page', 'editable'],
+      contexts: ['page', 'editable']
     });
 
     chrome.contextMenus.create({
       id: 'form-filler-form',
       title: 'Fill this form',
-      contexts: ['editable'],
+      contexts: ['editable']
     });
 
     chrome.contextMenus.create({
       id: 'form-filler-input',
       title: 'Fill this input',
-      contexts: ['editable'],
+      contexts: ['editable']
     });
   }
 };
 
 const SaveFormFillerOptions = (options: IFormFillerOptions): void => {
   chrome.storage.local.set({
-    options,
+    options
   });
 
   CreateContextMenus(options.enableContextMenu);
@@ -283,5 +284,5 @@ export {
   MultipleLinesToArray,
   SanitizeText,
   SaveFormFillerOptions,
-  SaveKeyboardShortcuts,
+  SaveKeyboardShortcuts
 };

@@ -9,6 +9,7 @@ class NumberOptions extends React.PureComponent {
       <>
         <TextField name="numberMin" type="number" label={GetMessage('customFields_label_minValue')} />
         <TextField name="numberMax" type="number" label={GetMessage('customFields_label_maxValue')} />
+        <TextField name="numberPlaces" type="number" label={GetMessage('customFields_label_decimalPlaces')} />
       </>
     );
   }

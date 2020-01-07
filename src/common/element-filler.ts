@@ -170,7 +170,7 @@ class ElementFiller {
 
   private generateDummyDataForCustomField(
     customField: ICustomField | undefined,
-    element: HTMLInputElement | HTMLTextAreaElement | undefined = undefined,
+    element: HTMLInputElement | HTMLTextAreaElement | undefined = undefined
   ): string {
     if (!customField) {
       return this.generator.phrase(this.getElementMaxLength(element));
@@ -209,7 +209,9 @@ class ElementFiller {
         return this.generator.phoneNumber(customField.template);
 
       case 'number':
-        return String(this.generator.randomNumber(customField.min || 1, customField.max || 100));
+        return String(
+          this.generator.randomNumber(customField.min || 1, customField.max || 100, customField.decimalPlaces || 0)
+        );
 
       case 'date':
         return moment(this.generator.date()).format(customField.template);
@@ -333,7 +335,7 @@ class ElementFiller {
         const telephoneCustomField = this.findCustomField(this.getElementName(element), [
           'telephone',
           'regex',
-          'randomized-list',
+          'randomized-list'
         ]);
 
         if (telephoneCustomField) {
@@ -380,7 +382,7 @@ class ElementFiller {
       'text',
       'alphanumeric',
       'regex',
-      'randomized-list',
+      'randomized-list'
     ]);
 
     element.value = this.generateDummyDataForCustomField(matchingCustomField, element);

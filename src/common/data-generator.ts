@@ -30,8 +30,9 @@ class DataGenerator {
     this.previousLastName = lastName;
   }
 
-  public randomNumber(start: number, end: number): number {
-    return Math.floor(Math.random() * (end - start + 1) + start);
+  public randomNumber(start: number, end: number, decimalPlaces: number = 0): number {
+    const result: number = Math.random() * (end - start + 1) + start;
+    return Number(result.toFixed(decimalPlaces));
   }
 
   public scrambledWord(minLength: number = 3, maxLength: number = 15): string {
