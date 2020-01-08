@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Form Filler Test</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      div[contenteditable] {
+        background-color: #ffe;
+        border: 2px dashed #ffc600;
+        line-height: 2em;
+        min-height: 2.3em;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        $('#serialize-form').on('click', function() {
+          $('#form-data').html(
+            $('#form')
+              .serialize()
+              .replace(/&/g, '<br>')
+              .replace(/=/g, ' = '),
+          );
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        $('#js-hide').hide();
+
+        $('input[type="checkbox"]').on('change', function() {
+          console.log('Checkbox Change Event', this.name, this.value, this.checked);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Form Filler Test</h1>
+      <form id="form" class="form-horizontal">
+        <fieldset>
+          <legend>Text Type</legend>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Captcha (ignored)</label>
+            <div class="col-sm-9">
+              <input type="text" name="captcha" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">First Name (readonly)</label>
+            <div class="col-sm-9">
+              <input type="text" name="first_name" class="form-control" placeholder="Your first name" readonly />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">First Name (readonly, with value)</label>
+            <div class="col-sm-9">
+              <input type="text" name="first_name" class="form-control" value="Hussein" readonly />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">First Name (disabled)</label>
+            <div class="col-sm-9">
+              <input type="text" name="first_name" class="form-control" placeholder="Your first name" disabled />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">First Name (disabled, with value)</label>
+            <div class="col-sm-9">
+              <input type="text" name="first_name" class="form-control" value="Hussein" disabled />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">First Name (input without type)</label>
+            <div class="col-sm-9">
+              <input name="first_name" class="form-control" placeholder="Your first name" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">First Name (input with empty type)</label>
+            <div class="col-sm-9">
+              <input type="" name="first_name" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">First Name</label>
+            <div class="col-sm-9">
+              <input type="text" name="first_name" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">First Name (with value)</label>
+            <div class="col-sm-9">
+              <input type="text" name="first_name" value="Hussein" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Last Name</label>
+            <div class="col-sm-9">
+              <input type="text" name="last_name" class="form-control" placeholder="Your last name" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Full Name</label>
+            <div class="col-sm-9">
+              <input type="text" name="full_name" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Username</label>
+            <div class="col-sm-9">
+              <input type="text" name="username" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Email Address</label>
+            <div class="col-sm-9">
+              <input type="text" name="email_address_text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Email Address (retyped)</label>
+            <div class="col-sm-9">
+              <input type="text" name="confirm_email_address" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Organization</label>
+            <div class="col-sm-9">
+              <input type="text" name="organization" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Telephone</label>
+            <div class="col-sm-9">
+              <input type="text" name="telephone_text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Number</label>
+            <div class="col-sm-9">
+              <input type="text" name="number_text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Zip Code</label>
+            <div class="col-sm-9">
+              <input type="text" name="zip_text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Date</label>
+            <div class="col-sm-9">
+              <input type="text" name="date_of_birth_text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Website</label>
+            <div class="col-sm-9">
+              <input type="text" name="website_text" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Matches Nothing</label>
+            <div class="col-sm-9">
+              <input type="text" name="no_match" class="form-control" />
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Other Types</legend>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Password</label>
+            <div class="col-sm-9">
+              <input type="password" name="password" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Repeat Password</label>
+            <div class="col-sm-9">
+              <input type="password" name="confirm_password" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Email</label>
+            <div class="col-sm-9">
+              <input type="email" name="email_address" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Confirm Email</label>
+            <div class="col-sm-9">
+              <input type="email" name="repeat_email_address" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Credit Card</label>
+            <div class="col-sm-9">
+              <input type="tel" name="credit_card" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Number</label>
+            <div class="col-sm-9">
+              <input type="number" name="number" class="form-control" min="100" max="500" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Range</label>
+            <div class="col-sm-9">
+              <input type="range" name="number_range" class="form-control" value="0" min="0" max="100" step="5" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Search</label>
+            <div class="col-sm-9">
+              <input type="search" name="keywords_search" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Website</label>
+            <div class="col-sm-9">
+              <input type="url" name="website" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Date</label>
+            <div class="col-sm-9">
+              <input type="date" name="date_of_birth" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Date/Time Local</label>
+            <div class="col-sm-9">
+              <input type="datetime-local" name="date_time_local" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Month</label>
+            <div class="col-sm-9">
+              <input type="month" name="month" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Time</label>
+            <div class="col-sm-9">
+              <input type="time" name="time" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Week</label>
+            <div class="col-sm-9">
+              <input type="week" name="week" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Telephone</label>
+            <div class="col-sm-9">
+              <input type="tel" name="telephone" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Color</label>
+            <div class="col-sm-9">
+              <input type="color" name="color" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Drop Down</label>
+            <div class="col-sm-9">
+              <select name="favorite_color_dropdown" class="form-control">
+                <option></option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="yellow">Yellow</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Drop Down (with value)</label>
+            <div class="col-sm-9">
+              <select name="favorite_color_dropdown" class="form-control">
+                <option></option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue" selected>Blue</option>
+                <option value="yellow">Yellow</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Drop Down (disabled)</label>
+            <div class="col-sm-9">
+              <select name="favorite_color_dropdown" class="form-control">
+                <option></option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="yellow">Yellow</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Drop Down (disabled, with value)</label>
+            <div class="col-sm-9">
+              <select name="favorite_color_dropdown" class="form-control" disabled>
+                <option></option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue" selected>Blue</option>
+                <option value="yellow">Yellow</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Drop Down (with disabled value)</label>
+            <div class="col-sm-9">
+              <select name="favorite_color_dropdown" class="form-control">
+                <option></option>
+                <option value="red" disabled>Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="yellow" disabled>Yellow</option>
+                <option value="black">Black</option>
+                <option value="orange" disabled>Orange</option>
+                <option value="pink" disabled>Pink</option>
+                <option value="white">White</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Drop Down (disabled selected value)</label>
+            <div class="col-sm-9">
+              <select name="favorite_color_dropdown" class="form-control">
+                <option></option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue" selected disabled>Blue</option>
+                <option value="yellow">Yellow</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Radio</label>
+            <div class="col-sm-9">
+              <div class="radio">
+                <label><input type="radio" name="favorite_color_radio" value="red" /> Red</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="favorite_color_radio" value="green" /> Green</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="favorite_color_radio" value="blue" /> Blue</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="favorite_color_radio" value="yellow" /> Yellow</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Checkbox</label>
+            <div class="col-sm-9">
+              <div class="checkbox">
+                <label><input type="checkbox" name="favorite_color_checkbox" value="red" /> Red</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="favorite_color_checkbox" value="green" /> Green</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="favorite_color_checkbox" value="blue" /> Blue</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="favorite_color_checkbox" value="yellow" /> Yellow</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Text Area</label>
+            <div class="col-sm-9">
+              <textarea name="bio" class="form-control" rows="7"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Text Area Match Nothing</label>
+            <div class="col-sm-9">
+              <textarea name="text_no_match" class="form-control" rows="7" maxlength="100"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Alphanumeric</label>
+            <div class="col-sm-9">
+              <input type="text" name="alnum" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">contenteditable</label>
+            <div class="col-sm-9">
+              <div class="random_text" contenteditable></div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label col-sm-3">Always Checked</label>
+            <div class="col-sm-9">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="accept_terms" value="1" /> I agree to the terms and conditions
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row" id="js-hide">
+            <label class="col-form-label col-sm-3">JavaScript Hidden</label>
+            <div class="col-sm-9">
+              <input type="text" name="email_js_hidden" class="form-control" />
+            </div>
+          </div>
+        </fieldset>
+        <div class="form-group row">
+          <div class="col-xs-offset-3 col-xs-9">
+            <button type="button" id="serialize-form" class="btn btn-primary">Serialize Form</button>
+            <input type="submit" class="btn btn-primary" value="Submit" />
+            <input type="reset" class="btn btn-primary" value="Reset Values" />
+          </div>
+        </div>
+        <input type="hidden" name="email_hidden" />
+      </form>
+      <iframe src="plain.html" style="width:100%;height:500px;"></iframe>
+      <br />
+      <div id="form-data"></div>
+      <br />
+    </div>
+  </body>
+</html>
