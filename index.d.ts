@@ -40,7 +40,7 @@ interface ICustomFieldForm {
   name: string;
   numberMin: string;
   numberMax: string;
-  numberPlaces: string;
+  numberDecimalPlaces: string;
   textMin: string;
   textMax: string;
   textMaxLength: string;

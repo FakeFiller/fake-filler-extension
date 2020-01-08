@@ -42,6 +42,7 @@ class DataTypeSelectField extends React.PureComponent<OwnProps> {
         if (!this.form.values.numberMin && !this.form.values.numberMax) {
           this.form.setFieldValue('numberMin', 0);
           this.form.setFieldValue('numberMax', 99999);
+          this.form.setFieldValue('numberDecimalPlaces', 0);
         }
         break;
 

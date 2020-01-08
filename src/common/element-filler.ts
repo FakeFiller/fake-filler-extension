@@ -209,9 +209,10 @@ class ElementFiller {
         return this.generator.phoneNumber(customField.template);
 
       case 'number':
-        return String(
-          this.generator.randomNumber(customField.min || 1, customField.max || 100, customField.decimalPlaces || 0),
-        );
+        const minValue = customField.min === 0 ? 0 : customField.min || 1;
+        const maxValue = customField.max || 100;
+        const decimalValue = customField.decimalPlaces || 0;
+        return String(this.generator.randomNumber(minValue, maxValue, decimalValue));
 
       case 'date':
         return moment(this.generator.date()).format(customField.template);

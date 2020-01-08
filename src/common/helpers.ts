@@ -93,6 +93,7 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
     match: ['zip'],
     min: 10000,
     max: 99999,
+    decimalPlaces: 0,
   });
 
   options.fields.push({
@@ -101,6 +102,7 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
     match: ['day'],
     min: 1,
     max: 28,
+    decimalPlaces: 0,
   });
 
   options.fields.push({
@@ -109,6 +111,7 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
     match: ['month'],
     min: 1,
     max: 12,
+    decimalPlaces: 0,
   });
 
   options.fields.push({
@@ -117,6 +120,7 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
     match: ['year'],
     min: 1970,
     max: 2019,
+    decimalPlaces: 0,
   });
 
   options.fields.push({

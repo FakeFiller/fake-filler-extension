@@ -139,7 +139,7 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
   if (customField.type === 'number') {
     customField.min = parseInt(formData.numberMin, 10);
     customField.max = parseInt(formData.numberMax, 10);
-    customField.decimalPlaces = parseInt(formData.numberPlaces, 10);
+    customField.decimalPlaces = parseInt(formData.numberDecimalPlaces, 10);
   }
 
   if (customField.type === 'text') {

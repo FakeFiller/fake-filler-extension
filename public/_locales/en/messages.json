@@ -116,6 +116,9 @@
   "kbdShortcuts_changeInstructions": {
     "message": "To change these keyboard shortcuts, type <code>chrome://extensions/shortcuts</code> in the address bar to open up the shortcuts page for extensions. Find the section for Form Filler and make the changes as necessary."
   },
+  "customFieldDetails_title": {
+    "message": "Custom Field Details"
+  },
   "customFields_title": {
     "message": "Custom Fields"
   },
@@ -169,6 +172,9 @@
   },
   "customFields_validation_missingRandomItems": {
     "message": "Please enter some items."
+  },
+  "customFields_validation_missingDecimalPlaces": {
+    "message": "Please enter the number of decimal places."
   },
   "customFields_dateTypeHelp": {
     "message": "Uses moment.js to format date/time values. Please refer to the moment.js <a href=\"http://momentjs.com/docs/#/displaying/format/\" target=\"_blank\" rel=\"noopener noreferrer\">documentation</a>."
@@ -243,7 +249,10 @@
     "message": "Maximum Value"
   },
   "customFields_label_decimalPlaces": {
-    "message": "Decimal Places (e.g. 2 would result in a 1.00, 3 in 1.000, etc. Default: 0 )"
+    "message": "Decimal Places"
+  },
+  "customFields_label_decimalPlaces_helpText": {
+    "message": "The number of digits after the decimal point. e.g. 2 will generate X.XX, and 3 will generate X.XXX"
   },
   "customFields_label_minWords": {
     "message": "Minimum Words"

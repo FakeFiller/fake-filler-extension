@@ -36,7 +36,8 @@ const validate = (values: ICustomFieldForm): FormikErrors<ICustomFieldForm> => {
     }
 
     if (values.type === 'number') {
-      if (!values.numberMin || values.numberMin.length === 0) {
+      const minValue = parseInt(values.numberMin, 10);
+      if (isNaN(minValue)) {
         errors.numberMin = GetMessage('customFields_validation_missingMinValue');
       }
       if (!values.numberMax || values.numberMax.length === 0) {
@@ -44,6 +45,11 @@ const validate = (values: ICustomFieldForm): FormikErrors<ICustomFieldForm> => {
       }
       if (values.numberMin && values.numberMax && parseInt(values.numberMax, 10) < parseInt(values.numberMin, 10)) {
         errors.numberMax = GetMessage('customFields_validation_invalidMinMaxValue');
+      }
+
+      const decimalValue = parseInt(values.numberDecimalPlaces, 10);
+      if (isNaN(decimalValue)) {
+        errors.numberDecimalPlaces = GetMessage('customFields_validation_missingDecimalPlaces');
       }
     }
 
@@ -125,6 +131,7 @@ class CustomFieldForm extends React.PureComponent<IOwnProps> {
         case 'number':
           initialValues.numberMax = String(this.props.customField.max);
           initialValues.numberMin = String(this.props.customField.min);
+          initialValues.numberDecimalPlaces = String(this.props.customField.decimalPlaces);
           break;
 
         case 'randomized-list':
@@ -151,7 +158,7 @@ class CustomFieldForm extends React.PureComponent<IOwnProps> {
       <div className="modal-dialog modal-lg">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Custom Field Details</h5>
+            <h5 className="modal-title">{GetMessage('customFieldDetails_title')} hello</h5>
             <button type="button" className="close" onClick={this.props.onClose}>
               &times;
             </button>

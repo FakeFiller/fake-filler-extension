@@ -8,6 +8,14 @@ function isNotEmpty(item: string | number | undefined | null): boolean {
   return item !== undefined && item !== null;
 }
 
+function isNotZero(item: string | number | undefined | null): boolean {
+  if (isNotEmpty(item)) {
+    const value = parseFloat(String(item));
+    return value !== 0;
+  }
+  return false;
+}
+
 interface IOwnProps {
   customField: ICustomField;
   itemIndex: number;
@@ -80,6 +88,12 @@ class CustomFieldsListItem extends React.PureComponent<IOwnProps> {
                     <tr>
                       <td>{GetMessage('customFields_label_maxValue')}</td>
                       <td>{customField.max}</td>
+                    </tr>
+                  )}
+                  {isNotZero(customField.decimalPlaces) && (
+                    <tr>
+                      <td>{GetMessage('customFields_label_decimalPlaces')}</td>
+                      <td>{customField.decimalPlaces}</td>
                     </tr>
                   )}
                   {isNotEmpty(customField.maxLength) && (

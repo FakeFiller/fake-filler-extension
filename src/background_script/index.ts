@@ -21,6 +21,16 @@ if (chrome.runtime.onInstalled) {
             SaveFormFillerOptions(options);
           });
         }
+        if (details.previousVersion && details.previousVersion.startsWith('2.10')) {
+          GetFormFillerOptions().then(options => {
+            options.fields.forEach(field => {
+              if (field.type === 'number') {
+                field.decimalPlaces = 0;
+              }
+            });
+            SaveFormFillerOptions(options);
+          });
+        }
       } catch (ex) {
         alert(GetMessage('bgPage_errorMigratingOptions', [ex.message]));
       }
