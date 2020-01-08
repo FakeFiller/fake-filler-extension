@@ -110,12 +110,6 @@
   "kbdShortcuts_title": {
     "message": "快捷键设置"
   },
-  "kbdShortcuts_firefoxComingSoon": {
-    "message": "Firefox 中设置快捷键功能敬请期待."
-  },
-  "kbdShortcuts_changeInstructions": {
-    "message": "修改快捷键设置，<a href='chrome://extensions/configureCommands'>keyboard shortcuts</a> "
-  },
   "customFields_title": {
     "message": "自定义字段"
   },

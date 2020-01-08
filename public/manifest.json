@@ -26,23 +26,17 @@
     "default_title": "__MSG_browserActionTitle__"
   },
   "commands": {
-    "fill_this_form": {
-      "description": "__MSG_commands_fillThisForm__",
-      "suggested_key": {
-        "default": "Ctrl+Shift+Down"
-      }
-    },
-    "fill_this_input": {
-      "description": "__MSG_commands_fillThisInput__",
-      "suggested_key": {
-        "default": "Ctrl+Shift+Insert"
-      }
-    },
     "fill_all_inputs": {
       "description": "__MSG_commands_fillAllInputs__",
       "suggested_key": {
         "default": "Ctrl+Shift+F"
       }
+    },
+    "fill_this_form": {
+      "description": "__MSG_commands_fillThisForm__"
+    },
+    "fill_this_input": {
+      "description": "__MSG_commands_fillThisInput__"
     }
   },
   "content_scripts": [

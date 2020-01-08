@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { GetBrowser, GetMessage } from 'src/common/helpers';
+import { GetBrowser, GetHtmlMarkup, GetMessage } from 'src/common/helpers';
 import { DispatchProps, getKeyboardShortcuts } from 'src/options/actions';
-import ChromeKeyboardShortcuts from 'src/options/components/keyboard-shortcuts/ChromeKeyboardShortcuts';
-import FirefoxKeyboardShortcuts from 'src/options/components/keyboard-shortcuts/FirefoxKeyboardShortcuts';
 
 interface IOwnProps {}
 
@@ -19,12 +17,7 @@ class KeyboardShortcutsPage extends React.PureComponent<IProps> {
   constructor(props: IProps) {
     super(props);
 
-    this.getHtmlMessage = this.getHtmlMessage.bind(this);
     this.getTranslatedDescription = this.getTranslatedDescription.bind(this);
-  }
-
-  private getHtmlMessage(key: string): { __html: string } {
-    return { __html: chrome.i18n.getMessage(key) };
   }
 
   private getTranslatedDescription(key: string): string {
@@ -43,13 +36,33 @@ class KeyboardShortcutsPage extends React.PureComponent<IProps> {
       return <div>{GetMessage('loading')}</div>;
     }
 
-    const shortcuts = this.props.keyboardShortcuts;
-    const isFirefox = GetBrowser() === 'Firefox';
+    const notSetText = <small>{GetMessage('kbdShortcuts_notSet')}</small>;
+    const shortcutChangeInstructions =
+      GetBrowser() === 'Firefox'
+        ? GetMessage('kbdShortcuts_firefox_changeInstructions')
+        : GetMessage('kbdShortcuts_chrome_changeInstructions');
 
-    return isFirefox ? (
-      <FirefoxKeyboardShortcuts keyboardShortcuts={shortcuts} />
-    ) : (
-      <ChromeKeyboardShortcuts keyboardShortcuts={shortcuts} />
+    return (
+      <>
+        <h2>{GetMessage('kbdShortcuts_title')}</h2>
+        <table className="table table-bordered table-sm">
+          <tbody>
+            {this.props.keyboardShortcuts.map((item, index) => {
+              if (item.description) {
+                return (
+                  <tr key={index}>
+                    <td className="narrow text-center">{item.shortcut ? <kbd>{item.shortcut}</kbd> : notSetText}</td>
+                    <td>{this.getTranslatedDescription(item.description)}</td>
+                  </tr>
+                );
+              }
+
+              return null;
+            })}
+          </tbody>
+        </table>
+        <p dangerouslySetInnerHTML={GetHtmlMarkup(shortcutChangeInstructions)} />
+      </>
     );
   }
 }

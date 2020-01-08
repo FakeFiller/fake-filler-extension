@@ -251,17 +251,6 @@ const GetKeyboardShortcuts = (): Promise<chrome.commands.Command[]> => {
   return promise;
 };
 
-const SaveKeyboardShortcuts = (commands: IFormFillerBrowserCommand[]): Promise<chrome.commands.Command[]> => {
-  if (GetBrowser() === 'Firefox') {
-    commands.forEach(command => {
-      // @ts-ignore
-      browser.commands.update({ name: command.name, shortcut: command.shortcut });
-    });
-  }
-
-  return GetKeyboardShortcuts();
-};
-
 // tslint:disable-next-line:no-any
 const GetMessage = (key: string, parameters?: any) => {
   return chrome.i18n.getMessage(key, parameters);
@@ -288,5 +277,4 @@ export {
   MultipleLinesToArray,
   SanitizeText,
   SaveFormFillerOptions,
-  SaveKeyboardShortcuts,
 };

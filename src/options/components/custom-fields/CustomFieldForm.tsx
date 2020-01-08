@@ -184,7 +184,7 @@ class CustomFieldForm extends React.PureComponent<IOwnProps> {
                   {values.type === 'randomized-list' && <RandomizedListOptions />}
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" onClick={this.props.onClose}>
+                  <button type="button" className="btn btn-outline-secondary" onClick={this.props.onClose}>
                     Cancel
                   </button>
                   <button type="submit" className="btn btn-primary" disabled={isSubmitting || !isValid}>

@@ -110,11 +110,14 @@
   "kbdShortcuts_title": {
     "message": "Keyboard Shortcuts"
   },
-  "kbdShortcuts_firefoxComingSoon": {
-    "message": "Ability to change keyboard shortcuts in Firefox will come soon."
-  },
-  "kbdShortcuts_changeInstructions": {
+  "kbdShortcuts_chrome_changeInstructions": {
     "message": "To change these keyboard shortcuts, type <code>chrome://extensions/shortcuts</code> in the address bar to open up the shortcuts page for extensions. Find the section for Form Filler and make the changes as necessary."
+  },
+  "kbdShortcuts_firefox_changeInstructions": {
+    "message": "You can update shortcuts via the \"Manage Extension Shortcuts\" option at <code>about:addons</code>.<br/><br/><span class=\"firefox-kbd-screenshot\"></span>"
+  },
+  "kbdShortcuts_notSet": {
+    "message": "Not Set"
   },
   "customFieldDetails_title": {
     "message": "Custom Field Details"

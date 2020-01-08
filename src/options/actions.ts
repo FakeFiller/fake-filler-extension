@@ -9,7 +9,6 @@ import {
   GetKeyboardShortcuts,
   MultipleLinesToArray,
   SaveFormFillerOptions,
-  SaveKeyboardShortcuts,
 } from 'src/common/helpers';
 
 export interface IFetchingOptionsAction {
@@ -30,16 +29,11 @@ export interface IReceivedKeyboardShortcutsAction {
   shortcuts: chrome.commands.Command[];
 }
 
-export interface ISavingKeyboardShortcutsAction {
-  type: 'SAVING_KEYBOARD_SHORTCUTS';
-}
-
 export type MyActions =
   | IFetchingOptionsAction
   | IReceivedOptionsAction
   | IFetchingKeyboardShortcutsAction
-  | IReceivedKeyboardShortcutsAction
-  | ISavingKeyboardShortcutsAction;
+  | IReceivedKeyboardShortcutsAction;
 
 type MyThunkResult<R> = ThunkAction<R, IAppState, {}, MyActions>;
 type MyDefaultThunkResult = MyThunkResult<void>;
@@ -204,16 +198,6 @@ export function getKeyboardShortcuts(): MyDefaultThunkResult {
     dispatch({ type: 'FETCHING_KEYBOARD_SHORTCUTS' });
 
     GetKeyboardShortcuts().then(shortcuts => {
-      dispatch({ type: 'RECEIVED_KEYBOARD_SHORTCUTS', shortcuts });
-    });
-  };
-}
-
-export function saveKeyboardShortcuts(commands: IFormFillerBrowserCommand[]): MyDefaultThunkResult {
-  return dispatch => {
-    dispatch({ type: 'SAVING_KEYBOARD_SHORTCUTS' });
-
-    SaveKeyboardShortcuts(commands).then(shortcuts => {
       dispatch({ type: 'RECEIVED_KEYBOARD_SHORTCUTS', shortcuts });
     });
   };
