@@ -1,5 +1,3 @@
-type SupportedBrowser = 'Chrome' | 'Firefox';
-
 type BrowserCommandName = 'fill_this_form' | 'fill_this_input' | 'fill_all_inputs';
 
 interface IFormFillerBrowserCommand {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, Route, RouteComponentProps } from 'react-router-dom';
 
-import { GetBrowser, GetMessage } from 'src/common/helpers';
+import { GetMessage } from 'src/common/helpers';
 import { DispatchProps, resetOptions } from 'src/options/actions';
 
 import BackupAndRestorePage from 'src/options/components/BackupAndRestorePage';
@@ -22,25 +22,9 @@ class App extends React.Component<IProps> {
   constructor(props: IProps) {
     super(props);
 
-    this.getRateThisExtensionMessage = this.getRateThisExtensionMessage.bind(this);
     this.getSendFeedbackMessage = this.getSendFeedbackMessage.bind(this);
     this.getActiveClass = this.getActiveClass.bind(this);
     this.resetSettings = this.resetSettings.bind(this);
-  }
-
-  private getRateThisExtensionMessage(): { __html: string } {
-    let rateKey;
-    let rateLink;
-
-    if (GetBrowser() === 'Firefox') {
-      rateLink = 'https://bit.ly/FormFillerFirefox';
-      rateKey = 'leftNav_rate_AMO';
-    } else {
-      rateLink = 'https://bit.ly/FormFiller';
-      rateKey = 'leftNav_rate_Chrome';
-    }
-
-    return { __html: GetMessage(rateKey, [rateLink]) };
   }
 
   private getSendFeedbackMessage(): { __html: string } {
@@ -100,7 +84,6 @@ class App extends React.Component<IProps> {
               </ul>
               <div id="about">
                 <p>
-                  <span dangerouslySetInnerHTML={this.getRateThisExtensionMessage()} />{' '}
                   <span dangerouslySetInnerHTML={this.getSendFeedbackMessage()} />
                 </p>
                 <ul className="list-inline">
@@ -113,8 +96,8 @@ class App extends React.Component<IProps> {
                     <Link to="/changelog">{GetMessage('leftNav_changelog')}</Link>
                   </li>
                   <li className="list-inline-item">
-                    <ExternalLink url="https://github.com/husainshabbir/form-filler/">
-                      {GetMessage('leftNav_source')}
+                    <ExternalLink url="https://github.com/husainshabbir/form-filler/issues">
+                      {GetMessage('leftNav_issueTracker')}
                     </ExternalLink>
                   </li>
                 </ul>

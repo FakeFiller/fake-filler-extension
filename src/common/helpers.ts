@@ -155,16 +155,6 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
   return options;
 };
 
-const GetBrowser = (): SupportedBrowser => {
-  const tempUrl = chrome.runtime.getURL('images/logo.svg');
-
-  if (tempUrl.startsWith('moz')) {
-    return 'Firefox';
-  }
-
-  return 'Chrome';
-};
-
 const GetFormFillerOptions = (): Promise<IFormFillerOptions> => {
   const promise = new Promise<IFormFillerOptions>(resolve => {
     chrome.storage.local.get('options', result => {
@@ -269,7 +259,6 @@ export {
   CreateContextMenus,
   CsvToArray,
   FormFillerDefaultOptions,
-  GetBrowser,
   GetFormFillerOptions,
   GetHtmlMarkup,
   GetKeyboardShortcuts,

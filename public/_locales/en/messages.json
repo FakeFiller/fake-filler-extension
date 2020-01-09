@@ -60,22 +60,16 @@
     "message": "Backup and Restore"
   },
   "leftNav_restoreFactorySettings": {
-    "message": "Restore Factory Settings"
+    "message": "Reset Settings"
   },
   "leftNav_changelog": {
     "message": "Changelog"
   },
-  "leftNav_source": {
-    "message": "Source"
+  "leftNav_issueTracker": {
+    "message": "Issue Tracker"
   },
   "leftNav_confirmResetSettings": {
     "message": "Are you sure you want to reset to the default settings?"
-  },
-  "leftNav_rate_AMO": {
-    "message": "If you like Form Filler, please <a href=\"$1\" target=\"_blank\">rate it on addons.mozilla.org</a>."
-  },
-  "leftNav_rate_Chrome": {
-    "message": "If you like Form Filler, please <a href=\"$1\" target=\"_blank\">rate it on the Chrome Web Store</a>."
   },
   "leftNav_sendFeedback": {
     "message": "If you have any suggestions to make this extension better, or find any issues, please send me an <a href=\"mailto:$1\">email</a>."
@@ -110,11 +104,8 @@
   "kbdShortcuts_title": {
     "message": "Keyboard Shortcuts"
   },
-  "kbdShortcuts_chrome_changeInstructions": {
-    "message": "To change these keyboard shortcuts, type <code>chrome://extensions/shortcuts</code> in the address bar to open up the shortcuts page for extensions. Find the section for Form Filler and make the changes as necessary."
-  },
-  "kbdShortcuts_firefox_changeInstructions": {
-    "message": "You can update shortcuts via the \"Manage Extension Shortcuts\" option at <code>about:addons</code>.<br/><br/><span class=\"firefox-kbd-screenshot\"></span>"
+  "kbdShortcuts_changeInstructions": {
+    "message": "<a href=\"https://github.com/husainshabbir/form-filler/wiki/Keyboard-Shortcuts\" target=\"_blank\" rel=\"noopener noreferrer\">Change keyboard shortcuts</a>"
   },
   "kbdShortcuts_notSet": {
     "message": "Not Set"

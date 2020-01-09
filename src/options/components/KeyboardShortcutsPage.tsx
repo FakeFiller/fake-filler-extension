@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { GetBrowser, GetHtmlMarkup, GetMessage } from 'src/common/helpers';
+import { GetHtmlMarkup, GetMessage } from 'src/common/helpers';
 import { DispatchProps, getKeyboardShortcuts } from 'src/options/actions';
 
 interface IOwnProps {}
@@ -37,10 +37,6 @@ class KeyboardShortcutsPage extends React.PureComponent<IProps> {
     }
 
     const notSetText = <small>{GetMessage('kbdShortcuts_notSet')}</small>;
-    const shortcutChangeInstructions =
-      GetBrowser() === 'Firefox'
-        ? GetMessage('kbdShortcuts_firefox_changeInstructions')
-        : GetMessage('kbdShortcuts_chrome_changeInstructions');
 
     return (
       <>
@@ -61,7 +57,7 @@ class KeyboardShortcutsPage extends React.PureComponent<IProps> {
             })}
           </tbody>
         </table>
-        <p dangerouslySetInnerHTML={GetHtmlMarkup(shortcutChangeInstructions)} />
+        <p dangerouslySetInnerHTML={GetHtmlMarkup(GetMessage('kbdShortcuts_changeInstructions'))} />
       </>
     );
   }

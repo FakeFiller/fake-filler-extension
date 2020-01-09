@@ -158,7 +158,7 @@ class CustomFieldForm extends React.PureComponent<IOwnProps> {
       <div className="modal-dialog modal-lg">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">{GetMessage('customFieldDetails_title')} hello</h5>
+            <h5 className="modal-title">{GetMessage('customFieldDetails_title')}</h5>
             <button type="button" className="close" onClick={this.props.onClose}>
               &times;
             </button>
