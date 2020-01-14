@@ -31,6 +31,8 @@ interface ICustomField {
   template?: string;
   list?: string[];
   type: CustomFieldTypes;
+  minDate?: string;
+  maxDate?: string;
 }
 
 interface ICustomFieldForm {
@@ -44,6 +46,10 @@ interface ICustomFieldForm {
   textMaxLength: string;
   telephoneTemplate: string;
   dateTemplate: string;
+  dateMin: string;
+  dateMax: string;
+  dateMinDate: string;
+  dateMaxDate: string;
   alphanumericTemplate: string;
   regexTemplate: string;
   list: string;

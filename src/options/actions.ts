@@ -148,6 +148,25 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
 
   if (customField.type === 'date') {
     customField.template = formData.dateTemplate;
+
+    const min = parseInt(formData.dateMin, 10);
+    const max = parseInt(formData.dateMax, 10);
+
+    if (!isNaN(min)) {
+      customField.min = min;
+    }
+
+    if (!isNaN(max)) {
+      customField.max = max;
+    }
+
+    if (formData.dateMinDate) {
+      customField.minDate = formData.dateMinDate;
+    }
+
+    if (formData.dateMaxDate) {
+      customField.maxDate = formData.dateMaxDate;
+    }
   }
 
   if (customField.type === 'alphanumeric') {

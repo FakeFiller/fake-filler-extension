@@ -215,7 +215,40 @@ class ElementFiller {
         return String(this.generator.randomNumber(minValue, maxValue, decimalValue));
 
       case 'date':
-        return moment(this.generator.date()).format(customField.template);
+        let minDate: Date | undefined;
+        let maxDate: Date | undefined;
+
+        if (customField.minDate) {
+          minDate = moment(customField.minDate).toDate();
+        } else if (!isNaN(customField.min!)) {
+          minDate = moment(new Date())
+            .add(customField.min, 'days')
+            .toDate();
+        }
+
+        if (customField.maxDate) {
+          maxDate = moment(customField.maxDate).toDate();
+        } else if (!isNaN(customField.max!)) {
+          maxDate = moment(new Date())
+            .add(customField.max, 'days')
+            .toDate();
+        }
+
+        if (element && element.type === 'date') {
+          const dateElement = element as HTMLInputElement;
+
+          if (dateElement.min && moment(dateElement.min).isValid()) {
+            minDate = moment(dateElement.min).toDate();
+          }
+
+          if (dateElement.max && moment(dateElement.max).isValid()) {
+            maxDate = moment(dateElement.max).toDate();
+          }
+
+          return this.generator.date(minDate, maxDate);
+        }
+
+        return moment(this.generator.date(minDate, maxDate)).format(customField.template);
 
       case 'url':
         return this.generator.website();
@@ -264,7 +297,28 @@ class ElementFiller {
         break;
 
       case 'date':
-        element.value = this.generator.date();
+        const dateCustomField = this.findCustomField(this.getElementName(element), ['date']);
+
+        if (dateCustomField) {
+          element.value = this.generateDummyDataForCustomField(dateCustomField, element);
+        } else {
+          let minDate: Date | undefined;
+          let maxDate: Date | undefined;
+
+          if (element.min) {
+            if (moment(element.min).isValid()) {
+              minDate = moment(element.min).toDate();
+            }
+          }
+
+          if (element.max) {
+            if (moment(element.max).isValid()) {
+              maxDate = moment(element.max).toDate();
+            }
+          }
+
+          element.value = this.generator.date(minDate, maxDate);
+        }
         break;
 
       case 'datetime':

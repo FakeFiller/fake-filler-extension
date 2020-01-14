@@ -279,11 +279,26 @@ class DataGenerator {
     return telephone;
   }
 
-  public date(): string {
-    const randomYear = this.randomNumber(1970, new Date().getFullYear());
-    const randomMonth = `0${this.randomNumber(1, 12)}`.slice(-2);
-    const randomDay = `0${this.randomNumber(1, 28)}`.slice(-2);
-    return `${randomYear}-${randomMonth}-${randomDay}`;
+  public date(minimumDate?: Date, maximumDate?: Date): string {
+    let randomYear: number;
+    let randomMonth: number;
+    let randomDay: number;
+
+    if (minimumDate && maximumDate) {
+      const randomDate = new Date(+minimumDate + Math.random() * (+maximumDate - +minimumDate));
+      randomYear = randomDate.getFullYear();
+      randomMonth = randomDate.getMonth() + 1;
+      randomDay = randomDate.getDate();
+    } else {
+      randomYear = this.randomNumber(1970, new Date().getFullYear());
+      randomMonth = this.randomNumber(1, 12);
+      randomDay = this.randomNumber(1, 28);
+    }
+
+    const formattedYear = String(randomYear);
+    const formattedMonth = `0${randomMonth}`.slice(-2);
+    const formattedDay = `0${randomDay}`.slice(-2);
+    return `${formattedYear}-${formattedMonth}-${formattedDay}`;
   }
 
   public time(): string {

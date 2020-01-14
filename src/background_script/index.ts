@@ -27,6 +27,10 @@ if (chrome.runtime.onInstalled) {
               if (field.type === 'number') {
                 field.decimalPlaces = 0;
               }
+              if (field.type === 'date') {
+                field.minDate = '1970-01-01';
+                field.max = 0;
+              }
             });
             SaveFormFillerOptions(options);
           });

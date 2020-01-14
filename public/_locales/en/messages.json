@@ -170,8 +170,14 @@
   "customFields_validation_missingDecimalPlaces": {
     "message": "Please enter the number of decimal places."
   },
+  "customFields_validation_onlyOneValueInGroup": {
+    "message": "Please enter only one value in this group."
+  },
+  "customFields_validation_atLeastOneValueInGroup": {
+    "message": "Please enter at least one value in this group."
+  },
   "customFields_dateTypeHelp": {
-    "message": "Uses moment.js to format date/time values. Please refer to the moment.js <a href=\"http://momentjs.com/docs/#/displaying/format/\" target=\"_blank\" rel=\"noopener noreferrer\">documentation</a>."
+    "message": "Uses moment.js to format date/time values. Please refer to the moment.js <a href=\"http://momentjs.com/docs/#/displaying/format/\" target=\"_blank\" rel=\"noopener noreferrer\">documentation</a>. This will be ignored for type=\"date\" fields."
   },
   "customFields_alNumHelp_uppercaseLetter": {
     "message": "An uppercase LETTER."
@@ -268,6 +274,24 @@
   },
   "customFields_label_listItems_placeholder": {
     "message": "Enter each item on a new line."
+  },
+  "customFields_label_minDate": {
+    "message": "Minimum Date"
+  },
+  "customFields_label_maxDate": {
+    "message": "Maximum Date"
+  },
+  "customFields_label_datePrependText": {
+    "message": "Today plus"
+  },
+  "customFields_label_dateAppendText": {
+    "message": "days, OR"
+  },
+  "customFields_label_date_helpText": {
+    "message": "Enter a negative value to generate a date in the past."
+  },
+  "customFields_label_daysFromToday": {
+    "message": "days from today"
   },
   "customFields_dataType_select": {
     "message": "-- select --"

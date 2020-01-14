@@ -50,6 +50,14 @@ class DataTypeSelectField extends React.PureComponent<OwnProps> {
         if (!this.form.values.dateTemplate) {
           this.form.setFieldValue('dateTemplate', 'DD-MMM-YYYY');
         }
+        if (!this.form.values.dateMin && !this.form.values.dateMinDate) {
+          this.form.setFieldValue('dateMin', '');
+          this.form.setFieldValue('dateMinDate', '1970-01-01');
+        }
+        if (!this.form.values.dateMax && !this.form.values.dateMaxDate) {
+          this.form.setFieldValue('dateMax', 0);
+          this.form.setFieldValue('dateMaxDate', '');
+        }
         break;
 
       case 'text':

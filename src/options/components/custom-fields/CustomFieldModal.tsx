@@ -18,6 +18,8 @@ interface IOwnProps {
 
 class CustomFieldModal extends React.PureComponent<IOwnProps> {
   public render(): JSX.Element {
+    const appElement = document.getElementById('root') || undefined;
+
     return (
       <Modal
         className="modal-dialog modal-lg"
@@ -26,6 +28,7 @@ class CustomFieldModal extends React.PureComponent<IOwnProps> {
         contentLabel="Custom Field Modal"
         closeTimeoutMS={200}
         style={customStyles}
+        appElement={appElement}
       >
         <CustomFieldForm
           customField={this.props.customField}

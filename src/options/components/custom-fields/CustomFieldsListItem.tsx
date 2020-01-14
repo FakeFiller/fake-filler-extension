@@ -5,7 +5,7 @@ import { GetMessage } from 'src/common/helpers';
 import AddFieldButton from 'src/options/components/custom-fields/AddFieldButton';
 
 function isNotEmpty(item: string | number | undefined | null): boolean {
-  return item !== undefined && item !== null;
+  return item !== undefined && item !== null && !isNaN(parseInt(String(item), 10));
 }
 
 function isNotZero(item: string | number | undefined | null): boolean {
@@ -81,13 +81,31 @@ class CustomFieldsListItem extends React.PureComponent<IOwnProps> {
                   {isNotEmpty(customField.min) && (
                     <tr>
                       <td>{GetMessage('customFields_label_minValue')}</td>
-                      <td>{customField.min}</td>
+                      <td>
+                        {customField.min}
+                        {customField.type === 'date' ? ` ${GetMessage('customFields_label_daysFromToday')}` : null}
+                      </td>
+                    </tr>
+                  )}
+                  {isNotEmpty(customField.minDate) && (
+                    <tr>
+                      <td>{GetMessage('customFields_label_minValue')}</td>
+                      <td>{customField.minDate}</td>
                     </tr>
                   )}
                   {isNotEmpty(customField.max) && (
                     <tr>
                       <td>{GetMessage('customFields_label_maxValue')}</td>
-                      <td>{customField.max}</td>
+                      <td>
+                        {customField.max}
+                        {customField.type === 'date' ? ` ${GetMessage('customFields_label_daysFromToday')}` : null}
+                      </td>
+                    </tr>
+                  )}
+                  {isNotEmpty(customField.maxDate) && (
+                    <tr>
+                      <td>{GetMessage('customFields_label_maxValue')}</td>
+                      <td>{customField.maxDate}</td>
                     </tr>
                   )}
                   {isNotZero(customField.decimalPlaces) && (

@@ -127,6 +127,8 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
     type: 'date',
     name: 'Date',
     match: ['date'],
+    minDate: '1970-01-01',
+    max: 0,
     template: 'DD-MMM-YYYY',
   });
 

@@ -74,8 +74,39 @@ const validate = (values: ICustomFieldForm): FormikErrors<ICustomFieldForm> => {
       }
     }
 
-    if (values.type === 'date' && (!values.dateTemplate || values.dateTemplate.length === 0)) {
-      errors.dateTemplate = GetMessage('customFields_validation_missingDateTemplate');
+    if (values.type === 'date') {
+      if (!values.dateTemplate || values.dateTemplate.length === 0) {
+        errors.dateTemplate = GetMessage('customFields_validation_missingDateTemplate');
+      }
+
+      const dateMin = parseInt(values.dateMin, 10);
+      const dateMax = parseInt(values.dateMax, 10);
+      const dateMinDate = Date.parse(values.dateMinDate);
+      const dateMaxDate = Date.parse(values.dateMaxDate);
+
+      if (!isNaN(dateMin) && !isNaN(dateMinDate)) {
+        errors.dateMinDate = GetMessage('customFields_validation_onlyOneValueInGroup');
+      }
+
+      if (!isNaN(dateMax) && !isNaN(dateMaxDate)) {
+        errors.dateMaxDate = GetMessage('customFields_validation_onlyOneValueInGroup');
+      }
+
+      if (isNaN(dateMin) && isNaN(dateMinDate)) {
+        errors.dateMinDate = GetMessage('customFields_validation_atLeastOneValueInGroup');
+      }
+
+      if (isNaN(dateMax) && isNaN(dateMaxDate)) {
+        errors.dateMaxDate = GetMessage('customFields_validation_atLeastOneValueInGroup');
+      }
+
+      if (!isNaN(dateMin) && !isNaN(dateMax) && dateMin > dateMax) {
+        errors.dateMax = GetMessage('customFields_validation_invalidMinMaxValue');
+      }
+
+      if (!isNaN(dateMinDate) && !isNaN(dateMaxDate) && dateMinDate > dateMaxDate) {
+        errors.dateMaxDate = GetMessage('customFields_validation_invalidMinMaxValue');
+      }
     }
 
     if (values.type === 'alphanumeric' && (!values.alphanumericTemplate || values.alphanumericTemplate.length === 0)) {
@@ -126,6 +157,30 @@ class CustomFieldForm extends React.PureComponent<IOwnProps> {
 
         case 'date':
           initialValues.dateTemplate = this.props.customField.template;
+
+          if (!isNaN(this.props.customField.min!)) {
+            initialValues.dateMin = String(this.props.customField.min);
+          } else {
+            initialValues.dateMin = '';
+          }
+
+          if (!isNaN(this.props.customField.max!)) {
+            initialValues.dateMax = String(this.props.customField.max);
+          } else {
+            initialValues.dateMax = '';
+          }
+
+          if (this.props.customField.minDate) {
+            initialValues.dateMinDate = this.props.customField.minDate;
+          } else {
+            initialValues.dateMinDate = '';
+          }
+
+          if (this.props.customField.maxDate) {
+            initialValues.dateMaxDate = this.props.customField.maxDate;
+          } else {
+            initialValues.dateMaxDate = '';
+          }
           break;
 
         case 'number':

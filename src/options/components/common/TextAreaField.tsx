@@ -28,7 +28,7 @@ const TextAreaField = React.forwardRef((props: Props, ref: React.Ref<HTMLTextAre
   const controlMarkup = (
     <>
       <textarea name={name} id={id || name} ref={ref} className={controlCssClass} {...field} {...rest} />
-      {helpText && <div className="form-text text-muted">{helpText}</div>}
+      {helpText && <small className="form-text text-muted">{helpText}</small>}
       {meta.touched && meta.error ? <div className="invalid-feedback">{meta.error}</div> : null}
     </>
   );
