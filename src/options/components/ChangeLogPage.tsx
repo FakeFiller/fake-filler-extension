@@ -8,6 +8,17 @@ class ChangeLogPage extends React.PureComponent {
       <div>
         <h2>Form Filler Changelog</h2>
         <p>
+          <strong>Version 2.11.0</strong>
+        </p>
+        <ul>
+          <li>Add support for minimum and maximum values for dates using custom fields.</li>
+          <li>
+            Add optional decimal places to number fields (
+            <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/113">#113</ExternalLink>)
+          </li>
+        </ul>
+        <hr />
+        <p>
           <strong>Version 2.10.3</strong>
         </p>
         <ul>
