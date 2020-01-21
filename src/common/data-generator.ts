@@ -30,9 +30,18 @@ class DataGenerator {
     this.previousLastName = lastName;
   }
 
-  public randomNumber(start: number, end: number, decimalPlaces: number = 0): number {
-    const result: number = Math.random() * (end - start + 1) + start;
-    return Number(result.toFixed(decimalPlaces));
+  public randomNumber(start: number, end: number, decimalPlaces = 0): number {
+    const min = Math.ceil(start);
+    const max = Math.floor(end);
+    let result = Math.random() * (max - min + 1) + min;
+
+    if (decimalPlaces > 0) {
+      result = Number(result.toFixed(decimalPlaces));
+      result = result > max ? max : result;
+      return result;
+    }
+
+    return Math.floor(result);
   }
 
   public scrambledWord(minLength: number = 3, maxLength: number = 15): string {
@@ -342,11 +351,10 @@ class DataGenerator {
   }
 
   public color(): string {
-    const randomHexValue = `000000${Math.random()
+    // 16777215 === FFFFFF in decimal
+    return `#${Math.floor(Math.random() * 16777215)
       .toString(16)
-      .slice(2, 8)
-      .toUpperCase()}`.slice(-6);
-    return `#${randomHexValue}`;
+      .padStart(6, '0')}`;
   }
 }
 
