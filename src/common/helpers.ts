@@ -7,7 +7,7 @@ const DEFAULT_TELEPHONE_TEMPLATE = '+1 (XxX) XxX-XxxX';
 const FormFillerDefaultOptions = (): IFormFillerOptions => {
   const options: IFormFillerOptions = {
     agreeTermsFields: ['agree', 'terms', 'conditions'],
-    confirmFields: ['confirm', 'reenter', 'retype', 'repeat'],
+    confirmFields: ['confirm', 'reenter', 'retype', 'repeat', 'secondary'],
     defaultMaxLength: 20,
     emailSettings: {
       username: 'random',
