@@ -1,4 +1,4 @@
-/// <reference path="../../index.d.ts" />
+import { IFormFillerOptions } from 'src/types';
 
 // spell-checker:disable
 
@@ -243,13 +243,9 @@ const GetKeyboardShortcuts = (): Promise<chrome.commands.Command[]> => {
   return promise;
 };
 
-// tslint:disable-next-line:no-any
-const GetMessage = (key: string, parameters?: any) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const GetMessage = (key: string, parameters?: any): string => {
   return chrome.i18n.getMessage(key, parameters);
-};
-
-const GetHtmlMarkup = (text: string): { __html: string } => {
-  return { __html: text };
 };
 
 const SanitizeText = (text: string): string => {
@@ -262,7 +258,6 @@ export {
   CsvToArray,
   FormFillerDefaultOptions,
   GetFormFillerOptions,
-  GetHtmlMarkup,
   GetKeyboardShortcuts,
   GetMessage,
   MultipleLinesToArray,

@@ -1,5 +1,3 @@
-/// <reference path="../../index.d.ts" />
-
 import { applyMiddleware, createStore } from 'redux';
 import reduxThunk from 'redux-thunk';
 

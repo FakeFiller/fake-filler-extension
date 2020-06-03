@@ -1,7 +1,16 @@
 import * as React from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
+import AddFieldButton from 'src/options/components/custom-fields/AddFieldButton';
 import CustomFieldsListItem from 'src/options/components/custom-fields/CustomFieldsListItem';
+
+import {
+  ICustomField,
+  CustomFieldAddFunction,
+  CustomFieldDeleteFunction,
+  CustomFieldEditFunction,
+  CustomFieldSortFunction,
+} from 'src/types';
 
 function reorder(list: ICustomField[], startIndex: number, endIndex: number): ICustomField[] {
   const result = Array.from(list);
@@ -36,25 +45,29 @@ class CustomFieldsList extends React.PureComponent<IOwnProps> {
 
   public render(): JSX.Element {
     return (
-      <DragDropContext onDragEnd={this.onSortEnd}>
-        <Droppable droppableId="droppable">
-          {provided => (
-            <div className="custom-fields-list" ref={provided.innerRef} {...provided.droppableProps}>
-              {this.props.customFields.map((item, index) => (
-                <CustomFieldsListItem
-                  key={index}
-                  customField={item}
-                  itemIndex={index}
-                  onAdd={this.props.onAdd}
-                  onEdit={this.props.onEdit}
-                  onDelete={this.props.onDelete}
-                />
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <>
+        <AddFieldButton index={0} onClick={this.props.onAdd} />
+        <DragDropContext onDragEnd={this.onSortEnd}>
+          <Droppable droppableId="droppable">
+            {provided => (
+              <div className="custom-fields-list" ref={provided.innerRef} {...provided.droppableProps}>
+                {this.props.customFields.map((item, index) => (
+                  <CustomFieldsListItem
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
+                    customField={item}
+                    itemIndex={index}
+                    onAdd={this.props.onAdd}
+                    onEdit={this.props.onEdit}
+                    onDelete={this.props.onDelete}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </>
     );
   }
 }

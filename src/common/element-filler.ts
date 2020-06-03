@@ -1,11 +1,12 @@
-// @ts-ignore
-import cssesc from 'cssesc';
+/* eslint-disable no-param-reassign */
 
+import cssesc from 'cssesc';
 import moment from 'moment';
 import RandExp from 'randexp';
 
 import DataGenerator from 'src/common/data-generator';
 import { SanitizeText } from 'src/common/helpers';
+import { IFormFillerOptions, ICustomField, CustomFieldTypes } from 'src/types';
 
 type FillableElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
@@ -109,24 +110,32 @@ class ElementFiller {
     this.fireEvents(radioElement);
   }
 
-  private findCustomField(elementName: string, matchTypes: CustomFieldTypes[] = []): ICustomField | undefined {
+  private findCustomFieldFromList(
+    fields: ICustomField[],
+    elementName: string,
+    matchTypes: CustomFieldTypes[] = [],
+  ): ICustomField | undefined {
     const doMatchType = matchTypes.length > 0;
 
-    for (let i = 0; i < this.options.fields.length; i += 1) {
-      if (this.isAnyMatch(elementName, this.options.fields[i].match)) {
+    for (let i = 0; i < fields.length; i += 1) {
+      if (this.isAnyMatch(elementName, fields[i].match)) {
         if (doMatchType) {
           for (let j = 0; j < matchTypes.length; j += 1) {
-            if (this.options.fields[i].type === matchTypes[j]) {
-              return this.options.fields[i];
+            if (fields[i].type === matchTypes[j]) {
+              return fields[i];
             }
           }
         } else {
-          return this.options.fields[i];
+          return fields[i];
         }
       }
     }
 
     return undefined;
+  }
+
+  private findCustomField(elementName: string, matchTypes: CustomFieldTypes[] = []): ICustomField | undefined {
+    return this.findCustomFieldFromList(this.options.fields, elementName, matchTypes);
   }
 
   private getElementName(element: FillableElement): string {
@@ -146,7 +155,7 @@ class ElementFiller {
 
     if (this.options.fieldMatchSettings.matchPlaceholder) {
       if (typeof element === typeof HTMLInputElement || typeof element === typeof HTMLTextAreaElement) {
-        normalizedName += ` ${SanitizeText((<HTMLInputElement>element).placeholder)}`;
+        normalizedName += ` ${SanitizeText((element as HTMLInputElement).placeholder)}`;
       }
     }
 
@@ -208,30 +217,27 @@ class ElementFiller {
       case 'telephone':
         return this.generator.phoneNumber(customField.template);
 
-      case 'number':
+      case 'number': {
         const minValue = customField.min === 0 ? 0 : customField.min || 1;
         const maxValue = customField.max || 100;
         const decimalValue = customField.decimalPlaces || 0;
         return String(this.generator.randomNumber(minValue, maxValue, decimalValue));
+      }
 
-      case 'date':
+      case 'date': {
         let minDate: Date | undefined;
         let maxDate: Date | undefined;
 
         if (customField.minDate) {
           minDate = moment(customField.minDate).toDate();
-        } else if (!isNaN(customField.min!)) {
-          minDate = moment(new Date())
-            .add(customField.min, 'days')
-            .toDate();
+        } else if (!Number.isNaN(Number(customField.min))) {
+          minDate = moment(new Date()).add(customField.min, 'days').toDate();
         }
 
         if (customField.maxDate) {
           maxDate = moment(customField.maxDate).toDate();
-        } else if (!isNaN(customField.max!)) {
-          maxDate = moment(new Date())
-            .add(customField.max, 'days')
-            .toDate();
+        } else if (!Number.isNaN(Number(customField.max))) {
+          maxDate = moment(new Date()).add(customField.max, 'days').toDate();
         }
 
         if (element && element.type === 'date') {
@@ -249,11 +255,12 @@ class ElementFiller {
         }
 
         return moment(this.generator.date(minDate, maxDate)).format(customField.template);
+      }
 
       case 'url':
         return this.generator.website();
 
-      case 'text':
+      case 'text': {
         const minWords = customField.min || 10;
         const maxWords = customField.max || 30;
         let maxLength = customField.maxLength || this.options.defaultMaxLength;
@@ -261,6 +268,7 @@ class ElementFiller {
           maxLength = element.maxLength;
         }
         return this.generator.paragraph(minWords, maxWords, maxWords);
+      }
 
       case 'alphanumeric':
         return this.generator.alphanumeric(customField.template || '');
@@ -296,7 +304,7 @@ class ElementFiller {
         }
         break;
 
-      case 'date':
+      case 'date': {
         const dateCustomField = this.findCustomField(this.getElementName(element), ['date']);
 
         if (dateCustomField) {
@@ -320,6 +328,7 @@ class ElementFiller {
           element.value = this.generator.date(minDate, maxDate);
         }
         break;
+      }
 
       case 'datetime':
         element.value = `${this.generator.date()}T${this.generator.time()}Z`;
@@ -351,7 +360,7 @@ class ElementFiller {
         break;
 
       case 'number':
-      case 'range':
+      case 'range': {
         let min = element.min ? parseInt(element.min, 10) : 1;
         let max = element.max ? parseInt(element.max, 10) : 100;
 
@@ -369,6 +378,7 @@ class ElementFiller {
 
         element.value = String(this.generator.randomNumber(min, max));
         break;
+      }
 
       case 'password':
         if (this.isAnyMatch(element.name.toLowerCase(), this.options.confirmFields)) {
@@ -386,7 +396,7 @@ class ElementFiller {
         fireEvent = false;
         break;
 
-      case 'tel':
+      case 'tel': {
         const telephoneCustomField = this.findCustomField(this.getElementName(element), [
           'telephone',
           'regex',
@@ -399,6 +409,7 @@ class ElementFiller {
           element.value = this.generator.phoneNumber();
         }
         break;
+      }
 
       case 'url':
         element.value = this.generator.website();
@@ -521,7 +532,7 @@ class ElementFiller {
   }
 
   public fillContentEditableElement(element: HTMLElement): void {
-    if ((<HTMLElement>element).isContentEditable) {
+    if ((element as HTMLElement).isContentEditable) {
       element.textContent = this.generator.paragraph(5, 100, this.options.defaultMaxLength);
     }
   }

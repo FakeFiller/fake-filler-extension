@@ -1,14 +1,24 @@
+/* eslint-disable no-param-reassign */
+
 import { CreateContextMenus, GetFormFillerOptions, GetMessage, SaveFormFillerOptions } from 'src/common/helpers';
+import { MessageRequest } from 'src/types';
 
-function handleMessage(request: string, sender: {}, sendResponse: Function): boolean | null {
-  if (request === 'getOptions') {
-    GetFormFillerOptions().then(result => {
-      sendResponse({ options: result });
-    });
-    return true;
+function handleMessage(
+  request: MessageRequest,
+  sender: chrome.runtime.MessageSender,
+  sendResponse: (options: any) => void,
+): boolean | null {
+  switch (request.type) {
+    case 'getOptions': {
+      GetFormFillerOptions().then(result => {
+        sendResponse({ options: result });
+      });
+      return true;
+    }
+
+    default:
+      return null;
   }
-
-  return null;
 }
 
 if (chrome.runtime.onInstalled) {
@@ -36,7 +46,8 @@ if (chrome.runtime.onInstalled) {
           });
         }
       } catch (ex) {
-        alert(GetMessage('bgPage_errorMigratingOptions', [ex.message]));
+        // eslint-disable-next-line no-alert
+        window.alert(GetMessage('bgPage_errorMigratingOptions', [ex.message]));
       }
     }
   });

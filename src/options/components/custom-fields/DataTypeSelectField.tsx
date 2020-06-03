@@ -2,13 +2,15 @@ import { ErrorMessage, Field, FieldProps, FormikProps } from 'formik';
 import * as React from 'react';
 
 import { GetMessage } from 'src/common/helpers';
+import { ICustomFieldForm, CustomFieldTypes } from 'src/types';
 
-interface OwnProps {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface IOwnProps {}
 
-class DataTypeSelectField extends React.PureComponent<OwnProps> {
+class DataTypeSelectField extends React.PureComponent<IOwnProps> {
   private form: FormikProps<ICustomFieldForm> | undefined;
 
-  constructor(props: OwnProps) {
+  constructor(props: IOwnProps) {
     super(props);
 
     this.handleSelectChange = this.handleSelectChange.bind(this);
@@ -67,25 +69,28 @@ class DataTypeSelectField extends React.PureComponent<OwnProps> {
           this.form.setFieldValue('textMaxLength', 50);
         }
         break;
+
+      default:
+        break;
     }
   }
 
   public render(): JSX.Element {
     return (
       <div className="form-group row">
-        <label className="col-sm-3 col-form-label text-right">{GetMessage('customFields_label_dataType')}</label>
+        <label className="col-sm-3 col-form-label text-sm-right" htmlFor="type">
+          {GetMessage('customFields_label_dataType')}
+        </label>
         <div className="col-sm-9">
           <Field name="type">
             {(fieldProps: FieldProps) => {
               this.form = fieldProps.form;
 
-              let className = 'form-control';
+              let className = 'custom-select';
 
               if (fieldProps.meta.touched) {
                 if (fieldProps.meta.error) {
                   className += ' is-invalid';
-                } else {
-                  className += ' is-valid';
                 }
               }
 

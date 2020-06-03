@@ -1,4 +1,5 @@
 import ElementFiller from 'src/common/element-filler';
+import { IFormFillerOptions } from 'src/types';
 
 class FormFiller {
   private elementFiller: ElementFiller;
@@ -46,7 +47,7 @@ class FormFiller {
         this.elementFiller.fillTextAreaElement(element as HTMLTextAreaElement);
       } else if (tagName === 'select') {
         this.elementFiller.fillSelectElement(element as HTMLSelectElement);
-      } else if ((<HTMLElement>element).isContentEditable) {
+      } else if ((element as HTMLElement).isContentEditable) {
         this.elementFiller.fillContentEditableElement(element as HTMLElement);
       }
     }

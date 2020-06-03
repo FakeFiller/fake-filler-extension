@@ -1,10 +1,12 @@
 import * as React from 'react';
 
 import { GetMessage } from 'src/common/helpers';
+import { CustomFieldAddFunction } from 'src/types';
 
 interface IOwnProps {
   onClick: CustomFieldAddFunction;
   index: number;
+  disabled?: boolean;
 }
 
 class AddFieldButton extends React.PureComponent<IOwnProps> {
@@ -21,7 +23,12 @@ class AddFieldButton extends React.PureComponent<IOwnProps> {
   public render(): JSX.Element {
     return (
       <div className="add-field-bar">
-        <button className="add-field-bar-button" onClick={this.handleClick}>
+        <button
+          type="button"
+          className="btn btn-sm btn-outline-primary"
+          disabled={this.props.disabled}
+          onClick={this.handleClick}
+        >
           {GetMessage('customFields_addFieldButtonText')}
         </button>
       </div>

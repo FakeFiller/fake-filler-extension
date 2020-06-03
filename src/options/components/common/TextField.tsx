@@ -16,8 +16,6 @@ const TextField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputElemen
   if (meta.touched) {
     if (meta.error) {
       controlCssClass += ' is-invalid';
-    } else {
-      controlCssClass += ' is-valid';
     }
   }
 
@@ -26,17 +24,17 @@ const TextField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputElemen
   }
 
   const controlMarkup = (
-    <React.Fragment>
-      <input name={name} id={id || name} ref={ref} className={controlCssClass} {...field} {...rest} />
+    <>
+      <input id={id || name} ref={ref} className={controlCssClass} {...field} {...rest} />
       {helpText && <small className="form-text text-muted">{helpText}</small>}
       {meta.touched && meta.error ? <div className="invalid-feedback">{meta.error}</div> : null}
-    </React.Fragment>
+    </>
   );
 
   if (label) {
     return (
       <div className="form-group row">
-        <label htmlFor={id || name} className="col-sm-3 col-form-label text-right">
+        <label htmlFor={id || name} className="col-sm-3 col-form-label text-sm-right">
           {label}
         </label>
         <div className="col-sm-9">{controlMarkup}</div>

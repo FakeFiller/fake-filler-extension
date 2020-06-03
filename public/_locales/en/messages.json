@@ -38,6 +38,12 @@
   "edit": {
     "message": "Edit"
   },
+  "move": {
+    "message": "Move"
+  },
+  "delete": {
+    "message": "Delete"
+  },
   "loading": {
     "message": "Loading..."
   },
@@ -343,6 +349,9 @@
   },
   "customFields_dataType_randomizedList": {
     "message": "Randomized List"
+  },
+  "customFields_delete_confirm_message": {
+    "message": "Are you sure you want to delete this custom field?"
   },
   "generalSettings_label_hostName": {
     "message": "Host name"

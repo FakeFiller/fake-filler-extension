@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import { GetMessage } from 'src/common/helpers';
 import { DispatchProps, getOptions, saveOptions } from 'src/options/actions';
 import GeneralSettingsForm from 'src/options/components/general-settings/GeneralSettingsForm';
+import { IFormFillerOptions, IFormFillerOptionsForm, IAppState } from 'src/types';
 
 interface IState {
   showSavedMessage: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IOwnProps {}
 
 interface IStateProps {
@@ -29,16 +31,18 @@ class GeneralSettingsPage extends React.PureComponent<IProps, IState> {
     this.handleSave = this.handleSave.bind(this);
   }
 
-  private handleSave(formValues: IFormFillerOptionsForm): void {
-    this.props.dispatch(saveOptions(this.props.options!, formValues));
-
-    this.setState({
-      showSavedMessage: true,
-    });
-  }
-
   public componentDidMount(): void {
     this.props.dispatch(getOptions());
+  }
+
+  private handleSave(formValues: IFormFillerOptionsForm): void {
+    if (this.props.options) {
+      this.props.dispatch(saveOptions(this.props.options, formValues));
+
+      this.setState({
+        showSavedMessage: true,
+      });
+    }
   }
 
   public render(): JSX.Element {

@@ -40,7 +40,7 @@ class ChangeLogPage extends React.PureComponent {
         </p>
         <ul>
           <li>Fixed message for keyboard shortcuts for Chrome.</li>
-          <li>Allow input type="tel" fields to be filled using RegEx and Randomized List custom fields.</li>
+          <li>Allow input type=&quot;tel&quot; fields to be filled using RegEx and Randomized List custom fields.</li>
         </ul>
         <hr />
         <p>
@@ -57,8 +57,8 @@ class ChangeLogPage extends React.PureComponent {
         <ul>
           <li>Initial work for filling forms in SPAs.</li>
           <li>Textarea fields are matched using custom fields of type text, regex, alphanumeric or randomized list.</li>
-          <li>Default maximum length option to limit text in fields that don't match any custom fields.</li>
-          <li>Added option to match using the input field's placeholder value.</li>
+          <li>Default maximum length option to limit text in fields that don&apos;t match any custom fields.</li>
+          <li>Added option to match using the input field&apos;s placeholder value.</li>
         </ul>
         <hr />
         <p>

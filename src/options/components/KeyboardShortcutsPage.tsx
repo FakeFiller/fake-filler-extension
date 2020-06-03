@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { GetHtmlMarkup, GetMessage } from 'src/common/helpers';
+import { GetMessage } from 'src/common/helpers';
 import { DispatchProps, getKeyboardShortcuts } from 'src/options/actions';
+import HtmlPhrase from 'src/options/components/common/HtmlPhrase';
+import { IAppState } from 'src/types';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IOwnProps {}
 
 interface IStateProps {
@@ -20,15 +23,15 @@ class KeyboardShortcutsPage extends React.PureComponent<IProps> {
     this.getTranslatedDescription = this.getTranslatedDescription.bind(this);
   }
 
+  public componentDidMount(): void {
+    this.props.dispatch(getKeyboardShortcuts());
+  }
+
   private getTranslatedDescription(key: string): string {
     if (key.startsWith('__MSG_')) {
       return GetMessage(key.replace('__MSG_', '').replace('__', ''));
     }
     return key;
-  }
-
-  public componentDidMount(): void {
-    this.props.dispatch(getKeyboardShortcuts());
   }
 
   public render(): JSX.Element {
@@ -43,10 +46,10 @@ class KeyboardShortcutsPage extends React.PureComponent<IProps> {
         <h2>{GetMessage('kbdShortcuts_title')}</h2>
         <table className="table table-bordered table-sm">
           <tbody>
-            {this.props.keyboardShortcuts.map((item, index) => {
+            {this.props.keyboardShortcuts.map(item => {
               if (item.description) {
                 return (
-                  <tr key={index}>
+                  <tr key={item.name}>
                     <td className="narrow text-center">{item.shortcut ? <kbd>{item.shortcut}</kbd> : notSetText}</td>
                     <td>{this.getTranslatedDescription(item.description)}</td>
                   </tr>
@@ -57,7 +60,7 @@ class KeyboardShortcutsPage extends React.PureComponent<IProps> {
             })}
           </tbody>
         </table>
-        <p dangerouslySetInnerHTML={GetHtmlMarkup(GetMessage('kbdShortcuts_changeInstructions'))} />
+        <HtmlPhrase phrase={GetMessage('kbdShortcuts_changeInstructions')} as="p" />
       </>
     );
   }

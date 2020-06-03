@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { GetMessage } from 'src/common/helpers';
 import { DispatchProps, getOptions, saveOptions } from 'src/options/actions';
+import { IFormFillerOptions, IAppState } from 'src/types';
 
 function utf8ToBase64(str: string): string {
   return window.btoa(unescape(encodeURIComponent(str)));
@@ -20,6 +21,7 @@ interface IState {
   showSuccess: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IOwnProps {}
 
 interface IStateProps {
@@ -46,6 +48,10 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
     this.setErrorMessage = this.setErrorMessage.bind(this);
     this.selectTextAreaText = this.selectTextAreaText.bind(this);
     this.getDateString = this.getDateString.bind(this);
+  }
+
+  public componentDidMount(): void {
+    this.props.dispatch(getOptions());
   }
 
   private setErrorMessage(message: string): void {
@@ -82,13 +88,14 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
     const fileElement = document.getElementById('file') as HTMLInputElement;
 
     if (fileElement.files && fileElement.files.length === 1 && fileElement.files[0].name.length > 0) {
-      if (confirm(GetMessage('backupRestore_confirmRestore'))) {
+      // eslint-disable-next-line no-alert
+      if (window.confirm(GetMessage('backupRestore_confirmRestore'))) {
         const fileReader = new FileReader();
 
         fileReader.onload = e => {
           try {
-            const fileReader = e.target as FileReader;
-            const decodedData = base64ToUtf8(fileReader.result as string);
+            const reader = e.target as FileReader;
+            const decodedData = base64ToUtf8(reader.result as string);
             const options = JSON.parse(decodedData);
 
             this.props.dispatch(saveOptions(options));
@@ -120,10 +127,6 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
   private selectTextAreaText(): void {
     const textAreaElement = document.getElementById('backupTextArea') as HTMLTextAreaElement;
     textAreaElement.select();
-  }
-
-  public componentDidMount(): void {
-    this.props.dispatch(getOptions());
   }
 
   public render(): JSX.Element {
@@ -169,7 +172,7 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
 }
 
 function mapStateToProps(state: IAppState): IStateProps {
-  const options = state.optionsData.options;
+  const { options } = state.optionsData;
 
   if (options) {
     return {

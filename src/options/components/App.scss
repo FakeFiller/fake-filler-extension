@@ -1,5 +1,18 @@
 $primary: #44a4e0;
-$font-size-base: 0.9rem;
+$secondary: #7f8ea1;
+$success: #22b66e;
+$info: #337ab7;
+$warning: #ffb400;
+$danger: #e74c4b;
+$dark: #193c52;
+$font-size-base: 0.85rem;
+
+$input-btn-focus-width: 2px;
+$input-border-color: #ddd;
+
+$modal-dialog-margin-y-sm-up: 5rem;
+$modal-content-border-width: 0;
+$modal-backdrop-opacity: 0.7;
 
 @import '~bootstrap/scss/bootstrap';
 
@@ -24,9 +37,21 @@ $font-size-base: 0.9rem;
   color: #000;
 }
 
-body {
-  margin-top: 30px;
-  padding-bottom: 30px;
+#main-content {
+  margin-top: 2rem;
+}
+
+#main-footer {
+  margin-top: 3rem;
+  padding: 2rem;
+  text-align: center;
+  border-top: 1px solid #eee;
+
+  p,
+  .list-inline {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 textarea {
@@ -37,22 +62,6 @@ textarea {
 h1 {
   font-size: 20px;
   margin-bottom: 20px;
-}
-
-#main-bar {
-  position: sticky;
-  top: 30px;
-}
-
-#about {
-  margin-top: 50px;
-  color: $gray-600;
-  font-size: 0.85em;
-
-  .list-inline-item {
-    font-size: 0.9em;
-    padding: 0 0.6rem 0 0;
-  }
 }
 
 h2 {
@@ -76,65 +85,22 @@ h2 {
 .add-field-bar {
   margin: 10px 0;
   text-align: center;
-}
 
-.add-field-bar-button {
-  padding: 2px 8px;
-  background: transparent;
-  border: 1px solid $primary;
-  color: $primary;
-  border-radius: 15px;
-  font-size: 0.7rem;
-  cursor: pointer;
-
-  &:hover {
-    background: $primary;
-    color: #fff;
+  .btn {
+    border-radius: 50rem;
+    padding: 0.15rem 0.5rem;
   }
 }
 
 .custom-field-buttons {
   float: right;
 
-  .custom-field-button {
+  .btn {
     padding: 0;
-    margin: 0 1em;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    display: inline-block;
+    margin: 0 0.5rem;
   }
 
-  .custom-field-button.drag-handle {
-    cursor: move;
-    position: relative;
-
-    // Hack to get drag-drop to work in Firefox.
-    // https://github.com/clauderic/react-sortable-hoc/issues/321
-    &:after {
-      position: absolute;
-      content: '';
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
-    }
-  }
-
-  .custom-field-button:last-child {
+  .btn:last-child {
     margin-right: 0;
   }
-}
-
-.ReactModal__Overlay {
-  opacity: 0;
-  transition: opacity 200ms ease-in-out;
-}
-
-.ReactModal__Overlay--after-open {
-  opacity: 1;
-}
-
-.ReactModal__Overlay--before-close {
-  opacity: 0;
 }

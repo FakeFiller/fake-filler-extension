@@ -16,8 +16,6 @@ const TextAreaField = React.forwardRef((props: Props, ref: React.Ref<HTMLTextAre
   if (meta.touched) {
     if (meta.error) {
       controlCssClass += ' is-invalid';
-    } else {
-      controlCssClass += ' is-valid';
     }
   }
 
@@ -27,7 +25,7 @@ const TextAreaField = React.forwardRef((props: Props, ref: React.Ref<HTMLTextAre
 
   const controlMarkup = (
     <>
-      <textarea name={name} id={id || name} ref={ref} className={controlCssClass} {...field} {...rest} />
+      <textarea id={id || name} ref={ref} className={controlCssClass} {...field} {...rest} />
       {helpText && <small className="form-text text-muted">{helpText}</small>}
       {meta.touched && meta.error ? <div className="invalid-feedback">{meta.error}</div> : null}
     </>
@@ -36,7 +34,7 @@ const TextAreaField = React.forwardRef((props: Props, ref: React.Ref<HTMLTextAre
   if (label) {
     return (
       <div className="form-group row">
-        <label htmlFor={id || name} className="col-sm-3 col-form-label text-right">
+        <label htmlFor={id || name} className="col-sm-3 col-form-label text-sm-right">
           {label}
         </label>
         <div className="col-sm-9">{controlMarkup}</div>

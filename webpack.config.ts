@@ -1,16 +1,17 @@
 import * as path from 'path';
+
 import * as webpack from 'webpack';
 
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const cssnano = require('cssnano');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const webpackConfig: webpack.Configuration = {
   cache: false,
   entry: {
-    background_script: path.join(__dirname, 'src/background_script/index.ts'),
-    content_script: path.join(__dirname, 'src/content_script/index.ts'),
+    'background-script': path.join(__dirname, 'src/background_script/index.ts'),
+    'content-script': path.join(__dirname, 'src/content_script/index.ts'),
     options: path.join(__dirname, 'src/options/index.tsx'),
   },
   module: {
@@ -56,16 +57,15 @@ const webpackConfig: webpack.Configuration = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),
-    new CopyWebpackPlugin([
-      {
-        context: 'public',
-        from: {
-          dot: false,
-          glob: '**/*',
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          context: 'public',
+          from: '**/*',
+          to: path.join(__dirname, 'dist/'),
         },
-        to: path.join(__dirname, 'dist/'),
-      },
-    ]),
+      ],
+    }),
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],

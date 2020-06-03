@@ -1,9 +1,8 @@
-/// <reference path="../../index.d.ts" />
-
 import RandExp from 'randexp';
 
 import * as data from 'src/common/dummy-data';
 import { DEFAULT_TELEPHONE_TEMPLATE, SanitizeText } from 'src/common/helpers';
+import { IFormFillerOptions } from 'src/types';
 
 class DataGenerator {
   private options: IFormFillerOptions;
@@ -44,7 +43,7 @@ class DataGenerator {
     return Math.floor(result);
   }
 
-  public scrambledWord(minLength: number = 3, maxLength: number = 15): string {
+  public scrambledWord(minLength = 3, maxLength = 15): string {
     const wordLength = this.randomNumber(minLength, maxLength);
     let resultWord = '';
     let odd = true;
@@ -61,7 +60,7 @@ class DataGenerator {
     return resultWord;
   }
 
-  public words(wordCount: number, maxLength: number = 0): string {
+  public words(wordCount: number, maxLength = 0): string {
     let resultPhrase = '';
     let word = '';
 
@@ -99,11 +98,13 @@ class DataGenerator {
 
       if (currentCharacter === ']') {
         ignore = false;
+        // eslint-disable-next-line no-continue
         continue;
       }
 
       if (currentCharacter === '[') {
         ignore = true;
+        // eslint-disable-next-line no-continue
         continue;
       }
 
@@ -198,13 +199,13 @@ class DataGenerator {
     }
 
     const generatedPassword = this.scrambledWord(8, 8).toLowerCase();
-    // tslint:disable-next-line:no-console
+    // eslint-disable-next-line no-console
     console.info(generatedPassword);
     return generatedPassword;
   }
 
   public email(): string {
-    const emailSettings = this.options.emailSettings;
+    const { emailSettings } = this.options;
     let username = '';
 
     switch (emailSettings.username) {
@@ -332,7 +333,7 @@ class DataGenerator {
     return data.firstNames[this.randomNumber(0, data.firstNames.length - 1)];
   }
 
-  public lastName(saveName: boolean = false): string {
+  public lastName(saveName = false): string {
     if (saveName) {
       this.previousLastName = data.lastNames[this.randomNumber(0, data.lastNames.length - 1)];
       return this.previousLastName;

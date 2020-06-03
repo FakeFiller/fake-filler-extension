@@ -1,7 +1,8 @@
 import RandExp from 'randexp';
 import * as React from 'react';
 
-import { GetHtmlMarkup, GetMessage } from 'src/common/helpers';
+import { GetMessage } from 'src/common/helpers';
+import HtmlPhrase from 'src/options/components/common/HtmlPhrase';
 import TextField from 'src/options/components/common/TextField';
 
 interface IOwnProps {
@@ -42,7 +43,7 @@ class RegExOptions extends React.PureComponent<IOwnProps, IOwnState> {
   public render(): JSX.Element {
     const regexTypeHelpText = (
       <div>
-        <p dangerouslySetInnerHTML={GetHtmlMarkup(GetMessage('customFields_regExHelp'))} />
+        <HtmlPhrase phrase={GetMessage('customFields_regExHelp')} as="p" />
         <button type="button" className="btn btn-sm btn-outline-primary" onClick={this.generateRandomRegExString}>
           {GetMessage('testMe')}
         </button>

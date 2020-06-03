@@ -11,13 +11,11 @@ const SelectField = React.forwardRef((props: Props, ref: React.Ref<HTMLSelectEle
   const [field, meta] = useField(props);
   const { name, id, label, helpText, className, ...rest } = props;
 
-  let controlCssClass = 'form-control';
+  let controlCssClass = 'custom-select';
 
   if (meta.touched) {
     if (meta.error) {
       controlCssClass += ' is-invalid';
-    } else {
-      controlCssClass += ' is-valid';
     }
   }
 
@@ -27,7 +25,7 @@ const SelectField = React.forwardRef((props: Props, ref: React.Ref<HTMLSelectEle
 
   const controlMarkup = (
     <>
-      <select name={name} id={id || name} className={controlCssClass} ref={ref} {...field} {...rest} />
+      <select id={id || name} className={controlCssClass} ref={ref} {...field} {...rest} />
       {helpText && <small className="form-text text-muted">{helpText}</small>}
       {meta.touched && meta.error ? <div className="invalid-feedback">{meta.error}</div> : null}
     </>
@@ -36,7 +34,7 @@ const SelectField = React.forwardRef((props: Props, ref: React.Ref<HTMLSelectEle
   if (label) {
     return (
       <div className="form-group row">
-        <label className="col-sm-3 col-form-label text-right" htmlFor={name}>
+        <label className="col-sm-3 col-form-label text-sm-right" htmlFor={name}>
           {label}
         </label>
         <div className="col-sm-9">{controlMarkup}</div>

@@ -3,9 +3,10 @@ import { Draggable } from 'react-beautiful-dnd';
 
 import { GetMessage } from 'src/common/helpers';
 import AddFieldButton from 'src/options/components/custom-fields/AddFieldButton';
+import { ICustomField, CustomFieldAddFunction, CustomFieldEditFunction, CustomFieldDeleteFunction } from 'src/types';
 
 function isNotEmpty(item: string | number | undefined | null): boolean {
-  return item !== undefined && item !== null && !isNaN(parseInt(String(item), 10));
+  return item !== undefined && item !== null && !Number.isNaN(parseInt(String(item), 10));
 }
 
 function isNotZero(item: string | number | undefined | null): boolean {
@@ -41,7 +42,7 @@ class CustomFieldsListItem extends React.PureComponent<IOwnProps> {
   }
 
   public render(): JSX.Element {
-    const customField = this.props.customField;
+    const { customField } = this.props;
 
     return (
       <Draggable draggableId={`draggable-${this.props.itemIndex}`} index={this.props.itemIndex}>
@@ -51,15 +52,15 @@ class CustomFieldsListItem extends React.PureComponent<IOwnProps> {
               <div className="card-header">
                 <strong>{customField.name}</strong>
                 <div className="custom-field-buttons">
-                  <div className="custom-field-button drag-handle" {...provided.dragHandleProps}>
-                    <img src="images/move.svg" width="16" height="16" />
+                  <div className="btn btn-sm btn-link drag-handle" {...provided.dragHandleProps}>
+                    <img src="images/move.svg" width="12" height="12" alt={GetMessage('move')} />
                   </div>
-                  <div className="custom-field-button" onClick={this.handleEdit}>
-                    <img src="images/edit.svg" width="16" height="16" />
-                  </div>
-                  <div className="custom-field-button" onClick={this.handleDelete}>
-                    <img src="images/delete.svg" width="16" height="16" />
-                  </div>
+                  <button type="button" className="btn btn-sm btn-link" onClick={this.handleEdit}>
+                    <img src="images/edit.svg" width="12" height="12" alt={GetMessage('edit')} />
+                  </button>
+                  <button type="button" className="btn btn-sm btn-link" onClick={this.handleDelete}>
+                    <img src="images/delete.svg" width="12" height="12" alt={GetMessage('delete')} />
+                  </button>
                 </div>
               </div>
               <table className="table">

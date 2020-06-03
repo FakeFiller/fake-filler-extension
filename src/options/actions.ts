@@ -1,5 +1,6 @@
-/// <reference path="../../index.d.ts" />
+/* eslint-disable no-param-reassign */
 
+import { produce } from 'immer';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import {
@@ -10,6 +11,7 @@ import {
   MultipleLinesToArray,
   SaveFormFillerOptions,
 } from 'src/common/helpers';
+import { IFormFillerOptions, IAppState, IFormFillerOptionsForm, ICustomField, ICustomFieldForm } from 'src/types';
 
 export interface IFetchingOptionsAction {
   type: 'FETCHING_OPTIONS';
@@ -35,13 +37,13 @@ export type MyActions =
   | IFetchingKeyboardShortcutsAction
   | IReceivedKeyboardShortcutsAction;
 
-type MyThunkResult<R> = ThunkAction<R, IAppState, {}, MyActions>;
+type MyThunkResult<R> = ThunkAction<R, IAppState, unknown, MyActions>;
 type MyDefaultThunkResult = MyThunkResult<void>;
-type MyThunkDispatch = ThunkDispatch<IAppState, {}, MyActions>;
+type MyThunkDispatch = ThunkDispatch<IAppState, unknown, MyActions>;
 
-export interface DispatchProps {
+export type DispatchProps = {
   dispatch: MyThunkDispatch;
-}
+};
 
 export function getOptions(): MyDefaultThunkResult {
   return dispatch => {
@@ -63,70 +65,80 @@ export function resetOptions(): MyDefaultThunkResult {
 
 export function saveOptions(options: IFormFillerOptions, formValues?: IFormFillerOptionsForm): MyDefaultThunkResult {
   return dispatch => {
-    const newOptions = Object.assign({}, options, { fields: [...options.fields] });
+    const updatedOptions = produce(options, draft => {
+      if (formValues) {
+        draft.agreeTermsFields = CsvToArray(formValues.agreeTermsFields);
+        draft.confirmFields = CsvToArray(formValues.confirmFields);
+        draft.defaultMaxLength = parseInt(formValues.defaultMaxLength, 10);
+        draft.enableContextMenu = formValues.enableContextMenu;
+        draft.ignoreFieldsWithContent = formValues.ignoreFieldsWithContent;
+        draft.ignoreHiddenFields = formValues.ignoreHiddenFields;
+        draft.ignoredFields = CsvToArray(formValues.ignoredFields);
+        draft.triggerClickEvents = formValues.triggerClickEvents;
 
-    if (formValues) {
-      newOptions.agreeTermsFields = CsvToArray(formValues.agreeTermsFields);
-      newOptions.confirmFields = CsvToArray(formValues.confirmFields);
-      newOptions.defaultMaxLength = parseInt(formValues.defaultMaxLength, 10);
-      newOptions.enableContextMenu = formValues.enableContextMenu;
-      newOptions.ignoreFieldsWithContent = formValues.ignoreFieldsWithContent;
-      newOptions.ignoreHiddenFields = formValues.ignoreHiddenFields;
-      newOptions.ignoredFields = CsvToArray(formValues.ignoredFields);
-      newOptions.triggerClickEvents = formValues.triggerClickEvents;
+        draft.passwordSettings = {
+          mode: formValues.passwordSettingsMode,
+          password: formValues.passwordSettingsPassword,
+        };
 
-      newOptions.passwordSettings = {
-        mode: formValues.passwordSettingsMode,
-        password: formValues.passwordSettingsPassword,
-      };
+        draft.fieldMatchSettings = {
+          matchClass: formValues.fieldMatchClass,
+          matchId: formValues.fieldMatchId,
+          matchLabel: formValues.fieldMatchLabel,
+          matchName: formValues.fieldMatchName,
+          matchPlaceholder: formValues.fieldMatchPlaceholder,
+        };
 
-      newOptions.fieldMatchSettings = {
-        matchClass: formValues.fieldMatchClass,
-        matchId: formValues.fieldMatchId,
-        matchLabel: formValues.fieldMatchLabel,
-        matchName: formValues.fieldMatchName,
-        matchPlaceholder: formValues.fieldMatchPlaceholder,
-      };
+        draft.emailSettings = {
+          hostname: formValues.emailSettingsHostnameType,
+          hostnameList: CsvToArray(formValues.emailSettingsHostnameList),
+          username: formValues.emailSettingsUsernameType,
+          usernameList: CsvToArray(formValues.emailSettingsUsernameList),
+          usernameRegEx: formValues.emailSettingsUsernameRegEx,
+        };
+      }
 
-      newOptions.emailSettings = {
-        hostname: formValues.emailSettingsHostnameType,
-        hostnameList: CsvToArray(formValues.emailSettingsHostnameList),
-        username: formValues.emailSettingsUsernameType,
-        usernameList: CsvToArray(formValues.emailSettingsUsernameList),
-        usernameRegEx: formValues.emailSettingsUsernameRegEx,
-      };
-    }
+      return draft;
+    });
 
-    SaveFormFillerOptions(newOptions);
-    dispatch({ type: 'RECEIVED_OPTIONS', options: newOptions });
+    SaveFormFillerOptions(updatedOptions);
+    dispatch({ type: 'RECEIVED_OPTIONS', options: updatedOptions });
   };
 }
 
-export function deleteCustomField(options: IFormFillerOptions, index: number): MyDefaultThunkResult {
-  return dispatch => {
-    const newOptions = Object.assign({}, options);
-    newOptions.fields = newOptions.fields.filter((item, itemIndex) => itemIndex !== index);
-    SaveFormFillerOptions(newOptions);
-    dispatch({ type: 'RECEIVED_OPTIONS', options: newOptions });
+export function deleteCustomField(index: number): MyDefaultThunkResult {
+  return (dispatch, getState) => {
+    const state = getState();
+    const options = state.optionsData.options as IFormFillerOptions;
+
+    const updatedOptions = produce(options, draft => {
+      draft.fields.splice(index, 1);
+      return draft;
+    });
+
+    SaveFormFillerOptions(updatedOptions);
+    dispatch({ type: 'RECEIVED_OPTIONS', options: updatedOptions });
   };
 }
 
-export function saveSortedCustomFields(
-  options: IFormFillerOptions,
-  customFields: ICustomField[],
-): MyDefaultThunkResult {
-  return dispatch => {
-    const newOptions = Object.assign({}, options);
-    newOptions.fields = customFields;
-    SaveFormFillerOptions(newOptions);
-    dispatch({ type: 'RECEIVED_OPTIONS', options: newOptions });
+export function saveSortedCustomFields(customFields: ICustomField[]): MyDefaultThunkResult {
+  return (dispatch, getState) => {
+    const state = getState();
+    const options = state.optionsData.options as IFormFillerOptions;
+
+    const updatedOptions = produce(options, draft => {
+      draft.fields = customFields;
+      return draft;
+    });
+    SaveFormFillerOptions(updatedOptions);
+    dispatch({ type: 'RECEIVED_OPTIONS', options: updatedOptions });
   };
 }
 
 function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField {
   const customField: ICustomField = {
     match: CsvToArray(formData.match),
-    name: formData.name,
+    name: formData.name.trim(),
     type: formData.type,
   };
 
@@ -152,11 +164,11 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
     const min = parseInt(formData.dateMin, 10);
     const max = parseInt(formData.dateMax, 10);
 
-    if (!isNaN(min)) {
+    if (!Number.isNaN(min)) {
       customField.min = min;
     }
 
-    if (!isNaN(max)) {
+    if (!Number.isNaN(max)) {
       customField.max = max;
     }
 
@@ -184,31 +196,33 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
   return customField;
 }
 
-export function createCustomField(
-  options: IFormFillerOptions,
-  customField: ICustomFieldForm,
-  customFieldIndex: number,
-): MyDefaultThunkResult {
-  return dispatch => {
-    const newOptions = Object.assign({}, options, { fields: [...options.fields] });
-    const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
-    newOptions.fields.splice(customFieldIndex, 0, newCustomField);
-    SaveFormFillerOptions(newOptions);
-    dispatch({ type: 'RECEIVED_OPTIONS', options: newOptions });
+export function createCustomField(customField: ICustomFieldForm, customFieldIndex: number): MyDefaultThunkResult {
+  return (dispatch, getState) => {
+    const state = getState();
+    const options = state.optionsData.options as IFormFillerOptions;
+
+    const updatedOptions = produce(options, draft => {
+      const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
+      draft.fields.splice(customFieldIndex, 0, newCustomField);
+      return draft;
+    });
+    SaveFormFillerOptions(updatedOptions);
+    dispatch({ type: 'RECEIVED_OPTIONS', options: updatedOptions });
   };
 }
 
-export function saveCustomField(
-  options: IFormFillerOptions,
-  customField: ICustomFieldForm,
-  customFieldIndex: number,
-): MyDefaultThunkResult {
-  return dispatch => {
-    const newOptions = Object.assign({}, options, { fields: [...options.fields] });
-    const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
-    newOptions.fields[customFieldIndex] = newCustomField;
-    SaveFormFillerOptions(newOptions);
-    dispatch({ type: 'RECEIVED_OPTIONS', options: newOptions });
+export function saveCustomField(customField: ICustomFieldForm, customFieldIndex: number): MyDefaultThunkResult {
+  return (dispatch, getState) => {
+    const state = getState();
+    const options = state.optionsData.options as IFormFillerOptions;
+
+    const updatedOptions = produce(options, draft => {
+      const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
+      draft.fields[customFieldIndex] = newCustomField;
+      return draft;
+    });
+    SaveFormFillerOptions(updatedOptions);
+    dispatch({ type: 'RECEIVED_OPTIONS', options: updatedOptions });
   };
 }
 

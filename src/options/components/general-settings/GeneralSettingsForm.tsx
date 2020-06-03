@@ -1,10 +1,12 @@
 import { Form, Formik, FormikErrors, FormikHelpers } from 'formik';
 import * as React from 'react';
 
-import { GetHtmlMarkup, GetMessage } from 'src/common/helpers';
+import { GetMessage } from 'src/common/helpers';
 import CheckboxField from 'src/options/components/common/CheckboxField';
+import HtmlPhrase from 'src/options/components/common/HtmlPhrase';
 import RadioButtonField from 'src/options/components/common/RadioButtonField';
 import TextField from 'src/options/components/common/TextField';
+import { IFormFillerOptionsForm, IFormFillerOptions } from 'src/types';
 
 const validate = (values: IFormFillerOptionsForm): FormikErrors<IFormFillerOptionsForm> => {
   const errors: FormikErrors<IFormFillerOptionsForm> = {};
@@ -99,7 +101,7 @@ class GeneralSettingsForm extends React.PureComponent<IOwnProps> {
           <Form>
             <h2>{GetMessage('generalSettings_emailSettings')}</h2>
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label text-right pt-0">
+              <label className="col-sm-3 col-form-label text-sm-right pt-0" htmlFor="emailSettingsUsernameType">
                 {GetMessage('generalSettings_label_username')}
               </label>
               <div className="col-sm-9">
@@ -134,7 +136,7 @@ class GeneralSettingsForm extends React.PureComponent<IOwnProps> {
             </div>
 
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label text-right pt-0">
+              <label className="col-sm-3 col-form-label text-sm-right pt-0" htmlFor="emailSettingsHostnameType">
                 {GetMessage('generalSettings_label_hostName')}
               </label>
               <div className="col-sm-9">
@@ -159,7 +161,7 @@ class GeneralSettingsForm extends React.PureComponent<IOwnProps> {
             <h2>{GetMessage('generalSettings_passwordSettings')}</h2>
 
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label text-right pt-0">
+              <label className="col-sm-3 col-form-label text-sm-right pt-0" htmlFor="passwordSettingsMode">
                 {GetMessage('generalSettings_password')}
               </label>
               <div className="col-sm-9">
@@ -180,7 +182,7 @@ class GeneralSettingsForm extends React.PureComponent<IOwnProps> {
             <h2>{GetMessage('generalSettings_fieldOptions')}</h2>
 
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label text-right">
+              <label className="col-sm-3 col-form-label text-sm-right" htmlFor="ignoredFields">
                 {GetMessage('generalSettings_ignoreFieldsMatch')}
               </label>
               <div className="col-sm-9">
@@ -193,11 +195,11 @@ class GeneralSettingsForm extends React.PureComponent<IOwnProps> {
                   name="ignoreFieldsWithContent"
                   label={GetMessage('generalSettings_ignoreFieldsWithContentLabel')}
                 />
-                <div className="form-text text-muted">
-                  <span
-                    dangerouslySetInnerHTML={GetHtmlMarkup(GetMessage('generalSettings_ignoreFieldsWithContentHelp'))}
-                  />
-                </div>
+                <HtmlPhrase
+                  phrase={GetMessage('generalSettings_ignoreFieldsWithContentHelp')}
+                  as="div"
+                  className="form-text text-muted"
+                />
               </div>
             </div>
 
@@ -216,7 +218,7 @@ class GeneralSettingsForm extends React.PureComponent<IOwnProps> {
             />
 
             <div className="form-group row">
-              <div className="col-sm-3 text-right pt-0">{GetMessage('generalSettings_matchFieldsUsing')}</div>
+              <div className="col-sm-3 text-sm-right pt-0">{GetMessage('generalSettings_matchFieldsUsing')}</div>
               <div className="col-sm-9">
                 <CheckboxField name="fieldMatchId" label={GetMessage('generalSettings_matchFields_useId')} />
                 <CheckboxField name="fieldMatchName" label={GetMessage('generalSettings_matchFields_useName')} />

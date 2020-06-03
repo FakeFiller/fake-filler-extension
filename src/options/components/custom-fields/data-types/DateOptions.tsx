@@ -1,16 +1,19 @@
 import * as React from 'react';
 
-import { GetHtmlMarkup, GetMessage } from 'src/common/helpers';
+import { GetMessage } from 'src/common/helpers';
+import HtmlPhrase from 'src/options/components/common/HtmlPhrase';
 import TextField from 'src/options/components/common/TextField';
 
 class DateOptions extends React.PureComponent {
   public render(): JSX.Element {
-    const dateTypeHelpText = <span dangerouslySetInnerHTML={GetHtmlMarkup(GetMessage('customFields_dateTypeHelp'))} />;
+    const dateTypeHelpText = <HtmlPhrase phrase={GetMessage('customFields_dateTypeHelp')} />;
 
     return (
       <>
         <div className="form-group row">
-          <label className="col-sm-3 col-form-label text-right">{GetMessage('customFields_label_minDate')}</label>
+          <label className="col-sm-3 col-form-label text-sm-right" htmlFor="dateMin">
+            {GetMessage('customFields_label_minDate')}
+          </label>
           <div className="col-sm-9">
             <div className="input-group">
               <div className="input-group-prepend">
@@ -26,7 +29,9 @@ class DateOptions extends React.PureComponent {
           </div>
         </div>
         <div className="form-group row">
-          <label className="col-sm-3 col-form-label text-right">{GetMessage('customFields_label_maxDate')}</label>
+          <label className="col-sm-3 col-form-label text-sm-right" htmlFor="dateMax">
+            {GetMessage('customFields_label_maxDate')}
+          </label>
           <div className="col-sm-9">
             <div className="input-group">
               <div className="input-group-prepend">

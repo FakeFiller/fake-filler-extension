@@ -3,16 +3,27 @@
     "Droppable",
     "Shabbir",
     "borderless",
+    "contenteditable",
     "cssesc",
     "datetime",
     "devtool",
     "formik",
-    "randexp"
+    "immer",
+    "randexp",
+    "webextensions"
   ],
-  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true
+  },
   "files.trimTrailingWhitespace": true,
   "html.format.wrapLineLength": 0,
   "editor.formatOnSave": true,
   "files.trimFinalNewlines": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "./node_modules/typescript/lib"
 }

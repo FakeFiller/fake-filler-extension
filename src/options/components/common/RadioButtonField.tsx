@@ -9,11 +9,11 @@ type Props = {
   value: string;
   title?: string;
   helpText?: string | React.ReactNode;
-} & React.InputHTMLAttributes<HTMLInputElement>;
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>;
 
 const RadioButtonField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputElement>) => {
-  const [field, meta] = useField(props);
-  const { name, type, id, label, helpText, className, value, title, ...rest } = props;
+  const [field, meta] = useField({ ...props, type: 'radio' });
+  const { name, id, label, helpText, className, value, title, ...rest } = props;
 
   let validationCssClass = '';
 
@@ -26,18 +26,16 @@ const RadioButtonField = React.forwardRef((props: Props, ref: React.Ref<HTMLInpu
   const componentId = `${id || name}_${SanitizeText(value)}`;
 
   const controlMarkup = (
-    <div className={`form-check ${className}`}>
+    <div className={`custom-control custom-radio ${className}`}>
       <input
-        name={name}
         id={componentId}
         type="radio"
         ref={ref}
-        className={`form-check-input ${validationCssClass}`}
-        value={value}
+        className={`custom-control-input ${validationCssClass}`}
         {...field}
         {...rest}
       />
-      <label htmlFor={componentId} className="form-check-label">
+      <label htmlFor={componentId} className="custom-control-label">
         {label}
       </label>
       {helpText && <small className="form-text text-muted">{helpText}</small>}
@@ -48,7 +46,7 @@ const RadioButtonField = React.forwardRef((props: Props, ref: React.Ref<HTMLInpu
   if (title) {
     return (
       <div className="form-group row">
-        <div className="col-sm-3 text-right">{title}</div>
+        <div className="col-sm-3 text-sm-right">{title}</div>
         <div className="col-sm-9">{controlMarkup}</div>
       </div>
     );
@@ -56,9 +54,5 @@ const RadioButtonField = React.forwardRef((props: Props, ref: React.Ref<HTMLInpu
 
   return controlMarkup;
 });
-
-RadioButtonField.defaultProps = {
-  type: 'radio',
-};
 
 export default RadioButtonField;
