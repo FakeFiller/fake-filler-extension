@@ -154,9 +154,7 @@ class ElementFiller {
     }
 
     if (this.options.fieldMatchSettings.matchPlaceholder) {
-      if (typeof element === typeof HTMLInputElement || typeof element === typeof HTMLTextAreaElement) {
-        normalizedName += ` ${SanitizeText((element as HTMLInputElement).placeholder)}`;
-      }
+      normalizedName += ` ${SanitizeText(element.getAttribute('placeholder') || '')}`;
     }
 
     if (this.options.fieldMatchSettings.matchLabel) {
