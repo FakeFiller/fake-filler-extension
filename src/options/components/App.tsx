@@ -1,31 +1,31 @@
-import React from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { Link, NavLink, Route } from 'react-router-dom';
+import React from "react";
+import { Nav, Navbar } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { Link, NavLink, Route } from "react-router-dom";
 
-import { GetMessage } from 'src/common/helpers';
-import { resetOptions } from 'src/options/actions';
-import BackupAndRestorePage from 'src/options/components/BackupAndRestorePage';
-import ChangeLogPage from 'src/options/components/ChangeLogPage';
-import CustomFieldsPage from 'src/options/components/CustomFieldsPage';
-import GeneralSettingsPage from 'src/options/components/GeneralSettingsPage';
-import KeyboardShortcutsPage from 'src/options/components/KeyboardShortcutsPage';
-import ExternalLink from 'src/options/components/common/ExternalLink';
-import HtmlPhrase from 'src/options/components/common/HtmlPhrase';
+import { GetMessage } from "src/common/helpers";
+import { resetOptions } from "src/options/actions";
+import BackupAndRestorePage from "src/options/components/BackupAndRestorePage";
+import ChangeLogPage from "src/options/components/ChangeLogPage";
+import CustomFieldsPage from "src/options/components/CustomFieldsPage";
+import GeneralSettingsPage from "src/options/components/GeneralSettingsPage";
+import KeyboardShortcutsPage from "src/options/components/KeyboardShortcutsPage";
+import ExternalLink from "src/options/components/common/ExternalLink";
+import HtmlPhrase from "src/options/components/common/HtmlPhrase";
 
-import 'src/options/components/App.scss';
-import ScrollToTop from 'src/options/components/common/ScrollToTop';
+import "src/options/components/App.scss";
+import ScrollToTop from "src/options/components/common/ScrollToTop";
 
 function App() {
   const dispatch = useDispatch();
 
-  const sendFeedbackMessage = chrome.i18n.getMessage('leftNav_sendFeedback', ['husainsfabbas@gmail.com']);
+  const sendFeedbackMessage = chrome.i18n.getMessage("leftNav_sendFeedback", ["husainsfabbas@gmail.com"]);
 
   function handleResetSettings(event: React.SyntheticEvent): void {
     event.preventDefault();
 
     // eslint-disable-next-line no-alert
-    if (window.confirm(GetMessage('leftNav_confirmResetSettings'))) {
+    if (window.confirm(GetMessage("leftNav_confirmResetSettings"))) {
       dispatch(resetOptions());
     }
   }
@@ -35,22 +35,22 @@ function App() {
       <ScrollToTop />
       <Navbar bg="dark" variant="dark" expand="lg">
         <Navbar.Brand>
-          <img src="images/logo.svg" height="30" alt={GetMessage('extensionName')} />
+          <img src="images/logo.svg" height="30" alt={GetMessage("extensionName")} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="main-navbar-nav" />
         <Navbar.Collapse id="main-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link as={NavLink} to="/" exact>
-              {GetMessage('leftNav_General')}
+              {GetMessage("leftNav_General")}
             </Nav.Link>
             <Nav.Link as={NavLink} to="/custom-fields">
-              {GetMessage('leftNav_customFields')}
+              {GetMessage("leftNav_customFields")}
             </Nav.Link>
             <Nav.Link as={NavLink} to="/keyboard-shortcuts">
-              {GetMessage('leftNav_keyboardShortcuts')}
+              {GetMessage("leftNav_keyboardShortcuts")}
             </Nav.Link>
             <Nav.Link as={NavLink} to="/backup">
-              {GetMessage('leftNav_backupRestore')}
+              {GetMessage("leftNav_backupRestore")}
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
@@ -68,15 +68,15 @@ function App() {
           <li className="list-inline-item">
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a href="#" onClick={handleResetSettings}>
-              {GetMessage('leftNav_restoreFactorySettings')}
+              {GetMessage("leftNav_restoreFactorySettings")}
             </a>
           </li>
           <li className="list-inline-item">
-            <Link to="/changelog">{GetMessage('leftNav_changelog')}</Link>
+            <Link to="/changelog">{GetMessage("leftNav_changelog")}</Link>
           </li>
           <li className="list-inline-item">
             <ExternalLink url="https://github.com/husainshabbir/form-filler/issues">
-              {GetMessage('leftNav_issueTracker')}
+              {GetMessage("leftNav_issueTracker")}
             </ExternalLink>
           </li>
         </ul>

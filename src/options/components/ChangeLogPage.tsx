@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import ExternalLink from 'src/options/components/common/ExternalLink';
+import ExternalLink from "src/options/components/common/ExternalLink";
 
 class ChangeLogPage extends React.PureComponent {
   public render(): JSX.Element {

@@ -1,8 +1,8 @@
-import RandExp from 'randexp';
+import RandExp from "randexp";
 
-import * as data from 'src/common/dummy-data';
-import { DEFAULT_TELEPHONE_TEMPLATE, SanitizeText } from 'src/common/helpers';
-import { IFormFillerOptions } from 'src/types';
+import * as data from "src/common/dummy-data";
+import { DEFAULT_TELEPHONE_TEMPLATE, SanitizeText } from "src/common/helpers";
+import { IFormFillerOptions } from "src/types";
 
 class DataGenerator {
   private options: IFormFillerOptions;
@@ -12,9 +12,9 @@ class DataGenerator {
 
   constructor(options: IFormFillerOptions) {
     this.options = options;
-    this.previousUsername = '';
-    this.previousFirstName = '';
-    this.previousLastName = '';
+    this.previousUsername = "";
+    this.previousFirstName = "";
+    this.previousLastName = "";
   }
 
   public setPreviousUsername(username: string): void {
@@ -45,7 +45,7 @@ class DataGenerator {
 
   public scrambledWord(minLength = 3, maxLength = 15): string {
     const wordLength = this.randomNumber(minLength, maxLength);
-    let resultWord = '';
+    let resultWord = "";
     let odd = true;
 
     while (resultWord.length < wordLength) {
@@ -61,8 +61,8 @@ class DataGenerator {
   }
 
   public words(wordCount: number, maxLength = 0): string {
-    let resultPhrase = '';
-    let word = '';
+    let resultPhrase = "";
+    let word = "";
 
     for (let i = 0; i < wordCount; i += 1) {
       word = data.wordBank[Math.floor(Math.random() * (data.wordBank.length - 1))];
@@ -70,8 +70,8 @@ class DataGenerator {
 
       if (
         phraseLength === 0 ||
-        resultPhrase.substring(phraseLength - 1, phraseLength) === '.' ||
-        resultPhrase.substring(phraseLength - 1, phraseLength) === '?'
+        resultPhrase.substring(phraseLength - 1, phraseLength) === "." ||
+        resultPhrase.substring(phraseLength - 1, phraseLength) === "?"
       ) {
         word = word.substring(0, 1).toUpperCase() + word.substring(1, word.length);
       }
@@ -89,27 +89,27 @@ class DataGenerator {
   public alphanumeric(template: string): string {
     const count = template.length;
     let i = 0;
-    let returnValue = '';
-    let currentCharacter = '';
+    let returnValue = "";
+    let currentCharacter = "";
     let ignore = false;
 
     for (; i < count; i += 1) {
       currentCharacter = template[i];
 
-      if (currentCharacter === ']') {
+      if (currentCharacter === "]") {
         ignore = false;
         // eslint-disable-next-line no-continue
         continue;
       }
 
-      if (currentCharacter === '[') {
+      if (currentCharacter === "[") {
         ignore = true;
         // eslint-disable-next-line no-continue
         continue;
       }
 
       if (ignore) {
-        currentCharacter = '';
+        currentCharacter = "";
       }
 
       const alphabetsLength = data.alphabets.length;
@@ -117,56 +117,56 @@ class DataGenerator {
       const vowelsLength = data.vowels.length;
 
       switch (currentCharacter) {
-        case 'L':
+        case "L":
           returnValue += data.alphabets[Math.floor(Math.random() * (alphabetsLength - 1))].toUpperCase();
           break;
 
-        case 'l':
+        case "l":
           returnValue += data.alphabets[Math.floor(Math.random() * (alphabetsLength - 1))].toLowerCase();
           break;
 
-        case 'D':
+        case "D":
           returnValue +=
             Math.random() > 0.5
               ? data.alphabets[Math.floor(Math.random() * (alphabetsLength - 1))].toUpperCase()
               : data.alphabets[Math.floor(Math.random() * (alphabetsLength - 1))].toLowerCase();
           break;
 
-        case 'C':
+        case "C":
           returnValue += data.consonants[Math.floor(Math.random() * (consonantsLength - 1))].toUpperCase();
           break;
 
-        case 'c':
+        case "c":
           returnValue += data.consonants[Math.floor(Math.random() * (consonantsLength - 1))].toLowerCase();
           break;
 
-        case 'E':
+        case "E":
           returnValue +=
             Math.random() > 0.5
               ? data.consonants[Math.floor(Math.random() * (consonantsLength - 1))].toUpperCase()
               : data.consonants[Math.floor(Math.random() * (consonantsLength - 1))].toLowerCase();
           break;
 
-        case 'V':
+        case "V":
           returnValue += data.vowels[Math.floor(Math.random() * (vowelsLength - 1))].toUpperCase();
           break;
 
-        case 'v':
+        case "v":
           returnValue += data.vowels[Math.floor(Math.random() * (vowelsLength - 1))].toLowerCase();
           break;
 
-        case 'F':
+        case "F":
           returnValue +=
             Math.random() > 0.5
               ? data.vowels[Math.floor(Math.random() * (vowelsLength - 1))].toUpperCase()
               : data.vowels[Math.floor(Math.random() * (vowelsLength - 1))].toLowerCase();
           break;
 
-        case 'X':
+        case "X":
           returnValue += this.randomNumber(1, 9);
           break;
 
-        case 'x':
+        case "x":
           returnValue += this.randomNumber(0, 9);
           break;
 
@@ -183,18 +183,18 @@ class DataGenerator {
     const wordCount = this.randomNumber(minWords, maxWords);
     const resultPhrase = this.words(wordCount, maxLength);
 
-    return resultPhrase.replace(/[?.!,;]?$/, '.');
+    return resultPhrase.replace(/[?.!,;]?$/, ".");
   }
 
   public phrase(maxLength: number): string {
     const length = this.randomNumber(5, 20);
     const resultPhrase = this.words(length, maxLength);
 
-    return resultPhrase.replace(/[^\w\s]|_/g, '').replace(/\s+/g, ' ');
+    return resultPhrase.replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ");
   }
 
   public password(): string {
-    if (this.options.passwordSettings.mode === 'defined') {
+    if (this.options.passwordSettings.mode === "defined") {
       return this.options.passwordSettings.password;
     }
 
@@ -206,20 +206,20 @@ class DataGenerator {
 
   public email(): string {
     const { emailSettings } = this.options;
-    let username = '';
+    let username = "";
 
     switch (emailSettings.username) {
-      case 'list':
+      case "list":
         username = emailSettings.usernameList[Math.floor(Math.random() * emailSettings.usernameList.length)];
         break;
 
-      case 'username':
+      case "username":
         if (this.previousUsername.length > 0) {
           username = SanitizeText(this.previousUsername);
         }
         break;
 
-      case 'name':
+      case "name":
         if (this.previousFirstName.length > 0) {
           username = SanitizeText(this.previousFirstName);
         }
@@ -232,7 +232,7 @@ class DataGenerator {
         }
         break;
 
-      case 'regex':
+      case "regex":
         try {
           const regExGenerator = new RandExp(emailSettings.usernameRegEx);
           regExGenerator.defaultRange.add(0, 65535);
@@ -250,9 +250,9 @@ class DataGenerator {
       username = this.scrambledWord(4, 10).toLowerCase();
     }
 
-    let domain = '';
+    let domain = "";
 
-    if (emailSettings.hostname === 'list') {
+    if (emailSettings.hostname === "list") {
       const randomNumber = Math.floor(Math.random() * emailSettings.hostnameList.length);
       domain = emailSettings.hostnameList[randomNumber];
     }
@@ -261,7 +261,7 @@ class DataGenerator {
       domain = `${this.scrambledWord().toLowerCase()}.com`;
     }
 
-    if (domain.indexOf('@') === -1) {
+    if (domain.indexOf("@") === -1) {
       domain = `@${domain}`;
     }
 
@@ -276,12 +276,12 @@ class DataGenerator {
 
   public phoneNumber(template: string = DEFAULT_TELEPHONE_TEMPLATE): string {
     let i = 0;
-    let telephone = '';
+    let telephone = "";
 
     for (; i < template.length; i += 1) {
-      if (template[i] === 'X') {
+      if (template[i] === "X") {
         telephone += this.randomNumber(1, 9);
-      } else if (template[i] === 'x') {
+      } else if (template[i] === "x") {
         telephone += this.randomNumber(0, 9);
       } else {
         telephone += template[i];
@@ -346,7 +346,7 @@ class DataGenerator {
 
   public organizationName(): string {
     const partOne = this.lastName();
-    const connector = Math.random() > 0.5 ? ' and ' : ' ';
+    const connector = Math.random() > 0.5 ? " and " : " ";
     const partTwo = this.lastName();
     const suffix = data.organizationSuffix[this.randomNumber(0, data.organizationSuffix.length - 1)];
 
@@ -357,7 +357,7 @@ class DataGenerator {
     // 16777215 === FFFFFF in decimal
     return `#${Math.floor(Math.random() * 16777215)
       .toString(16)
-      .padStart(6, '0')}`;
+      .padStart(6, "0")}`;
   }
 }
 

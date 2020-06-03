@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-type BrowserCommandName = 'fill_this_form' | 'fill_this_input' | 'fill_all_inputs';
+type BrowserCommandName = "fill_this_form" | "fill_this_input" | "fill_all_inputs";
 
 export interface IFormFillerBrowserCommand {
   name: BrowserCommandName;
@@ -8,20 +8,20 @@ export interface IFormFillerBrowserCommand {
 }
 
 export type CustomFieldTypes =
-  | 'alphanumeric'
-  | 'date'
-  | 'email'
-  | 'first-name'
-  | 'full-name'
-  | 'last-name'
-  | 'number'
-  | 'organization'
-  | 'randomized-list'
-  | 'regex'
-  | 'telephone'
-  | 'text'
-  | 'url'
-  | 'username';
+  | "alphanumeric"
+  | "date"
+  | "email"
+  | "first-name"
+  | "full-name"
+  | "last-name"
+  | "number"
+  | "organization"
+  | "randomized-list"
+  | "regex"
+  | "telephone"
+  | "text"
+  | "url"
+  | "username";
 
 export interface ICustomField {
   match: string[];
@@ -59,9 +59,9 @@ export interface ICustomFieldForm {
 }
 
 export interface IEmailSettings {
-  hostname: 'list' | 'random';
+  hostname: "list" | "random";
   hostnameList: string[];
-  username: 'list' | 'name' | 'random' | 'username' | 'regex';
+  username: "list" | "name" | "random" | "username" | "regex";
   usernameList: string[];
   usernameRegEx: string;
 }
@@ -75,7 +75,7 @@ export interface IFieldMatchSettings {
 }
 
 export interface IPasswordSettings {
-  mode: 'defined' | 'random';
+  mode: "defined" | "random";
   password: string;
 }
 
@@ -98,10 +98,10 @@ export interface IFormFillerOptionsForm {
   agreeTermsFields: string;
   confirmFields: string;
   defaultMaxLength: string;
-  emailSettingsUsernameType: 'list' | 'name' | 'random' | 'username' | 'regex';
+  emailSettingsUsernameType: "list" | "name" | "random" | "username" | "regex";
   emailSettingsUsernameList: string;
   emailSettingsUsernameRegEx: string;
-  emailSettingsHostnameType: 'list' | 'random';
+  emailSettingsHostnameType: "list" | "random";
   emailSettingsHostnameList: string;
   enableContextMenu: boolean;
   fieldMatchId: boolean;
@@ -112,7 +112,7 @@ export interface IFormFillerOptionsForm {
   ignoreFieldsWithContent: boolean;
   ignoreHiddenFields: boolean;
   ignoredFields: string;
-  passwordSettingsMode: 'defined' | 'random';
+  passwordSettingsMode: "defined" | "random";
   passwordSettingsPassword: string;
   triggerClickEvents: boolean;
 }

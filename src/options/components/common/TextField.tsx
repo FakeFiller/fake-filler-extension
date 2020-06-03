@@ -1,5 +1,5 @@
-import { useField } from 'formik';
-import React from 'react';
+import { useField } from "formik";
+import React from "react";
 
 type Props = {
   name: string;
@@ -11,11 +11,11 @@ const TextField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputElemen
   const [field, meta] = useField(props);
   const { name, id, label, helpText, className, ...rest } = props;
 
-  let controlCssClass = 'form-control';
+  let controlCssClass = "form-control";
 
   if (meta.touched) {
     if (meta.error) {
-      controlCssClass += ' is-invalid';
+      controlCssClass += " is-invalid";
     }
   }
 
@@ -46,7 +46,7 @@ const TextField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputElemen
 });
 
 TextField.defaultProps = {
-  type: 'text',
+  type: "text",
 };
 
 export default TextField;

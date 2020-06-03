@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { GetMessage } from 'src/common/helpers';
-import TextField from 'src/options/components/common/TextField';
+import { GetMessage } from "src/common/helpers";
+import TextField from "src/options/components/common/TextField";
 
 class AlphanumericOptions extends React.PureComponent {
   public render(): JSX.Element {
@@ -9,39 +9,39 @@ class AlphanumericOptions extends React.PureComponent {
       <div>
         <div className="row">
           <div className="col-sm-6">
-            <code>L</code> {GetMessage('customFields_alNumHelp_uppercaseLetter')}
+            <code>L</code> {GetMessage("customFields_alNumHelp_uppercaseLetter")}
             <br />
-            <code>l</code> {GetMessage('customFields_alNumHelp_lowercaseLetter')}
+            <code>l</code> {GetMessage("customFields_alNumHelp_lowercaseLetter")}
             <br />
-            <code>D</code> {GetMessage('customFields_alNumHelp_upperAndLowercaseLetter')}
+            <code>D</code> {GetMessage("customFields_alNumHelp_upperAndLowercaseLetter")}
             <br />
-            <code>C</code> {GetMessage('customFields_alNumHelp_uppercaseConsonant')}
+            <code>C</code> {GetMessage("customFields_alNumHelp_uppercaseConsonant")}
             <br />
-            <code>c</code> {GetMessage('customFields_alNumHelp_lowercaseConsonant')}
+            <code>c</code> {GetMessage("customFields_alNumHelp_lowercaseConsonant")}
             <br />
-            <code>E</code> {GetMessage('customFields_alNumHelp_upperAndLowercaseConsonant')}
+            <code>E</code> {GetMessage("customFields_alNumHelp_upperAndLowercaseConsonant")}
           </div>
           <div className="col-sm-6">
-            <code>V</code> {GetMessage('customFields_alNumHelp_uppercaseVowel')}
+            <code>V</code> {GetMessage("customFields_alNumHelp_uppercaseVowel")}
             <br />
-            <code>v</code> {GetMessage('customFields_alNumHelp_lowercaseVowel')}
+            <code>v</code> {GetMessage("customFields_alNumHelp_lowercaseVowel")}
             <br />
-            <code>F</code> {GetMessage('customFields_alNumHelp_upperAndLowercaseVowel')}
+            <code>F</code> {GetMessage("customFields_alNumHelp_upperAndLowercaseVowel")}
             <br />
-            <code>x</code> {GetMessage('customFields_alNumHelp_number09')}
+            <code>x</code> {GetMessage("customFields_alNumHelp_number09")}
             <br />
-            <code>X</code> {GetMessage('customFields_alNumHelp_number19')}
+            <code>X</code> {GetMessage("customFields_alNumHelp_number19")}
           </div>
         </div>
         <br />
-        <p>{GetMessage('customFields_alNumHelp_otherCharactersAsIs')}</p>
+        <p>{GetMessage("customFields_alNumHelp_otherCharactersAsIs")}</p>
       </div>
     );
 
     return (
       <TextField
         name="alphanumericTemplate"
-        label={GetMessage('customFields_label_format')}
+        label={GetMessage("customFields_label_format")}
         helpText={alphanumericTypeHelpText}
       />
     );

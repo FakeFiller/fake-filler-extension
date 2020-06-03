@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 
-import { produce } from 'immer';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { produce } from "immer";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 import {
   CsvToArray,
@@ -10,24 +10,24 @@ import {
   GetKeyboardShortcuts,
   MultipleLinesToArray,
   SaveFormFillerOptions,
-} from 'src/common/helpers';
-import { IFormFillerOptions, IAppState, IFormFillerOptionsForm, ICustomField, ICustomFieldForm } from 'src/types';
+} from "src/common/helpers";
+import { IFormFillerOptions, IAppState, IFormFillerOptionsForm, ICustomField, ICustomFieldForm } from "src/types";
 
 export interface IFetchingOptionsAction {
-  type: 'FETCHING_OPTIONS';
+  type: "FETCHING_OPTIONS";
 }
 
 export interface IReceivedOptionsAction {
-  type: 'RECEIVED_OPTIONS';
+  type: "RECEIVED_OPTIONS";
   options: IFormFillerOptions;
 }
 
 export interface IFetchingKeyboardShortcutsAction {
-  type: 'FETCHING_KEYBOARD_SHORTCUTS';
+  type: "FETCHING_KEYBOARD_SHORTCUTS";
 }
 
 export interface IReceivedKeyboardShortcutsAction {
-  type: 'RECEIVED_KEYBOARD_SHORTCUTS';
+  type: "RECEIVED_KEYBOARD_SHORTCUTS";
   shortcuts: chrome.commands.Command[];
 }
 
@@ -46,26 +46,26 @@ export type DispatchProps = {
 };
 
 export function getOptions(): MyDefaultThunkResult {
-  return dispatch => {
-    dispatch({ type: 'FETCHING_OPTIONS' });
+  return (dispatch) => {
+    dispatch({ type: "FETCHING_OPTIONS" });
 
-    GetFormFillerOptions().then(options => {
-      dispatch({ type: 'RECEIVED_OPTIONS', options });
+    GetFormFillerOptions().then((options) => {
+      dispatch({ type: "RECEIVED_OPTIONS", options });
     });
   };
 }
 
 export function resetOptions(): MyDefaultThunkResult {
-  return dispatch => {
+  return (dispatch) => {
     const options = FormFillerDefaultOptions();
     SaveFormFillerOptions(options);
-    dispatch({ type: 'RECEIVED_OPTIONS', options });
+    dispatch({ type: "RECEIVED_OPTIONS", options });
   };
 }
 
 export function saveOptions(options: IFormFillerOptions, formValues?: IFormFillerOptionsForm): MyDefaultThunkResult {
-  return dispatch => {
-    const updatedOptions = produce(options, draft => {
+  return (dispatch) => {
+    const updatedOptions = produce(options, (draft) => {
       if (formValues) {
         draft.agreeTermsFields = CsvToArray(formValues.agreeTermsFields);
         draft.confirmFields = CsvToArray(formValues.confirmFields);
@@ -102,7 +102,7 @@ export function saveOptions(options: IFormFillerOptions, formValues?: IFormFille
     });
 
     SaveFormFillerOptions(updatedOptions);
-    dispatch({ type: 'RECEIVED_OPTIONS', options: updatedOptions });
+    dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
   };
 }
 
@@ -111,13 +111,13 @@ export function deleteCustomField(index: number): MyDefaultThunkResult {
     const state = getState();
     const options = state.optionsData.options as IFormFillerOptions;
 
-    const updatedOptions = produce(options, draft => {
+    const updatedOptions = produce(options, (draft) => {
       draft.fields.splice(index, 1);
       return draft;
     });
 
     SaveFormFillerOptions(updatedOptions);
-    dispatch({ type: 'RECEIVED_OPTIONS', options: updatedOptions });
+    dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
   };
 }
 
@@ -126,12 +126,12 @@ export function saveSortedCustomFields(customFields: ICustomField[]): MyDefaultT
     const state = getState();
     const options = state.optionsData.options as IFormFillerOptions;
 
-    const updatedOptions = produce(options, draft => {
+    const updatedOptions = produce(options, (draft) => {
       draft.fields = customFields;
       return draft;
     });
     SaveFormFillerOptions(updatedOptions);
-    dispatch({ type: 'RECEIVED_OPTIONS', options: updatedOptions });
+    dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
   };
 }
 
@@ -142,23 +142,23 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
     type: formData.type,
   };
 
-  if (customField.type === 'number') {
+  if (customField.type === "number") {
     customField.min = parseInt(formData.numberMin, 10);
     customField.max = parseInt(formData.numberMax, 10);
     customField.decimalPlaces = parseInt(formData.numberDecimalPlaces, 10);
   }
 
-  if (customField.type === 'text') {
+  if (customField.type === "text") {
     customField.min = parseInt(formData.textMin, 10);
     customField.max = parseInt(formData.textMax, 10);
     customField.maxLength = parseInt(formData.textMaxLength, 10);
   }
 
-  if (customField.type === 'telephone') {
+  if (customField.type === "telephone") {
     customField.template = formData.telephoneTemplate;
   }
 
-  if (customField.type === 'date') {
+  if (customField.type === "date") {
     customField.template = formData.dateTemplate;
 
     const min = parseInt(formData.dateMin, 10);
@@ -181,15 +181,15 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
     }
   }
 
-  if (customField.type === 'alphanumeric') {
+  if (customField.type === "alphanumeric") {
     customField.template = formData.alphanumericTemplate;
   }
 
-  if (customField.type === 'regex') {
+  if (customField.type === "regex") {
     customField.template = formData.regexTemplate;
   }
 
-  if (customField.type === 'randomized-list') {
+  if (customField.type === "randomized-list") {
     customField.list = formData.list ? MultipleLinesToArray(formData.list) : undefined;
   }
 
@@ -201,13 +201,13 @@ export function createCustomField(customField: ICustomFieldForm, customFieldInde
     const state = getState();
     const options = state.optionsData.options as IFormFillerOptions;
 
-    const updatedOptions = produce(options, draft => {
+    const updatedOptions = produce(options, (draft) => {
       const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
       draft.fields.splice(customFieldIndex, 0, newCustomField);
       return draft;
     });
     SaveFormFillerOptions(updatedOptions);
-    dispatch({ type: 'RECEIVED_OPTIONS', options: updatedOptions });
+    dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
   };
 }
 
@@ -216,22 +216,22 @@ export function saveCustomField(customField: ICustomFieldForm, customFieldIndex:
     const state = getState();
     const options = state.optionsData.options as IFormFillerOptions;
 
-    const updatedOptions = produce(options, draft => {
+    const updatedOptions = produce(options, (draft) => {
       const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
       draft.fields[customFieldIndex] = newCustomField;
       return draft;
     });
     SaveFormFillerOptions(updatedOptions);
-    dispatch({ type: 'RECEIVED_OPTIONS', options: updatedOptions });
+    dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
   };
 }
 
 export function getKeyboardShortcuts(): MyDefaultThunkResult {
-  return dispatch => {
-    dispatch({ type: 'FETCHING_KEYBOARD_SHORTCUTS' });
+  return (dispatch) => {
+    dispatch({ type: "FETCHING_KEYBOARD_SHORTCUTS" });
 
-    GetKeyboardShortcuts().then(shortcuts => {
-      dispatch({ type: 'RECEIVED_KEYBOARD_SHORTCUTS', shortcuts });
+    GetKeyboardShortcuts().then((shortcuts) => {
+      dispatch({ type: "RECEIVED_KEYBOARD_SHORTCUTS", shortcuts });
     });
   };
 }

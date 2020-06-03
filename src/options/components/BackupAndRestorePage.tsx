@@ -1,10 +1,10 @@
-import * as fileSaver from 'file-saver';
-import * as React from 'react';
-import { connect } from 'react-redux';
+import * as fileSaver from "file-saver";
+import * as React from "react";
+import { connect } from "react-redux";
 
-import { GetMessage } from 'src/common/helpers';
-import { DispatchProps, getOptions, saveOptions } from 'src/options/actions';
-import { IFormFillerOptions, IAppState } from 'src/types';
+import { GetMessage } from "src/common/helpers";
+import { DispatchProps, getOptions, saveOptions } from "src/options/actions";
+import { IFormFillerOptions, IAppState } from "src/types";
 
 function utf8ToBase64(str: string): string {
   return window.btoa(unescape(encodeURIComponent(str)));
@@ -38,8 +38,8 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
     this.state = {
       showSuccess: false,
       hasError: false,
-      errorMessage: '',
-      backupData: '',
+      errorMessage: "",
+      backupData: "",
     };
 
     this.exportSettings = this.exportSettings.bind(this);
@@ -74,10 +74,10 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
     const dateStamp = this.getDateString(new Date());
 
     try {
-      const blob = new Blob([encodedData], { type: 'text/plain;charset=utf-8' });
+      const blob = new Blob([encodedData], { type: "text/plain;charset=utf-8" });
       fileSaver.saveAs(blob, `form-filler-${dateStamp}.txt`);
     } catch (e) {
-      this.setErrorMessage(GetMessage('backupRestore_errorCreatingBackupFile', e.toString()));
+      this.setErrorMessage(GetMessage("backupRestore_errorCreatingBackupFile", e.toString()));
       this.setState({
         backupData: encodedData,
       });
@@ -85,14 +85,14 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
   }
 
   private importSettings(): void {
-    const fileElement = document.getElementById('file') as HTMLInputElement;
+    const fileElement = document.getElementById("file") as HTMLInputElement;
 
     if (fileElement.files && fileElement.files.length === 1 && fileElement.files[0].name.length > 0) {
       // eslint-disable-next-line no-alert
-      if (window.confirm(GetMessage('backupRestore_confirmRestore'))) {
+      if (window.confirm(GetMessage("backupRestore_confirmRestore"))) {
         const fileReader = new FileReader();
 
-        fileReader.onload = e => {
+        fileReader.onload = (e) => {
           try {
             const reader = e.target as FileReader;
             const decodedData = base64ToUtf8(reader.result as string);
@@ -103,15 +103,15 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
             this.setState({
               showSuccess: true,
               hasError: false,
-              errorMessage: '',
+              errorMessage: "",
             });
           } catch (ex) {
-            this.setErrorMessage(GetMessage('backupRestore_errorImporting', ex.toString()));
+            this.setErrorMessage(GetMessage("backupRestore_errorImporting", ex.toString()));
           }
         };
 
         fileReader.onerror = () => {
-          this.setErrorMessage(GetMessage('backupRestore_errorReadingFile'));
+          this.setErrorMessage(GetMessage("backupRestore_errorReadingFile"));
         };
 
         fileReader.readAsText(fileElement.files[0]);
@@ -120,18 +120,18 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
   }
 
   private triggerImportSettings(): void {
-    const fileElement = document.getElementById('file') as HTMLInputElement;
+    const fileElement = document.getElementById("file") as HTMLInputElement;
     fileElement.click();
   }
 
   private selectTextAreaText(): void {
-    const textAreaElement = document.getElementById('backupTextArea') as HTMLTextAreaElement;
+    const textAreaElement = document.getElementById("backupTextArea") as HTMLTextAreaElement;
     textAreaElement.select();
   }
 
   public render(): JSX.Element {
     if (this.props.isFetching) {
-      return <div>{GetMessage('loading')}</div>;
+      return <div>{GetMessage("loading")}</div>;
     }
 
     let backupDataElements = null;
@@ -142,29 +142,29 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
           <textarea id="backupTextArea" className="form-control" rows={10} onClick={this.selectTextAreaText} readOnly>
             {this.state.backupData}
           </textarea>
-          <div className="help-text">{GetMessage('backupRestore_copyAndSaveToFile')}</div>
+          <div className="help-text">{GetMessage("backupRestore_copyAndSaveToFile")}</div>
         </div>
       );
     }
 
     return (
       <div>
-        <h2>{GetMessage('backupRestore_title')}</h2>
+        <h2>{GetMessage("backupRestore_title")}</h2>
         <p>
           <button type="button" className="btn btn-link" onClick={this.exportSettings}>
-            {GetMessage('backupRestore_exportSettings')}
+            {GetMessage("backupRestore_exportSettings")}
           </button>
         </p>
         <p>
           <button type="button" className="btn btn-link" onClick={this.triggerImportSettings}>
-            {GetMessage('backupRestore_importSettings')}
+            {GetMessage("backupRestore_importSettings")}
           </button>
         </p>
         {backupDataElements}
         <input type="file" className="invisible" id="file" onChange={this.importSettings} />
         {this.state.hasError && <p className="alert alert-danger">{this.state.errorMessage}</p>}
         {this.state.showSuccess && (
-          <p className="alert alert-success">{GetMessage('backupRestore_settingImportSuccessMessage')}</p>
+          <p className="alert alert-success">{GetMessage("backupRestore_settingImportSuccessMessage")}</p>
         )}
       </div>
     );

@@ -1,5 +1,5 @@
-import FormFiller from 'src/common/form-filler';
-import { IFormFillerOptions, MessageRequest } from 'src/types';
+import FormFiller from "src/common/form-filler";
+import { IFormFillerOptions, MessageRequest } from "src/types";
 
 declare global {
   interface Window {
@@ -13,7 +13,7 @@ function initialize(options: IFormFillerOptions) {
 
 function handleMessage(request: MessageRequest): boolean | null {
   switch (request.type) {
-    case 'receiveNewOptions': {
+    case "receiveNewOptions": {
       const options = request.data as IFormFillerOptions;
       initialize(options);
       return true;
@@ -24,13 +24,13 @@ function handleMessage(request: MessageRequest): boolean | null {
   }
 }
 
-document.addEventListener('mousedown', event => {
+document.addEventListener("mousedown", (event) => {
   if (event.button === 2 && window.formFiller) {
     window.formFiller.setClickedElement(event.target as HTMLElement);
   }
 });
 
-chrome.runtime.sendMessage({ type: 'getOptions' }, response => {
+chrome.runtime.sendMessage({ type: "getOptions" }, (response) => {
   const options = response.options as IFormFillerOptions;
   initialize(options);
 });

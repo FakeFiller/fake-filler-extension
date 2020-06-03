@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { GetMessage } from 'src/common/helpers';
-import { CustomFieldAddFunction } from 'src/types';
+import { GetMessage } from "src/common/helpers";
+import { CustomFieldAddFunction } from "src/types";
 
 interface IOwnProps {
   onClick: CustomFieldAddFunction;
@@ -29,7 +29,7 @@ class AddFieldButton extends React.PureComponent<IOwnProps> {
           disabled={this.props.disabled}
           onClick={this.handleClick}
         >
-          {GetMessage('customFields_addFieldButtonText')}
+          {GetMessage("customFields_addFieldButtonText")}
         </button>
       </div>
     );

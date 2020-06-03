@@ -1,17 +1,18 @@
-import * as path from 'path';
-import * as webpack from 'webpack';
-import * as merge from 'webpack-merge';
+import * as path from "path";
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+import * as webpack from "webpack";
+import * as merge from "webpack-merge";
 
-import webpackConfig from './webpack.config';
+import webpackConfig from "./webpack.config";
+
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const productionConfig: webpack.Configuration = {
-  mode: 'production',
+  mode: "production",
   devtool: false,
   plugins: [
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: [path.join(__dirname, 'dist')],
+      cleanOnceBeforeBuildPatterns: [path.join(__dirname, "dist")],
     }),
   ],
 };

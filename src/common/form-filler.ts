@@ -1,5 +1,5 @@
-import ElementFiller from 'src/common/element-filler';
-import { IFormFillerOptions } from 'src/types';
+import ElementFiller from "src/common/element-filler";
+import { IFormFillerOptions } from "src/types";
 
 class FormFiller {
   private elementFiller: ElementFiller;
@@ -10,19 +10,19 @@ class FormFiller {
   }
 
   private fillAllElements(container: Document | HTMLElement): void {
-    container.querySelectorAll('input:not(:disabled):not([readonly])').forEach(element => {
+    container.querySelectorAll("input:not(:disabled):not([readonly])").forEach((element) => {
       this.elementFiller.fillInputElement(element as HTMLInputElement);
     });
 
-    container.querySelectorAll('textarea:not(:disabled):not([readonly])').forEach(element => {
+    container.querySelectorAll("textarea:not(:disabled):not([readonly])").forEach((element) => {
       this.elementFiller.fillTextAreaElement(element as HTMLTextAreaElement);
     });
 
-    container.querySelectorAll('select:not(:disabled):not([readonly])').forEach(element => {
+    container.querySelectorAll("select:not(:disabled):not([readonly])").forEach((element) => {
       this.elementFiller.fillSelectElement(element as HTMLSelectElement);
     });
 
-    container.querySelectorAll('[contenteditable]').forEach(element => {
+    container.querySelectorAll("[contenteditable]").forEach((element) => {
       this.elementFiller.fillContentEditableElement(element as HTMLElement);
     });
   }
@@ -41,11 +41,11 @@ class FormFiller {
     if (element) {
       const tagName = element.tagName.toLowerCase();
 
-      if (tagName === 'input') {
+      if (tagName === "input") {
         this.elementFiller.fillInputElement(element as HTMLInputElement);
-      } else if (tagName === 'textarea') {
+      } else if (tagName === "textarea") {
         this.elementFiller.fillTextAreaElement(element as HTMLTextAreaElement);
-      } else if (tagName === 'select') {
+      } else if (tagName === "select") {
         this.elementFiller.fillSelectElement(element as HTMLSelectElement);
       } else if ((element as HTMLElement).isContentEditable) {
         this.elementFiller.fillContentEditableElement(element as HTMLElement);
@@ -58,8 +58,8 @@ class FormFiller {
   public fillThisForm(): void {
     const element = this.clickedElement || document.activeElement;
 
-    if (element && element.tagName.toLowerCase() !== 'body') {
-      const form = element.closest('form');
+    if (element && element.tagName.toLowerCase() !== "body") {
+      const form = element.closest("form");
 
       if (form) {
         this.fillAllElements(form);

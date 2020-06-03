@@ -1,12 +1,12 @@
 /* eslint-disable no-param-reassign */
 
-import cssesc from 'cssesc';
-import moment from 'moment';
-import RandExp from 'randexp';
+import cssesc from "cssesc";
+import moment from "moment";
+import RandExp from "randexp";
 
-import DataGenerator from 'src/common/data-generator';
-import { SanitizeText } from 'src/common/helpers';
-import { IFormFillerOptions, ICustomField, CustomFieldTypes } from 'src/types';
+import DataGenerator from "src/common/data-generator";
+import { SanitizeText } from "src/common/helpers";
+import { IFormFillerOptions, ICustomField, CustomFieldTypes } from "src/types";
 
 type FillableElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
@@ -24,15 +24,15 @@ class ElementFiller {
     this.options = options;
     this.generator = new DataGenerator(options);
 
-    this.previousValue = '';
-    this.previousPassword = '';
-    this.previousUsername = '';
-    this.previousFirstName = '';
-    this.previousLastName = '';
+    this.previousValue = "";
+    this.previousPassword = "";
+    this.previousUsername = "";
+    this.previousFirstName = "";
+    this.previousLastName = "";
   }
 
   private fireEvents(element: FillableElement): void {
-    ['input', 'click', 'change', 'blur'].forEach(event => {
+    ["input", "click", "change", "blur"].forEach((event) => {
       const changeEvent = new Event(event, { bubbles: true, cancelable: true });
       element.dispatchEvent(changeEvent);
     });
@@ -40,7 +40,7 @@ class ElementFiller {
 
   private isAnyMatch(haystack: string, needles: string[]): boolean {
     for (let i = 0, count = needles.length; i < count; i += 1) {
-      if (new RegExp(needles[i], 'i').test(haystack)) {
+      if (new RegExp(needles[i], "i").test(haystack)) {
         return true;
       }
     }
@@ -51,14 +51,14 @@ class ElementFiller {
     if (!element.offsetHeight && !element.offsetWidth) {
       return false;
     }
-    if (window.getComputedStyle(element).visibility === 'hidden') {
+    if (window.getComputedStyle(element).visibility === "hidden") {
       return false;
     }
     return true;
   }
 
   private shouldIgnoreElement(element: FillableElement): boolean {
-    if (['button', 'submit', 'reset', 'file', 'hidden', 'image'].indexOf(element.type) > -1) {
+    if (["button", "submit", "reset", "file", "hidden", "image"].indexOf(element.type) > -1) {
       return true;
     }
 
@@ -75,14 +75,14 @@ class ElementFiller {
 
     if (this.options.ignoreFieldsWithContent) {
       // A radio button list will be ignored if it has been selected previously.
-      if (element.type === 'radio') {
+      if (element.type === "radio") {
         if (document.querySelectorAll(`input[name="${element.name}"]:checked`).length > 0) {
           return true;
         }
       }
 
       // All elements excluding radio buttons and check boxes will be ignored if they have a value.
-      if (element.type !== 'checkbox' && element.type !== 'radio') {
+      if (element.type !== "checkbox" && element.type !== "radio") {
         const elementValue = element.value;
         if (elementValue && elementValue.trim().length > 0) {
           return true;
@@ -100,7 +100,7 @@ class ElementFiller {
     const elements = document.getElementsByName(name) as NodeListOf<HTMLInputElement>;
 
     for (; i < elements.length; i += 1) {
-      if (elements[i].type === 'radio') {
+      if (elements[i].type === "radio") {
         list.push(elements[i]);
       }
     }
@@ -113,7 +113,7 @@ class ElementFiller {
   private findCustomFieldFromList(
     fields: ICustomField[],
     elementName: string,
-    matchTypes: CustomFieldTypes[] = [],
+    matchTypes: CustomFieldTypes[] = []
   ): ICustomField | undefined {
     const doMatchType = matchTypes.length > 0;
 
@@ -139,7 +139,7 @@ class ElementFiller {
   }
 
   private getElementName(element: FillableElement): string {
-    let normalizedName = '';
+    let normalizedName = "";
 
     if (this.options.fieldMatchSettings.matchName) {
       normalizedName += ` ${SanitizeText(element.name)}`;
@@ -154,7 +154,7 @@ class ElementFiller {
     }
 
     if (this.options.fieldMatchSettings.matchPlaceholder) {
-      normalizedName += ` ${SanitizeText(element.getAttribute('placeholder') || '')}`;
+      normalizedName += ` ${SanitizeText(element.getAttribute("placeholder") || "")}`;
     }
 
     if (this.options.fieldMatchSettings.matchLabel) {
@@ -177,68 +177,68 @@ class ElementFiller {
 
   private generateDummyDataForCustomField(
     customField: ICustomField | undefined,
-    element: HTMLInputElement | HTMLTextAreaElement | undefined = undefined,
+    element: HTMLInputElement | HTMLTextAreaElement | undefined = undefined
   ): string {
     if (!customField) {
       return this.generator.phrase(this.getElementMaxLength(element));
     }
 
     switch (customField.type) {
-      case 'username':
+      case "username":
         this.previousUsername = this.generator.scrambledWord(5, 10).toLowerCase();
         this.generator.setPreviousUsername(this.previousUsername);
         return this.previousUsername;
 
-      case 'first-name':
+      case "first-name":
         this.previousFirstName = this.generator.firstName();
         this.generator.setPreviousFirstName(this.previousFirstName);
         return this.previousFirstName;
 
-      case 'last-name':
+      case "last-name":
         this.previousLastName = this.generator.lastName();
         this.generator.setPreviousLastName(this.previousLastName);
         return this.previousLastName;
 
-      case 'full-name':
+      case "full-name":
         this.previousFirstName = this.generator.firstName();
         this.previousLastName = this.generator.lastName();
         this.generator.setPreviousFirstName(this.previousFirstName);
         this.generator.setPreviousLastName(this.previousLastName);
         return `${this.previousFirstName} ${this.previousLastName}`;
 
-      case 'email':
+      case "email":
         return this.generator.email();
 
-      case 'organization':
+      case "organization":
         return this.generator.organizationName();
 
-      case 'telephone':
+      case "telephone":
         return this.generator.phoneNumber(customField.template);
 
-      case 'number': {
+      case "number": {
         const minValue = customField.min === 0 ? 0 : customField.min || 1;
         const maxValue = customField.max || 100;
         const decimalValue = customField.decimalPlaces || 0;
         return String(this.generator.randomNumber(minValue, maxValue, decimalValue));
       }
 
-      case 'date': {
+      case "date": {
         let minDate: Date | undefined;
         let maxDate: Date | undefined;
 
         if (customField.minDate) {
           minDate = moment(customField.minDate).toDate();
         } else if (!Number.isNaN(Number(customField.min))) {
-          minDate = moment(new Date()).add(customField.min, 'days').toDate();
+          minDate = moment(new Date()).add(customField.min, "days").toDate();
         }
 
         if (customField.maxDate) {
           maxDate = moment(customField.maxDate).toDate();
         } else if (!Number.isNaN(Number(customField.max))) {
-          maxDate = moment(new Date()).add(customField.max, 'days').toDate();
+          maxDate = moment(new Date()).add(customField.max, "days").toDate();
         }
 
-        if (element && element.type === 'date') {
+        if (element && element.type === "date") {
           const dateElement = element as HTMLInputElement;
 
           if (dateElement.min && moment(dateElement.min).isValid()) {
@@ -255,10 +255,10 @@ class ElementFiller {
         return moment(this.generator.date(minDate, maxDate)).format(customField.template);
       }
 
-      case 'url':
+      case "url":
         return this.generator.website();
 
-      case 'text': {
+      case "text": {
         const minWords = customField.min || 10;
         const maxWords = customField.max || 30;
         let maxLength = customField.maxLength || this.options.defaultMaxLength;
@@ -268,20 +268,20 @@ class ElementFiller {
         return this.generator.paragraph(minWords, maxWords, maxWords);
       }
 
-      case 'alphanumeric':
-        return this.generator.alphanumeric(customField.template || '');
+      case "alphanumeric":
+        return this.generator.alphanumeric(customField.template || "");
 
-      case 'regex': {
-        const regExGenerator = new RandExp(customField.template || '');
+      case "regex": {
+        const regExGenerator = new RandExp(customField.template || "");
         regExGenerator.defaultRange.add(0, 65535);
         return regExGenerator.gen();
       }
 
-      case 'randomized-list':
+      case "randomized-list":
         if (customField.list && customField.list.length > 0) {
           return customField.list[this.generator.randomNumber(0, customField.list.length - 1)];
         }
-        return '';
+        return "";
 
       default:
         return this.generator.phrase(this.getElementMaxLength(element));
@@ -294,10 +294,10 @@ class ElementFiller {
     }
 
     let fireEvent = true;
-    const elementType = element.type ? element.type.toLowerCase() : '';
+    const elementType = element.type ? element.type.toLowerCase() : "";
 
     switch (elementType) {
-      case 'checkbox':
+      case "checkbox":
         if (this.isAnyMatch(element.name.toLowerCase(), this.options.agreeTermsFields)) {
           element.checked = true;
         } else {
@@ -305,8 +305,8 @@ class ElementFiller {
         }
         break;
 
-      case 'date': {
-        const dateCustomField = this.findCustomField(this.getElementName(element), ['date']);
+      case "date": {
+        const dateCustomField = this.findCustomField(this.getElementName(element), ["date"]);
 
         if (dateCustomField) {
           element.value = this.generateDummyDataForCustomField(dateCustomField, element);
@@ -331,27 +331,27 @@ class ElementFiller {
         break;
       }
 
-      case 'datetime':
+      case "datetime":
         element.value = `${this.generator.date()}T${this.generator.time()}Z`;
         break;
 
-      case 'datetime-local':
+      case "datetime-local":
         element.value = `${this.generator.date()}T${this.generator.time()}`;
         break;
 
-      case 'time':
+      case "time":
         element.value = this.generator.time();
         break;
 
-      case 'month':
+      case "month":
         element.value = `${this.generator.year()}-${this.generator.month()}`;
         break;
 
-      case 'week':
+      case "week":
         element.value = `${this.generator.year()}-W${this.generator.weekNumber()}`;
         break;
 
-      case 'email':
+      case "email":
         if (this.isAnyMatch(element.name.toLowerCase(), this.options.confirmFields)) {
           element.value = this.previousValue;
         } else {
@@ -360,12 +360,12 @@ class ElementFiller {
         }
         break;
 
-      case 'number':
-      case 'range': {
+      case "number":
+      case "range": {
         let min = element.min ? parseInt(element.min, 10) : 1;
         let max = element.max ? parseInt(element.max, 10) : 100;
 
-        const numberCustomField = this.findCustomField(this.getElementName(element), ['number']);
+        const numberCustomField = this.findCustomField(this.getElementName(element), ["number"]);
 
         if (numberCustomField) {
           min = numberCustomField.min || min;
@@ -381,7 +381,7 @@ class ElementFiller {
         break;
       }
 
-      case 'password':
+      case "password":
         if (this.isAnyMatch(element.name.toLowerCase(), this.options.confirmFields)) {
           element.value = this.previousPassword;
         } else {
@@ -390,18 +390,18 @@ class ElementFiller {
         }
         break;
 
-      case 'radio':
+      case "radio":
         if (element.name) {
           this.selectRandomRadio(element.name);
         }
         fireEvent = false;
         break;
 
-      case 'tel': {
+      case "tel": {
         const telephoneCustomField = this.findCustomField(this.getElementName(element), [
-          'telephone',
-          'regex',
-          'randomized-list',
+          "telephone",
+          "regex",
+          "randomized-list",
         ]);
 
         if (telephoneCustomField) {
@@ -412,15 +412,15 @@ class ElementFiller {
         break;
       }
 
-      case 'url':
+      case "url":
         element.value = this.generator.website();
         break;
 
-      case 'color':
+      case "color":
         element.value = this.generator.color();
         break;
 
-      case 'search':
+      case "search":
         element.value = this.generator.words(1);
         break;
 
@@ -446,10 +446,10 @@ class ElementFiller {
     }
 
     const matchingCustomField = this.findCustomField(this.getElementName(element), [
-      'text',
-      'alphanumeric',
-      'regex',
-      'randomized-list',
+      "text",
+      "alphanumeric",
+      "regex",
+      "randomized-list",
     ]);
 
     element.value = this.generateDummyDataForCustomField(matchingCustomField, element);

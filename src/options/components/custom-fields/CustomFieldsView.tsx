@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
-import { GetMessage } from 'src/common/helpers';
-import { createCustomField, deleteCustomField, saveCustomField, saveSortedCustomFields } from 'src/options/actions';
-import CustomFieldModal from 'src/options/components/custom-fields/CustomFieldModal';
-import CustomFieldsList from 'src/options/components/custom-fields/CustomFieldsList';
-import { ICustomField, ICustomFieldForm } from 'src/types';
+import { GetMessage } from "src/common/helpers";
+import { createCustomField, deleteCustomField, saveCustomField, saveSortedCustomFields } from "src/options/actions";
+import CustomFieldModal from "src/options/components/custom-fields/CustomFieldModal";
+import CustomFieldsList from "src/options/components/custom-fields/CustomFieldsList";
+import { ICustomField, ICustomFieldForm } from "src/types";
 
 type Props = {
   customFields: ICustomField[];
@@ -17,7 +17,7 @@ export default function CustomFieldsView(props: Props): JSX.Element {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [customFieldIndex, setCustomFieldIndex] = useState(-1);
   const [customField, setCustomField] = useState<ICustomField | null>(null);
-  const [actionType, setActionType] = useState<'create' | 'edit' | undefined>();
+  const [actionType, setActionType] = useState<"create" | "edit" | undefined>();
 
   const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ export default function CustomFieldsView(props: Props): JSX.Element {
 
   function newCustomField(index: number): void {
     setCustomFieldIndex(index);
-    setActionType('create');
+    setActionType("create");
     setCustomField(null);
     setModalIsOpen(true);
   }
@@ -38,13 +38,13 @@ export default function CustomFieldsView(props: Props): JSX.Element {
   function handleEdit(currentCustomField: ICustomField, index: number): void {
     setCustomFieldIndex(index);
     setCustomField(currentCustomField);
-    setActionType('edit');
+    setActionType("edit");
     setModalIsOpen(true);
   }
 
   function handleDelete(index: number): void {
     // eslint-disable-next-line no-alert
-    if (window.confirm(GetMessage('customFields_delete_confirm_message'))) {
+    if (window.confirm(GetMessage("customFields_delete_confirm_message"))) {
       dispatch(deleteCustomField(index));
     }
   }
@@ -54,7 +54,7 @@ export default function CustomFieldsView(props: Props): JSX.Element {
   }
 
   function handleSave(formValues: ICustomFieldForm): void {
-    if (actionType === 'edit') {
+    if (actionType === "edit") {
       dispatch(saveCustomField(formValues, customFieldIndex));
     } else {
       dispatch(createCustomField(formValues, customFieldIndex));

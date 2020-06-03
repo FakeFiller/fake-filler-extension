@@ -1,5 +1,5 @@
-import { useField } from 'formik';
-import * as React from 'react';
+import { useField } from "formik";
+import * as React from "react";
 
 type Props = {
   name: string;
@@ -11,11 +11,11 @@ const SelectField = React.forwardRef((props: Props, ref: React.Ref<HTMLSelectEle
   const [field, meta] = useField(props);
   const { name, id, label, helpText, className, ...rest } = props;
 
-  let controlCssClass = 'custom-select';
+  let controlCssClass = "custom-select";
 
   if (meta.touched) {
     if (meta.error) {
-      controlCssClass += ' is-invalid';
+      controlCssClass += " is-invalid";
     }
   }
 

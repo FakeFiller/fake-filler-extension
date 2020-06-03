@@ -1,8 +1,8 @@
-import { ErrorMessage, Field, FieldProps, FormikProps } from 'formik';
-import * as React from 'react';
+import { ErrorMessage, Field, FieldProps, FormikProps } from "formik";
+import * as React from "react";
 
-import { GetMessage } from 'src/common/helpers';
-import { ICustomFieldForm, CustomFieldTypes } from 'src/types';
+import { GetMessage } from "src/common/helpers";
+import { ICustomFieldForm, CustomFieldTypes } from "src/types";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IOwnProps {}
@@ -25,48 +25,48 @@ class DataTypeSelectField extends React.PureComponent<IOwnProps> {
 
     const value = event.target.value as CustomFieldTypes;
 
-    if (value === 'telephone' && !this.form.values.telephoneTemplate) {
-      this.form.setFieldValue('telephoneTemplate', 'hi');
-    } else if (value === 'number' && !this.form.values.numberMin && !this.form.values.numberMax) {
-      this.form.setFieldValue('numberMin', 0);
-      this.form.setFieldValue('numberMax', 99999);
-      this.form.setFieldValue('numberPlaces', 0);
+    if (value === "telephone" && !this.form.values.telephoneTemplate) {
+      this.form.setFieldValue("telephoneTemplate", "hi");
+    } else if (value === "number" && !this.form.values.numberMin && !this.form.values.numberMax) {
+      this.form.setFieldValue("numberMin", 0);
+      this.form.setFieldValue("numberMax", 99999);
+      this.form.setFieldValue("numberPlaces", 0);
     }
 
     switch (value) {
-      case 'telephone':
+      case "telephone":
         if (!this.form.values.telephoneTemplate) {
-          this.form.setFieldValue('telephoneTemplate', '+1 (XxX) XxX-XxxX');
+          this.form.setFieldValue("telephoneTemplate", "+1 (XxX) XxX-XxxX");
         }
         break;
 
-      case 'number':
+      case "number":
         if (!this.form.values.numberMin && !this.form.values.numberMax) {
-          this.form.setFieldValue('numberMin', 0);
-          this.form.setFieldValue('numberMax', 99999);
-          this.form.setFieldValue('numberDecimalPlaces', 0);
+          this.form.setFieldValue("numberMin", 0);
+          this.form.setFieldValue("numberMax", 99999);
+          this.form.setFieldValue("numberDecimalPlaces", 0);
         }
         break;
 
-      case 'date':
+      case "date":
         if (!this.form.values.dateTemplate) {
-          this.form.setFieldValue('dateTemplate', 'DD-MMM-YYYY');
+          this.form.setFieldValue("dateTemplate", "DD-MMM-YYYY");
         }
         if (!this.form.values.dateMin && !this.form.values.dateMinDate) {
-          this.form.setFieldValue('dateMin', '');
-          this.form.setFieldValue('dateMinDate', '1970-01-01');
+          this.form.setFieldValue("dateMin", "");
+          this.form.setFieldValue("dateMinDate", "1970-01-01");
         }
         if (!this.form.values.dateMax && !this.form.values.dateMaxDate) {
-          this.form.setFieldValue('dateMax', 0);
-          this.form.setFieldValue('dateMaxDate', '');
+          this.form.setFieldValue("dateMax", 0);
+          this.form.setFieldValue("dateMaxDate", "");
         }
         break;
 
-      case 'text':
+      case "text":
         if (!this.form.values.textMin && !this.form.values.textMax) {
-          this.form.setFieldValue('textMin', 1);
-          this.form.setFieldValue('textMax', 20);
-          this.form.setFieldValue('textMaxLength', 50);
+          this.form.setFieldValue("textMin", 1);
+          this.form.setFieldValue("textMax", 20);
+          this.form.setFieldValue("textMaxLength", 50);
         }
         break;
 
@@ -79,48 +79,48 @@ class DataTypeSelectField extends React.PureComponent<IOwnProps> {
     return (
       <div className="form-group row">
         <label className="col-sm-3 col-form-label text-sm-right" htmlFor="type">
-          {GetMessage('customFields_label_dataType')}
+          {GetMessage("customFields_label_dataType")}
         </label>
         <div className="col-sm-9">
           <Field name="type">
             {(fieldProps: FieldProps) => {
               this.form = fieldProps.form;
 
-              let className = 'custom-select';
+              let className = "custom-select";
 
               if (fieldProps.meta.touched) {
                 if (fieldProps.meta.error) {
-                  className += ' is-invalid';
+                  className += " is-invalid";
                 }
               }
 
               return (
                 <select {...fieldProps.field} onChange={this.handleSelectChange} className={className}>
-                  <option value="">{GetMessage('customFields_dataType_select')}</option>
-                  <optgroup label={GetMessage('customFields_dataType_humanDataLabel')}>
-                    <option value="first-name">{GetMessage('customFields_dataType_firstName')}</option>
-                    <option value="last-name">{GetMessage('customFields_dataType_lastName')}</option>
-                    <option value="full-name">{GetMessage('customFields_dataType_fullName')}</option>
-                    <option value="username">{GetMessage('customFields_dataType_username')}</option>
-                    <option value="email">{GetMessage('customFields_dataType_emailAddress')}</option>
-                    <option value="organization">{GetMessage('customFields_dataType_companyName')}</option>
-                    <option value="telephone">{GetMessage('customFields_dataType_telephone')}</option>
-                    <option value="number">{GetMessage('customFields_dataType_number')}</option>
-                    <option value="date">{GetMessage('customFields_dataType_date')}</option>
-                    <option value="url">{GetMessage('customFields_dataType_url')}</option>
+                  <option value="">{GetMessage("customFields_dataType_select")}</option>
+                  <optgroup label={GetMessage("customFields_dataType_humanDataLabel")}>
+                    <option value="first-name">{GetMessage("customFields_dataType_firstName")}</option>
+                    <option value="last-name">{GetMessage("customFields_dataType_lastName")}</option>
+                    <option value="full-name">{GetMessage("customFields_dataType_fullName")}</option>
+                    <option value="username">{GetMessage("customFields_dataType_username")}</option>
+                    <option value="email">{GetMessage("customFields_dataType_emailAddress")}</option>
+                    <option value="organization">{GetMessage("customFields_dataType_companyName")}</option>
+                    <option value="telephone">{GetMessage("customFields_dataType_telephone")}</option>
+                    <option value="number">{GetMessage("customFields_dataType_number")}</option>
+                    <option value="date">{GetMessage("customFields_dataType_date")}</option>
+                    <option value="url">{GetMessage("customFields_dataType_url")}</option>
                   </optgroup>
-                  <optgroup label={GetMessage('customFields_dataType_otherLabel')}>
-                    <option value="text">{GetMessage('customFields_dataType_text')}</option>
-                    <option value="alphanumeric">{GetMessage('customFields_dataType_alphaNumeric')}</option>
-                    <option value="regex">{GetMessage('customFields_dataType_regEx')}</option>
-                    <option value="randomized-list">{GetMessage('customFields_dataType_randomizedList')}</option>
+                  <optgroup label={GetMessage("customFields_dataType_otherLabel")}>
+                    <option value="text">{GetMessage("customFields_dataType_text")}</option>
+                    <option value="alphanumeric">{GetMessage("customFields_dataType_alphaNumeric")}</option>
+                    <option value="regex">{GetMessage("customFields_dataType_regEx")}</option>
+                    <option value="randomized-list">{GetMessage("customFields_dataType_randomizedList")}</option>
                   </optgroup>
                 </select>
               );
             }}
           </Field>
           <ErrorMessage name="type">
-            {errorMessage => <div className="invalid-feedback">{errorMessage}</div>}
+            {(errorMessage) => <div className="invalid-feedback">{errorMessage}</div>}
           </ErrorMessage>
         </div>
       </div>

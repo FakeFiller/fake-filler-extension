@@ -1,22 +1,22 @@
-import { useField } from 'formik';
-import * as React from 'react';
+import { useField } from "formik";
+import * as React from "react";
 
 type Props = {
   label: string;
   name: string;
   title?: string;
   helpText?: string | React.ReactNode;
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>;
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">;
 
 const CheckboxField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputElement>) => {
-  const [field, meta] = useField({ ...props, type: 'checkbox' });
+  const [field, meta] = useField({ ...props, type: "checkbox" });
   const { name, id, label, helpText, className, title, ...rest } = props;
 
-  let validationCssClass = '';
+  let validationCssClass = "";
 
   if (meta.touched) {
     if (meta.error) {
-      validationCssClass = 'is-invalid';
+      validationCssClass = "is-invalid";
     }
   }
 

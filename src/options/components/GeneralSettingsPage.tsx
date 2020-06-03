@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
+import * as React from "react";
+import { connect } from "react-redux";
 
-import { GetMessage } from 'src/common/helpers';
-import { DispatchProps, getOptions, saveOptions } from 'src/options/actions';
-import GeneralSettingsForm from 'src/options/components/general-settings/GeneralSettingsForm';
-import { IFormFillerOptions, IFormFillerOptionsForm, IAppState } from 'src/types';
+import { GetMessage } from "src/common/helpers";
+import { DispatchProps, getOptions, saveOptions } from "src/options/actions";
+import GeneralSettingsForm from "src/options/components/general-settings/GeneralSettingsForm";
+import { IFormFillerOptions, IFormFillerOptionsForm, IAppState } from "src/types";
 
 interface IState {
   showSavedMessage: boolean;
@@ -47,7 +47,7 @@ class GeneralSettingsPage extends React.PureComponent<IProps, IState> {
 
   public render(): JSX.Element {
     if (this.props.isFetching || this.props.options === null) {
-      return <div>{GetMessage('loading')}</div>;
+      return <div>{GetMessage("loading")}</div>;
     }
 
     return (

@@ -1,10 +1,10 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { HashRouter, Route } from 'react-router-dom';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { HashRouter, Route } from "react-router-dom";
 
-import App from 'src/options/components/App';
-import Store from 'src/options/store';
+import App from "src/options/components/App";
+import Store from "src/options/store";
 
 const optionsApp = (
   <Provider store={Store}>
@@ -14,4 +14,4 @@ const optionsApp = (
   </Provider>
 );
 
-ReactDOM.render(optionsApp, document.getElementById('root'));
+ReactDOM.render(optionsApp, document.getElementById("root"));

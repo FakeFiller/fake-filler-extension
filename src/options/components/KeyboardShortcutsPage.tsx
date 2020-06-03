@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
+import * as React from "react";
+import { connect } from "react-redux";
 
-import { GetMessage } from 'src/common/helpers';
-import { DispatchProps, getKeyboardShortcuts } from 'src/options/actions';
-import HtmlPhrase from 'src/options/components/common/HtmlPhrase';
-import { IAppState } from 'src/types';
+import { GetMessage } from "src/common/helpers";
+import { DispatchProps, getKeyboardShortcuts } from "src/options/actions";
+import HtmlPhrase from "src/options/components/common/HtmlPhrase";
+import { IAppState } from "src/types";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface IOwnProps {}
@@ -28,25 +28,25 @@ class KeyboardShortcutsPage extends React.PureComponent<IProps> {
   }
 
   private getTranslatedDescription(key: string): string {
-    if (key.startsWith('__MSG_')) {
-      return GetMessage(key.replace('__MSG_', '').replace('__', ''));
+    if (key.startsWith("__MSG_")) {
+      return GetMessage(key.replace("__MSG_", "").replace("__", ""));
     }
     return key;
   }
 
   public render(): JSX.Element {
     if (this.props.isFetching) {
-      return <div>{GetMessage('loading')}</div>;
+      return <div>{GetMessage("loading")}</div>;
     }
 
-    const notSetText = <small>{GetMessage('kbdShortcuts_notSet')}</small>;
+    const notSetText = <small>{GetMessage("kbdShortcuts_notSet")}</small>;
 
     return (
       <>
-        <h2>{GetMessage('kbdShortcuts_title')}</h2>
+        <h2>{GetMessage("kbdShortcuts_title")}</h2>
         <table className="table table-bordered table-sm">
           <tbody>
-            {this.props.keyboardShortcuts.map(item => {
+            {this.props.keyboardShortcuts.map((item) => {
               if (item.description) {
                 return (
                   <tr key={item.name}>
@@ -60,7 +60,7 @@ class KeyboardShortcutsPage extends React.PureComponent<IProps> {
             })}
           </tbody>
         </table>
-        <HtmlPhrase phrase={GetMessage('kbdShortcuts_changeInstructions')} as="p" />
+        <HtmlPhrase phrase={GetMessage("kbdShortcuts_changeInstructions")} as="p" />
       </>
     );
   }

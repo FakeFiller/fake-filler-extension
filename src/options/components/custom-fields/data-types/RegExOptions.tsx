@@ -1,9 +1,9 @@
-import RandExp from 'randexp';
-import * as React from 'react';
+import RandExp from "randexp";
+import * as React from "react";
 
-import { GetMessage } from 'src/common/helpers';
-import HtmlPhrase from 'src/options/components/common/HtmlPhrase';
-import TextField from 'src/options/components/common/TextField';
+import { GetMessage } from "src/common/helpers";
+import HtmlPhrase from "src/options/components/common/HtmlPhrase";
+import TextField from "src/options/components/common/TextField";
 
 interface IOwnProps {
   regexTemplate?: string;
@@ -45,16 +45,16 @@ class RegExOptions extends React.PureComponent<IOwnProps, IOwnState> {
   public render(): JSX.Element {
     const regexTypeHelpText = (
       <div>
-        <HtmlPhrase phrase={GetMessage('customFields_regExHelp')} as="p" />
+        <HtmlPhrase phrase={GetMessage("customFields_regExHelp")} as="p" />
         <button type="button" className="btn btn-sm btn-outline-primary" onClick={this.generateRandomRegExString}>
-          {GetMessage('testMe')}
+          {GetMessage("testMe")}
         </button>
       </div>
     );
 
     return (
       <>
-        <TextField name="regexTemplate" label={GetMessage('customFields_label_pattern')} helpText={regexTypeHelpText} />
+        <TextField name="regexTemplate" label={GetMessage("customFields_label_pattern")} helpText={regexTypeHelpText} />
         {this.state.regexSample && (
           <div className="row">
             <div className="col-sm-3">&nbsp;</div>

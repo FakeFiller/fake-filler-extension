@@ -1,7 +1,7 @@
-import { useField } from 'formik';
-import * as React from 'react';
+import { useField } from "formik";
+import * as React from "react";
 
-import { SanitizeText } from 'src/common/helpers';
+import { SanitizeText } from "src/common/helpers";
 
 type Props = {
   label: string;
@@ -9,17 +9,17 @@ type Props = {
   value: string;
   title?: string;
   helpText?: string | React.ReactNode;
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>;
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">;
 
 const RadioButtonField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputElement>) => {
-  const [field, meta] = useField({ ...props, type: 'radio' });
+  const [field, meta] = useField({ ...props, type: "radio" });
   const { name, id, label, helpText, className, value, title, ...rest } = props;
 
-  let validationCssClass = '';
+  let validationCssClass = "";
 
   if (meta.touched) {
     if (meta.error) {
-      validationCssClass = 'is-invalid';
+      validationCssClass = "is-invalid";
     }
   }
 

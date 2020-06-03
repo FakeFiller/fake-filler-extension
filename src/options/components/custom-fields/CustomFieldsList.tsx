@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import * as React from "react";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 
-import AddFieldButton from 'src/options/components/custom-fields/AddFieldButton';
-import CustomFieldsListItem from 'src/options/components/custom-fields/CustomFieldsListItem';
+import AddFieldButton from "src/options/components/custom-fields/AddFieldButton";
+import CustomFieldsListItem from "src/options/components/custom-fields/CustomFieldsListItem";
 
 import {
   ICustomField,
@@ -10,7 +10,7 @@ import {
   CustomFieldDeleteFunction,
   CustomFieldEditFunction,
   CustomFieldSortFunction,
-} from 'src/types';
+} from "src/types";
 
 function reorder(list: ICustomField[], startIndex: number, endIndex: number): ICustomField[] {
   const result = Array.from(list);
@@ -49,7 +49,7 @@ class CustomFieldsList extends React.PureComponent<IOwnProps> {
         <AddFieldButton index={0} onClick={this.props.onAdd} />
         <DragDropContext onDragEnd={this.onSortEnd}>
           <Droppable droppableId="droppable">
-            {provided => (
+            {(provided) => (
               <div className="custom-fields-list" ref={provided.innerRef} {...provided.droppableProps}>
                 {this.props.customFields.map((item, index) => (
                   <CustomFieldsListItem
