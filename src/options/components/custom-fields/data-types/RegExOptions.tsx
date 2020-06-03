@@ -29,7 +29,9 @@ class RegExOptions extends React.PureComponent<IOwnProps, IOwnState> {
 
     if (this.props.regexTemplate) {
       try {
-        randomValue = new RandExp(this.props.regexTemplate).gen();
+        const regExGenerator = new RandExp(this.props.regexTemplate);
+        regExGenerator.defaultRange.add(0, 65535);
+        randomValue = regExGenerator.gen();
       } catch (e) {
         randomValue = e.toString();
       }

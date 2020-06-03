@@ -271,8 +271,11 @@ class ElementFiller {
       case 'alphanumeric':
         return this.generator.alphanumeric(customField.template || '');
 
-      case 'regex':
-        return new RandExp(customField.template || '').gen();
+      case 'regex': {
+        const regExGenerator = new RandExp(customField.template || '');
+        regExGenerator.defaultRange.add(0, 65535);
+        return regExGenerator.gen();
+      }
 
       case 'randomized-list':
         if (customField.list && customField.list.length > 0) {

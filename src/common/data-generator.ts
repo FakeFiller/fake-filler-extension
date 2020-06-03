@@ -234,7 +234,9 @@ class DataGenerator {
 
       case 'regex':
         try {
-          username = new RandExp(emailSettings.usernameRegEx).gen();
+          const regExGenerator = new RandExp(emailSettings.usernameRegEx);
+          regExGenerator.defaultRange.add(0, 65535);
+          username = regExGenerator.gen();
         } catch (ex) {
           // Do nothing.
         }
