@@ -13,7 +13,7 @@
     "96": "images/icon-96.png",
     "128": "images/icon-128.png"
   },
-  "permissions": ["contextMenus", "activeTab", "storage"],
+  "permissions": ["contextMenus", "activeTab", "<all_urls>", "storage"],
   "browser_action": {
     "default_icon": {
       "16": "images/icon-16.png",
