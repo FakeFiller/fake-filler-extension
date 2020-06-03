@@ -511,7 +511,11 @@ class ElementFiller {
         let iterations = 0;
 
         while (iterations < optionsCount) {
-          const randomOptionIndex = Math.floor(Math.random() * (optionsCount - 1)) + 1;
+          let randomOptionIndex = Math.floor(Math.random() * (optionsCount - 1));
+
+          if (optionsCount > 1) {
+            randomOptionIndex += 1;
+          }
 
           if (!element.options[randomOptionIndex].disabled) {
             element.options[randomOptionIndex].selected = true;
