@@ -8,6 +8,7 @@
     "datetime",
     "devtool",
     "formik",
+    "iframes",
     "immer",
     "randexp",
     "webextensions"

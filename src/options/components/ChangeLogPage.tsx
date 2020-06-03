@@ -8,6 +8,16 @@ class ChangeLogPage extends React.PureComponent {
       <div>
         <h2>Form Filler Changelog</h2>
         <p>
+          <strong>Version 2.12.0</strong>
+        </p>
+        <ul>
+          <li>Added support for expanded character set for regular expression.</li>
+          <li>Fixed issue with finding elements using their placeholder value.</li>
+          <li>Fixed error when only one dropdown option is present.</li>
+          <li>Fixed issues with filling forms in iframes.</li>
+        </ul>
+        <hr />
+        <p>
           <strong>Version 2.11.0</strong>
         </p>
         <ul>
