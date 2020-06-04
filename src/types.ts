@@ -87,9 +87,9 @@ export interface IFormFillerOptions {
   enableContextMenu: boolean;
   fieldMatchSettings: IFieldMatchSettings;
   fields: ICustomField[];
+  ignoredFields: string[];
   ignoreFieldsWithContent: boolean;
   ignoreHiddenFields: boolean;
-  ignoredFields: string[];
   passwordSettings: IPasswordSettings;
   triggerClickEvents: boolean;
 }

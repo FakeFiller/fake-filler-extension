@@ -1,9 +1,9 @@
 import * as fileSaver from "file-saver";
-import * as React from "react";
-import { connect } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { GetMessage } from "src/common/helpers";
-import { DispatchProps, getOptions, saveOptions } from "src/options/actions";
+import { getOptions, saveOptions, MyThunkDispatch } from "src/options/actions";
 import { IFormFillerOptions, IAppState } from "src/types";
 
 function utf8ToBase64(str: string): string {
@@ -14,77 +14,39 @@ function base64ToUtf8(str: string): string {
   return decodeURIComponent(escape(window.atob(str)));
 }
 
-interface IState {
-  backupData: string;
-  errorMessage: string;
-  hasError: boolean;
-  showSuccess: boolean;
-}
+const BackupAndRestorePage = () => {
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [backupData, setBackupData] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const isFetching = useSelector<IAppState, boolean>((state) => state.optionsData.isFetching);
+  const options = useSelector<IAppState, IFormFillerOptions | null>((state) => state.optionsData.options);
+  const dispatch = useDispatch<MyThunkDispatch>();
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IOwnProps {}
+  useEffect(() => {
+    dispatch(getOptions());
+  }, [dispatch]);
 
-interface IStateProps {
-  options?: IFormFillerOptions;
-  isFetching: boolean;
-}
-
-interface IProps extends DispatchProps, IOwnProps, IStateProps {}
-
-class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-
-    this.state = {
-      showSuccess: false,
-      hasError: false,
-      errorMessage: "",
-      backupData: "",
-    };
-
-    this.exportSettings = this.exportSettings.bind(this);
-    this.importSettings = this.importSettings.bind(this);
-    this.triggerImportSettings = this.triggerImportSettings.bind(this);
-    this.setErrorMessage = this.setErrorMessage.bind(this);
-    this.selectTextAreaText = this.selectTextAreaText.bind(this);
-    this.getDateString = this.getDateString.bind(this);
-  }
-
-  public componentDidMount(): void {
-    this.props.dispatch(getOptions());
-  }
-
-  private setErrorMessage(message: string): void {
-    this.setState({
-      showSuccess: false,
-      hasError: true,
-      errorMessage: message,
-    });
-  }
-
-  private getDateString(date: Date): string {
+  function getDateString(date: Date) {
     const year = date.getFullYear();
     const month = `0${date.getMonth() + 1}`.slice(-2);
     const day = `0${date.getDate()}`.slice(-2);
     return `${year}-${month}-${day}`;
   }
 
-  private exportSettings(): void {
-    const encodedData = utf8ToBase64(JSON.stringify(this.props.options));
-    const dateStamp = this.getDateString(new Date());
+  function exportSettings() {
+    const encodedData = utf8ToBase64(JSON.stringify(options));
+    const dateStamp = getDateString(new Date());
 
     try {
       const blob = new Blob([encodedData], { type: "text/plain;charset=utf-8" });
       fileSaver.saveAs(blob, `form-filler-${dateStamp}.txt`);
     } catch (e) {
-      this.setErrorMessage(GetMessage("backupRestore_errorCreatingBackupFile", e.toString()));
-      this.setState({
-        backupData: encodedData,
-      });
+      setErrorMessage(GetMessage("backupRestore_errorCreatingBackupFile", e.toString()));
+      setBackupData(encodedData);
     }
   }
 
-  private importSettings(): void {
+  function importSettings() {
     const fileElement = document.getElementById("file") as HTMLInputElement;
 
     if (fileElement.files && fileElement.files.length === 1 && fileElement.files[0].name.length > 0) {
@@ -96,22 +58,21 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
           try {
             const reader = e.target as FileReader;
             const decodedData = base64ToUtf8(reader.result as string);
-            const options = JSON.parse(decodedData);
+            const importedOptions = JSON.parse(decodedData);
 
-            this.props.dispatch(saveOptions(options));
-
-            this.setState({
-              showSuccess: true,
-              hasError: false,
-              errorMessage: "",
+            dispatch(saveOptions(importedOptions)).then(() => {
+              setShowSuccess(true);
+              setErrorMessage("");
             });
           } catch (ex) {
-            this.setErrorMessage(GetMessage("backupRestore_errorImporting", ex.toString()));
+            setShowSuccess(false);
+            setErrorMessage(GetMessage("backupRestore_errorImporting", ex.toString()));
           }
         };
 
         fileReader.onerror = () => {
-          this.setErrorMessage(GetMessage("backupRestore_errorReadingFile"));
+          setShowSuccess(false);
+          setErrorMessage(GetMessage("backupRestore_errorReadingFile"));
         };
 
         fileReader.readAsText(fileElement.files[0]);
@@ -119,71 +80,52 @@ class BackupAndRestorePage extends React.PureComponent<IProps, IState> {
     }
   }
 
-  private triggerImportSettings(): void {
+  function triggerImportSettings() {
     const fileElement = document.getElementById("file") as HTMLInputElement;
     fileElement.click();
   }
 
-  private selectTextAreaText(): void {
+  function selectTextAreaText() {
     const textAreaElement = document.getElementById("backupTextArea") as HTMLTextAreaElement;
     textAreaElement.select();
   }
 
-  public render(): JSX.Element {
-    if (this.props.isFetching) {
-      return <div>{GetMessage("loading")}</div>;
-    }
+  let backupDataElements = null;
 
-    let backupDataElements = null;
-
-    if (this.state.backupData) {
-      backupDataElements = (
-        <div className="form-group">
-          <textarea id="backupTextArea" className="form-control" rows={10} onClick={this.selectTextAreaText} readOnly>
-            {this.state.backupData}
-          </textarea>
-          <div className="help-text">{GetMessage("backupRestore_copyAndSaveToFile")}</div>
-        </div>
-      );
-    }
-
-    return (
-      <div>
-        <h2>{GetMessage("backupRestore_title")}</h2>
-        <p>
-          <button type="button" className="btn btn-link" onClick={this.exportSettings}>
-            {GetMessage("backupRestore_exportSettings")}
-          </button>
-        </p>
-        <p>
-          <button type="button" className="btn btn-link" onClick={this.triggerImportSettings}>
-            {GetMessage("backupRestore_importSettings")}
-          </button>
-        </p>
-        {backupDataElements}
-        <input type="file" className="invisible" id="file" onChange={this.importSettings} />
-        {this.state.hasError && <p className="alert alert-danger">{this.state.errorMessage}</p>}
-        {this.state.showSuccess && (
-          <p className="alert alert-success">{GetMessage("backupRestore_settingImportSuccessMessage")}</p>
-        )}
+  if (backupData) {
+    backupDataElements = (
+      <div className="form-group">
+        <textarea id="backupTextArea" className="form-control" rows={10} onClick={selectTextAreaText} readOnly>
+          {backupData}
+        </textarea>
+        <div className="help-text">{GetMessage("backupRestore_copyAndSaveToFile")}</div>
       </div>
     );
   }
-}
 
-function mapStateToProps(state: IAppState): IStateProps {
-  const { options } = state.optionsData;
-
-  if (options) {
-    return {
-      isFetching: state.optionsData.isFetching,
-      options,
-    };
+  if (isFetching) {
+    return <div>{GetMessage("loading")}</div>;
   }
 
-  return {
-    isFetching: true,
-  };
-}
+  return (
+    <>
+      <h2>{GetMessage("backupRestore_title")}</h2>
+      <p>
+        <button type="button" className="btn btn-link" onClick={exportSettings}>
+          {GetMessage("backupRestore_exportSettings")}
+        </button>
+      </p>
+      <p>
+        <button type="button" className="btn btn-link" onClick={triggerImportSettings}>
+          {GetMessage("backupRestore_importSettings")}
+        </button>
+      </p>
+      {backupDataElements}
+      <input type="file" className="invisible" id="file" onChange={importSettings} />
+      {errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
+      {showSuccess && <p className="alert alert-success">{GetMessage("backupRestore_settingImportSuccessMessage")}</p>}
+    </>
+  );
+};
 
-export default connect(mapStateToProps)(BackupAndRestorePage);
+export default BackupAndRestorePage;

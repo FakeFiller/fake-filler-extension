@@ -25,9 +25,9 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
       matchPlaceholder: false,
     },
     fields: [],
+    ignoredFields: ["captcha", "hipinputtext"],
     ignoreFieldsWithContent: false,
     ignoreHiddenFields: true,
-    ignoredFields: ["captcha", "hipinputtext"],
     passwordSettings: {
       mode: "defined",
       password: "Pa$$w0rd!",

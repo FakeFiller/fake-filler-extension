@@ -37,20 +37,17 @@ export type MyActions =
   | IFetchingKeyboardShortcutsAction
   | IReceivedKeyboardShortcutsAction;
 
-type MyThunkResult<R> = ThunkAction<R, IAppState, unknown, MyActions>;
+type MyThunkResult<R> = ThunkAction<Promise<R>, IAppState, unknown, MyActions>;
 type MyDefaultThunkResult = MyThunkResult<void>;
-type MyThunkDispatch = ThunkDispatch<IAppState, unknown, MyActions>;
-
-export type DispatchProps = {
-  dispatch: MyThunkDispatch;
-};
+export type MyThunkDispatch = ThunkDispatch<IAppState, unknown, MyActions>;
 
 export function getOptions(): MyDefaultThunkResult {
   return (dispatch) => {
     dispatch({ type: "FETCHING_OPTIONS" });
 
-    GetFormFillerOptions().then((options) => {
+    return GetFormFillerOptions().then((options) => {
       dispatch({ type: "RECEIVED_OPTIONS", options });
+      return Promise.resolve();
     });
   };
 }
@@ -60,6 +57,7 @@ export function resetOptions(): MyDefaultThunkResult {
     const options = FormFillerDefaultOptions();
     SaveFormFillerOptions(options);
     dispatch({ type: "RECEIVED_OPTIONS", options });
+    return Promise.resolve();
   };
 }
 
@@ -103,6 +101,7 @@ export function saveOptions(options: IFormFillerOptions, formValues?: IFormFille
 
     SaveFormFillerOptions(updatedOptions);
     dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
+    return Promise.resolve();
   };
 }
 
@@ -118,6 +117,7 @@ export function deleteCustomField(index: number): MyDefaultThunkResult {
 
     SaveFormFillerOptions(updatedOptions);
     dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
+    return Promise.resolve();
   };
 }
 
@@ -130,8 +130,10 @@ export function saveSortedCustomFields(customFields: ICustomField[]): MyDefaultT
       draft.fields = customFields;
       return draft;
     });
+
     SaveFormFillerOptions(updatedOptions);
     dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
+    return Promise.resolve();
   };
 }
 
@@ -206,8 +208,10 @@ export function createCustomField(customField: ICustomFieldForm, customFieldInde
       draft.fields.splice(customFieldIndex, 0, newCustomField);
       return draft;
     });
+
     SaveFormFillerOptions(updatedOptions);
     dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
+    return Promise.resolve();
   };
 }
 
@@ -221,8 +225,10 @@ export function saveCustomField(customField: ICustomFieldForm, customFieldIndex:
       draft.fields[customFieldIndex] = newCustomField;
       return draft;
     });
+
     SaveFormFillerOptions(updatedOptions);
     dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
+    return Promise.resolve();
   };
 }
 
@@ -230,8 +236,9 @@ export function getKeyboardShortcuts(): MyDefaultThunkResult {
   return (dispatch) => {
     dispatch({ type: "FETCHING_KEYBOARD_SHORTCUTS" });
 
-    GetKeyboardShortcuts().then((shortcuts) => {
+    return GetKeyboardShortcuts().then((shortcuts) => {
       dispatch({ type: "RECEIVED_KEYBOARD_SHORTCUTS", shortcuts });
+      return Promise.resolve();
     });
   };
 }

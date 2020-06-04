@@ -1,5 +1,5 @@
 import { useField } from "formik";
-import * as React from "react";
+import React from "react";
 
 import { SanitizeText } from "src/common/helpers";
 

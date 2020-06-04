@@ -1,85 +1,57 @@
-import * as React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { GetMessage } from "src/common/helpers";
-import { DispatchProps, getKeyboardShortcuts } from "src/options/actions";
+import { getKeyboardShortcuts, MyThunkDispatch } from "src/options/actions";
 import HtmlPhrase from "src/options/components/common/HtmlPhrase";
 import { IAppState } from "src/types";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IOwnProps {}
+const KeyboardShortcutsPage = () => {
+  const isFetching = useSelector<IAppState, boolean>((state) => state.keyboardShortcutsData.isFetching);
+  const keyboardShortcuts = useSelector<IAppState, chrome.commands.Command[]>(
+    (state) => state.keyboardShortcutsData.shortcuts
+  );
+  const dispatch = useDispatch<MyThunkDispatch>();
 
-interface IStateProps {
-  isFetching: boolean;
-  keyboardShortcuts: chrome.commands.Command[];
-}
+  useEffect(() => {
+    dispatch(getKeyboardShortcuts());
+  }, [dispatch]);
 
-interface IProps extends DispatchProps, IOwnProps, IStateProps {}
-
-class KeyboardShortcutsPage extends React.PureComponent<IProps> {
-  constructor(props: IProps) {
-    super(props);
-
-    this.getTranslatedDescription = this.getTranslatedDescription.bind(this);
-  }
-
-  public componentDidMount(): void {
-    this.props.dispatch(getKeyboardShortcuts());
-  }
-
-  private getTranslatedDescription(key: string): string {
+  function getTranslatedDescription(key: string) {
     if (key.startsWith("__MSG_")) {
       return GetMessage(key.replace("__MSG_", "").replace("__", ""));
     }
     return key;
   }
 
-  public render(): JSX.Element {
-    if (this.props.isFetching) {
-      return <div>{GetMessage("loading")}</div>;
-    }
+  const notSetText = <small>{GetMessage("kbdShortcuts_notSet")}</small>;
 
-    const notSetText = <small>{GetMessage("kbdShortcuts_notSet")}</small>;
-
-    return (
-      <>
-        <h2>{GetMessage("kbdShortcuts_title")}</h2>
-        <table className="table table-bordered table-sm">
-          <tbody>
-            {this.props.keyboardShortcuts.map((item) => {
-              if (item.description) {
-                return (
-                  <tr key={item.name}>
-                    <td className="narrow text-center">{item.shortcut ? <kbd>{item.shortcut}</kbd> : notSetText}</td>
-                    <td>{this.getTranslatedDescription(item.description)}</td>
-                  </tr>
-                );
-              }
-
-              return null;
-            })}
-          </tbody>
-        </table>
-        <HtmlPhrase phrase={GetMessage("kbdShortcuts_changeInstructions")} as="p" />
-      </>
-    );
-  }
-}
-
-function mapStateToProps(state: IAppState): IStateProps {
-  const keyboardShortcuts = state.keyboardShortcutsData.shortcuts;
-
-  if (keyboardShortcuts) {
-    return {
-      isFetching: state.keyboardShortcutsData.isFetching,
-      keyboardShortcuts,
-    };
+  if (isFetching) {
+    return <div>{GetMessage("loading")}</div>;
   }
 
-  return {
-    isFetching: true,
-    keyboardShortcuts: [],
-  };
-}
+  return (
+    <>
+      <h2>{GetMessage("kbdShortcuts_title")}</h2>
+      <table className="table table-bordered table-sm">
+        <tbody>
+          {keyboardShortcuts.map((item) => {
+            if (item.description) {
+              return (
+                <tr key={item.name}>
+                  <td className="narrow text-center">{item.shortcut ? <kbd>{item.shortcut}</kbd> : notSetText}</td>
+                  <td>{getTranslatedDescription(item.description)}</td>
+                </tr>
+              );
+            }
 
-export default connect(mapStateToProps)(KeyboardShortcutsPage);
+            return null;
+          })}
+        </tbody>
+      </table>
+      <HtmlPhrase phrase={GetMessage("kbdShortcuts_changeInstructions")} as="p" />
+    </>
+  );
+};
+
+export default KeyboardShortcutsPage;

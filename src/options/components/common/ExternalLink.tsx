@@ -1,17 +1,15 @@
-import * as React from "react";
+import React from "react";
 
-interface IOwnProps {
+type Props = {
   url: string;
-}
+};
 
-class ExternalLink extends React.PureComponent<IOwnProps> {
-  public render(): JSX.Element {
-    return (
-      <a href={this.props.url} target="_blank" rel="noopener noreferrer">
-        {this.props.children}
-      </a>
-    );
-  }
-}
+const ExternalLink: React.FC<Props> = (props) => {
+  return (
+    <a href={props.url} target="_blank" rel="noopener noreferrer">
+      {props.children}
+    </a>
+  );
+};
 
 export default ExternalLink;

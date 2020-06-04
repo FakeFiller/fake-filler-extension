@@ -5,7 +5,6 @@ import { Modal } from "react-bootstrap";
 import { GetMessage } from "src/common/helpers";
 import TextField from "src/options/components/common/TextField";
 import DataTypeSelectField from "src/options/components/custom-fields/DataTypeSelectField";
-
 import AlphanumericOptions from "src/options/components/custom-fields/data-types/AlphanumericOptions";
 import DateOptions from "src/options/components/custom-fields/data-types/DateOptions";
 import NumberOptions from "src/options/components/custom-fields/data-types/NumberOptions";
@@ -127,126 +126,131 @@ const validate = (values: ICustomFieldForm): FormikErrors<ICustomFieldForm> => {
   return errors;
 };
 
-interface IOwnProps {
+type Props = {
   customField: ICustomField | null;
   isOpen: boolean;
   onClose: () => void;
   onSave: (formValues: ICustomFieldForm) => void;
-}
+};
 
-class CustomFieldModal extends React.PureComponent<IOwnProps> {
-  public render(): JSX.Element {
-    const initialValues: Partial<ICustomFieldForm> = {};
+const CustomFieldModal = (props: Props) => {
+  const initialValues: Partial<ICustomFieldForm> = {
+    match: "",
+    name: "",
+    numberMin: "",
+    numberMax: "",
+    numberDecimalPlaces: "",
+    textMin: "",
+    textMax: "",
+    textMaxLength: "",
+    telephoneTemplate: "",
+    dateTemplate: "",
+    dateMin: "",
+    dateMax: "",
+    dateMinDate: "",
+    dateMaxDate: "",
+    alphanumericTemplate: "",
+    regexTemplate: "",
+    list: "",
+  };
 
-    if (this.props.customField) {
-      initialValues.name = this.props.customField.name;
-      initialValues.type = this.props.customField.type;
-      initialValues.match = this.props.customField.match.join(", ");
+  if (props.customField) {
+    initialValues.name = props.customField.name;
+    initialValues.type = props.customField.type;
+    initialValues.match = props.customField.match.join(", ");
 
-      switch (initialValues.type) {
-        case "alphanumeric":
-          initialValues.alphanumericTemplate = this.props.customField.template;
-          break;
+    switch (initialValues.type) {
+      case "alphanumeric":
+        initialValues.alphanumericTemplate = props.customField.template || "";
+        break;
 
-        case "date":
-          initialValues.dateTemplate = this.props.customField.template;
+      case "date":
+        initialValues.dateTemplate = props.customField.template || "";
 
-          if (!Number.isNaN(Number(this.props.customField.min))) {
-            initialValues.dateMin = String(this.props.customField.min);
-          } else {
-            initialValues.dateMin = "";
-          }
+        if (!Number.isNaN(Number(props.customField.min))) {
+          initialValues.dateMin = String(props.customField.min);
+        }
 
-          if (!Number.isNaN(Number(this.props.customField.max))) {
-            initialValues.dateMax = String(this.props.customField.max);
-          } else {
-            initialValues.dateMax = "";
-          }
+        if (!Number.isNaN(Number(props.customField.max))) {
+          initialValues.dateMax = String(props.customField.max);
+        }
 
-          if (this.props.customField.minDate) {
-            initialValues.dateMinDate = this.props.customField.minDate;
-          } else {
-            initialValues.dateMinDate = "";
-          }
+        if (props.customField.minDate) {
+          initialValues.dateMinDate = props.customField.minDate;
+        }
 
-          if (this.props.customField.maxDate) {
-            initialValues.dateMaxDate = this.props.customField.maxDate;
-          } else {
-            initialValues.dateMaxDate = "";
-          }
-          break;
+        if (props.customField.maxDate) {
+          initialValues.dateMaxDate = props.customField.maxDate;
+        }
+        break;
 
-        case "number":
-          initialValues.numberMax = String(this.props.customField.max);
-          initialValues.numberMin = String(this.props.customField.min);
-          initialValues.numberDecimalPlaces = String(this.props.customField.decimalPlaces);
-          break;
+      case "number":
+        initialValues.numberMax = String(props.customField.max);
+        initialValues.numberMin = String(props.customField.min);
+        initialValues.numberDecimalPlaces = String(props.customField.decimalPlaces);
+        break;
 
-        case "randomized-list":
-          initialValues.list = this.props.customField.list ? this.props.customField.list.join("\n") : "";
-          break;
+      case "randomized-list":
+        initialValues.list = props.customField.list ? props.customField.list.join("\n") : "";
+        break;
 
-        case "regex":
-          initialValues.regexTemplate = this.props.customField.template;
-          break;
+      case "regex":
+        initialValues.regexTemplate = props.customField.template || "";
+        break;
 
-        case "telephone":
-          initialValues.telephoneTemplate = this.props.customField.template;
-          break;
+      case "telephone":
+        initialValues.telephoneTemplate = props.customField.template || "";
+        break;
 
-        case "text":
-          initialValues.textMax = String(this.props.customField.max);
-          initialValues.textMin = String(this.props.customField.min);
-          initialValues.textMaxLength = String(this.props.customField.maxLength);
-          break;
+      case "text":
+        initialValues.textMax = String(props.customField.max);
+        initialValues.textMin = String(props.customField.min);
+        initialValues.textMaxLength = String(props.customField.maxLength);
+        break;
 
-        default:
-          break;
-      }
-    } else {
-      initialValues.name = "";
-      initialValues.match = "";
+      default:
+        break;
     }
-
-    return (
-      <Modal size="lg" show={this.props.isOpen} onHide={this.props.onClose}>
-        <Formik initialValues={initialValues as ICustomFieldForm} validate={validate} onSubmit={this.props.onSave}>
-          {({ values, isSubmitting, isValid }) => (
-            <Form>
-              <Modal.Header closeButton>
-                <Modal.Title>{GetMessage("customFieldDetails_title")}</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <DataTypeSelectField />
-                <TextField name="name" label={GetMessage("customFields_label_friendlyName")} />
-                <TextField
-                  name="match"
-                  label={GetMessage("customFields_label_match")}
-                  placeholder={GetMessage("customFields_label_match_placeholder")}
-                  helpText={GetMessage("customFields_label_match_helpText")}
-                />
-                {values.type === "telephone" && <TelephoneOptions />}
-                {values.type === "number" && <NumberOptions />}
-                {values.type === "date" && <DateOptions />}
-                {values.type === "alphanumeric" && <AlphanumericOptions />}
-                {values.type === "text" && <TextOptions />}
-                {values.type === "regex" && <RegExOptions regexTemplate={values.regexTemplate} />}
-                {values.type === "randomized-list" && <RandomizedListOptions />}
-              </Modal.Body>
-              <Modal.Footer>
-                <button type="button" className="btn btn-outline-secondary" onClick={this.props.onClose}>
-                  {GetMessage("Cancel")}
-                </button>
-                <button type="submit" className="btn btn-primary" disabled={isSubmitting || !isValid}>
-                  {GetMessage("Save")}
-                </button>
-              </Modal.Footer>
-            </Form>
-          )}
-        </Formik>
-      </Modal>
-    );
   }
-}
+
+  return (
+    <Modal size="lg" show={props.isOpen} onHide={props.onClose}>
+      <Formik initialValues={initialValues as ICustomFieldForm} validate={validate} onSubmit={props.onSave}>
+        {({ values, isSubmitting, isValid }) => (
+          <Form>
+            <Modal.Header closeButton>
+              <Modal.Title>{GetMessage("customFieldDetails_title")}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <DataTypeSelectField />
+              <TextField name="name" label={GetMessage("customFields_label_friendlyName")} />
+              <TextField
+                name="match"
+                label={GetMessage("customFields_label_match")}
+                placeholder={GetMessage("customFields_label_match_placeholder")}
+                helpText={GetMessage("customFields_label_match_helpText")}
+              />
+              {values.type === "telephone" && <TelephoneOptions />}
+              {values.type === "number" && <NumberOptions />}
+              {values.type === "date" && <DateOptions />}
+              {values.type === "alphanumeric" && <AlphanumericOptions />}
+              {values.type === "text" && <TextOptions />}
+              {values.type === "regex" && <RegExOptions regexTemplate={values.regexTemplate} />}
+              {values.type === "randomized-list" && <RandomizedListOptions />}
+            </Modal.Body>
+            <Modal.Footer>
+              <button type="button" className="btn btn-outline-secondary" onClick={props.onClose}>
+                {GetMessage("Cancel")}
+              </button>
+              <button type="submit" className="btn btn-primary" disabled={isSubmitting || !isValid}>
+                {GetMessage("Save")}
+              </button>
+            </Modal.Footer>
+          </Form>
+        )}
+      </Formik>
+    </Modal>
+  );
+};
 
 export default CustomFieldModal;

@@ -1,70 +1,34 @@
-import * as React from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { GetMessage } from "src/common/helpers";
-import { DispatchProps, getOptions, saveOptions } from "src/options/actions";
+import { saveOptions, MyThunkDispatch, getOptions } from "src/options/actions";
 import GeneralSettingsForm from "src/options/components/general-settings/GeneralSettingsForm";
 import { IFormFillerOptions, IFormFillerOptionsForm, IAppState } from "src/types";
 
-interface IState {
-  showSavedMessage: boolean;
-}
+const GeneralSettingsPage = () => {
+  const [showSavedMessage, setShowSavedMessage] = useState(false);
+  const isFetching = useSelector<IAppState, boolean>((state) => state.optionsData.isFetching);
+  const options = useSelector<IAppState, IFormFillerOptions | null>((state) => state.optionsData.options);
+  const dispatch = useDispatch<MyThunkDispatch>();
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IOwnProps {}
+  useEffect(() => {
+    dispatch(getOptions());
+  }, [dispatch]);
 
-interface IStateProps {
-  isFetching: boolean;
-  options: IFormFillerOptions | null;
-}
-
-interface IProps extends DispatchProps, IOwnProps, IStateProps {}
-
-class GeneralSettingsPage extends React.PureComponent<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-
-    this.state = {
-      showSavedMessage: false,
-    };
-
-    this.handleSave = this.handleSave.bind(this);
-  }
-
-  public componentDidMount(): void {
-    this.props.dispatch(getOptions());
-  }
-
-  private handleSave(formValues: IFormFillerOptionsForm): void {
-    if (this.props.options) {
-      this.props.dispatch(saveOptions(this.props.options, formValues));
-
-      this.setState({
-        showSavedMessage: true,
+  function handleSave(formValues: IFormFillerOptionsForm) {
+    if (options) {
+      dispatch(saveOptions(options, formValues)).then(() => {
+        setShowSavedMessage(true);
       });
     }
   }
 
-  public render(): JSX.Element {
-    if (this.props.isFetching || this.props.options === null) {
-      return <div>{GetMessage("loading")}</div>;
-    }
-
-    return (
-      <GeneralSettingsForm
-        options={this.props.options}
-        showSavedMessage={this.state.showSavedMessage}
-        onSave={this.handleSave}
-      />
-    );
+  if (isFetching || options === null) {
+    return <div>{GetMessage("loading")}</div>;
   }
-}
 
-function mapStateToProps(state: IAppState): IStateProps {
-  return {
-    isFetching: state.optionsData.isFetching,
-    options: state.optionsData.options,
-  };
-}
+  return <GeneralSettingsForm options={options} showSavedMessage={showSavedMessage} onSave={handleSave} />;
+};
 
-export default connect(mapStateToProps)(GeneralSettingsPage);
+export default GeneralSettingsPage;
