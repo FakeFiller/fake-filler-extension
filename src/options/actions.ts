@@ -5,13 +5,13 @@ import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 import {
   CsvToArray,
-  FormFillerDefaultOptions,
-  GetFormFillerOptions,
+  FakeFillerDefaultOptions,
+  GetFakeFillerOptions,
   GetKeyboardShortcuts,
   MultipleLinesToArray,
-  SaveFormFillerOptions,
+  SaveFakeFillerOptions,
 } from "src/common/helpers";
-import { IFormFillerOptions, IAppState, IFormFillerOptionsForm, ICustomField, ICustomFieldForm } from "src/types";
+import { IFakeFillerOptions, IAppState, IFakeFillerOptionsForm, ICustomField, ICustomFieldForm } from "src/types";
 
 export interface IFetchingOptionsAction {
   type: "FETCHING_OPTIONS";
@@ -19,7 +19,7 @@ export interface IFetchingOptionsAction {
 
 export interface IReceivedOptionsAction {
   type: "RECEIVED_OPTIONS";
-  options: IFormFillerOptions;
+  options: IFakeFillerOptions;
 }
 
 export interface IFetchingKeyboardShortcutsAction {
@@ -45,7 +45,7 @@ export function getOptions(): MyDefaultThunkResult {
   return (dispatch) => {
     dispatch({ type: "FETCHING_OPTIONS" });
 
-    return GetFormFillerOptions().then((options) => {
+    return GetFakeFillerOptions().then((options) => {
       dispatch({ type: "RECEIVED_OPTIONS", options });
       return Promise.resolve();
     });
@@ -54,14 +54,14 @@ export function getOptions(): MyDefaultThunkResult {
 
 export function resetOptions(): MyDefaultThunkResult {
   return (dispatch) => {
-    const options = FormFillerDefaultOptions();
-    SaveFormFillerOptions(options);
+    const options = FakeFillerDefaultOptions();
+    SaveFakeFillerOptions(options);
     dispatch({ type: "RECEIVED_OPTIONS", options });
     return Promise.resolve();
   };
 }
 
-export function saveOptions(options: IFormFillerOptions, formValues?: IFormFillerOptionsForm): MyDefaultThunkResult {
+export function saveOptions(options: IFakeFillerOptions, formValues?: IFakeFillerOptionsForm): MyDefaultThunkResult {
   return (dispatch) => {
     const updatedOptions = produce(options, (draft) => {
       if (formValues) {
@@ -99,7 +99,7 @@ export function saveOptions(options: IFormFillerOptions, formValues?: IFormFille
       return draft;
     });
 
-    SaveFormFillerOptions(updatedOptions);
+    SaveFakeFillerOptions(updatedOptions);
     dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
     return Promise.resolve();
   };
@@ -108,14 +108,14 @@ export function saveOptions(options: IFormFillerOptions, formValues?: IFormFille
 export function deleteCustomField(index: number): MyDefaultThunkResult {
   return (dispatch, getState) => {
     const state = getState();
-    const options = state.optionsData.options as IFormFillerOptions;
+    const options = state.optionsData.options as IFakeFillerOptions;
 
     const updatedOptions = produce(options, (draft) => {
       draft.fields.splice(index, 1);
       return draft;
     });
 
-    SaveFormFillerOptions(updatedOptions);
+    SaveFakeFillerOptions(updatedOptions);
     dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
     return Promise.resolve();
   };
@@ -124,14 +124,14 @@ export function deleteCustomField(index: number): MyDefaultThunkResult {
 export function saveSortedCustomFields(customFields: ICustomField[]): MyDefaultThunkResult {
   return (dispatch, getState) => {
     const state = getState();
-    const options = state.optionsData.options as IFormFillerOptions;
+    const options = state.optionsData.options as IFakeFillerOptions;
 
     const updatedOptions = produce(options, (draft) => {
       draft.fields = customFields;
       return draft;
     });
 
-    SaveFormFillerOptions(updatedOptions);
+    SaveFakeFillerOptions(updatedOptions);
     dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
     return Promise.resolve();
   };
@@ -201,7 +201,7 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
 export function createCustomField(customField: ICustomFieldForm, customFieldIndex: number): MyDefaultThunkResult {
   return (dispatch, getState) => {
     const state = getState();
-    const options = state.optionsData.options as IFormFillerOptions;
+    const options = state.optionsData.options as IFakeFillerOptions;
 
     const updatedOptions = produce(options, (draft) => {
       const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
@@ -209,7 +209,7 @@ export function createCustomField(customField: ICustomFieldForm, customFieldInde
       return draft;
     });
 
-    SaveFormFillerOptions(updatedOptions);
+    SaveFakeFillerOptions(updatedOptions);
     dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
     return Promise.resolve();
   };
@@ -218,7 +218,7 @@ export function createCustomField(customField: ICustomFieldForm, customFieldInde
 export function saveCustomField(customField: ICustomFieldForm, customFieldIndex: number): MyDefaultThunkResult {
   return (dispatch, getState) => {
     const state = getState();
-    const options = state.optionsData.options as IFormFillerOptions;
+    const options = state.optionsData.options as IFakeFillerOptions;
 
     const updatedOptions = produce(options, (draft) => {
       const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
@@ -226,7 +226,7 @@ export function saveCustomField(customField: ICustomFieldForm, customFieldIndex:
       return draft;
     });
 
-    SaveFormFillerOptions(updatedOptions);
+    SaveFakeFillerOptions(updatedOptions);
     dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
     return Promise.resolve();
   };

@@ -4,19 +4,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { GetMessage } from "src/common/helpers";
 import { saveOptions, MyThunkDispatch, getOptions } from "src/options/actions";
 import GeneralSettingsForm from "src/options/components/general-settings/GeneralSettingsForm";
-import { IFormFillerOptions, IFormFillerOptionsForm, IAppState } from "src/types";
+import { IFakeFillerOptions, IFakeFillerOptionsForm, IAppState } from "src/types";
 
 const GeneralSettingsPage = () => {
   const [showSavedMessage, setShowSavedMessage] = useState(false);
   const isFetching = useSelector<IAppState, boolean>((state) => state.optionsData.isFetching);
-  const options = useSelector<IAppState, IFormFillerOptions | null>((state) => state.optionsData.options);
+  const options = useSelector<IAppState, IFakeFillerOptions | null>((state) => state.optionsData.options);
   const dispatch = useDispatch<MyThunkDispatch>();
 
   useEffect(() => {
     dispatch(getOptions());
   }, [dispatch]);
 
-  function handleSave(formValues: IFormFillerOptionsForm) {
+  function handleSave(formValues: IFakeFillerOptionsForm) {
     if (options) {
       dispatch(saveOptions(options, formValues)).then(() => {
         setShowSavedMessage(true);

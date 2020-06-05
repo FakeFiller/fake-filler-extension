@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import { CreateContextMenus, GetFormFillerOptions, GetMessage, SaveFormFillerOptions } from "src/common/helpers";
+import { CreateContextMenus, GetFakeFillerOptions, GetMessage, SaveFakeFillerOptions } from "src/common/helpers";
 import { MessageRequest } from "src/types";
 
 function handleMessage(
@@ -10,7 +10,7 @@ function handleMessage(
 ): boolean | null {
   switch (request.type) {
     case "getOptions": {
-      GetFormFillerOptions().then((result) => {
+      GetFakeFillerOptions().then((result) => {
         sendResponse({ options: result });
       });
       return true;
@@ -26,13 +26,13 @@ if (chrome.runtime.onInstalled) {
     if (details.reason === "update") {
       try {
         if (details.previousVersion && details.previousVersion.startsWith("2.8")) {
-          GetFormFillerOptions().then((options) => {
+          GetFakeFillerOptions().then((options) => {
             options.defaultMaxLength = 20;
-            SaveFormFillerOptions(options);
+            SaveFakeFillerOptions(options);
           });
         }
         if (details.previousVersion && details.previousVersion.startsWith("2.10")) {
-          GetFormFillerOptions().then((options) => {
+          GetFakeFillerOptions().then((options) => {
             options.fields.forEach((field) => {
               if (field.type === "number") {
                 field.decimalPlaces = 0;
@@ -42,7 +42,7 @@ if (chrome.runtime.onInstalled) {
                 field.max = 0;
               }
             });
-            SaveFormFillerOptions(options);
+            SaveFakeFillerOptions(options);
           });
         }
       } catch (ex) {
@@ -57,31 +57,31 @@ chrome.runtime.onMessage.addListener(handleMessage);
 
 chrome.browserAction.onClicked.addListener(() => {
   chrome.tabs.executeScript({
-    code: "window.formFiller && window.formFiller.fillAllInputs();",
+    code: "window.fakeFiller && window.fakeFiller.fillAllInputs();",
     allFrames: true,
   });
 });
 
-GetFormFillerOptions().then((options) => {
+GetFakeFillerOptions().then((options) => {
   CreateContextMenus(options.enableContextMenu);
 });
 
 chrome.contextMenus.onClicked.addListener((info) => {
-  if (info.menuItemId === "form-filler-all") {
+  if (info.menuItemId === "fake-filler-all") {
     chrome.tabs.executeScript({
-      code: "window.formFiller.fillAllInputs();",
+      code: "window.fakeFiller.fillAllInputs();",
       allFrames: true,
     });
   }
-  if (info.menuItemId === "form-filler-form") {
+  if (info.menuItemId === "fake-filler-form") {
     chrome.tabs.executeScript({
-      code: "window.formFiller.fillThisForm();",
+      code: "window.fakeFiller.fillThisForm();",
       allFrames: true,
     });
   }
-  if (info.menuItemId === "form-filler-input") {
+  if (info.menuItemId === "fake-filler-input") {
     chrome.tabs.executeScript({
-      code: "window.formFiller.fillThisInput();",
+      code: "window.fakeFiller.fillThisInput();",
       allFrames: true,
     });
   }
@@ -90,19 +90,19 @@ chrome.contextMenus.onClicked.addListener((info) => {
 chrome.commands.onCommand.addListener((command) => {
   if (command === "fill_all_inputs") {
     chrome.tabs.executeScript({
-      code: "window.formFiller.fillAllInputs();",
+      code: "window.fakeFiller.fillAllInputs();",
       allFrames: true,
     });
   }
   if (command === "fill_this_form") {
     chrome.tabs.executeScript({
-      code: "window.formFiller.fillThisForm();",
+      code: "window.fakeFiller.fillThisForm();",
       allFrames: true,
     });
   }
   if (command === "fill_this_input") {
     chrome.tabs.executeScript({
-      code: "window.formFiller.fillThisInput();",
+      code: "window.fakeFiller.fillThisInput();",
       allFrames: true,
     });
   }

@@ -5,13 +5,13 @@ import { GetMessage } from "src/common/helpers";
 import { getOptions } from "src/options/actions";
 import CustomFieldsView from "src/options/components/custom-fields/CustomFieldsView";
 import Introduction from "src/options/components/custom-fields/Introduction";
-import { IAppState, IFormFillerOptions } from "src/types";
+import { IAppState, IFakeFillerOptions } from "src/types";
 
 export default function CustomFieldsPage(): JSX.Element {
   const dispatch = useDispatch();
 
   const isFetching = useSelector<IAppState, boolean>((state) => state.optionsData.isFetching);
-  const options = useSelector<IAppState, IFormFillerOptions | null>((state) => state.optionsData.options);
+  const options = useSelector<IAppState, IFakeFillerOptions | null>((state) => state.optionsData.options);
 
   useEffect(() => {
     dispatch(getOptions());

@@ -6,13 +6,13 @@ import RandExp from "randexp";
 
 import DataGenerator from "src/common/data-generator";
 import { SanitizeText } from "src/common/helpers";
-import { IFormFillerOptions, ICustomField, CustomFieldTypes } from "src/types";
+import { IFakeFillerOptions, ICustomField, CustomFieldTypes } from "src/types";
 
 type FillableElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
 class ElementFiller {
   private generator: DataGenerator;
-  private options: IFormFillerOptions;
+  private options: IFakeFillerOptions;
 
   private previousValue: string;
   private previousPassword: string;
@@ -20,7 +20,7 @@ class ElementFiller {
   private previousFirstName: string;
   private previousLastName: string;
 
-  constructor(options: IFormFillerOptions) {
+  constructor(options: IFakeFillerOptions) {
     this.options = options;
     this.generator = new DataGenerator(options);
 

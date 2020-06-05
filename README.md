@@ -1,4 +1,4 @@
-# <img src="public/images/logo.svg" height="53" alt="Form Filler" title="Form Filler" />
+# <img src="public/images/logo.svg" height="53" alt="Fake Filler" title="Fake Filler" />
 
 This extension allows you to fill all form inputs (textboxes, textareas, radio buttons, dropdowns, etc.) with dummy data. It is a must for developers and testers who work with forms as it avoids the need for manually entering values in fields.
 

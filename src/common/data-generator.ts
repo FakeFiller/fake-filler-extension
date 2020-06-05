@@ -2,15 +2,15 @@ import RandExp from "randexp";
 
 import * as data from "src/common/dummy-data";
 import { DEFAULT_TELEPHONE_TEMPLATE, SanitizeText } from "src/common/helpers";
-import { IFormFillerOptions } from "src/types";
+import { IFakeFillerOptions } from "src/types";
 
 class DataGenerator {
-  private options: IFormFillerOptions;
+  private options: IFakeFillerOptions;
   private previousUsername: string;
   private previousFirstName: string;
   private previousLastName: string;
 
-  constructor(options: IFormFillerOptions) {
+  constructor(options: IFakeFillerOptions) {
     this.options = options;
     this.previousUsername = "";
     this.previousFirstName = "";

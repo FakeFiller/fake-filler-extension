@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Form Filler Test</title>
+    <title>Fake Filler Test</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -26,22 +26,22 @@
     ></script>
     <script type="text/javascript">
       $(function () {
-        $('#serialize-form').on('click', function () {
-          $('#form-data').html($('#form').serialize().replace(/&/g, '<br>').replace(/=/g, ' = '));
+        $("#serialize-form").on("click", function () {
+          $("#form-data").html($("#form").serialize().replace(/&/g, "<br>").replace(/=/g, " = "));
           window.scrollTo(0, document.body.scrollHeight);
         });
 
-        $('#js-hide').hide();
+        $("#js-hide").hide();
 
-        $('input[type="checkbox"]').on('change', function () {
-          console.log('Checkbox Change Event', this.name, this.value, this.checked);
+        $('input[type="checkbox"]').on("change", function () {
+          console.log("Checkbox Change Event", this.name, this.value, this.checked);
         });
       });
     </script>
   </head>
   <body>
     <div class="container">
-      <h1>Form Filler Test</h1>
+      <h1>Fake Filler Test</h1>
       <form id="form" class="form-horizontal">
         <fieldset>
           <legend>Text Type</legend>

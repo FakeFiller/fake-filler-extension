@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { GetMessage } from "src/common/helpers";
 import { getOptions, saveOptions, MyThunkDispatch } from "src/options/actions";
-import { IFormFillerOptions, IAppState } from "src/types";
+import { IFakeFillerOptions, IAppState } from "src/types";
 
 function utf8ToBase64(str: string): string {
   return window.btoa(unescape(encodeURIComponent(str)));
@@ -19,7 +19,7 @@ const BackupAndRestorePage = () => {
   const [backupData, setBackupData] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const isFetching = useSelector<IAppState, boolean>((state) => state.optionsData.isFetching);
-  const options = useSelector<IAppState, IFormFillerOptions | null>((state) => state.optionsData.options);
+  const options = useSelector<IAppState, IFakeFillerOptions | null>((state) => state.optionsData.options);
   const dispatch = useDispatch<MyThunkDispatch>();
 
   useEffect(() => {

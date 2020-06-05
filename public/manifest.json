@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
-  "short_name": "__MSG_extensionName__",
+  "short_name": "__MSG_extensionName_short__",
   "version": "2.12.0",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",

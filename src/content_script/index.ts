@@ -1,20 +1,20 @@
-import FormFiller from "src/common/form-filler";
-import { IFormFillerOptions, MessageRequest } from "src/types";
+import FakeFiller from "src/common/fake-filler";
+import { IFakeFillerOptions, MessageRequest } from "src/types";
 
 declare global {
   interface Window {
-    formFiller: FormFiller;
+    fakeFiller: FakeFiller;
   }
 }
 
-function initialize(options: IFormFillerOptions) {
-  window.formFiller = new FormFiller(options);
+function initialize(options: IFakeFillerOptions) {
+  window.fakeFiller = new FakeFiller(options);
 }
 
 function handleMessage(request: MessageRequest): boolean | null {
   switch (request.type) {
     case "receiveNewOptions": {
-      const options = request.data as IFormFillerOptions;
+      const options = request.data as IFakeFillerOptions;
       initialize(options);
       return true;
     }
@@ -25,13 +25,13 @@ function handleMessage(request: MessageRequest): boolean | null {
 }
 
 document.addEventListener("mousedown", (event) => {
-  if (event.button === 2 && window.formFiller) {
-    window.formFiller.setClickedElement(event.target as HTMLElement);
+  if (event.button === 2 && window.fakeFiller) {
+    window.fakeFiller.setClickedElement(event.target as HTMLElement);
   }
 });
 
 chrome.runtime.sendMessage({ type: "getOptions" }, (response) => {
-  const options = response.options as IFormFillerOptions;
+  const options = response.options as IFakeFillerOptions;
   initialize(options);
 });
 

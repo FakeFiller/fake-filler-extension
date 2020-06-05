@@ -2,7 +2,7 @@
 
 type BrowserCommandName = "fill_this_form" | "fill_this_input" | "fill_all_inputs";
 
-export interface IFormFillerBrowserCommand {
+export interface IFakeFillerBrowserCommand {
   name: BrowserCommandName;
   shortcut: string;
 }
@@ -79,7 +79,7 @@ export interface IPasswordSettings {
   password: string;
 }
 
-export interface IFormFillerOptions {
+export interface IFakeFillerOptions {
   agreeTermsFields: string[];
   confirmFields: string[];
   defaultMaxLength: number;
@@ -94,7 +94,7 @@ export interface IFormFillerOptions {
   triggerClickEvents: boolean;
 }
 
-export interface IFormFillerOptionsForm {
+export interface IFakeFillerOptionsForm {
   agreeTermsFields: string;
   confirmFields: string;
   defaultMaxLength: string;
@@ -119,7 +119,7 @@ export interface IFormFillerOptionsForm {
 
 export interface IOptionsState {
   isFetching: boolean;
-  options: IFormFillerOptions | null;
+  options: IFakeFillerOptions | null;
 }
 
 export interface IKeyboardShortcutsState {

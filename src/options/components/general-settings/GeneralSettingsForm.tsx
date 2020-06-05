@@ -6,10 +6,10 @@ import CheckboxField from "src/options/components/common/CheckboxField";
 import HtmlPhrase from "src/options/components/common/HtmlPhrase";
 import RadioButtonField from "src/options/components/common/RadioButtonField";
 import TextField from "src/options/components/common/TextField";
-import { IFormFillerOptionsForm, IFormFillerOptions } from "src/types";
+import { IFakeFillerOptionsForm, IFakeFillerOptions } from "src/types";
 
-const validate = (values: IFormFillerOptionsForm): FormikErrors<IFormFillerOptionsForm> => {
-  const errors: FormikErrors<IFormFillerOptionsForm> = {};
+const validate = (values: IFakeFillerOptionsForm): FormikErrors<IFakeFillerOptionsForm> => {
+  const errors: FormikErrors<IFakeFillerOptionsForm> = {};
 
   if (values.emailSettingsUsernameType === "list" && !values.emailSettingsUsernameList) {
     errors.emailSettingsUsernameList = GetMessage("generalSettings_validation_enterUsernames");
@@ -49,19 +49,19 @@ const validate = (values: IFormFillerOptionsForm): FormikErrors<IFormFillerOptio
 };
 
 type Props = {
-  options: IFormFillerOptions;
+  options: IFakeFillerOptions;
   showSavedMessage: boolean;
-  onSave: (formValues: IFormFillerOptionsForm) => void;
+  onSave: (formValues: IFakeFillerOptionsForm) => void;
 };
 
 const GeneralSettingsForm = (props: Props) => {
-  function handleSubmit(values: IFormFillerOptionsForm, actions: FormikHelpers<IFormFillerOptionsForm>) {
+  function handleSubmit(values: IFakeFillerOptionsForm, actions: FormikHelpers<IFakeFillerOptionsForm>) {
     actions.setSubmitting(true);
     props.onSave(values);
     actions.setSubmitting(false);
   }
 
-  const initialValues: Partial<IFormFillerOptionsForm> = {};
+  const initialValues: Partial<IFakeFillerOptionsForm> = {};
 
   initialValues.agreeTermsFields = props.options.agreeTermsFields.join(", ");
   initialValues.confirmFields = props.options.confirmFields.join(", ");
@@ -86,7 +86,7 @@ const GeneralSettingsForm = (props: Props) => {
 
   return (
     <Formik
-      initialValues={initialValues as IFormFillerOptionsForm}
+      initialValues={initialValues as IFakeFillerOptionsForm}
       enableReinitialize
       validate={validate}
       onSubmit={handleSubmit}

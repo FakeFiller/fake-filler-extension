@@ -5,7 +5,7 @@ import ExternalLink from "src/options/components/common/ExternalLink";
 const ChangeLogPage = () => {
   return (
     <div>
-      <h2>Form Filler Changelog</h2>
+      <h2>Fake Filler Changelog</h2>
       <p>
         <strong>Version 2.12.0</strong>
       </p>

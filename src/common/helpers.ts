@@ -1,11 +1,11 @@
-import { IFormFillerOptions } from "src/types";
+import { IFakeFillerOptions } from "src/types";
 
 // spell-checker:disable
 
 const DEFAULT_TELEPHONE_TEMPLATE = "+1 (XxX) XxX-XxxX";
 
-const FormFillerDefaultOptions = (): IFormFillerOptions => {
-  const options: IFormFillerOptions = {
+const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
+  const options: IFakeFillerOptions = {
     agreeTermsFields: ["agree", "terms", "conditions"],
     confirmFields: ["confirm", "reenter", "retype", "repeat", "secondary"],
     defaultMaxLength: 20,
@@ -157,14 +157,14 @@ const FormFillerDefaultOptions = (): IFormFillerOptions => {
   return options;
 };
 
-const GetFormFillerOptions = (): Promise<IFormFillerOptions> => {
-  const promise = new Promise<IFormFillerOptions>((resolve) => {
+const GetFakeFillerOptions = (): Promise<IFakeFillerOptions> => {
+  const promise = new Promise<IFakeFillerOptions>((resolve) => {
     chrome.storage.local.get("options", (result) => {
-      let options: IFormFillerOptions;
+      let options: IFakeFillerOptions;
       if (result && Object.keys(result).length > 0) {
         options = result.options;
       } else {
-        options = FormFillerDefaultOptions();
+        options = FakeFillerDefaultOptions();
       }
       resolve(options);
     });
@@ -178,26 +178,26 @@ const CreateContextMenus = (enableContextMenu: boolean): void => {
 
   if (enableContextMenu) {
     chrome.contextMenus.create({
-      id: "form-filler-all",
+      id: "fake-filler-all",
       title: "Fill all inputs",
       contexts: ["page", "editable"],
     });
 
     chrome.contextMenus.create({
-      id: "form-filler-form",
+      id: "fake-filler-form",
       title: "Fill this form",
       contexts: ["editable"],
     });
 
     chrome.contextMenus.create({
-      id: "form-filler-input",
+      id: "fake-filler-input",
       title: "Fill this input",
       contexts: ["editable"],
     });
   }
 };
 
-const SaveFormFillerOptions = (options: IFormFillerOptions): void => {
+const SaveFakeFillerOptions = (options: IFakeFillerOptions): void => {
   chrome.storage.local.set({
     options,
   });
@@ -256,11 +256,11 @@ export {
   DEFAULT_TELEPHONE_TEMPLATE,
   CreateContextMenus,
   CsvToArray,
-  FormFillerDefaultOptions,
-  GetFormFillerOptions,
+  FakeFillerDefaultOptions,
+  GetFakeFillerOptions,
   GetKeyboardShortcuts,
   GetMessage,
   MultipleLinesToArray,
   SanitizeText,
-  SaveFormFillerOptions,
+  SaveFakeFillerOptions,
 };
