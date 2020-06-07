@@ -32,6 +32,7 @@ const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
       mode: "defined",
       password: "Pa$$w0rd!",
     },
+    profiles: [],
     triggerClickEvents: true,
   };
 

@@ -79,6 +79,12 @@ export interface IPasswordSettings {
   password: string;
 }
 
+export interface IProfile {
+  name: string;
+  urlMatch: string;
+  fields: ICustomField[];
+}
+
 export interface IFakeFillerOptions {
   agreeTermsFields: string[];
   confirmFields: string[];
@@ -91,6 +97,7 @@ export interface IFakeFillerOptions {
   ignoreFieldsWithContent: boolean;
   ignoreHiddenFields: boolean;
   passwordSettings: IPasswordSettings;
+  profiles: IProfile[];
   triggerClickEvents: boolean;
 }
 

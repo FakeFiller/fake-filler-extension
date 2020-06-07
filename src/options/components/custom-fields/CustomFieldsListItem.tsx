@@ -20,6 +20,8 @@ function isNotZero(item: string | number | undefined | null): boolean {
 type Props = {
   customField: ICustomField;
   itemIndex: number;
+  allowAdd: boolean;
+  allowEdit: boolean;
   onAdd: CustomFieldAddFunction;
   onEdit: CustomFieldEditFunction;
   onDelete: CustomFieldDeleteFunction;
@@ -47,10 +49,15 @@ const CustomFieldsListItem = (props: Props) => {
                 <div className="btn btn-sm btn-link drag-handle" {...provided.dragHandleProps}>
                   <img src="images/move.svg" width="12" height="12" alt={GetMessage("move")} />
                 </div>
-                <button type="button" className="btn btn-sm btn-link" onClick={handleEdit}>
+                <button type="button" className="btn btn-sm btn-link" onClick={handleEdit} disabled={!props.allowEdit}>
                   <img src="images/edit.svg" width="12" height="12" alt={GetMessage("edit")} />
                 </button>
-                <button type="button" className="btn btn-sm btn-link" onClick={handleDelete}>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-link"
+                  onClick={handleDelete}
+                  disabled={!props.allowEdit}
+                >
                   <img src="images/delete.svg" width="12" height="12" alt={GetMessage("delete")} />
                 </button>
               </div>
@@ -122,7 +129,7 @@ const CustomFieldsListItem = (props: Props) => {
               </tbody>
             </table>
           </div>
-          <AddFieldButton index={props.itemIndex + 1} onClick={props.onAdd} />
+          <AddFieldButton index={props.itemIndex + 1} onClick={props.onAdd} disabled={!props.allowAdd} />
         </div>
       )}
     </Draggable>

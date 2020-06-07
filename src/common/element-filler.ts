@@ -13,6 +13,7 @@ type FillableElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElemen
 class ElementFiller {
   private generator: DataGenerator;
   private options: IFakeFillerOptions;
+  private profileIndex: number;
 
   private previousValue: string;
   private previousPassword: string;
@@ -20,8 +21,9 @@ class ElementFiller {
   private previousFirstName: string;
   private previousLastName: string;
 
-  constructor(options: IFakeFillerOptions) {
+  constructor(options: IFakeFillerOptions, profileIndex = -1) {
     this.options = options;
+    this.profileIndex = profileIndex;
     this.generator = new DataGenerator(options);
 
     this.previousValue = "";
@@ -135,7 +137,23 @@ class ElementFiller {
   }
 
   private findCustomField(elementName: string, matchTypes: CustomFieldTypes[] = []): ICustomField | undefined {
-    return this.findCustomFieldFromList(this.options.fields, elementName, matchTypes);
+    let foundField: ICustomField | undefined;
+
+    // Try finding the custom field from a profile if available.
+    if (this.profileIndex > -1) {
+      foundField = this.findCustomFieldFromList(
+        this.options.profiles[this.profileIndex].fields,
+        elementName,
+        matchTypes
+      );
+    }
+
+    // If a custom field could not be found from the profile, try getting one from the default list.
+    if (!foundField) {
+      foundField = this.findCustomFieldFromList(this.options.fields, elementName, matchTypes);
+    }
+
+    return foundField;
   }
 
   private getElementName(element: FillableElement): string {

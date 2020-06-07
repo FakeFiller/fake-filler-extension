@@ -5,8 +5,8 @@ class FakeFiller {
   private elementFiller: ElementFiller;
   private clickedElement: HTMLElement | undefined;
 
-  constructor(options: IFakeFillerOptions) {
-    this.elementFiller = new ElementFiller(options);
+  constructor(options: IFakeFillerOptions, profileIndex = -1) {
+    this.elementFiller = new ElementFiller(options, profileIndex);
   }
 
   private fillAllElements(container: Document | HTMLElement): void {

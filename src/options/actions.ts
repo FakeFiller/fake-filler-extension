@@ -11,7 +11,14 @@ import {
   MultipleLinesToArray,
   SaveFakeFillerOptions,
 } from "src/common/helpers";
-import { IFakeFillerOptions, IAppState, IFakeFillerOptionsForm, ICustomField, ICustomFieldForm } from "src/types";
+import {
+  IFakeFillerOptions,
+  IAppState,
+  IFakeFillerOptionsForm,
+  ICustomField,
+  ICustomFieldForm,
+  IProfile,
+} from "src/types";
 
 export interface IFetchingOptionsAction {
   type: "FETCHING_OPTIONS";
@@ -105,13 +112,17 @@ export function saveOptions(options: IFakeFillerOptions, formValues?: IFakeFille
   };
 }
 
-export function deleteCustomField(index: number): MyDefaultThunkResult {
+export function deleteCustomField(index: number, profileIndex: number): MyDefaultThunkResult {
   return (dispatch, getState) => {
     const state = getState();
     const options = state.optionsData.options as IFakeFillerOptions;
 
     const updatedOptions = produce(options, (draft) => {
-      draft.fields.splice(index, 1);
+      if (profileIndex < 0) {
+        draft.fields.splice(index, 1);
+      } else {
+        draft.profiles[profileIndex].fields.splice(index, 1);
+      }
       return draft;
     });
 
@@ -121,13 +132,17 @@ export function deleteCustomField(index: number): MyDefaultThunkResult {
   };
 }
 
-export function saveSortedCustomFields(customFields: ICustomField[]): MyDefaultThunkResult {
+export function saveSortedCustomFields(customFields: ICustomField[], profileIndex: number): MyDefaultThunkResult {
   return (dispatch, getState) => {
     const state = getState();
     const options = state.optionsData.options as IFakeFillerOptions;
 
     const updatedOptions = produce(options, (draft) => {
-      draft.fields = customFields;
+      if (profileIndex < 0) {
+        draft.fields = customFields;
+      } else {
+        draft.profiles[profileIndex].fields = customFields;
+      }
       return draft;
     });
 
@@ -198,14 +213,24 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
   return customField;
 }
 
-export function createCustomField(customField: ICustomFieldForm, customFieldIndex: number): MyDefaultThunkResult {
+export function createCustomField(
+  customField: ICustomFieldForm,
+  customFieldIndex: number,
+  profileIndex: number
+): MyDefaultThunkResult {
   return (dispatch, getState) => {
     const state = getState();
     const options = state.optionsData.options as IFakeFillerOptions;
 
     const updatedOptions = produce(options, (draft) => {
       const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
-      draft.fields.splice(customFieldIndex, 0, newCustomField);
+
+      if (profileIndex < 0) {
+        draft.fields.splice(customFieldIndex, 0, newCustomField);
+      } else {
+        draft.profiles[profileIndex].fields.splice(customFieldIndex, 0, newCustomField);
+      }
+
       return draft;
     });
 
@@ -215,14 +240,24 @@ export function createCustomField(customField: ICustomFieldForm, customFieldInde
   };
 }
 
-export function saveCustomField(customField: ICustomFieldForm, customFieldIndex: number): MyDefaultThunkResult {
+export function saveCustomField(
+  customField: ICustomFieldForm,
+  customFieldIndex: number,
+  profileIndex: number
+): MyDefaultThunkResult {
   return (dispatch, getState) => {
     const state = getState();
     const options = state.optionsData.options as IFakeFillerOptions;
 
     const updatedOptions = produce(options, (draft) => {
       const newCustomField: ICustomField = createCustomFieldFromFormData(customField);
-      draft.fields[customFieldIndex] = newCustomField;
+
+      if (profileIndex < 0) {
+        draft.fields[customFieldIndex] = newCustomField;
+      } else {
+        draft.profiles[profileIndex].fields[customFieldIndex] = newCustomField;
+      }
+
       return draft;
     });
 
@@ -240,5 +275,65 @@ export function getKeyboardShortcuts(): MyDefaultThunkResult {
       dispatch({ type: "RECEIVED_KEYBOARD_SHORTCUTS", shortcuts });
       return Promise.resolve();
     });
+  };
+}
+
+export function deleteProfile(profileIndex: number): MyDefaultThunkResult {
+  return (dispatch, getState) => {
+    const state = getState();
+    const options = state.optionsData.options as IFakeFillerOptions;
+
+    const updatedOptions = produce(options, (draft) => {
+      if (profileIndex >= 0) {
+        draft.profiles.splice(profileIndex, 1);
+      }
+      return draft;
+    });
+
+    SaveFakeFillerOptions(updatedOptions);
+    dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
+    return Promise.resolve();
+  };
+}
+
+function createProfileFromFormData(formData: IProfile): IProfile {
+  const profile: IProfile = {
+    name: formData.name.trim(),
+    urlMatch: formData.urlMatch,
+    fields: [],
+  };
+  return profile;
+}
+
+export function createProfile(profile: IProfile): MyDefaultThunkResult {
+  return (dispatch, getState) => {
+    const state = getState();
+    const options = state.optionsData.options as IFakeFillerOptions;
+
+    const updatedOptions = produce(options, (draft) => {
+      draft.profiles.push(createProfileFromFormData(profile));
+      return draft;
+    });
+
+    SaveFakeFillerOptions(updatedOptions);
+    dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
+    return Promise.resolve();
+  };
+}
+
+export function saveProfile(profile: IProfile, profileIndex: number): MyDefaultThunkResult {
+  return (dispatch, getState) => {
+    const state = getState();
+    const options = state.optionsData.options as IFakeFillerOptions;
+
+    const updatedOptions = produce(options, (draft) => {
+      draft.profiles[profileIndex].name = profile.name;
+      draft.profiles[profileIndex].urlMatch = profile.urlMatch;
+      return draft;
+    });
+
+    SaveFakeFillerOptions(updatedOptions);
+    dispatch({ type: "RECEIVED_OPTIONS", options: updatedOptions });
+    return Promise.resolve();
   };
 }

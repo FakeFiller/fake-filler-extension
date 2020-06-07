@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import { CreateContextMenus, GetFakeFillerOptions, GetMessage, SaveFakeFillerOptions } from "src/common/helpers";
-import { MessageRequest } from "src/types";
+import { MessageRequest, IProfile } from "src/types";
 
 function handleMessage(
   request: MessageRequest,
@@ -12,6 +12,17 @@ function handleMessage(
     case "getOptions": {
       GetFakeFillerOptions().then((result) => {
         sendResponse({ options: result });
+      });
+      return true;
+    }
+
+    case "foundProfile": {
+      const profile = request.data as IProfile;
+      chrome.browserAction.setBadgeText({ text: "⭐", tabId: sender.tab?.id });
+      chrome.browserAction.setBadgeBackgroundColor({ color: "#7f8ea1", tabId: sender.tab?.id });
+      chrome.browserAction.setTitle({
+        title: `${GetMessage("browserActionTitle")}\n${GetMessage("matchedProfile")}: ${profile.name}`,
+        tabId: sender.tab?.id,
       });
       return true;
     }
@@ -42,6 +53,12 @@ if (chrome.runtime.onInstalled) {
                 field.max = 0;
               }
             });
+            SaveFakeFillerOptions(options);
+          });
+        }
+        if (details.previousVersion && details.previousVersion.startsWith("2.12")) {
+          GetFakeFillerOptions().then((options) => {
+            options.profiles = [];
             SaveFakeFillerOptions(options);
           });
         }

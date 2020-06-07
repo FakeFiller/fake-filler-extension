@@ -8,11 +8,13 @@ import CustomFieldsList from "src/options/components/custom-fields/CustomFieldsL
 import { ICustomField, ICustomFieldForm } from "src/types";
 
 type Props = {
+  isProEdition: boolean;
+  profileIndex: number;
   customFields: ICustomField[];
 };
 
 export default function CustomFieldsView(props: Props): JSX.Element {
-  const { customFields } = props;
+  const { isProEdition, profileIndex, customFields } = props;
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [customFieldIndex, setCustomFieldIndex] = useState(-1);
@@ -20,6 +22,9 @@ export default function CustomFieldsView(props: Props): JSX.Element {
   const [actionType, setActionType] = useState<"create" | "edit" | undefined>();
 
   const dispatch = useDispatch();
+
+  const allowAdd = isProEdition || profileIndex === -1;
+  const allowEdit = isProEdition || profileIndex === -1;
 
   function closeModal(): void {
     setModalIsOpen(false);
@@ -29,43 +34,55 @@ export default function CustomFieldsView(props: Props): JSX.Element {
   }
 
   function newCustomField(index: number): void {
-    setCustomFieldIndex(index);
-    setActionType("create");
-    setCustomField(null);
-    setModalIsOpen(true);
+    if (allowEdit) {
+      setCustomFieldIndex(index);
+      setActionType("create");
+      setCustomField(null);
+      setModalIsOpen(true);
+    }
   }
 
   function handleEdit(currentCustomField: ICustomField, index: number): void {
-    setCustomFieldIndex(index);
-    setCustomField(currentCustomField);
-    setActionType("edit");
-    setModalIsOpen(true);
+    if (allowEdit) {
+      setCustomFieldIndex(index);
+      setCustomField(currentCustomField);
+      setActionType("edit");
+      setModalIsOpen(true);
+    }
   }
 
   function handleDelete(index: number): void {
-    // eslint-disable-next-line no-alert
-    if (window.confirm(GetMessage("customFields_delete_confirm_message"))) {
-      dispatch(deleteCustomField(index));
+    if (allowEdit) {
+      // eslint-disable-next-line no-alert
+      if (window.confirm(GetMessage("customFields_delete_confirm_message"))) {
+        dispatch(deleteCustomField(index, profileIndex));
+      }
     }
   }
 
   function handleSort(sortedCustomFields: ICustomField[]): void {
-    dispatch(saveSortedCustomFields(sortedCustomFields));
+    if (allowEdit) {
+      dispatch(saveSortedCustomFields(sortedCustomFields, profileIndex));
+    }
   }
 
   function handleSave(formValues: ICustomFieldForm): void {
-    if (actionType === "edit") {
-      dispatch(saveCustomField(formValues, customFieldIndex));
-    } else {
-      dispatch(createCustomField(formValues, customFieldIndex));
+    if (allowEdit) {
+      if (actionType === "edit") {
+        dispatch(saveCustomField(formValues, customFieldIndex, profileIndex));
+      } else {
+        dispatch(createCustomField(formValues, customFieldIndex, profileIndex));
+      }
+      closeModal();
     }
-    closeModal();
   }
 
   return (
     <>
       <CustomFieldsList
         customFields={customFields}
+        allowAdd={allowAdd}
+        allowEdit={allowEdit}
         onAdd={newCustomField}
         onEdit={handleEdit}
         onDelete={handleDelete}
