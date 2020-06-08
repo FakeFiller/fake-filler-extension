@@ -185,6 +185,21 @@
   "customFields_validation_atLeastOneValueInGroup": {
     "message": "Please enter at least one value in this group."
   },
+  "customFields_validation_invalidEmailUsername": {
+    "message": "Please select the email username generation option."
+  },
+  "customFields_validation_missingEmailUsernameList": {
+    "message": "Please enter some usernames."
+  },
+  "customFields_validation_missingEmailUsernameRegEx": {
+    "message": "Please enter a regular expression."
+  },
+  "customFields_validation_invalidEmailHostname": {
+    "message": "Please select the email hostname generation option."
+  },
+  "customFields_validation_missingEmailHostnameList": {
+    "message": "Please enter some hostnames."
+  },
   "customFields_dateTypeHelp": {
     "message": "Uses moment.js to format date/time values. Please refer to the moment.js <a href=\"http://momentjs.com/docs/#/displaying/format/\" target=\"_blank\" rel=\"noopener noreferrer\">documentation</a>. This will be ignored for type=\"date\" fields."
   },
@@ -302,6 +317,18 @@
   "customFields_label_daysFromToday": {
     "message": "days from today"
   },
+  "customFields_label_hostname": {
+    "message": "Hostname"
+  },
+  "customFields_label_random": {
+    "message": "Random"
+  },
+  "customFields_label_previousUsername": {
+    "message": "Previously generated username"
+  },
+  "customFields_label_previousName": {
+    "message": "Previously generated first and last name"
+  },
   "customFields_dataType_select": {
     "message": "-- select --"
   },
@@ -356,47 +383,38 @@
   "customFields_delete_confirm_message": {
     "message": "Are you sure you want to delete this custom field?"
   },
-  "generalSettings_label_hostName": {
+  "customFields_label_hostName": {
     "message": "Host name"
   },
-  "generalSettings_label_hostName_randomLabel": {
+  "customFields_label_hostName_randomLabel": {
     "message": "Use a randomly generated host name"
   },
-  "generalSettings_label_hostName_listLabel": {
+  "customFields_label_hostName_listLabel": {
     "message": "Select from the list below:"
   },
-  "generalSettings_label_hostName_listTextHelp": {
+  "customFields_label_hostName_listTextHelp": {
     "message": "List each name with a comma. You may include the @ sign as well."
   },
-  "generalSettings_label_username": {
+  "customFields_label_username": {
     "message": "Username"
   },
-  "generalSettings_label_username_usernameLabel": {
+  "customFields_label_username_usernameLabel": {
     "message": "Use a previously generated username"
   },
-  "generalSettings_label_username_nameLabel": {
+  "customFields_label_username_nameLabel": {
     "message": "Use a previously generated first and last name"
   },
-  "generalSettings_label_username_randomLabel": {
+  "customFields_label_username_randomLabel": {
     "message": "Use a random name"
   },
-  "generalSettings_label_username_listLabel": {
+  "customFields_label_username_listLabel": {
     "message": "Select from the list below (List each name with a comma.):"
   },
-  "generalSettings_label_username_regExLabel": {
+  "customFields_label_username_regExLabel": {
     "message": "Use this regular expression:"
   },
-  "generalSettings_label_username_regExTextPlaceholder": {
+  "customFields_label_username_regExTextPlaceholder": {
     "message": "A regular expression."
-  },
-  "generalSettings_validation_enterUsernames": {
-    "message": "Please enter a list of usernames."
-  },
-  "generalSettings_validation_enterRegEx": {
-    "message": "Please enter a regular expression."
-  },
-  "generalSettings_validation_enterHostname": {
-    "message": "Please enter a list of hostnames."
   },
   "generalSettings_validation_enterPassword": {
     "message": "Please enter a password."
@@ -406,9 +424,6 @@
   },
   "generalSettings_validation_invalidDefaultMaxLength": {
     "message": "The default maximum length value must be greater than zero."
-  },
-  "generalSettings_emailSettings": {
-    "message": "Email Settings"
   },
   "generalSettings_passwordSettings": {
     "message": "Password Settings"

@@ -2,11 +2,12 @@ import { Form, Formik, FormikErrors } from "formik";
 import React from "react";
 import { Modal } from "react-bootstrap";
 
-import { GetMessage } from "src/common/helpers";
+import { GetMessage, DEFAULT_EMAIL_CUSTOM_FIELD } from "src/common/helpers";
 import TextField from "src/options/components/common/TextField";
 import DataTypeSelectField from "src/options/components/custom-fields/DataTypeSelectField";
 import AlphanumericOptions from "src/options/components/custom-fields/data-types/AlphanumericOptions";
 import DateOptions from "src/options/components/custom-fields/data-types/DateOptions";
+import EmailOptions from "src/options/components/custom-fields/data-types/EmailOptions";
 import NumberOptions from "src/options/components/custom-fields/data-types/NumberOptions";
 import RandomizedListOptions from "src/options/components/custom-fields/data-types/RandomizedListOptions";
 import RegExOptions from "src/options/components/custom-fields/data-types/RegExOptions";
@@ -23,16 +24,16 @@ const validate = (values: ICustomFieldForm): FormikErrors<ICustomFieldForm> => {
     hasValidType = false;
   }
 
-  if (!values.name || values.name.length === 0) {
+  if (!values.name || values.name.trim().length === 0) {
     errors.name = GetMessage("customFields_validation_missingName");
   }
 
-  if (!values.match || values.match.length === 0) {
+  if (!values.match || values.match.trim().length === 0) {
     errors.match = GetMessage("customFields_validation_missingMatch");
   }
 
   if (hasValidType) {
-    if (values.type === "telephone" && (!values.telephoneTemplate || values.telephoneTemplate.length === 0)) {
+    if (values.type === "telephone" && (!values.telephoneTemplate || values.telephoneTemplate.trim().length === 0)) {
       errors.telephoneTemplate = GetMessage("customFields_validation_missingTelephoneTemplate");
     }
 
@@ -41,7 +42,7 @@ const validate = (values: ICustomFieldForm): FormikErrors<ICustomFieldForm> => {
       if (Number.isNaN(minValue)) {
         errors.numberMin = GetMessage("customFields_validation_missingMinValue");
       }
-      if (!values.numberMax || values.numberMax.length === 0) {
+      if (!values.numberMax || values.numberMax.trim().length === 0) {
         errors.numberMax = GetMessage("customFields_validation_missingMaxValue");
       }
       if (values.numberMin && values.numberMax && parseInt(values.numberMax, 10) < parseInt(values.numberMin, 10)) {
@@ -55,13 +56,13 @@ const validate = (values: ICustomFieldForm): FormikErrors<ICustomFieldForm> => {
     }
 
     if (values.type === "text") {
-      if (!values.textMin || values.textMin.length === 0) {
+      if (!values.textMin || values.textMin.trim().length === 0) {
         errors.textMin = GetMessage("customFields_validation_missingMinValue");
       }
-      if (!values.textMax || values.textMax.length === 0) {
+      if (!values.textMax || values.textMax.trim().length === 0) {
         errors.textMax = GetMessage("customFields_validation_missingMaxValue");
       }
-      if (!values.textMaxLength || values.textMaxLength.length === 0) {
+      if (!values.textMaxLength || values.textMaxLength.trim().length === 0) {
         errors.textMaxLength = GetMessage("customFields_validation_missingMaxLength");
       }
       if (values.textMin && parseInt(values.textMin, 10) < 1) {
@@ -76,7 +77,7 @@ const validate = (values: ICustomFieldForm): FormikErrors<ICustomFieldForm> => {
     }
 
     if (values.type === "date") {
-      if (!values.dateTemplate || values.dateTemplate.length === 0) {
+      if (!values.dateTemplate || values.dateTemplate.trim().length === 0) {
         errors.dateTemplate = GetMessage("customFields_validation_missingDateTemplate");
       }
 
@@ -110,15 +111,43 @@ const validate = (values: ICustomFieldForm): FormikErrors<ICustomFieldForm> => {
       }
     }
 
-    if (values.type === "alphanumeric" && (!values.alphanumericTemplate || values.alphanumericTemplate.length === 0)) {
+    if (values.type === "email") {
+      if (!values.emailUsername) {
+        errors.emailUsername = GetMessage("customFields_validation_invalidEmailUsername");
+      } else if (
+        values.emailUsername === "list" &&
+        (!values.emailUsernameList || values.emailUsernameList.trim().length === 0)
+      ) {
+        errors.emailUsernameList = GetMessage("customFields_validation_missingEmailUsernameList");
+      } else if (
+        values.emailUsername === "regex" &&
+        (!values.emailUsernameRegEx || values.emailUsernameRegEx.trim().length === 0)
+      ) {
+        errors.emailUsernameRegEx = GetMessage("customFields_validation_missingEmailUsernameRegEx");
+      }
+
+      if (!values.emailHostname) {
+        errors.emailHostname = GetMessage("customFields_validation_invalidEmailHostname");
+      } else if (
+        values.emailHostname === "list" &&
+        (!values.emailHostnameList || values.emailHostnameList.trim().length === 0)
+      ) {
+        errors.emailHostnameList = GetMessage("customFields_validation_missingEmailHostnameList");
+      }
+    }
+
+    if (
+      values.type === "alphanumeric" &&
+      (!values.alphanumericTemplate || values.alphanumericTemplate.trim().length === 0)
+    ) {
       errors.alphanumericTemplate = GetMessage("customFields_validation_missingAlNumTemplate");
     }
 
-    if (values.type === "regex" && (!values.regexTemplate || values.regexTemplate.length === 0)) {
+    if (values.type === "regex" && (!values.regexTemplate || values.regexTemplate.trim().length === 0)) {
       errors.regexTemplate = GetMessage("customFields_validation_missingRegEx");
     }
 
-    if (values.type === "randomized-list" && (!values.list || values.list.length === 0)) {
+    if (values.type === "randomized-list" && (!values.list || values.list.trim().length === 0)) {
       errors.list = GetMessage("customFields_validation_missingRandomItems");
     }
   }
@@ -134,6 +163,8 @@ type Props = {
 };
 
 const CustomFieldModal = (props: Props) => {
+  const { customField } = props;
+
   const initialValues: Partial<ICustomFieldForm> = {
     match: "",
     name: "",
@@ -152,60 +183,81 @@ const CustomFieldModal = (props: Props) => {
     alphanumericTemplate: "",
     regexTemplate: "",
     list: "",
+    emailHostname: "list",
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    emailHostnameList: DEFAULT_EMAIL_CUSTOM_FIELD.emailHostnameList!.join(", "),
+    emailUsername: "random",
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    emailUsernameList: DEFAULT_EMAIL_CUSTOM_FIELD.emailUsernameList!.join(", "),
+    emailUsernameRegEx: "",
   };
 
-  if (props.customField) {
-    initialValues.name = props.customField.name;
-    initialValues.type = props.customField.type;
-    initialValues.match = props.customField.match.join(", ");
+  if (customField) {
+    initialValues.name = customField.name;
+    initialValues.type = customField.type;
+    initialValues.match = customField.match.join(", ");
 
     switch (initialValues.type) {
       case "alphanumeric":
-        initialValues.alphanumericTemplate = props.customField.template || "";
+        initialValues.alphanumericTemplate = customField.template || "";
         break;
 
       case "date":
-        initialValues.dateTemplate = props.customField.template || "";
+        initialValues.dateTemplate = customField.template || "";
 
-        if (!Number.isNaN(Number(props.customField.min))) {
-          initialValues.dateMin = String(props.customField.min);
+        if (!Number.isNaN(Number(customField.min))) {
+          initialValues.dateMin = String(customField.min);
         }
 
-        if (!Number.isNaN(Number(props.customField.max))) {
-          initialValues.dateMax = String(props.customField.max);
+        if (!Number.isNaN(Number(customField.max))) {
+          initialValues.dateMax = String(customField.max);
         }
 
-        if (props.customField.minDate) {
-          initialValues.dateMinDate = props.customField.minDate;
+        if (customField.minDate) {
+          initialValues.dateMinDate = customField.minDate;
         }
 
-        if (props.customField.maxDate) {
-          initialValues.dateMaxDate = props.customField.maxDate;
+        if (customField.maxDate) {
+          initialValues.dateMaxDate = customField.maxDate;
         }
         break;
 
+      case "email": {
+        initialValues.emailHostname = customField.emailHostname || "list";
+        initialValues.emailHostnameList = customField.emailHostnameList
+          ? customField.emailHostnameList.join(", ")
+          : initialValues.emailHostnameList;
+
+        initialValues.emailUsername = customField.emailUsername || "list";
+        initialValues.emailUsernameRegEx = customField.emailUsernameRegEx || "";
+        initialValues.emailUsernameList = customField.emailUsernameList
+          ? customField.emailUsernameList.join(", ")
+          : initialValues.emailUsernameList;
+        break;
+      }
+
       case "number":
-        initialValues.numberMax = String(props.customField.max);
-        initialValues.numberMin = String(props.customField.min);
-        initialValues.numberDecimalPlaces = String(props.customField.decimalPlaces);
+        initialValues.numberMax = String(customField.max);
+        initialValues.numberMin = String(customField.min);
+        initialValues.numberDecimalPlaces = String(customField.decimalPlaces);
         break;
 
       case "randomized-list":
-        initialValues.list = props.customField.list ? props.customField.list.join("\n") : "";
+        initialValues.list = customField.list ? customField.list.join("\n") : "";
         break;
 
       case "regex":
-        initialValues.regexTemplate = props.customField.template || "";
+        initialValues.regexTemplate = customField.template || "";
         break;
 
       case "telephone":
-        initialValues.telephoneTemplate = props.customField.template || "";
+        initialValues.telephoneTemplate = customField.template || "";
         break;
 
       case "text":
-        initialValues.textMax = String(props.customField.max);
-        initialValues.textMin = String(props.customField.min);
-        initialValues.textMaxLength = String(props.customField.maxLength);
+        initialValues.textMax = String(customField.max);
+        initialValues.textMin = String(customField.min);
+        initialValues.textMaxLength = String(customField.maxLength);
         break;
 
       default:
@@ -230,13 +282,14 @@ const CustomFieldModal = (props: Props) => {
                 placeholder={GetMessage("customFields_label_match_placeholder")}
                 helpText={GetMessage("customFields_label_match_helpText")}
               />
-              {values.type === "telephone" && <TelephoneOptions />}
-              {values.type === "number" && <NumberOptions />}
-              {values.type === "date" && <DateOptions />}
               {values.type === "alphanumeric" && <AlphanumericOptions />}
-              {values.type === "text" && <TextOptions />}
-              {values.type === "regex" && <RegExOptions regexTemplate={values.regexTemplate} />}
+              {values.type === "date" && <DateOptions />}
+              {values.type === "email" && <EmailOptions {...values} />}
+              {values.type === "number" && <NumberOptions />}
               {values.type === "randomized-list" && <RandomizedListOptions />}
+              {values.type === "regex" && <RegExOptions regexTemplate={values.regexTemplate} />}
+              {values.type === "telephone" && <TelephoneOptions />}
+              {values.type === "text" && <TextOptions />}
             </Modal.Body>
             <Modal.Footer>
               <button type="button" className="btn btn-outline-secondary" onClick={props.onClose}>

@@ -5,7 +5,7 @@ import moment from "moment";
 import RandExp from "randexp";
 
 import DataGenerator from "src/common/data-generator";
-import { SanitizeText } from "src/common/helpers";
+import { SanitizeText, DEFAULT_EMAIL_CUSTOM_FIELD } from "src/common/helpers";
 import { IFakeFillerOptions, ICustomField, CustomFieldTypes } from "src/types";
 
 type FillableElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
@@ -24,7 +24,7 @@ class ElementFiller {
   constructor(options: IFakeFillerOptions, profileIndex = -1) {
     this.options = options;
     this.profileIndex = profileIndex;
-    this.generator = new DataGenerator(options);
+    this.generator = new DataGenerator();
 
     this.previousValue = "";
     this.previousPassword = "";
@@ -202,37 +202,106 @@ class ElementFiller {
     }
 
     switch (customField.type) {
-      case "username":
+      case "username": {
         this.previousUsername = this.generator.scrambledWord(5, 10).toLowerCase();
-        this.generator.setPreviousUsername(this.previousUsername);
         return this.previousUsername;
+      }
 
-      case "first-name":
+      case "first-name": {
         this.previousFirstName = this.generator.firstName();
-        this.generator.setPreviousFirstName(this.previousFirstName);
         return this.previousFirstName;
+      }
 
-      case "last-name":
+      case "last-name": {
         this.previousLastName = this.generator.lastName();
-        this.generator.setPreviousLastName(this.previousLastName);
         return this.previousLastName;
+      }
 
-      case "full-name":
+      case "full-name": {
         this.previousFirstName = this.generator.firstName();
         this.previousLastName = this.generator.lastName();
-        this.generator.setPreviousFirstName(this.previousFirstName);
-        this.generator.setPreviousLastName(this.previousLastName);
         return `${this.previousFirstName} ${this.previousLastName}`;
+      }
 
-      case "email":
-        return this.generator.email();
+      case "email": {
+        let username = "";
 
-      case "organization":
+        switch (customField.emailUsername) {
+          case "list": {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const usernames = customField.emailUsernameList || DEFAULT_EMAIL_CUSTOM_FIELD.emailUsernameList!;
+            username = usernames[Math.floor(Math.random() * usernames.length)];
+            break;
+          }
+
+          case "username": {
+            if (this.previousUsername.length > 0) {
+              username = SanitizeText(this.previousUsername);
+            }
+            break;
+          }
+
+          case "name": {
+            if (this.previousFirstName.length > 0) {
+              username = SanitizeText(this.previousFirstName);
+            }
+            if (this.previousLastName.length > 0) {
+              if (username.length > 0) {
+                username += `.${SanitizeText(this.previousLastName)}`;
+              } else {
+                username = SanitizeText(this.previousLastName);
+              }
+            }
+            break;
+          }
+
+          case "regex": {
+            try {
+              if (customField.emailUsernameRegEx) {
+                const regExGenerator = new RandExp(customField.emailUsernameRegEx);
+                regExGenerator.defaultRange.add(0, 65535);
+                username = regExGenerator.gen();
+              }
+            } catch (ex) {
+              // Do nothing.
+            }
+            break;
+          }
+
+          default:
+            break;
+        }
+
+        if (!username || username.length === 0) {
+          username = this.generator.scrambledWord(4, 10).toLowerCase();
+        }
+
+        let domain = "";
+
+        if (customField.emailHostname === "list") {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          const hostnames = customField.emailHostnameList || DEFAULT_EMAIL_CUSTOM_FIELD.emailHostnameList!;
+          const randomNumber = Math.floor(Math.random() * hostnames.length);
+          domain = hostnames[randomNumber];
+        }
+
+        if (!domain || domain.length === 0) {
+          domain = `${this.generator.scrambledWord().toLowerCase()}.com`;
+        }
+
+        if (domain.indexOf("@") === -1) {
+          domain = `@${domain}`;
+        }
+
+        return username + domain;
+      }
+
+      case "organization": {
         return this.generator.organizationName();
-
-      case "telephone":
+      }
+      case "telephone": {
         return this.generator.phoneNumber(customField.template);
-
+      }
       case "number": {
         const minValue = customField.min === 0 ? 0 : customField.min || 1;
         const maxValue = customField.max || 100;
@@ -273,8 +342,9 @@ class ElementFiller {
         return moment(this.generator.date(minDate, maxDate)).format(customField.template);
       }
 
-      case "url":
+      case "url": {
         return this.generator.website();
+      }
 
       case "text": {
         const minWords = customField.min || 10;
@@ -286,8 +356,9 @@ class ElementFiller {
         return this.generator.paragraph(minWords, maxWords, maxWords);
       }
 
-      case "alphanumeric":
+      case "alphanumeric": {
         return this.generator.alphanumeric(customField.template || "");
+      }
 
       case "regex": {
         const regExGenerator = new RandExp(customField.template || "");
@@ -295,14 +366,16 @@ class ElementFiller {
         return regExGenerator.gen();
       }
 
-      case "randomized-list":
+      case "randomized-list": {
         if (customField.list && customField.list.length > 0) {
           return customField.list[this.generator.randomNumber(0, customField.list.length - 1)];
         }
         return "";
+      }
 
-      default:
+      default: {
         return this.generator.phrase(this.getElementMaxLength(element));
+      }
     }
   }
 
@@ -315,13 +388,14 @@ class ElementFiller {
     const elementType = element.type ? element.type.toLowerCase() : "";
 
     switch (elementType) {
-      case "checkbox":
+      case "checkbox": {
         if (this.isAnyMatch(element.name.toLowerCase(), this.options.agreeTermsFields)) {
           element.checked = true;
         } else {
           element.checked = Math.random() > 0.5;
         }
         break;
+      }
 
       case "date": {
         const dateCustomField = this.findCustomField(this.getElementName(element), ["date"]);
@@ -349,34 +423,44 @@ class ElementFiller {
         break;
       }
 
-      case "datetime":
+      case "datetime": {
         element.value = `${this.generator.date()}T${this.generator.time()}Z`;
         break;
+      }
 
-      case "datetime-local":
+      case "datetime-local": {
         element.value = `${this.generator.date()}T${this.generator.time()}`;
         break;
+      }
 
-      case "time":
+      case "time": {
         element.value = this.generator.time();
         break;
+      }
 
-      case "month":
+      case "month": {
         element.value = `${this.generator.year()}-${this.generator.month()}`;
         break;
+      }
 
       case "week":
         element.value = `${this.generator.year()}-W${this.generator.weekNumber()}`;
         break;
 
-      case "email":
+      case "email": {
         if (this.isAnyMatch(element.name.toLowerCase(), this.options.confirmFields)) {
           element.value = this.previousValue;
         } else {
-          this.previousValue = this.generator.email();
+          let emailCustomField = this.findCustomField(this.getElementName(element), ["email"]);
+          if (!emailCustomField) {
+            emailCustomField = DEFAULT_EMAIL_CUSTOM_FIELD;
+          }
+
+          this.previousValue = this.generateDummyDataForCustomField(emailCustomField, element);
           element.value = this.previousValue;
         }
         break;
+      }
 
       case "number":
       case "range": {
@@ -399,21 +483,30 @@ class ElementFiller {
         break;
       }
 
-      case "password":
+      case "password": {
         if (this.isAnyMatch(element.name.toLowerCase(), this.options.confirmFields)) {
           element.value = this.previousPassword;
         } else {
-          this.previousPassword = this.generator.password();
+          if (this.options.passwordSettings.mode === "defined") {
+            this.previousPassword = this.options.passwordSettings.password;
+          } else {
+            this.previousPassword = this.generator.scrambledWord(8, 8).toLowerCase();
+            // eslint-disable-next-line no-console
+            console.info(this.previousPassword);
+          }
+
           element.value = this.previousPassword;
         }
         break;
+      }
 
-      case "radio":
+      case "radio": {
         if (element.name) {
           this.selectRandomRadio(element.name);
         }
         fireEvent = false;
         break;
+      }
 
       case "tel": {
         const telephoneCustomField = this.findCustomField(this.getElementName(element), [
@@ -430,19 +523,22 @@ class ElementFiller {
         break;
       }
 
-      case "url":
+      case "url": {
         element.value = this.generator.website();
         break;
+      }
 
-      case "color":
+      case "color": {
         element.value = this.generator.color();
         break;
+      }
 
-      case "search":
+      case "search": {
         element.value = this.generator.words(1);
         break;
+      }
 
-      default:
+      default: {
         if (this.isAnyMatch(element.name.toLowerCase(), this.options.confirmFields)) {
           element.value = this.previousValue;
         } else {
@@ -451,6 +547,7 @@ class ElementFiller {
           element.value = this.previousValue;
         }
         break;
+      }
     }
 
     if (this.options.triggerClickEvents && fireEvent) {

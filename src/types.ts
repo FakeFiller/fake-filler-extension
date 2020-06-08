@@ -23,18 +23,28 @@ export type CustomFieldTypes =
   | "url"
   | "username";
 
+export type PasswordModeType = "defined" | "random";
+export type EmailHostnameType = "list" | "random";
+export type EmailUsernameType = "list" | "name" | "random" | "username" | "regex";
+
 export interface ICustomField {
+  type: CustomFieldTypes;
+  name: string;
   match: string[];
+
   max?: number;
   min?: number;
   decimalPlaces?: number;
   maxLength?: number;
-  name: string;
   template?: string;
   list?: string[];
-  type: CustomFieldTypes;
   minDate?: string;
   maxDate?: string;
+  emailHostname?: EmailHostnameType;
+  emailHostnameList?: string[];
+  emailUsername?: EmailUsernameType;
+  emailUsernameList?: string[];
+  emailUsernameRegEx?: string;
 }
 
 export interface ICustomFieldForm {
@@ -56,14 +66,11 @@ export interface ICustomFieldForm {
   regexTemplate: string;
   list: string;
   type: CustomFieldTypes;
-}
-
-export interface IEmailSettings {
-  hostname: "list" | "random";
-  hostnameList: string[];
-  username: "list" | "name" | "random" | "username" | "regex";
-  usernameList: string[];
-  usernameRegEx: string;
+  emailHostname: EmailHostnameType;
+  emailHostnameList: string;
+  emailUsername: EmailUsernameType;
+  emailUsernameList: string;
+  emailUsernameRegEx: string;
 }
 
 export interface IFieldMatchSettings {
@@ -75,7 +82,7 @@ export interface IFieldMatchSettings {
 }
 
 export interface IPasswordSettings {
-  mode: "defined" | "random";
+  mode: PasswordModeType;
   password: string;
 }
 
@@ -89,7 +96,6 @@ export interface IFakeFillerOptions {
   agreeTermsFields: string[];
   confirmFields: string[];
   defaultMaxLength: number;
-  emailSettings: IEmailSettings;
   enableContextMenu: boolean;
   fieldMatchSettings: IFieldMatchSettings;
   fields: ICustomField[];
@@ -105,11 +111,6 @@ export interface IFakeFillerOptionsForm {
   agreeTermsFields: string;
   confirmFields: string;
   defaultMaxLength: string;
-  emailSettingsUsernameType: "list" | "name" | "random" | "username" | "regex";
-  emailSettingsUsernameList: string;
-  emailSettingsUsernameRegEx: string;
-  emailSettingsHostnameType: "list" | "random";
-  emailSettingsHostnameList: string;
   enableContextMenu: boolean;
   fieldMatchId: boolean;
   fieldMatchName: boolean;
@@ -119,7 +120,7 @@ export interface IFakeFillerOptionsForm {
   ignoreFieldsWithContent: boolean;
   ignoreHiddenFields: boolean;
   ignoredFields: string;
-  passwordSettingsMode: "defined" | "random";
+  passwordSettingsMode: PasswordModeType;
   passwordSettingsPassword: string;
   triggerClickEvents: boolean;
 }

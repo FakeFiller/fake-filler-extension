@@ -1,6 +1,12 @@
 /* eslint-disable no-param-reassign */
 
-import { CreateContextMenus, GetFakeFillerOptions, GetMessage, SaveFakeFillerOptions } from "src/common/helpers";
+import {
+  CreateContextMenus,
+  GetFakeFillerOptions,
+  GetMessage,
+  SaveFakeFillerOptions,
+  DEFAULT_EMAIL_CUSTOM_FIELD,
+} from "src/common/helpers";
 import { MessageRequest, IProfile } from "src/types";
 
 function handleMessage(
@@ -59,6 +65,34 @@ if (chrome.runtime.onInstalled) {
         if (details.previousVersion && details.previousVersion.startsWith("2.12")) {
           GetFakeFillerOptions().then((options) => {
             options.profiles = [];
+
+            let hasEmailField = false;
+            options.fields.forEach((field) => {
+              if (field.type === "email") {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                field.emailUsername = options.emailSettings.username;
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                field.emailUsernameList = options.emailSettings.usernameList;
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                field.emailUsernameRegEx = options.emailSettings.usernameRegEx;
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                field.emailHostname = options.emailSettings.hostname;
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                field.emailHostnameList = options.emailSettings.hostnameList;
+
+                hasEmailField = true;
+              }
+            });
+
+            if (!hasEmailField) {
+              options.fields.push(DEFAULT_EMAIL_CUSTOM_FIELD);
+            }
+
             SaveFakeFillerOptions(options);
           });
         }

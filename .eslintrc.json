@@ -60,7 +60,7 @@
 
     "react/jsx-filename-extension": ["error", { "extensions": [".tsx", ".jsx"] }],
     "react/prop-types": ["off"],
-    "react/jsx-props-no-spreading": ["error", { "html": "ignore" }],
+    "react/jsx-props-no-spreading": ["off"],
     "react/destructuring-assignment": ["off"],
     "react/jsx-one-expression-per-line": ["off"],
     "react/jsx-wrap-multilines": ["off"]

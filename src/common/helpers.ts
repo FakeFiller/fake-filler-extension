@@ -1,21 +1,25 @@
-import { IFakeFillerOptions } from "src/types";
+import { IFakeFillerOptions, ICustomField } from "src/types";
 
 // spell-checker:disable
 
 const DEFAULT_TELEPHONE_TEMPLATE = "+1 (XxX) XxX-XxxX";
+
+export const DEFAULT_EMAIL_CUSTOM_FIELD: ICustomField = {
+  type: "email",
+  name: "Email Address",
+  match: ["email"],
+  emailUsername: "random",
+  emailUsernameList: ["jack", "jill"],
+  emailUsernameRegEx: "",
+  emailHostname: "list",
+  emailHostnameList: ["mailinator.com"],
+};
 
 const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
   const options: IFakeFillerOptions = {
     agreeTermsFields: ["agree", "terms", "conditions"],
     confirmFields: ["confirm", "reenter", "retype", "repeat", "secondary"],
     defaultMaxLength: 20,
-    emailSettings: {
-      username: "random",
-      usernameList: ["jack", "sparrow", "frodo", "baggins"],
-      usernameRegEx: "",
-      hostname: "list",
-      hostnameList: ["mailinator.com", "mailinator.net"],
-    },
     enableContextMenu: true,
     fieldMatchSettings: {
       matchLabel: true,
@@ -54,11 +58,7 @@ const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
     match: ["lastname", "surname", "secondname"],
   });
 
-  options.fields.push({
-    type: "email",
-    name: "Email Address",
-    match: ["email"],
-  });
+  options.fields.push(DEFAULT_EMAIL_CUSTOM_FIELD);
 
   options.fields.push({
     type: "organization",

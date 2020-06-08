@@ -8,6 +8,7 @@
     "datetime",
     "devtool",
     "formik",
+    "hostnames",
     "iframes",
     "immer",
     "randexp",

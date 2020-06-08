@@ -1,34 +1,7 @@
-import RandExp from "randexp";
-
 import * as data from "src/common/dummy-data";
-import { DEFAULT_TELEPHONE_TEMPLATE, SanitizeText } from "src/common/helpers";
-import { IFakeFillerOptions } from "src/types";
+import { DEFAULT_TELEPHONE_TEMPLATE } from "src/common/helpers";
 
 class DataGenerator {
-  private options: IFakeFillerOptions;
-  private previousUsername: string;
-  private previousFirstName: string;
-  private previousLastName: string;
-
-  constructor(options: IFakeFillerOptions) {
-    this.options = options;
-    this.previousUsername = "";
-    this.previousFirstName = "";
-    this.previousLastName = "";
-  }
-
-  public setPreviousUsername(username: string): void {
-    this.previousUsername = username;
-  }
-
-  public setPreviousFirstName(firstName: string): void {
-    this.previousFirstName = firstName;
-  }
-
-  public setPreviousLastName(lastName: string): void {
-    this.previousLastName = lastName;
-  }
-
   public randomNumber(start: number, end: number, decimalPlaces = 0): number {
     const min = Math.ceil(start);
     const max = Math.floor(end);
@@ -193,81 +166,6 @@ class DataGenerator {
     return resultPhrase.replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ");
   }
 
-  public password(): string {
-    if (this.options.passwordSettings.mode === "defined") {
-      return this.options.passwordSettings.password;
-    }
-
-    const generatedPassword = this.scrambledWord(8, 8).toLowerCase();
-    // eslint-disable-next-line no-console
-    console.info(generatedPassword);
-    return generatedPassword;
-  }
-
-  public email(): string {
-    const { emailSettings } = this.options;
-    let username = "";
-
-    switch (emailSettings.username) {
-      case "list":
-        username = emailSettings.usernameList[Math.floor(Math.random() * emailSettings.usernameList.length)];
-        break;
-
-      case "username":
-        if (this.previousUsername.length > 0) {
-          username = SanitizeText(this.previousUsername);
-        }
-        break;
-
-      case "name":
-        if (this.previousFirstName.length > 0) {
-          username = SanitizeText(this.previousFirstName);
-        }
-        if (this.previousLastName.length > 0) {
-          if (username.length > 0) {
-            username += `.${SanitizeText(this.previousLastName)}`;
-          } else {
-            username = SanitizeText(this.previousLastName);
-          }
-        }
-        break;
-
-      case "regex":
-        try {
-          const regExGenerator = new RandExp(emailSettings.usernameRegEx);
-          regExGenerator.defaultRange.add(0, 65535);
-          username = regExGenerator.gen();
-        } catch (ex) {
-          // Do nothing.
-        }
-        break;
-
-      default:
-        break;
-    }
-
-    if (!username || username.length === 0) {
-      username = this.scrambledWord(4, 10).toLowerCase();
-    }
-
-    let domain = "";
-
-    if (emailSettings.hostname === "list") {
-      const randomNumber = Math.floor(Math.random() * emailSettings.hostnameList.length);
-      domain = emailSettings.hostnameList[randomNumber];
-    }
-
-    if (!domain || domain.length === 0) {
-      domain = `${this.scrambledWord().toLowerCase()}.com`;
-    }
-
-    if (domain.indexOf("@") === -1) {
-      domain = `@${domain}`;
-    }
-
-    return username + domain;
-  }
-
   public website(): string {
     const scrambledWord = this.scrambledWord().toLowerCase();
     const randomDomain = data.domains[this.randomNumber(0, data.domains.length - 1)];
@@ -335,12 +233,7 @@ class DataGenerator {
     return data.firstNames[this.randomNumber(0, data.firstNames.length - 1)];
   }
 
-  public lastName(saveName = false): string {
-    if (saveName) {
-      this.previousLastName = data.lastNames[this.randomNumber(0, data.lastNames.length - 1)];
-      return this.previousLastName;
-    }
-
+  public lastName(): string {
     return data.lastNames[this.randomNumber(0, data.lastNames.length - 1)];
   }
 

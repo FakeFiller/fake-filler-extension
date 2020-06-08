@@ -11,22 +11,6 @@ import { IFakeFillerOptionsForm, IFakeFillerOptions } from "src/types";
 const validate = (values: IFakeFillerOptionsForm): FormikErrors<IFakeFillerOptionsForm> => {
   const errors: FormikErrors<IFakeFillerOptionsForm> = {};
 
-  if (values.emailSettingsUsernameType === "list" && !values.emailSettingsUsernameList) {
-    errors.emailSettingsUsernameList = GetMessage("generalSettings_validation_enterUsernames");
-  }
-
-  if (values.emailSettingsUsernameType === "regex" && !values.emailSettingsUsernameRegEx) {
-    errors.emailSettingsUsernameRegEx = GetMessage("generalSettings_validation_enterRegEx");
-  }
-
-  if (values.emailSettingsHostnameType === "list" && !values.emailSettingsHostnameList) {
-    errors.emailSettingsHostnameList = GetMessage("generalSettings_validation_enterHostname");
-  }
-
-  if (values.passwordSettingsMode === "defined" && !values.passwordSettingsPassword) {
-    errors.passwordSettingsPassword = GetMessage("generalSettings_validation_enterPassword");
-  }
-
   if (
     !values.fieldMatchId &&
     !values.fieldMatchName &&
@@ -78,11 +62,6 @@ const GeneralSettingsForm = (props: Props) => {
   initialValues.fieldMatchLabel = props.options.fieldMatchSettings.matchLabel;
   initialValues.fieldMatchClass = props.options.fieldMatchSettings.matchClass;
   initialValues.fieldMatchPlaceholder = props.options.fieldMatchSettings.matchPlaceholder;
-  initialValues.emailSettingsHostnameType = props.options.emailSettings.hostname;
-  initialValues.emailSettingsHostnameList = props.options.emailSettings.hostnameList.join(", ");
-  initialValues.emailSettingsUsernameType = props.options.emailSettings.username;
-  initialValues.emailSettingsUsernameList = props.options.emailSettings.usernameList.join(", ");
-  initialValues.emailSettingsUsernameRegEx = props.options.emailSettings.usernameRegEx;
 
   return (
     <Formik
@@ -93,65 +72,6 @@ const GeneralSettingsForm = (props: Props) => {
     >
       {({ isSubmitting, isValid }) => (
         <Form>
-          <h2>{GetMessage("generalSettings_emailSettings")}</h2>
-          <div className="form-group row">
-            <label className="col-sm-3 col-form-label text-sm-right pt-0" htmlFor="emailSettingsUsernameType">
-              {GetMessage("generalSettings_label_username")}
-            </label>
-            <div className="col-sm-9">
-              <RadioButtonField
-                name="emailSettingsUsernameType"
-                value="username"
-                label={GetMessage("generalSettings_label_username_usernameLabel")}
-              />
-              <RadioButtonField
-                name="emailSettingsUsernameType"
-                value="name"
-                label={GetMessage("generalSettings_label_username_nameLabel")}
-              />
-              <RadioButtonField
-                name="emailSettingsUsernameType"
-                value="random"
-                label={GetMessage("generalSettings_label_username_randomLabel")}
-              />
-              <RadioButtonField
-                name="emailSettingsUsernameType"
-                value="list"
-                label={GetMessage("generalSettings_label_username_listLabel")}
-              />
-              <TextField name="emailSettingsUsernameList" placeholder={GetMessage("enterCsv")} />
-              <RadioButtonField
-                name="emailSettingsUsernameType"
-                value="regex"
-                label={GetMessage("generalSettings_label_username_regExTextPlaceholder")}
-              />
-              <TextField name="emailSettingsUsernameRegEx" placeholder={GetMessage("enterCsv")} />
-            </div>
-          </div>
-
-          <div className="form-group row">
-            <label className="col-sm-3 col-form-label text-sm-right pt-0" htmlFor="emailSettingsHostnameType">
-              {GetMessage("generalSettings_label_hostName")}
-            </label>
-            <div className="col-sm-9">
-              <RadioButtonField
-                name="emailSettingsHostnameType"
-                value="random"
-                label={GetMessage("generalSettings_label_hostName_randomLabel")}
-              />
-              <RadioButtonField
-                name="emailSettingsHostnameType"
-                value="list"
-                label={GetMessage("generalSettings_label_hostName_listLabel")}
-              />
-              <TextField
-                name="emailSettingsHostnameList"
-                placeholder={GetMessage("enterCsv")}
-                helpText={GetMessage("generalSettings_label_hostName_listTextHelp")}
-              />
-            </div>
-          </div>
-
           <h2>{GetMessage("generalSettings_passwordSettings")}</h2>
 
           <div className="form-group row">

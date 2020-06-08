@@ -5,11 +5,11 @@ import { GetMessage } from "src/common/helpers";
 import HtmlPhrase from "src/options/components/common/HtmlPhrase";
 import TextField from "src/options/components/common/TextField";
 
-interface IOwnProps {
+type Props = {
   regexTemplate?: string;
-}
+};
 
-const RegExOptions = (props: IOwnProps) => {
+const RegExOptions = (props: Props) => {
   const [regExSample, setRegExSample] = useState("");
 
   function generateRandomRegExString() {

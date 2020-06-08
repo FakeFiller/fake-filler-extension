@@ -126,6 +126,27 @@ const CustomFieldsListItem = (props: Props) => {
                     <td>{customField.list.join(", ")}</td>
                   </tr>
                 )}
+                {customField.emailUsername && (
+                  <tr>
+                    <td>{GetMessage("customFields_label_username")}</td>
+                    <td>
+                      {customField.emailUsername === "regex" && customField.emailUsernameRegEx}
+                      {customField.emailUsername === "list" && customField.emailUsernameList?.join(", ")}
+                      {customField.emailUsername === "random" && GetMessage("customFields_label_random")}
+                      {customField.emailUsername === "username" && GetMessage("customFields_label_previousUsername")}
+                      {customField.emailUsername === "name" && GetMessage("customFields_label_previousName")}
+                    </td>
+                  </tr>
+                )}
+                {customField.emailHostname && (
+                  <tr>
+                    <td>{GetMessage("customFields_label_hostname")}</td>
+                    <td>
+                      {customField.emailHostname === "list" && customField.emailHostnameList?.join(", ")}
+                      {customField.emailHostname === "random" && GetMessage("customFields_label_random")}
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

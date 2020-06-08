@@ -93,14 +93,6 @@ export function saveOptions(options: IFakeFillerOptions, formValues?: IFakeFille
           matchName: formValues.fieldMatchName,
           matchPlaceholder: formValues.fieldMatchPlaceholder,
         };
-
-        draft.emailSettings = {
-          hostname: formValues.emailSettingsHostnameType,
-          hostnameList: CsvToArray(formValues.emailSettingsHostnameList),
-          username: formValues.emailSettingsUsernameType,
-          usernameList: CsvToArray(formValues.emailSettingsUsernameList),
-          usernameRegEx: formValues.emailSettingsUsernameRegEx,
-        };
       }
 
       return draft;
@@ -172,11 +164,11 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
   }
 
   if (customField.type === "telephone") {
-    customField.template = formData.telephoneTemplate;
+    customField.template = formData.telephoneTemplate.trim();
   }
 
   if (customField.type === "date") {
-    customField.template = formData.dateTemplate;
+    customField.template = formData.dateTemplate.trim();
 
     const min = parseInt(formData.dateMin, 10);
     const max = parseInt(formData.dateMax, 10);
@@ -190,24 +182,32 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
     }
 
     if (formData.dateMinDate) {
-      customField.minDate = formData.dateMinDate;
+      customField.minDate = formData.dateMinDate.trim();
     }
 
     if (formData.dateMaxDate) {
-      customField.maxDate = formData.dateMaxDate;
+      customField.maxDate = formData.dateMaxDate.trim();
     }
   }
 
   if (customField.type === "alphanumeric") {
-    customField.template = formData.alphanumericTemplate;
+    customField.template = formData.alphanumericTemplate.trim();
   }
 
   if (customField.type === "regex") {
-    customField.template = formData.regexTemplate;
+    customField.template = formData.regexTemplate.trim();
   }
 
   if (customField.type === "randomized-list") {
     customField.list = formData.list ? MultipleLinesToArray(formData.list) : undefined;
+  }
+
+  if (customField.type === "email") {
+    customField.emailHostname = formData.emailHostname;
+    customField.emailHostnameList = CsvToArray(formData.emailHostnameList);
+    customField.emailUsername = formData.emailUsername;
+    customField.emailUsernameList = CsvToArray(formData.emailUsernameList);
+    customField.emailUsernameRegEx = formData.emailUsernameRegEx.trim();
   }
 
   return customField;
