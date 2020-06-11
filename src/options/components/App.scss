@@ -14,7 +14,7 @@ $modal-dialog-margin-y-sm-up: 5rem;
 $modal-content-border-width: 0;
 $modal-backdrop-opacity: 0.7;
 
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 @each $breakpoint in map-keys($grid-breakpoints) {
   $infix: breakpoint-infix($breakpoint, $grid-breakpoints);

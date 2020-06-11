@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "Fake Filler (formerly known as Form Filler)"
+    "message": "Fake Filler"
   },
   "extensionName_short": {
     "message": "Fake Filler"
@@ -382,9 +382,6 @@
   },
   "customFields_delete_confirm_message": {
     "message": "Are you sure you want to delete this custom field?"
-  },
-  "customFields_label_hostName": {
-    "message": "Host name"
   },
   "customFields_label_hostName_randomLabel": {
     "message": "Use a randomly generated host name"

@@ -7,6 +7,20 @@ const ChangeLogPage = () => {
     <div>
       <h2>Fake Filler Changelog</h2>
       <p>
+        <strong>Version 3.0.0</strong>
+      </p>
+      <ul>
+        <li>
+          <ExternalLink url="https://fakefiller.com">
+            <b>
+              The extension has been renamed to <mark>Fake Filler</mark>.
+            </b>
+          </ExternalLink>
+        </li>
+        <li>Moved the email settings to custom fields.</li>
+      </ul>
+      <hr />
+      <p>
         <strong>Version 2.12.0</strong>
       </p>
       <ul>
