@@ -42,7 +42,7 @@ const validate = (values: ICustomFieldForm): FormikErrors<ICustomFieldForm> => {
       if (Number.isNaN(minValue)) {
         errors.numberMin = GetMessage("customFields_validation_missingMinValue");
       }
-      if (!values.numberMax || values.numberMax.trim().length === 0) {
+      if (!values.numberMax) {
         errors.numberMax = GetMessage("customFields_validation_missingMaxValue");
       }
       if (values.numberMin && values.numberMax && parseInt(values.numberMax, 10) < parseInt(values.numberMin, 10)) {
@@ -56,13 +56,13 @@ const validate = (values: ICustomFieldForm): FormikErrors<ICustomFieldForm> => {
     }
 
     if (values.type === "text") {
-      if (!values.textMin || values.textMin.trim().length === 0) {
+      if (!values.textMin) {
         errors.textMin = GetMessage("customFields_validation_missingMinValue");
       }
-      if (!values.textMax || values.textMax.trim().length === 0) {
+      if (!values.textMax) {
         errors.textMax = GetMessage("customFields_validation_missingMaxValue");
       }
-      if (!values.textMaxLength || values.textMaxLength.trim().length === 0) {
+      if (!values.textMaxLength) {
         errors.textMaxLength = GetMessage("customFields_validation_missingMaxLength");
       }
       if (values.textMin && parseInt(values.textMin, 10) < 1) {
