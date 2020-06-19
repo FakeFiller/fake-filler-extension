@@ -1,8 +1,9 @@
-import * as ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import * as webpack from "webpack";
 import * as merge from "webpack-merge";
 
 import webpackConfig from "./webpack.config";
+
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const developmentConfig: webpack.Configuration = {
   mode: "development",
