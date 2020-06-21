@@ -69,19 +69,14 @@ if (chrome.runtime.onInstalled) {
             let hasEmailField = false;
             options.fields.forEach((field) => {
               if (field.type === "email") {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 field.emailUsername = options.emailSettings.username;
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 field.emailUsernameList = options.emailSettings.usernameList;
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 field.emailUsernameRegEx = options.emailSettings.usernameRegEx;
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 field.emailHostname = options.emailSettings.hostname;
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 field.emailHostnameList = options.emailSettings.hostnameList;
 
@@ -92,6 +87,17 @@ if (chrome.runtime.onInstalled) {
             if (!hasEmailField) {
               options.fields.push(DEFAULT_EMAIL_CUSTOM_FIELD);
             }
+
+            // @ts-ignore
+            delete options.emailSettings;
+
+            SaveFakeFillerOptions(options);
+          });
+        }
+        if (details.previousVersion && details.previousVersion.startsWith("3.0")) {
+          GetFakeFillerOptions().then((options) => {
+            // @ts-ignore
+            delete options.emailSettings;
 
             SaveFakeFillerOptions(options);
           });

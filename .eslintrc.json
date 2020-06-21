@@ -35,6 +35,7 @@
     "react-hooks/rules-of-hooks": "error",
     "prettier/prettier": ["error"],
 
+    "@typescript-eslint/ban-ts-comment": ["off"],
     "@typescript-eslint/explicit-function-return-type": ["off"],
     "@typescript-eslint/no-explicit-any": ["off"],
     "@typescript-eslint/ban-ts-ignore": ["off"],
