@@ -65,6 +65,7 @@ if (chrome.runtime.onInstalled) {
         if (details.previousVersion && details.previousVersion.startsWith("2.12")) {
           GetFakeFillerOptions().then((options) => {
             options.profiles = [];
+            options.version = 1;
 
             let hasEmailField = false;
             options.fields.forEach((field) => {
@@ -94,8 +95,10 @@ if (chrome.runtime.onInstalled) {
             SaveFakeFillerOptions(options);
           });
         }
-        if (details.previousVersion && details.previousVersion.startsWith("3.0")) {
+        if (details.previousVersion && details.previousVersion.startsWith("3")) {
           GetFakeFillerOptions().then((options) => {
+            options.version = 1;
+
             // @ts-ignore
             delete options.emailSettings;
 

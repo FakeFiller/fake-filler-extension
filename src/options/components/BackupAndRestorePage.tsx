@@ -18,6 +18,8 @@ const BackupAndRestorePage = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [backupData, setBackupData] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isVersionMismatch, setIsVersionMismatch] = useState(false);
+  const [importedOptions, setImportedOptions] = useState<IFakeFillerOptions>();
   const isFetching = useSelector<IAppState, boolean>((state) => state.optionsData.isFetching);
   const options = useSelector<IAppState, IFakeFillerOptions | null>((state) => state.optionsData.options);
   const dispatch = useDispatch<MyThunkDispatch>();
@@ -25,6 +27,8 @@ const BackupAndRestorePage = () => {
   useEffect(() => {
     dispatch(getOptions());
   }, [dispatch]);
+
+  const currentOptionsVersion = (options && options.version) || 0;
 
   function getDateString(date: Date) {
     const year = date.getFullYear();
@@ -58,12 +62,18 @@ const BackupAndRestorePage = () => {
           try {
             const reader = e.target as FileReader;
             const decodedData = base64ToUtf8(reader.result as string);
-            const importedOptions = JSON.parse(decodedData);
+            const decodedOptions = JSON.parse(decodedData) as IFakeFillerOptions;
+            const importedOptionsVersion = decodedOptions.version || 0;
 
-            dispatch(saveOptions(importedOptions)).then(() => {
-              setShowSuccess(true);
-              setErrorMessage("");
-            });
+            if (currentOptionsVersion === importedOptionsVersion) {
+              dispatch(saveOptions(decodedOptions)).then(() => {
+                setShowSuccess(true);
+                setErrorMessage("");
+              });
+            } else {
+              setImportedOptions(decodedOptions);
+              setIsVersionMismatch(true);
+            }
           } catch (ex) {
             setShowSuccess(false);
             setErrorMessage(GetMessage("backupRestore_errorImporting", ex.toString()));
@@ -77,6 +87,17 @@ const BackupAndRestorePage = () => {
 
         fileReader.readAsText(fileElement.files[0]);
       }
+    }
+  }
+
+  function forceImportOldSettings() {
+    // eslint-disable-next-line no-alert
+    if (importedOptions && window.confirm(GetMessage("backupRestore_confirmImportOldBackup"))) {
+      dispatch(saveOptions(importedOptions)).then(() => {
+        setShowSuccess(true);
+        setErrorMessage("");
+        setIsVersionMismatch(false);
+      });
     }
   }
 
@@ -124,6 +145,21 @@ const BackupAndRestorePage = () => {
       <input type="file" className="invisible" id="file" onChange={importSettings} />
       {errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
       {showSuccess && <p className="alert alert-success">{GetMessage("backupRestore_settingImportSuccessMessage")}</p>}
+
+      {isVersionMismatch && (
+        <div className="alert alert-danger">
+          <p>{GetMessage("backupRestore_oldBackupErrorMessage")}</p>
+          <div>
+            <button
+              type="button"
+              className="btn btn-sm font-weight-bold btn-link p-0 text-danger"
+              onClick={forceImportOldSettings}
+            >
+              {GetMessage("backupRestore_continueAnyway")}
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

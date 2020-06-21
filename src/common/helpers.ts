@@ -4,6 +4,8 @@ import { IFakeFillerOptions, ICustomField } from "src/types";
 
 const DEFAULT_TELEPHONE_TEMPLATE = "+1 (XxX) XxX-XxxX";
 
+export const CURRENT_SETTINGS_VERSION = 1;
+
 export const DEFAULT_EMAIL_CUSTOM_FIELD: ICustomField = {
   type: "email",
   name: "Email Address",
@@ -17,6 +19,7 @@ export const DEFAULT_EMAIL_CUSTOM_FIELD: ICustomField = {
 
 const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
   const options: IFakeFillerOptions = {
+    version: CURRENT_SETTINGS_VERSION,
     agreeTermsFields: ["agree", "terms", "conditions"],
     confirmFields: ["confirm", "reenter", "retype", "repeat", "secondary"],
     defaultMaxLength: 20,

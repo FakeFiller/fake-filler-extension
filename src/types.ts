@@ -93,6 +93,8 @@ export interface IProfile {
 }
 
 export interface IFakeFillerOptions {
+  version: number;
+
   agreeTermsFields: string[];
   confirmFields: string[];
   defaultMaxLength: number;
@@ -108,6 +110,8 @@ export interface IFakeFillerOptions {
 }
 
 export interface IFakeFillerOptionsForm {
+  version: number;
+
   agreeTermsFields: string;
   confirmFields: string;
   defaultMaxLength: string;

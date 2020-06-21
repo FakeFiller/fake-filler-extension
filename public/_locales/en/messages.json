@@ -110,6 +110,15 @@
   "backupRestore_copyAndSaveToFile": {
     "message": "Copy and save this to a text file."
   },
+  "backupRestore_continueAnyway": {
+    "message": "Continue Anyway"
+  },
+  "backupRestore_confirmImportOldBackup": {
+    "message": "Are you absolutely sure? Restoring this backup could cause the extension to crash."
+  },
+  "backupRestore_oldBackupErrorMessage": {
+    "message": "The backup file you are trying to restore was created using an older version of the extension and cannot be imported."
+  },
   "kbdShortcuts_title": {
     "message": "Keyboard Shortcuts"
   },
