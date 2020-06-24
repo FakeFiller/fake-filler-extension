@@ -100,6 +100,14 @@ const ProfilesView: React.FC<Props> = (props) => {
         <div className="col-9">
           {profileIndex >= 0 && (
             <>
+              {!isProEdition && (
+                <div className="alert alert-warning">
+                  {GetMessage("profile_thisProfileDisabled")}{" "}
+                  <a className="alert-link" href="https://fakefiller.com/#pricing">
+                    {GetMessage("upgradeToFakeFillerPro")}
+                  </a>
+                </div>
+              )}
               {isProEdition && (
                 <div className="float-right">
                   <button type="button" className="btn btn-sm btn-link" onClick={handleEdit}>

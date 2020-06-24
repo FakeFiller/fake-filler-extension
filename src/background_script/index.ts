@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 
+import { onAuthStateChange, onOptionsChange } from "src/common/firebase";
 import {
   CreateContextMenus,
   GetFakeFillerOptions,
@@ -7,28 +8,69 @@ import {
   SaveFakeFillerOptions,
   DEFAULT_EMAIL_CUSTOM_FIELD,
 } from "src/common/helpers";
-import { MessageRequest, IFakeFillerOptions } from "src/types";
+import { MessageRequest, IProfile, IFakeFillerOptions, FirebaseUser, FirebaseCustomClaims } from "src/types";
+
+let isProEdition = false;
 
 function NotifyTabsOfNewOptions(options: IFakeFillerOptions) {
   chrome.tabs.query({}, (tabs) => {
     tabs.forEach((tab) => {
       if (tab && tab.id) {
-        chrome.tabs.sendMessage(tab.id, { type: "receiveNewOptions", data: { options } });
+        chrome.tabs.sendMessage(tab.id, { type: "receiveNewOptions", data: { options, isProEdition } });
       }
     });
   });
 }
 
+function handleOptionsChange(options: IFakeFillerOptions) {
+  if (isProEdition) {
+    chrome.storage.local.set({ options }, () => {
+      CreateContextMenus(options.enableContextMenu);
+      NotifyTabsOfNewOptions(options);
+    });
+  }
+}
+
+function handleAuthStateChange(user: FirebaseUser, claims: FirebaseCustomClaims) {
+  if (user && claims) {
+    isProEdition = claims.subscribed;
+  } else {
+    isProEdition = false;
+  }
+  GetFakeFillerOptions().then((result) => {
+    NotifyTabsOfNewOptions(result);
+  });
+}
+
+onAuthStateChange(handleAuthStateChange);
+onOptionsChange(handleOptionsChange);
+
 function handleMessage(
   request: MessageRequest,
   sender: chrome.runtime.MessageSender,
-  sendResponse: (options: any) => void
+  sendResponse: (response: any) => void
 ): boolean | null {
   switch (request.type) {
     case "getOptions": {
       GetFakeFillerOptions().then((result) => {
-        sendResponse({ options: result });
+        sendResponse({ options: result, isProEdition });
       });
+      return true;
+    }
+
+    case "setProfileBadge": {
+      const profile = request.data as IProfile;
+      chrome.browserAction.setBadgeText({ text: "⭐", tabId: sender.tab?.id });
+      chrome.browserAction.setBadgeBackgroundColor({ color: "#7f8ea1", tabId: sender.tab?.id });
+      chrome.browserAction.setTitle({
+        title: `${GetMessage("browserActionTitle")}\n${GetMessage("matchedProfile")}: ${profile.name}`,
+        tabId: sender.tab?.id,
+      });
+      return true;
+    }
+
+    case "clearProfileBadge": {
+      chrome.browserAction.setBadgeText({ text: "", tabId: sender.tab?.id });
       return true;
     }
 

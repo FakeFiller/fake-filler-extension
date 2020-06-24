@@ -1,3 +1,4 @@
+import { saveOptionsToDb } from "src/common/firebase";
 import { IFakeFillerOptions, ICustomField } from "src/types";
 
 // spell-checker:disable
@@ -203,10 +204,15 @@ const CreateContextMenus = (enableContextMenu: boolean): void => {
 };
 
 const SaveFakeFillerOptions = (options: IFakeFillerOptions): void => {
-  chrome.storage.local.set({ options }, () => {
-    chrome.runtime.sendMessage({ type: "optionsUpdated" });
+  saveOptionsToDb(options).then((updatedAt) => {
+    chrome.storage.local.set({ updatedAt });
   });
 
+  chrome.storage.local.set({
+    options,
+  });
+
+  chrome.runtime.sendMessage({ type: "optionsUpdated", data: options });
   CreateContextMenus(options.enableContextMenu);
 };
 

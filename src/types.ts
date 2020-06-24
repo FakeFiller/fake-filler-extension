@@ -141,7 +141,13 @@ export interface IKeyboardShortcutsState {
   shortcuts: chrome.commands.Command[];
 }
 
+export interface IAuthState {
+  user: FirebaseUser;
+  claims: FirebaseCustomClaims;
+}
+
 export interface IAppState {
+  authData: IAuthState;
   optionsData: IOptionsState;
   keyboardShortcutsData: IKeyboardShortcutsState;
 }
@@ -155,3 +161,18 @@ export type MessageRequest = {
   type: string;
   data?: any;
 };
+
+export type CustomClaims = {
+  subscribed: boolean;
+};
+
+export type User = {
+  emailAddress: string;
+  stripeCustomerId: string;
+  stripeSubscriptionId: string;
+  claims: CustomClaims;
+  claimsUpdatedAt: firebase.firestore.FieldValue;
+};
+
+export type FirebaseUser = firebase.User | null;
+export type FirebaseCustomClaims = CustomClaims | null;

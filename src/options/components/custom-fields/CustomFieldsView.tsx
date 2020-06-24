@@ -5,6 +5,7 @@ import { GetMessage } from "src/common/helpers";
 import { createCustomField, deleteCustomField, saveCustomField, saveSortedCustomFields } from "src/options/actions";
 import CustomFieldModal from "src/options/components/custom-fields/CustomFieldModal";
 import CustomFieldsList from "src/options/components/custom-fields/CustomFieldsList";
+import GetProModal from "src/options/components/custom-fields/GetProModal";
 import { ICustomField, ICustomFieldForm } from "src/types";
 
 type Props = {
@@ -13,10 +14,13 @@ type Props = {
   customFields: ICustomField[];
 };
 
+const MAX_CUSTOM_FIELDS = 25;
+
 export default function CustomFieldsView(props: Props): JSX.Element {
   const { isProEdition, profileIndex, customFields } = props;
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [getProModalIsOpen, setGetProModalIsOpen] = useState(false);
   const [customFieldIndex, setCustomFieldIndex] = useState(-1);
   const [customField, setCustomField] = useState<ICustomField | null>(null);
   const [actionType, setActionType] = useState<"create" | "edit" | undefined>();
@@ -35,10 +39,14 @@ export default function CustomFieldsView(props: Props): JSX.Element {
 
   function newCustomField(index: number): void {
     if (allowEdit) {
-      setCustomFieldIndex(index);
-      setActionType("create");
-      setCustomField(null);
-      setModalIsOpen(true);
+      if (!isProEdition && props.customFields.length >= MAX_CUSTOM_FIELDS) {
+        setGetProModalIsOpen(true);
+      } else {
+        setCustomFieldIndex(index);
+        setActionType("create");
+        setCustomField(null);
+        setModalIsOpen(true);
+      }
     }
   }
 
@@ -90,6 +98,7 @@ export default function CustomFieldsView(props: Props): JSX.Element {
       />
 
       <CustomFieldModal isOpen={modalIsOpen} customField={customField} onClose={closeModal} onSave={handleSave} />
+      <GetProModal isOpen={getProModalIsOpen} onClose={() => setGetProModalIsOpen(false)} />
     </>
   );
 }

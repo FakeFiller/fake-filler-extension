@@ -45,7 +45,7 @@ const CustomFieldsListItem = (props: Props) => {
           <div className="card custom-field">
             <div className="card-header">
               <strong>{customField.name}</strong>
-              <div className="custom-field-buttons">
+              <div className={`custom-field-buttons ${props.allowEdit ? "" : "invisible"}`}>
                 <div className="btn btn-sm btn-link drag-handle" {...provided.dragHandleProps}>
                   <img src="images/move.svg" width="12" height="12" alt={GetMessage("move")} />
                 </div>
@@ -150,7 +150,9 @@ const CustomFieldsListItem = (props: Props) => {
               </tbody>
             </table>
           </div>
-          <AddFieldButton index={props.itemIndex + 1} onClick={props.onAdd} disabled={!props.allowAdd} />
+          {props.allowAdd && (
+            <AddFieldButton index={props.itemIndex + 1} onClick={props.onAdd} disabled={!props.allowAdd} />
+          )}
         </div>
       )}
     </Draggable>

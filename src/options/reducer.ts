@@ -4,7 +4,7 @@ import { produce } from "immer";
 import { combineReducers, Reducer } from "redux";
 
 import { MyActions } from "src/options/actions";
-import { IOptionsState, IKeyboardShortcutsState, IAppState } from "src/types";
+import { IOptionsState, IKeyboardShortcutsState, IAppState, IAuthState } from "src/types";
 
 const optionsInitialState: IOptionsState = {
   isFetching: false,
@@ -57,7 +57,28 @@ const KeyboardShortcutsReducer: Reducer<IKeyboardShortcutsState> = (
   });
 };
 
+const authInitialState: IAuthState = {
+  user: null,
+  claims: null,
+};
+
+const AuthReducer: Reducer<IAuthState> = (state = authInitialState, action: MyActions) => {
+  return produce(state, (draft) => {
+    switch (action.type) {
+      case "UPDATE_AUTH_STATE": {
+        draft.user = action.user;
+        draft.claims = action.claims;
+        return draft;
+      }
+
+      default:
+        return draft;
+    }
+  });
+};
+
 export default combineReducers<IAppState>({
+  authData: AuthReducer,
   optionsData: OptionsReducer,
   keyboardShortcutsData: KeyboardShortcutsReducer,
 });

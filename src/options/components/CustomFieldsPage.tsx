@@ -18,7 +18,9 @@ export default function CustomFieldsPage(): JSX.Element {
   const isFetching = useSelector<IAppState, boolean>((state) => state.optionsData.isFetching);
   const options = useSelector<IAppState, IFakeFillerOptions | null>((state) => state.optionsData.options);
 
-  const isProEdition = true;
+  const isProEdition = useSelector<IAppState, boolean>((state) =>
+    state.authData.claims ? state.authData.claims.subscribed : false
+  );
 
   useEffect(() => {
     dispatch(getOptions());

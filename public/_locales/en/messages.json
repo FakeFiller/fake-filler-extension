@@ -566,7 +566,70 @@
   "profile_url_matching_expression": {
     "message": "URL Matching Expression"
   },
+  "profile_thisProfileDisabled": {
+    "message": "This profile is disabled."
+  },
   "matchedProfile": {
     "message": "Matched Profile"
+  },
+  "account_myAccount": {
+    "message": "My Account"
+  },
+  "account_emailAddress": {
+    "message": "Email Address"
+  },
+  "account_edition": {
+    "message": "Edition"
+  },
+  "account_settingsLastUpdated": {
+    "message": "Settings Last Updated On"
+  },
+  "account_logout": {
+    "message": "Logout"
+  },
+  "account_password": {
+    "message": "Password"
+  },
+  "account_login": {
+    "message": "Log In"
+  },
+  "account_error_incorrectPassword": {
+    "message": "This password is incorrect."
+  },
+  "account_error_noAccount": {
+    "message": "This email address does not have a Fake Filler account."
+  },
+  "account_error_errorFetchingAccount": {
+    "message": "Could not fetch account information."
+  },
+  "account_error_unknownLoginError": {
+    "message": "An unknown error occurred while logging in."
+  },
+  "account_enableSync_title": {
+    "message": "Enable Sync"
+  },
+  "account_enableSync_message": {
+    "message": "Your settings are currently not being synced. Push the button below to start synchronizing these settings across all your browsers."
+  },
+  "account_enableSync_button": {
+    "message": "Start Sync"
+  },
+  "account_enableSync_tip": {
+    "message": "<b>TIP</b>: If you have Fake Filler installed on multiple browsers, first enable sync on the browser where you have updated the settings most recently. That way, your other browsers will have the latest settings."
+  },
+  "account_manageAccount": {
+    "message": "Manage Account"
+  },
+  "account_showSupportTitle": {
+    "message": "Buy Fake Filler Pro"
+  },
+  "account_showSupportMessage": {
+    "message": "Hello there! If Fake Filler makes you more productive, please consider showing your support by subscribing to the Pro edition. Subscriptions help to support the continued development of Fake Filler. I hate ads as much as you do so charging for a subscription is the only way I make money. So go ahead and hit the buy button now."
+  },
+  "account_showSupportButton": {
+    "message": "Buy Pro"
+  },
+  "upgradeToFakeFillerPro": {
+    "message": "Upgrade to Fake Filler Pro"
   }
 }

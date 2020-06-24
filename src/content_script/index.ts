@@ -7,15 +7,33 @@ declare global {
   }
 }
 
-function initialize(options: IFakeFillerOptions) {
-  window.fakeFiller = new FakeFiller(options);
+function initialize(options: IFakeFillerOptions, isProEdition: boolean) {
+  let profileIndex = -1;
+  const url = window.location.href;
+
+  chrome.runtime.sendMessage({ type: "clearProfileBadge" });
+
+  if (isProEdition && url && options.profiles && options.profiles.length > 0) {
+    for (let i = 0; i < options.profiles.length; i += 1) {
+      const currentProfile = options.profiles[i];
+
+      if (url.match(new RegExp(currentProfile.urlMatch))) {
+        profileIndex = i;
+        chrome.runtime.sendMessage({ type: "setProfileBadge", data: currentProfile });
+        break;
+      }
+    }
+  }
+
+  window.fakeFiller = new FakeFiller(options, profileIndex);
 }
 
 function handleMessage(request: MessageRequest): boolean | null {
   switch (request.type) {
     case "receiveNewOptions": {
       const options = request.data.options as IFakeFillerOptions;
-      initialize(options);
+      const isProEdition = request.data.isProEdition as boolean;
+      initialize(options, isProEdition);
       return true;
     }
 
@@ -32,7 +50,8 @@ document.addEventListener("mousedown", (event) => {
 
 chrome.runtime.sendMessage({ type: "getOptions" }, (response) => {
   const options = response.options as IFakeFillerOptions;
-  initialize(options);
+  const isProEdition = response.isProEdition as boolean;
+  initialize(options, isProEdition);
 });
 
 chrome.runtime.onMessage.addListener(handleMessage);

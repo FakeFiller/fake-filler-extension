@@ -40,7 +40,7 @@ const CustomFieldsList = (props: Props) => {
 
   return (
     <>
-      <AddFieldButton index={0} onClick={props.onAdd} disabled={!props.allowAdd} />
+      {props.allowAdd && <AddFieldButton index={0} onClick={props.onAdd} disabled={!props.allowAdd} />}
       <DragDropContext onDragEnd={onSortEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (
