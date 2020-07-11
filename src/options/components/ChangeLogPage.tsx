@@ -23,7 +23,7 @@ const ChangeLogPage = () => {
         <li>Add support for minimum and maximum values for dates using custom fields.</li>
         <li>
           Add optional decimal places to number fields (
-          <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/113">#113</ExternalLink>)
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/113">#113</ExternalLink>)
         </li>
       </ul>
       <hr />
@@ -33,7 +33,7 @@ const ChangeLogPage = () => {
       <ul>
         <li>
           Check name attribute before filling a radio input. (
-          <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/102">#102</ExternalLink>)
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/102">#102</ExternalLink>)
         </li>
       </ul>
       <hr />
@@ -82,11 +82,12 @@ const ChangeLogPage = () => {
       </p>
       <ul>
         <li>
-          Fixed a typo. (<ExternalLink url="https://github.com/husainshabbir/form-filler/pull/71">#71</ExternalLink>)
+          Fixed a typo. (
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/71">#71</ExternalLink>)
         </li>
         <li>
           Use all labels of fields for matching (
-          <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/66">#66</ExternalLink>
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/66">#66</ExternalLink>
           ).
         </li>
       </ul>
@@ -97,7 +98,7 @@ const ChangeLogPage = () => {
       <ul>
         <li>
           Fixed issue in setting select fields via custom field rules. (
-          <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/54">#54</ExternalLink>)
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/54">#54</ExternalLink>)
         </li>
         <li>Fixed issue with displaying keyboard shortcut descriptions in Chrome.</li>
       </ul>
@@ -170,7 +171,7 @@ const ChangeLogPage = () => {
       <ul>
         <li>
           Handling selects with a disabled selected value correctly. (
-          <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/33">#33</ExternalLink>)
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/33">#33</ExternalLink>)
         </li>
       </ul>
       <hr />
@@ -200,7 +201,7 @@ const ChangeLogPage = () => {
       <ul>
         <li>
           Fixed a call to a removed jQuery size() function call. (
-          <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/25">#25</ExternalLink>)
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/25">#25</ExternalLink>)
         </li>
       </ul>
       <hr />
@@ -217,15 +218,15 @@ const ChangeLogPage = () => {
       <ul>
         <li>
           Added option to always check certain checkboxes (
-          <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/11">#11</ExternalLink>)
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/11">#11</ExternalLink>)
         </li>
         <li>
           Support for non-latin characters in Import and Export (
-          <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/18">#18</ExternalLink>)
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/18">#18</ExternalLink>)
         </li>
         <li>
           Added default keyboard shortcuts (
-          <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/20">#20</ExternalLink>)
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/20">#20</ExternalLink>)
         </li>
       </ul>
       <hr />
@@ -235,7 +236,7 @@ const ChangeLogPage = () => {
       <ul>
         <li>
           Randomized list now works for select elements (
-          <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/10">#10</ExternalLink>
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/10">#10</ExternalLink>
           ).
         </li>
         <li>Bug fix when generating telephone number.</li>
@@ -247,7 +248,7 @@ const ChangeLogPage = () => {
       <ul>
         <li>
           Field matching now works with label text (
-          <ExternalLink url="https://github.com/husainshabbir/form-filler/pull/5">#5</ExternalLink>
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/5">#5</ExternalLink>
           ).
         </li>
         <li>Added an option to customize what attributes are used for matching.</li>

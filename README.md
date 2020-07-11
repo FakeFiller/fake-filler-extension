@@ -4,10 +4,10 @@ This extension allows you to fill all form inputs (textboxes, textareas, radio b
 
 ## Install
 
-* [**Chrome** extension](https://chrome.google.com/webstore/detail/bnjjngeaknajbdcgpfkgnonkmififhfo)
-* [**Edge** extension](https://microsoftedge.microsoft.com/addons/detail/bdcjobafgkjgckiikonbfcdocnhnaaii)
-* [**Firefox** add-on](https://addons.mozilla.org/en-US/firefox/addon/form-filler-devtool/)
+- [**Chrome** extension](https://chrome.google.com/webstore/detail/bnjjngeaknajbdcgpfkgnonkmififhfo)
+- [**Edge** extension](https://microsoftedge.microsoft.com/addons/detail/bdcjobafgkjgckiikonbfcdocnhnaaii)
+- [**Firefox** add-on](https://addons.mozilla.org/en-US/firefox/addon/fake-filler/)
 
 ## Default shortcut
 
-Use ***CTRL+SHIFT+F*** on Windows and ***CMD+SHIFT+F*** on Mac to fire the extension. See the [Keyboard Shortcuts](https://github.com/husainshabbir/form-filler/wiki/Keyboard-Shortcuts) page for more details.
+Use **_CTRL+SHIFT+F_** on Windows and **_CMD+SHIFT+F_** on Mac to fire the extension. See the [Keyboard Shortcuts](https://github.com/FakeFiller/fake-filler-extension/wiki/Keyboard-Shortcuts) page for more details.

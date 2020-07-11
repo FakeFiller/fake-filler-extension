@@ -1,5 +1,5 @@
 {
-  "name": "form-filler",
+  "name": "fake-filler",
   "version": "3.0.0",
   "description": "Fills all inputs in a page with dummy data.",
   "scripts": {

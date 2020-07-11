@@ -114,7 +114,7 @@
     "message": "Keyboard Shortcuts"
   },
   "kbdShortcuts_changeInstructions": {
-    "message": "<a href=\"https://github.com/husainshabbir/form-filler/wiki/Keyboard-Shortcuts\" target=\"_blank\" rel=\"noopener noreferrer\">Change keyboard shortcuts</a>"
+    "message": "<a href=\"https://github.com/FakeFiller/fake-filler-extension/wiki/Keyboard-Shortcuts\" target=\"_blank\" rel=\"noopener noreferrer\">Change keyboard shortcuts</a>"
   },
   "kbdShortcuts_notSet": {
     "message": "Not Set"

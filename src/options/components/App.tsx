@@ -19,7 +19,7 @@ import ScrollToTop from "src/options/components/common/ScrollToTop";
 function App() {
   const dispatch = useDispatch();
 
-  const sendFeedbackMessage = chrome.i18n.getMessage("leftNav_sendFeedback", ["husainsfabbas@gmail.com"]);
+  const sendFeedbackMessage = chrome.i18n.getMessage("leftNav_sendFeedback", ["hussein@fakefiller.com"]);
 
   function handleResetSettings(event: React.SyntheticEvent): void {
     event.preventDefault();
@@ -75,7 +75,7 @@ function App() {
             <Link to="/changelog">{GetMessage("leftNav_changelog")}</Link>
           </li>
           <li className="list-inline-item">
-            <ExternalLink url="https://github.com/husainshabbir/form-filler/issues">
+            <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/issues">
               {GetMessage("leftNav_issueTracker")}
             </ExternalLink>
           </li>

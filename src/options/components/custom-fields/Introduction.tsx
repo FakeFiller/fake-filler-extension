@@ -8,7 +8,7 @@ const Introduction = () => {
     <div>
       <p>
         {GetMessage("customFields_intro")}{" "}
-        <ExternalLink url="https://github.com/husainshabbir/form-filler/wiki/Custom-Fields-Matching">
+        <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/wiki/Custom-Fields-Matching">
           <b>{GetMessage("customFields_getMoreInfo")}</b>
         </ExternalLink>
       </p>

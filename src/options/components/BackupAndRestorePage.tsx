@@ -39,7 +39,7 @@ const BackupAndRestorePage = () => {
 
     try {
       const blob = new Blob([encodedData], { type: "text/plain;charset=utf-8" });
-      fileSaver.saveAs(blob, `form-filler-${dateStamp}.txt`);
+      fileSaver.saveAs(blob, `fake-filler-${dateStamp}.txt`);
     } catch (e) {
       setErrorMessage(GetMessage("backupRestore_errorCreatingBackupFile", e.toString()));
       setBackupData(encodedData);
