@@ -96,16 +96,12 @@ class ElementFiller {
     return false;
   }
 
-  private selectRandomRadio(name: string, customFieldList: string[] = []): void {
-    let i = 0;
+  private selectRandomRadio(name: string, valuesList: string[] = []): void {
     const list = [];
     const elements = document.getElementsByName(name) as NodeListOf<HTMLInputElement>;
 
-    for (; i < elements.length; i += 1) {
-      if (
-        elements[i].type === "radio" &&
-        (customFieldList.length == 0 || this.isAnyMatch(elements[i].value, customFieldList))
-      ) {
+    for (let i = 0; i < elements.length; i += 1) {
+      if (elements[i].type === "radio" && (valuesList.length === 0 || valuesList.includes(elements[i].value))) {
         list.push(elements[i]);
       }
     }
@@ -505,9 +501,9 @@ class ElementFiller {
 
       case "radio": {
         if (element.name) {
-          const customField = this.findCustomField(this.getElementName(element), ["randomized-list"]);
-          var customFieldList: string[] = customField?.list ? customField?.list : [];
-          this.selectRandomRadio(element.name, customFieldList);
+          const matchingCustomField = this.findCustomField(this.getElementName(element), ["randomized-list"]);
+          const valuesList = matchingCustomField?.list ? matchingCustomField?.list : [];
+          this.selectRandomRadio(element.name, valuesList);
         }
         fireEvent = false;
         break;
