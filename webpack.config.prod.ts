@@ -1,7 +1,9 @@
 import * as path from "path";
 
+import * as Dotenv from "dotenv-webpack";
+import * as TerserPlugin from "terser-webpack-plugin";
 import * as webpack from "webpack";
-import * as merge from "webpack-merge";
+import { merge } from "webpack-merge";
 
 import webpackConfig from "./webpack.config";
 
@@ -14,7 +16,23 @@ const productionConfig: webpack.Configuration = {
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [path.join(__dirname, "dist")],
     }),
+    new Dotenv({
+      path: "./.env.production",
+    }),
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        terserOptions: {
+          output: {
+            ascii_only: true,
+          },
+        },
+      }),
+    ],
+  },
 };
 
-export default merge.smart(webpackConfig, productionConfig);
+export default merge(webpackConfig, productionConfig);

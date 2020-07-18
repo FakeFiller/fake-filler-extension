@@ -7,7 +7,7 @@ import {
   SaveFakeFillerOptions,
   DEFAULT_EMAIL_CUSTOM_FIELD,
 } from "src/common/helpers";
-import { MessageRequest, IProfile } from "src/types";
+import { MessageRequest } from "src/types";
 
 function handleMessage(
   request: MessageRequest,
@@ -18,17 +18,6 @@ function handleMessage(
     case "getOptions": {
       GetFakeFillerOptions().then((result) => {
         sendResponse({ options: result });
-      });
-      return true;
-    }
-
-    case "foundProfile": {
-      const profile = request.data as IProfile;
-      chrome.browserAction.setBadgeText({ text: "⭐", tabId: sender.tab?.id });
-      chrome.browserAction.setBadgeBackgroundColor({ color: "#7f8ea1", tabId: sender.tab?.id });
-      chrome.browserAction.setTitle({
-        title: `${GetMessage("browserActionTitle")}\n${GetMessage("matchedProfile")}: ${profile.name}`,
-        tabId: sender.tab?.id,
       });
       return true;
     }

@@ -1,5 +1,6 @@
+import * as Dotenv from "dotenv-webpack";
 import * as webpack from "webpack";
-import * as merge from "webpack-merge";
+import { merge } from "webpack-merge";
 
 import webpackConfig from "./webpack.config";
 
@@ -14,7 +15,8 @@ const developmentConfig: webpack.Configuration = {
       exclude: /^vendor.*.\.js$/,
       filename: "[file].map",
     }),
+    new Dotenv(),
   ],
 };
 
-export default merge.smart(webpackConfig, developmentConfig);
+export default merge(webpackConfig, developmentConfig);

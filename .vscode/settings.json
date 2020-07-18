@@ -14,18 +14,19 @@
     "randexp",
     "webextensions"
   ],
+  "editor.formatOnSave": true,
   "files.exclude": {
     "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
     "**/.DS_Store": true,
     "**/node_modules": true
   },
+  "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "html.format.wrapLineLength": 0,
-  "editor.formatOnSave": true,
-  "files.trimFinalNewlines": true,
+  "search.exclude": {
+    "dist/**": true,
+    "package-lock.json": true
+  },
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "./node_modules/typescript/lib"
 }

@@ -8,22 +8,7 @@ declare global {
 }
 
 function initialize(options: IFakeFillerOptions) {
-  const url = window.location.href;
-  let profileIndex = -1;
-
-  if (url && options.profiles && options.profiles.length > 0) {
-    for (let i = 0; i < options.profiles.length; i += 1) {
-      const currentProfile = options.profiles[i];
-
-      if (url.match(new RegExp(currentProfile.urlMatch))) {
-        profileIndex = i;
-        chrome.runtime.sendMessage({ type: "foundProfile", data: currentProfile });
-        break;
-      }
-    }
-  }
-
-  window.fakeFiller = new FakeFiller(options, profileIndex);
+  window.fakeFiller = new FakeFiller(options);
 }
 
 function handleMessage(request: MessageRequest): boolean | null {
