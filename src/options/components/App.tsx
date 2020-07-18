@@ -52,6 +52,9 @@ function App() {
             <Nav.Link as={NavLink} to="/backup">
               {GetMessage("leftNav_backupRestore")}
             </Nav.Link>
+            <Nav.Link href="https://github.com/FakeFiller/fake-filler-extension/wiki" target="_blank">
+              Help
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
