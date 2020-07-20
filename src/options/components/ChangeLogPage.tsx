@@ -7,6 +7,30 @@ const ChangeLogPage = () => {
     <div>
       <h2>Fake Filler Changelog</h2>
       <p>
+        <strong>Version 3.1.2</strong>
+      </p>
+      <ul>
+        <li>
+          Fill radio inputs using Randomized List custom field (
+          <ExternalLink url="https://github.com/FakeFiller/fake-filler-extension/pull/131">#131</ExternalLink>)
+        </li>
+        <li>Use aria-label attribute for matching elements.</li>
+        <li>Update settings without the need to reload tabs.</li>
+      </ul>
+      <hr />
+      <p>
+        <strong>Version 3.1.0</strong>
+      </p>
+      <ul>
+        <li>
+          <span className="badge badge-info">PRO</span> Sync settings across browsers.
+        </li>
+        <li>
+          <span className="badge badge-info">PRO</span> Create multiple profiles for custom fields.
+        </li>
+      </ul>
+      <hr />
+      <p>
         <strong>Version 3.0.0</strong>
       </p>
       <ul>
