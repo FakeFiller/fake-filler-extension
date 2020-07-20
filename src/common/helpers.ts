@@ -26,6 +26,7 @@ const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
     enableContextMenu: true,
     fieldMatchSettings: {
       matchLabel: true,
+      matchAriaLabel: true,
       matchId: true,
       matchName: true,
       matchClass: false,

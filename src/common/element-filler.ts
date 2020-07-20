@@ -182,6 +182,10 @@ class ElementFiller {
       }
     }
 
+    if (this.options.fieldMatchSettings.matchAriaLabel) {
+      normalizedName += ` ${SanitizeText(element.getAttribute("aria-label") || "")}`;
+    }
+
     return normalizedName;
   }
 

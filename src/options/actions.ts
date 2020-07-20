@@ -90,6 +90,7 @@ export function saveOptions(options: IFakeFillerOptions, formValues?: IFakeFille
           matchClass: formValues.fieldMatchClass,
           matchId: formValues.fieldMatchId,
           matchLabel: formValues.fieldMatchLabel,
+          matchAriaLabel: formValues.fieldMatchAriaLabel,
           matchName: formValues.fieldMatchName,
           matchPlaceholder: formValues.fieldMatchPlaceholder,
         };

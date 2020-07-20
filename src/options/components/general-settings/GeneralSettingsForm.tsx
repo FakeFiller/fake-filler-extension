@@ -62,6 +62,7 @@ const GeneralSettingsForm = (props: Props) => {
   initialValues.fieldMatchLabel = props.options.fieldMatchSettings.matchLabel;
   initialValues.fieldMatchClass = props.options.fieldMatchSettings.matchClass;
   initialValues.fieldMatchPlaceholder = props.options.fieldMatchSettings.matchPlaceholder;
+  initialValues.fieldMatchAriaLabel = props.options.fieldMatchSettings.matchAriaLabel;
 
   return (
     <Formik
@@ -134,6 +135,10 @@ const GeneralSettingsForm = (props: Props) => {
               <CheckboxField name="fieldMatchId" label={GetMessage("generalSettings_matchFields_useId")} />
               <CheckboxField name="fieldMatchName" label={GetMessage("generalSettings_matchFields_useName")} />
               <CheckboxField name="fieldMatchLabel" label={GetMessage("generalSettings_matchFields_useLabel")} />
+              <CheckboxField
+                name="fieldMatchAriaLabel"
+                label={GetMessage("generalSettings_matchFields_useAriaLabel")}
+              />
               <CheckboxField name="fieldMatchClass" label={GetMessage("generalSettings_matchFields_useClass")} />
               <CheckboxField
                 name="fieldMatchPlaceholder"

@@ -87,6 +87,7 @@ if (chrome.runtime.onInstalled) {
         if (details.previousVersion && details.previousVersion.startsWith("3")) {
           GetFakeFillerOptions().then((options) => {
             options.version = 1;
+            options.fieldMatchSettings.matchAriaLabel = true;
 
             // @ts-ignore
             delete options.emailSettings;
