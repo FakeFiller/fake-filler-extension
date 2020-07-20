@@ -13,7 +13,8 @@
     "iframes",
     "immer",
     "randexp",
-    "webextensions"
+    "webextensions",
+    "hussein"
   ],
   "editor.formatOnSave": true,
   "files.exclude": {
