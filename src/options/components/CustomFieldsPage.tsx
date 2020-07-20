@@ -43,7 +43,7 @@ export default function CustomFieldsPage(): JSX.Element {
       <h2>{GetMessage("customFields_title")}</h2>
       <Introduction />
       <hr />
-      <ProfilesView isProEdition={isProEdition} profileIndex={profileIndex} profiles={options.profiles}>
+      <ProfilesView isProEdition={isProEdition} profileIndex={profileIndex} profiles={options.profiles || []}>
         <CustomFieldsView isProEdition={isProEdition} customFields={customFieldsList} profileIndex={profileIndex} />
       </ProfilesView>
     </>

@@ -203,8 +203,8 @@ const CreateContextMenus = (enableContextMenu: boolean): void => {
 };
 
 const SaveFakeFillerOptions = (options: IFakeFillerOptions): void => {
-  chrome.storage.local.set({
-    options,
+  chrome.storage.local.set({ options }, () => {
+    chrome.runtime.sendMessage({ type: "optionsUpdated" });
   });
 
   CreateContextMenus(options.enableContextMenu);

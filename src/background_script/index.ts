@@ -7,7 +7,17 @@ import {
   SaveFakeFillerOptions,
   DEFAULT_EMAIL_CUSTOM_FIELD,
 } from "src/common/helpers";
-import { MessageRequest } from "src/types";
+import { MessageRequest, IFakeFillerOptions } from "src/types";
+
+function NotifyTabsOfNewOptions(options: IFakeFillerOptions) {
+  chrome.tabs.query({}, (tabs) => {
+    tabs.forEach((tab) => {
+      if (tab && tab.id) {
+        chrome.tabs.sendMessage(tab.id, { type: "receiveNewOptions", data: { options } });
+      }
+    });
+  });
+}
 
 function handleMessage(
   request: MessageRequest,
@@ -18,6 +28,13 @@ function handleMessage(
     case "getOptions": {
       GetFakeFillerOptions().then((result) => {
         sendResponse({ options: result });
+      });
+      return true;
+    }
+
+    case "optionsUpdated": {
+      GetFakeFillerOptions().then((options) => {
+        NotifyTabsOfNewOptions(options);
       });
       return true;
     }

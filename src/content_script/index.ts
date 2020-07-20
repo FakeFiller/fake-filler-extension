@@ -14,7 +14,7 @@ function initialize(options: IFakeFillerOptions) {
 function handleMessage(request: MessageRequest): boolean | null {
   switch (request.type) {
     case "receiveNewOptions": {
-      const options = request.data as IFakeFillerOptions;
+      const options = request.data.options as IFakeFillerOptions;
       initialize(options);
       return true;
     }
