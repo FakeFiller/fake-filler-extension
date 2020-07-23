@@ -53,6 +53,5 @@
   "options_ui": {
     "page": "options.html",
     "open_in_tab": true
-  },
-  "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self';"
+  }
 }
