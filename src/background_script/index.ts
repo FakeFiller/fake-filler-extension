@@ -60,8 +60,8 @@ function handleMessage(
 
     case "setProfileBadge": {
       const profile = request.data as IProfile;
-      chrome.browserAction.setBadgeText({ text: "⭐", tabId: sender.tab?.id });
-      chrome.browserAction.setBadgeBackgroundColor({ color: "#7f8ea1", tabId: sender.tab?.id });
+      chrome.browserAction.setBadgeText({ text: "★", tabId: sender.tab?.id });
+      chrome.browserAction.setBadgeBackgroundColor({ color: "#757575", tabId: sender.tab?.id });
       chrome.browserAction.setTitle({
         title: `${GetMessage("browserActionTitle")}\n${GetMessage("matchedProfile")}: ${profile.name}`,
         tabId: sender.tab?.id,
