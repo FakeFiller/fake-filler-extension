@@ -15,8 +15,12 @@ let isProEdition = false;
 function NotifyTabsOfNewOptions(options: IFakeFillerOptions) {
   chrome.tabs.query({}, (tabs) => {
     tabs.forEach((tab) => {
-      if (tab && tab.id) {
-        chrome.tabs.sendMessage(tab.id, { type: "receiveNewOptions", data: { options, isProEdition } });
+      if (tab && tab.id && tab.id !== chrome.tabs.TAB_ID_NONE) {
+        chrome.tabs.sendMessage(
+          tab.id,
+          { type: "receiveNewOptions", data: { options, isProEdition } },
+          () => chrome.runtime.lastError
+        );
       }
     });
   });

@@ -11,7 +11,7 @@ function initialize(options: IFakeFillerOptions, isProEdition: boolean) {
   let profileIndex = -1;
   const url = window.location.href;
 
-  chrome.runtime.sendMessage({ type: "clearProfileBadge" });
+  chrome.runtime.sendMessage({ type: "clearProfileBadge" }, () => chrome.runtime.lastError);
 
   if (isProEdition && url && options.profiles && options.profiles.length > 0) {
     for (let i = 0; i < options.profiles.length; i += 1) {
@@ -19,7 +19,7 @@ function initialize(options: IFakeFillerOptions, isProEdition: boolean) {
 
       if (url.match(new RegExp(currentProfile.urlMatch))) {
         profileIndex = i;
-        chrome.runtime.sendMessage({ type: "setProfileBadge", data: currentProfile });
+        chrome.runtime.sendMessage({ type: "setProfileBadge", data: currentProfile }, () => chrome.runtime.lastError);
         break;
       }
     }

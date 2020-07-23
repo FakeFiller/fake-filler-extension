@@ -212,7 +212,7 @@ const SaveFakeFillerOptions = (options: IFakeFillerOptions): void => {
     options,
   });
 
-  chrome.runtime.sendMessage({ type: "optionsUpdated", data: options });
+  chrome.runtime.sendMessage({ type: "optionsUpdated", data: options }, () => chrome.runtime.lastError);
   CreateContextMenus(options.enableContextMenu);
 };
 
