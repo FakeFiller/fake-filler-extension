@@ -57,7 +57,17 @@ const MyAccountPage = () => {
             {claims.subscribed && optionsLastUpdatedTimestamp && (
               <>
                 <dt>{GetMessage("account_settingsLastUpdated")}</dt>
-                <dd>{optionsLastUpdatedTimestamp.toLocaleString()}</dd>
+                <dd>
+                  {optionsLastUpdatedTimestamp.toLocaleString(undefined, {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: true,
+                  })}
+                </dd>
               </>
             )}
           </dl>
