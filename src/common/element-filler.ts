@@ -609,6 +609,7 @@ class ElementFiller {
 
     if (!valueExists) {
       const optionsCount = element.options.length;
+      const skipFirstOption = !!element.options[0].value === false;
 
       if (element.multiple) {
         // Unselect any existing options.
@@ -634,11 +635,7 @@ class ElementFiller {
         let iterations = 0;
 
         while (iterations < optionsCount) {
-          let randomOptionIndex = Math.floor(Math.random() * (optionsCount - 1));
-
-          if (optionsCount > 1) {
-            randomOptionIndex += 1;
-          }
+          const randomOptionIndex = this.generator.randomNumber(skipFirstOption ? 1 : 0, optionsCount - 1);
 
           if (!element.options[randomOptionIndex].disabled) {
             element.options[randomOptionIndex].selected = true;
