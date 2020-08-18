@@ -5,7 +5,6 @@ import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 import {
   CsvToArray,
-  FakeFillerDefaultOptions,
   GetFakeFillerOptions,
   GetKeyboardShortcuts,
   MultipleLinesToArray,
@@ -72,14 +71,14 @@ export function getOptions(): MyDefaultThunkResult {
   };
 }
 
-export function resetOptions(): MyDefaultThunkResult {
-  return (dispatch) => {
-    const options = FakeFillerDefaultOptions();
-    SaveFakeFillerOptions(options);
-    dispatch({ type: "RECEIVED_OPTIONS", options });
-    return Promise.resolve();
-  };
-}
+// export function resetOptions(): MyDefaultThunkResult {
+//   return (dispatch) => {
+//     const options = FakeFillerDefaultOptions();
+//     SaveFakeFillerOptions(options);
+//     dispatch({ type: "RECEIVED_OPTIONS", options });
+//     return Promise.resolve();
+//   };
+// }
 
 export function saveOptions(options: IFakeFillerOptions, formValues?: IFakeFillerOptionsForm): MyDefaultThunkResult {
   return (dispatch) => {
@@ -217,6 +216,7 @@ function createCustomFieldFromFormData(formData: ICustomFieldForm): ICustomField
   }
 
   if (customField.type === "email") {
+    customField.emailPrefix = formData.emailPrefix.trim();
     customField.emailHostname = formData.emailHostname;
     customField.emailHostnameList = CsvToArray(formData.emailHostnameList);
     customField.emailUsername = formData.emailUsername;

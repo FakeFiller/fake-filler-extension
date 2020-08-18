@@ -126,6 +126,12 @@ const CustomFieldsListItem = (props: Props) => {
                     <td>{customField.list.join(", ")}</td>
                   </tr>
                 )}
+                {!!customField.emailPrefix && (
+                  <tr>
+                    <td>{GetMessage("customFields_label_emailUsernamePrefix")}</td>
+                    <td>{customField.emailPrefix}</td>
+                  </tr>
+                )}
                 {customField.emailUsername && (
                   <tr>
                     <td>{GetMessage("customFields_label_username")}</td>

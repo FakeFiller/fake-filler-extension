@@ -401,6 +401,9 @@
   "customFields_label_hostName_listTextHelp": {
     "message": "List each name with a comma. You may include the @ sign as well."
   },
+  "customFields_label_emailUsernamePrefix": {
+    "message": "Username Prefix"
+  },
   "customFields_label_username": {
     "message": "Username"
   },

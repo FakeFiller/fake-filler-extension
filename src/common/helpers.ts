@@ -11,6 +11,7 @@ export const DEFAULT_EMAIL_CUSTOM_FIELD: ICustomField = {
   type: "email",
   name: "Email Address",
   match: ["email"],
+  emailPrefix: "",
   emailUsername: "random",
   emailUsernameList: ["jack", "jill"],
   emailUsernameRegEx: "",

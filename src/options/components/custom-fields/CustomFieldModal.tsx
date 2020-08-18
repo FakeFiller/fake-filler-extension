@@ -183,6 +183,7 @@ const CustomFieldModal = (props: Props) => {
     alphanumericTemplate: "",
     regexTemplate: "",
     list: "",
+    emailPrefix: "",
     emailHostname: "list",
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     emailHostnameList: DEFAULT_EMAIL_CUSTOM_FIELD.emailHostnameList!.join(", "),
@@ -223,6 +224,7 @@ const CustomFieldModal = (props: Props) => {
         break;
 
       case "email": {
+        initialValues.emailPrefix = customField.emailPrefix || "";
         initialValues.emailHostname = customField.emailHostname || "list";
         initialValues.emailHostnameList = customField.emailHostnameList
           ? customField.emailHostnameList.join(", ")

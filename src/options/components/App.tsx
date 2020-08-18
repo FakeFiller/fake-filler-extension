@@ -3,8 +3,8 @@ import { Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, Route } from "react-router-dom";
 
-import { GetMessage } from "src/common/helpers";
-import { resetOptions } from "src/options/actions";
+import { GetMessage, FakeFillerDefaultOptions } from "src/common/helpers";
+import { saveOptions } from "src/options/actions";
 import BackupAndRestorePage from "src/options/components/BackupAndRestorePage";
 import ChangeLogPage from "src/options/components/ChangeLogPage";
 import CustomFieldsPage from "src/options/components/CustomFieldsPage";
@@ -30,7 +30,8 @@ function App() {
 
     // eslint-disable-next-line no-alert
     if (window.confirm(GetMessage("leftNav_confirmResetSettings"))) {
-      dispatch(resetOptions());
+      const options = FakeFillerDefaultOptions();
+      dispatch(saveOptions(options));
     }
   }
 

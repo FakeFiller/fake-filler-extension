@@ -296,7 +296,13 @@ class ElementFiller {
           domain = `@${domain}`;
         }
 
-        return username + domain;
+        let prefix = "";
+
+        if (customField.emailPrefix) {
+          prefix = customField.emailPrefix;
+        }
+
+        return prefix + username + domain;
       }
 
       case "organization": {

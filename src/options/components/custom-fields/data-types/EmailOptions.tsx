@@ -10,7 +10,7 @@ type Props = ICustomFieldForm;
 
 const options = FakeFillerDefaultOptions();
 options.fields = [];
-options.fields.push(DEFAULT_EMAIL_CUSTOM_FIELD);
+options.fields.push({ ...DEFAULT_EMAIL_CUSTOM_FIELD });
 options.fields.push({
   type: "username",
   name: "Username",
@@ -23,9 +23,10 @@ options.fields.push({
 });
 
 const EmailOptions = (props: Props) => {
-  const { emailHostname, emailHostnameList, emailUsername, emailUsernameList, emailUsernameRegEx } = props;
+  const { emailPrefix, emailHostname, emailHostnameList, emailUsername, emailUsernameList, emailUsernameRegEx } = props;
 
   function generateRandomEmail() {
+    options.fields[0].emailPrefix = emailPrefix;
     options.fields[0].emailHostname = emailHostname;
     options.fields[0].emailHostnameList = CsvToArray(emailHostnameList);
     options.fields[0].emailUsername = emailUsername;
@@ -59,6 +60,14 @@ const EmailOptions = (props: Props) => {
 
   return (
     <div>
+      <div className="form-group row">
+        <label className="col-sm-3 col-form-label text-sm-right" htmlFor="emailPrefix">
+          {GetMessage("customFields_label_emailUsernamePrefix")}
+        </label>
+        <div className="col-sm-9">
+          <TextField name="emailPrefix" />
+        </div>
+      </div>
       <div className="form-group row">
         <label className="col-sm-3 col-form-label text-sm-right pt-0" htmlFor="emailUsername">
           {GetMessage("customFields_label_username")}
