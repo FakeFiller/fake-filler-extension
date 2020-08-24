@@ -12,7 +12,7 @@ import { IAppState, IFakeFillerOptions, ICustomField } from "src/types";
 export default function CustomFieldsPage(): JSX.Element {
   const dispatch = useDispatch();
 
-  const { index } = useParams();
+  const { index } = useParams<{ index: string }>();
   const profileIndex = parseInt(String(index || -1), 10);
 
   const isFetching = useSelector<IAppState, boolean>((state) => state.optionsData.isFetching);
