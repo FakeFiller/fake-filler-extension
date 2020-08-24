@@ -7,6 +7,14 @@ const ChangeLogPage = () => {
     <div>
       <h2>Fake Filler Changelog</h2>
       <p>
+        <strong>Version 3.2.0</strong>
+      </p>
+      <ul>
+        <li>Add an optional prefix field for email custom field type.</li>
+        <li>Randomly select first dropdown if value is truthy.</li>
+      </ul>
+      <hr />
+      <p>
         <strong>Version 3.1.2</strong>
       </p>
       <ul>
