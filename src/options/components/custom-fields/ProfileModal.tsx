@@ -36,7 +36,7 @@ type Props = {
   onSave: (formData: IProfile) => void;
 };
 
-export default function ProfileModal(props: Props): JSX.Element {
+const ProfileModal = (props: Props) => {
   const initialValues: IProfile = {
     name: props.profile ? props.profile.name : "",
     urlMatch: props.profile ? props.profile.urlMatch : "",
@@ -72,4 +72,10 @@ export default function ProfileModal(props: Props): JSX.Element {
       </Formik>
     </Modal>
   );
-}
+};
+
+ProfileModal.defaultProps = {
+  profile: undefined,
+};
+
+export default ProfileModal;

@@ -5,10 +5,16 @@ type Props = {
   as?: "p" | "div" | "span";
 } & React.HTMLAttributes<HTMLElement>;
 
-export default function HtmlPhrase(props: Props): JSX.Element {
+const HtmlPhrase = (props: Props) => {
   const { phrase, as } = props;
   const Component = as === undefined ? "span" : as;
 
   // eslint-disable-next-line react/no-danger
   return <Component dangerouslySetInnerHTML={{ __html: phrase }} />;
-}
+};
+
+HtmlPhrase.defaultProps = {
+  as: "span",
+};
+
+export default HtmlPhrase;

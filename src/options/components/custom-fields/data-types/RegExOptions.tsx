@@ -50,4 +50,8 @@ const RegExOptions = (props: Props) => {
   );
 };
 
+RegExOptions.defaultProps = {
+  regexTemplate: undefined,
+};
+
 export default RegExOptions;

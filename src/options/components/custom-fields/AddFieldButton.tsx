@@ -23,4 +23,8 @@ const AddFieldButton = (props: Props) => {
   );
 };
 
+AddFieldButton.defaultProps = {
+  disabled: false,
+};
+
 export default AddFieldButton;
