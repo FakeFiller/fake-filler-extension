@@ -31,7 +31,9 @@ const webpackConfig: webpack.Configuration = {
           {
             loader: "postcss-loader",
             options: {
-              plugins: () => [autoprefixer(), cssnano()],
+              postcssOptions: {
+                plugins: () => [autoprefixer(), cssnano()],
+              },
             },
           },
           { loader: "sass-loader" },
