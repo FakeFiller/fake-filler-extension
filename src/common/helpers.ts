@@ -29,6 +29,7 @@ const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
     fieldMatchSettings: {
       matchLabel: true,
       matchAriaLabel: true,
+      matchAriaLabelledBy: true,
       matchId: true,
       matchName: true,
       matchClass: false,

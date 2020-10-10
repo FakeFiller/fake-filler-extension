@@ -186,6 +186,16 @@ class ElementFiller {
       normalizedName += ` ${SanitizeText(element.getAttribute("aria-label") || "")}`;
     }
 
+    if (this.options.fieldMatchSettings.matchAriaLabelledBy) {
+      const labelIds = (element.getAttribute("aria-labelledby") || "").split(" ");
+      for (let i = 0; i < labelIds.length; i += 1) {
+        const labelElement = document.getElementById(labelIds[i]);
+        if (labelElement) {
+          normalizedName += ` ${SanitizeText(labelElement.innerHTML || "")}`;
+        }
+      }
+    }
+
     return normalizedName;
   }
 

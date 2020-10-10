@@ -500,6 +500,9 @@
   "generalSettings_matchFields_useAriaLabel": {
     "message": "aria-label attribute of the input tag"
   },
+  "generalSettings_matchFields_useAriaLabelledBy": {
+    "message": "aria-labelledby attribute of the input tag"
+  },
   "generalSettings_matchFields_useId": {
     "message": "ID attribute of the input tag"
   },
