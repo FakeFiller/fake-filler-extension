@@ -94,67 +94,9 @@ if (chrome.runtime.onInstalled) {
   chrome.runtime.onInstalled.addListener((details) => {
     if (details.reason === "update") {
       try {
-        if (details.previousVersion && details.previousVersion.startsWith("2.8")) {
+        if (details.previousVersion && details.previousVersion.startsWith("3.2")) {
           GetFakeFillerOptions().then((options) => {
-            options.defaultMaxLength = 20;
-            SaveFakeFillerOptions(options);
-          });
-        }
-        if (details.previousVersion && details.previousVersion.startsWith("2.10")) {
-          GetFakeFillerOptions().then((options) => {
-            options.fields.forEach((field) => {
-              if (field.type === "number") {
-                field.decimalPlaces = 0;
-              }
-              if (field.type === "date") {
-                field.minDate = "1970-01-01";
-                field.max = 0;
-              }
-            });
-            SaveFakeFillerOptions(options);
-          });
-        }
-        if (details.previousVersion && details.previousVersion.startsWith("2.12")) {
-          GetFakeFillerOptions().then((options) => {
-            options.profiles = [];
-            options.version = 1;
-
-            let hasEmailField = false;
-            options.fields.forEach((field) => {
-              if (field.type === "email") {
-                // @ts-ignore
-                field.emailUsername = options.emailSettings.username;
-                // @ts-ignore
-                field.emailUsernameList = options.emailSettings.usernameList;
-                // @ts-ignore
-                field.emailUsernameRegEx = options.emailSettings.usernameRegEx;
-                // @ts-ignore
-                field.emailHostname = options.emailSettings.hostname;
-                // @ts-ignore
-                field.emailHostnameList = options.emailSettings.hostnameList;
-
-                hasEmailField = true;
-              }
-            });
-
-            if (!hasEmailField) {
-              options.fields.push(DEFAULT_EMAIL_CUSTOM_FIELD);
-            }
-
-            // @ts-ignore
-            delete options.emailSettings;
-
-            SaveFakeFillerOptions(options);
-          });
-        }
-        if (details.previousVersion && details.previousVersion.startsWith("3")) {
-          GetFakeFillerOptions().then((options) => {
-            options.version = 1;
-            options.fieldMatchSettings.matchAriaLabel = true;
-
-            // @ts-ignore
-            delete options.emailSettings;
-
+            options.fieldMatchSettings.matchAriaLabelledBy = true;
             SaveFakeFillerOptions(options);
           });
         }

@@ -7,6 +7,13 @@ const ChangeLogPage = () => {
     <div>
       <h2>Fake Filler Changelog</h2>
       <p>
+        <strong>Version 3.3.0</strong>
+      </p>
+      <ul>
+        <li>Use aria-labelledby for matching elements.</li>
+      </ul>
+      <hr />
+      <p>
         <strong>Version 3.2.0</strong>
       </p>
       <ul>
