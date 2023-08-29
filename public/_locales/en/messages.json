@@ -9,70 +9,70 @@
     "message": "A form filler that fills all inputs on a page with fake/dummy data."
   },
   "browserActionTitle": {
-    "message": "Fill All Inputs with Dummy Data"
+    "message": "Заполнить все поля рэндомными данными"
   },
   "commands_FillThisForm": {
-    "message": "Fill this form"
+    "message": "Заполнить форму"
   },
   "commands_fillThisInput": {
-    "message": "Fill this input field"
+    "message": "Заполнить это поле"
   },
   "commands_fillAllInputs": {
-    "message": "Fill all inputs"
+    "message": "Заполнить все поля"
   },
   "bgPage_errorMigratingOptions": {
-    "message": "An error occurred while migrating Fake Filler options: $1"
+    "message": "Возникла ошибка при миграции настроек: $1"
   },
   "close": {
-    "message": "Close"
+    "message": "Закрыть"
   },
   "cancel": {
-    "message": "Cancel"
+    "message": "Отменить"
   },
   "save": {
-    "message": "Save"
+    "message": "Сохранить"
   },
   "saveSettings": {
-    "message": "Save Settings"
+    "message": "Сохранить настройки"
   },
   "reset": {
-    "message": "Reset"
+    "message": "Сбросить"
   },
   "edit": {
-    "message": "Edit"
+    "message": "Изменить"
   },
   "move": {
-    "message": "Move"
+    "message": "Переместить"
   },
   "delete": {
-    "message": "Delete"
+    "message": "Удалить"
   },
   "loading": {
-    "message": "Loading..."
+    "message": "Загрузка..."
   },
   "testMe": {
-    "message": "Test Me"
+    "message": "Протестировать"
   },
   "enterCsv": {
-    "message": "Enter comma-separated values."
+    "message": "Введите значения, разделенные запятой."
   },
   "leftNav_General": {
-    "message": "General"
+    "message": "Общие"
   },
   "leftNav_customFields": {
-    "message": "Custom Fields"
+    "message": "Польз. поля"
   },
   "leftNav_keyboardShortcuts": {
-    "message": "Keyboard Shortcuts"
+    "message": "Горячие клавиши"
   },
   "leftNav_backupRestore": {
-    "message": "Backup and Restore"
+    "message": "Бэкап и восстановление"
   },
   "leftNav_restoreFactorySettings": {
-    "message": "Reset Settings"
+    "message": "Сбросить настройки"
   },
   "leftNav_changelog": {
-    "message": "Changelog"
+    "message": "Лог изменений"
   },
   "leftNav_issueTracker": {
     "message": "Issue Tracker"
