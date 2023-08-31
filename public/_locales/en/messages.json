@@ -213,429 +213,429 @@
     "message": "Используется moment.js для форматирования даты/времени. Изучите moment.js <a href=\"http://momentjs.com/docs/#/displaying/format/\" target=\"_blank\" rel=\"noopener noreferrer\">документацию</a>. Не используется для полей type=\"date\" "
   },
   "customFields_alNumHelp_uppercaseLetter": {
-    "message": "БУКВА ВЕРХНЕГО РЕГИСТРА."
+    "message": "БУКВА ВЕРХНЕГО РЕГИСТРА"
   },
   "customFields_alNumHelp_lowercaseLetter": {
-    "message": "A lowercase letter."
+    "message": "буква нижнего регистра"
   },
   "customFields_alNumHelp_upperAndLowercaseLetter": {
-    "message": "A letter (UPPER or lower)."
+    "message": "Буква (ВЕРХНЕГО или нижнего регистра)."
   },
   "customFields_alNumHelp_uppercaseConsonant": {
-    "message": "An uppercase CONSONANT."
+    "message": "СОГЛАСНАЯ"
   },
   "customFields_alNumHelp_lowercaseConsonant": {
-    "message": "An uppercase consonant."
+    "message": "согласная"
   },
   "customFields_alNumHelp_upperAndLowercaseConsonant": {
-    "message": "A consonant (UPPER or lower)."
+    "message": "Согласная (ВЕРХНЕГО или нижнего регистра)."
   },
   "customFields_alNumHelp_uppercaseVowel": {
-    "message": "An uppercase VOWEL."
+    "message": "ГЛАСНАЯ"
   },
   "customFields_alNumHelp_lowercaseVowel": {
-    "message": "An lowercase vowel."
+    "message": "гласная"
   },
   "customFields_alNumHelp_upperAndLowercaseVowel": {
-    "message": "A vowel (UPPER or lower)."
+    "message": "Гласная (ВЕРХНЕГО или нижнего регистра)."
   },
   "customFields_alNumHelp_number09": {
-    "message": "Any number, 0-9."
+    "message": "Число, 0-9."
   },
   "customFields_alNumHelp_number19": {
-    "message": "Any number, 1-9."
+    "message": "Число, 1-9."
   },
   "customFields_alNumHelp_otherCharactersAsIs": {
-    "message": "Any other character will be output as-is. The above characters can be escaped by wrapping them in [square brackets]."
+    "message": "Любой другой символ будет выведен как есть. Приведенные выше символы можно экранировать, заключив их в [квадратные скобки]."
   },
   "customFields_regExHelp": {
-    "message": "Uses <a href=\"http://fent.github.io/randexp.js/\" target=\"_blank\" rel=\"noreferrer noopener\">randexp.js</a> to generate random data based on a regular expression pattern."
+    "message": "Используется <a href=\"http://fent.github.io/randexp.js/\" target=\"_blank\" rel=\"noreferrer noopener\">randexp.js</a> для генерации случайных данных на основе регулярных выражений"
   },
   "customFields_customFieldDetails": {
-    "message": "Custom Field Details"
+    "message": "Инфо о польз. поле"
   },
   "customFields_label_dataType": {
-    "message": "Data Type"
+    "message": "Тип данных"
   },
   "customFields_label_friendlyName": {
-    "message": "Friendly Name"
+    "message": "Название"
   },
   "customFields_label_match": {
-    "message": "Match"
+    "message": "Соответствует"
   },
   "customFields_label_match_placeholder": {
-    "message": "Comma-separated values or a regular expression."
+    "message": "Значения, разделенные запятыми, или регулярное выражение"
   },
   "customFields_label_match_helpText": {
-    "message": "Enter comma separated values (in lowercase) to match, or a regular expression. Make sure your regular expression does not have a comma."
+    "message": "Введите значения, разделенные запятыми (в нижнем регистре), или регулярное выражение. Убедитесь, что в вашем регулярном выражении нет запятой."
   },
   "customFields_label_template": {
-    "message": "Template"
+    "message": "Шаблон"
   },
   "customFields_label_telephoneTemplate_helpText": {
-    "message": "Use X for a number between 1-9 and x for 0-9."
+    "message": "Используйте X вместо числа 1-9 и x вместо 0-9."
   },
   "customFields_label_minValue": {
-    "message": "Minimum Value"
+    "message": "Минимальное значение"
   },
   "customFields_label_maxValue": {
-    "message": "Maximum Value"
+    "message": "Максимальное значение"
   },
   "customFields_label_decimalPlaces": {
-    "message": "Decimal Places"
+    "message": "Десятичные"
   },
   "customFields_label_decimalPlaces_helpText": {
-    "message": "The number of digits after the decimal point. e.g. 2 will generate X.XX, and 3 will generate X.XXX"
+    "message": "Количество знаков после точки, например, если введете "2", получите X.XX"
   },
   "customFields_label_minWords": {
-    "message": "Minimum Words"
+    "message": "Минимальное кол-во слов"
   },
   "customFields_label_maxWords": {
-    "message": "Maximum Words"
+    "message": "Максимальное кол-во слов"
   },
   "customFields_label_maxLength": {
-    "message": "Maximum Length"
+    "message": "Максимальная длина"
   },
   "customFields_label_format": {
-    "message": "Format"
+    "message": "Формат"
   },
   "customFields_label_pattern": {
-    "message": "Pattern"
+    "message": "Шаблон"
   },
   "customFields_label_listItems": {
-    "message": "List Items"
+    "message": "Значения"
   },
   "customFields_label_listItems_placeholder": {
-    "message": "Enter each item on a new line."
+    "message": "Введите каждое значение на новой строке"
   },
   "customFields_label_minDate": {
-    "message": "Minimum Date"
+    "message": "Минимальная дата"
   },
   "customFields_label_maxDate": {
-    "message": "Maximum Date"
+    "message": "Максимальная дата"
   },
   "customFields_label_datePrependText": {
-    "message": "Today plus"
+    "message": "Сегодня + "
   },
   "customFields_label_dateAppendText": {
-    "message": "days, OR"
+    "message": "дней, ИЛИ"
   },
   "customFields_label_date_helpText": {
-    "message": "Enter a negative value to generate a date in the past."
+    "message": "Введите отрицательное значение, чтобы получить дату в прошлом."
   },
   "customFields_label_daysFromToday": {
-    "message": "days from today"
+    "message": "дней, начиная с сегодня"
   },
   "customFields_label_hostname": {
-    "message": "Hostname"
+    "message": "Имя хоста"
   },
   "customFields_label_random": {
-    "message": "Random"
+    "message": "Рэндомно"
   },
   "customFields_label_previousUsername": {
-    "message": "Previously generated username"
+    "message": "Ранее сгенерированный юзернейм"
   },
   "customFields_label_previousName": {
-    "message": "Previously generated first and last name"
+    "message": "Ранее сгенерированные имя и фамилия"
   },
   "customFields_dataType_select": {
-    "message": "-- select --"
+    "message": "-- выбор --"
   },
   "customFields_dataType_humanDataLabel": {
-    "message": "Human Data"
+    "message": "Человеческие данные"
   },
   "customFields_dataType_firstName": {
-    "message": "First Name"
+    "message": "Имя"
   },
   "customFields_dataType_lastName": {
-    "message": "Last Name"
+    "message": "Фамилия"
   },
   "customFields_dataType_fullName": {
-    "message": "Full Name"
+    "message": "Полное имя"
   },
   "customFields_dataType_username": {
-    "message": "Username"
+    "message": "Юзернейм"
   },
   "customFields_dataType_emailAddress": {
-    "message": "Email Address"
+    "message": "Email"
   },
   "customFields_dataType_companyName": {
-    "message": "Organization/Company Name"
+    "message": "Компания/организация"
   },
   "customFields_dataType_telephone": {
-    "message": "Telephone Number"
+    "message": "Телефон"
   },
   "customFields_dataType_number": {
-    "message": "Number"
+    "message": "Число"
   },
   "customFields_dataType_date": {
-    "message": "Date"
+    "message": "Дата"
   },
   "customFields_dataType_url": {
-    "message": "URL/Website Address"
+    "message": "URL"
   },
   "customFields_dataType_otherLabel": {
-    "message": "Other"
+    "message": "Другое"
   },
   "customFields_dataType_text": {
-    "message": "Text"
+    "message": "Текст"
   },
   "customFields_dataType_alphaNumeric": {
-    "message": "Alphanumeric"
+    "message": "Буквы + цифры"
   },
   "customFields_dataType_regEx": {
-    "message": "Regular Expression"
+    "message": "Регулярное выражение"
   },
   "customFields_dataType_randomizedList": {
-    "message": "Randomized List"
+    "message": "Рэндомный лист"
   },
   "customFields_delete_confirm_message": {
-    "message": "Are you sure you want to delete this custom field?"
+    "message": "Удалить польз. поле?"
   },
   "customFields_label_hostName_randomLabel": {
-    "message": "Use a randomly generated host name"
+    "message": "Использовать рэндомное имя хоста"
   },
   "customFields_label_hostName_listLabel": {
-    "message": "Select from the list below:"
+    "message": "Выберите из списка ниже:"
   },
   "customFields_label_hostName_listTextHelp": {
-    "message": "List each name with a comma. You may include the @ sign as well."
+    "message": "Введите имена хоста, разделяя их запятой. Можете использовать символ @"
   },
   "customFields_label_emailUsernamePrefix": {
-    "message": "Username Prefix"
+    "message": "Префикс юзернейма"
   },
   "customFields_label_username": {
-    "message": "Username"
+    "message": "Юзернейм"
   },
   "customFields_label_username_usernameLabel": {
-    "message": "Use a previously generated username"
+    "message": "Использовать ранее сгенерированный юзернейм"
   },
   "customFields_label_username_nameLabel": {
-    "message": "Use a previously generated first and last name"
+    "message": "Использовать ранее сгенерированные имена и фамилии"
   },
   "customFields_label_username_randomLabel": {
-    "message": "Use a random name"
+    "message": "Использовать рэндомное имя"
   },
   "customFields_label_username_listLabel": {
-    "message": "Select from the list below (List each name with a comma.):"
+    "message": "Выберите из списка (разделяйте каждое имя запятой):"
   },
   "customFields_label_username_regExLabel": {
-    "message": "Use this regular expression:"
+    "message": "Используйте регулярное выражение:"
   },
   "customFields_label_username_regExTextPlaceholder": {
-    "message": "A regular expression."
+    "message": "Регулярное выражение"
   },
   "generalSettings_validation_enterPassword": {
-    "message": "Please enter a password."
+    "message": "Введите пароль"
   },
   "generalSettings_validation_enterAtLeastOneMatch": {
-    "message": "You must select at least one option."
+    "message": "Выберите опцию"
   },
   "generalSettings_validation_invalidDefaultMaxLength": {
-    "message": "The default maximum length value must be greater than zero."
+    "message": "Максимальная длина по умолчанию должна быть больше 0"
   },
   "generalSettings_passwordSettings": {
-    "message": "Password Settings"
+    "message": "Настройки пароля"
   },
   "generalSettings_fieldOptions": {
-    "message": "Field Options"
+    "message": "Опции полей"
   },
   "generalSettings_ignoreFieldsMatch": {
-    "message": "Ignore Fields Match"
+    "message": "Игнорировать соответствие полей"
   },
   "generalSettings_ignoreHiddenFieldsLabel": {
-    "message": "Ignore all hidden/invisible fields"
+    "message": "Игнорировать все скрытые поля"
   },
   "generalSettings_ignoreFieldsWithContentLabel": {
-    "message": "Ignore fields that already have content"
+    "message": "Игнорировать заполненные поля"
   },
   "generalSettings_note": {
-    "message": "Note"
+    "message": "Примечание"
   },
   "generalSettings_ignoreFieldsWithContentHelp": {
-    "message": "Inputs with <i>type=&quot;hidden&quot;</i> are always ignored."
+    "message": "<i>type=&quot;hidden&quot;</i> всегда игнорируются"
   },
   "generalSettings_confirmationFieldsMatch": {
-    "message": "Confirmation Fields Match"
+    "message": "Подтверждение соответствия полей"
   },
   "generalSettings_confirmFieldsHelp": {
-    "message": "Data entered in a preceding input field will be used for inputs matching any of these values."
+    "message": "Данные, введенные в предыдущее поле, будут использоваться для соответствующих любому из этих значений."
   },
   "generalSettings_agreeToTermsMatch": {
-    "message": "Agree to Terms Fields Match"
+    "message": "Совпадение полей Agree to Terms"
   },
   "generalSettings_agreeToTermsMatchHelp": {
-    "message": "Checkboxes matching any of these values will always be checked."
+    "message": "Чекбоксы, соответствующие любому из этих значений, всегда будут отмечены"
   },
   "generalSettings": {
-    "message": "General Settings"
+    "message": "Общие настройки"
   },
   "generalSettings_triggerEvents": {
-    "message": "Trigger Events"
+    "message": "Триггеры"
   },
   "generalSettings_triggerEventsLabel": {
-    "message": "Trigger click/change events on input fields"
+    "message": "Клик/изменение в поле"
   },
   "generalSettings_contextMenu": {
-    "message": "Context Menu"
+    "message": "Контекстное меню"
   },
   "generalSettings_contextMenuLabel": {
-    "message": "Add items to the right click menu"
+    "message": "Добавить элементы в контекстное меню"
   },
   "generalSettings_defaultMaxLength": {
-    "message": "Maximum Length"
+    "message": "Максимальная длина"
   },
   "generalSettings_defaultMaxLength_help": {
-    "message": "The default maximum number of characters to fill with dummy text (when no custom fields match)."
+    "message": "Максимальное количество символов рэндомного текста (если поля не совпадают)."
   },
   "generalSettings_settingsSaved": {
-    "message": "Saved settings."
+    "message": "Сохранено"
   },
   "generalSettings_matchFieldsUsing": {
-    "message": "Match Fields Using"
+    "message": "Совпадение полей с использованием"
   },
   "generalSettings_matchFields_useLabel": {
-    "message": "Label text for the input tag"
+    "message": "Название поле"
   },
   "generalSettings_matchFields_useAriaLabel": {
-    "message": "aria-label attribute of the input tag"
+    "message": "aria-label"
   },
   "generalSettings_matchFields_useAriaLabelledBy": {
-    "message": "aria-labelledby attribute of the input tag"
+    "message": "aria-labelledby"
   },
   "generalSettings_matchFields_useId": {
-    "message": "ID attribute of the input tag"
+    "message": "ID"
   },
   "generalSettings_matchFields_useName": {
-    "message": "Name attribute of the input tag"
+    "message": "Name"
   },
   "generalSettings_matchFields_useClass": {
-    "message": "Class attribute of the input tag"
+    "message": "Class"
   },
   "generalSettings_matchFields_usePlaceholder": {
-    "message": "Placeholder attribute of the input tag"
+    "message": "Плейсхолдер"
   },
   "generalSettings_matchFields_mustSelectOneOption": {
-    "message": "You must select at least one option."
+    "message": "Выберите опцию"
   },
   "generalSettings_matchFields_help": {
-    "message": "Please refer to the custom fields section to learn how input elements are matched."
+    "message": "Посмотрите в разделе 'Польз. поля' как это работает"
   },
   "generalSettings_password": {
-    "message": "Password"
+    "message": "Пароль"
   },
   "generalSettings_password_randomLabel": {
-    "message": "Generate a random 8 character password (is logged in the console)"
+    "message": "Сгенерировать рэндомный пароль из 8 символов (логируется в консоли)"
   },
   "generalSettings_password_useThisLabel": {
-    "message": "Use this:"
+    "message": "Используйте:"
   },
   "generalSettings_passwordHelp": {
-    "message": "Leave this blank to generate a random 8 character password (is logged in the console)."
+    "message": "Оставьте это поле пустым, чтобы сгенерировать случайный пароль из 8 символов (логируется в консоли)."
   },
   "profile": {
-    "message": "Profile"
+    "message": "Профиль"
   },
   "profiles": {
-    "message": "Profiles"
+    "message": "Профили"
   },
   "profiles_default_name": {
-    "message": "Default"
+    "message": "По умолчанию"
   },
   "profiles_delete_button_label": {
-    "message": "Delete Profile"
+    "message": "Удалить профиль"
   },
   "profiles_create_button_label": {
-    "message": "New Profile"
+    "message": "Новый профиль"
   },
   "profile_validation_missingName": {
-    "message": "Enter a name for this profile"
+    "message": "Введите имя профиля"
   },
   "profile_validation_missingUrlMatch": {
-    "message": "Please enter a regular expression to match the URL."
+    "message": "Введите регулярное выражение, соответствующее URL"
   },
   "profile_modal_title": {
-    "message": "Profile Details"
+    "message": "Детали профиля"
   },
   "profile_label_name": {
-    "message": "Profile Name"
+    "message": "Имя профиля"
   },
   "profile_label_urlMatch": {
-    "message": "URL Match Expression"
+    "message": "Выражение, соответствующее URL"
   },
   "profile_label_urlMatch_helpText": {
-    "message": "Enter a regular expression to match the URL that this profile will apply to."
+    "message": "Введите регулярное выражение, соответствующее URL, к которому будет применяться этот профиль."
   },
   "profile_delete_confirm_message": {
-    "message": "Are you sure you want to delete this profile?"
+    "message": "Удалить профиль"
   },
   "profile_url_matching_expression": {
-    "message": "URL Matching Expression"
+    "message": "Выражение, соответствующее URL"
   },
   "profile_thisProfileDisabled": {
-    "message": "This profile is disabled."
+    "message": "Профиль неактивен"
   },
   "matchedProfile": {
-    "message": "Matched Profile"
+    "message": "Совпадающий профиль"
   },
   "account_myAccount": {
-    "message": "My Account"
+    "message": "Мой аккаунт"
   },
   "account_emailAddress": {
-    "message": "Email Address"
+    "message": "Email"
   },
   "account_edition": {
     "message": "Edition"
   },
   "account_settingsLastUpdated": {
-    "message": "Settings Last Updated On"
+    "message": "Настройки обновлены"
   },
   "account_logout": {
-    "message": "Logout"
+    "message": "Выйти"
   },
   "account_password": {
-    "message": "Password"
+    "message": "Пароль"
   },
   "account_login": {
-    "message": "Log In"
+    "message": "Войти"
   },
   "account_error_incorrectPassword": {
-    "message": "This password is incorrect."
+    "message": "Неверный пароль"
   },
   "account_error_noAccount": {
-    "message": "This email address does not have a Fake Filler account."
+    "message": "Нет аккаунта в Fake Filler, привязанного к этой эл. почте"
   },
   "account_error_errorFetchingAccount": {
-    "message": "Could not fetch account information."
+    "message": "Не удалось получить инфо об аккаунте"
   },
   "account_error_unknownLoginError": {
-    "message": "An unknown error occurred while logging in."
+    "message": "Неизвестная ошибка при попытке войти"
   },
   "account_enableSync_title": {
-    "message": "Enable Sync"
+    "message": "Включить синхронизацию"
   },
   "account_enableSync_message": {
-    "message": "Your settings are currently not being synced. Push the button below to start synchronizing these settings across all your browsers."
+    "message": "Сейчас ваши настройки не синхронизируются. Для синхронизации настроек во всех браузерах нажмите кнопку ниже"
   },
   "account_enableSync_button": {
-    "message": "Start Sync"
+    "message": "Начать синхронизацию"
   },
   "account_enableSync_tip": {
-    "message": "<b>TIP</b>: If you have Fake Filler installed on multiple browsers, first enable sync on the browser where you have updated the settings most recently. That way, your other browsers will have the latest settings."
+    "message": "<b>СОВЕТ</b>: Если Fake Filler установлен в нескольких браузерах, сначала включите синхронизацию в том, в котором вы в последний раз обновляли настройки. Они же появятся и в других браузерах"
   },
   "account_manageAccount": {
-    "message": "Manage Account"
+    "message": "Управление аккаунтом"
   },
   "account_showSupportTitle": {
-    "message": "Buy Fake Filler Pro"
+    "message": "Купить подписку"
   },
   "account_showSupportMessage": {
-    "message": "Hello there! If Fake Filler makes you more productive, please consider showing your support by subscribing to the Pro edition. Subscriptions help to support the continued development of Fake Filler. I hate ads as much as you do so charging for a subscription is the only way I make money. So go ahead and hit the buy button now."
+    "message": "Если расширение помогает вам в работе и не только, поддержите автора платной подпиской Fake Filler Pro. Благодаря вам расширение будет развиваться и дальше."
   },
   "account_showSupportButton": {
-    "message": "Buy Pro"
+    "message": "Купить Fake Filler Pro"
   },
   "upgradeToFakeFillerPro": {
-    "message": "Upgrade to Fake Filler Pro"
+    "message": "Обновить до Fake Filler Pro"
   }
 }
