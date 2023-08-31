@@ -18,11 +18,11 @@ const validate = (values: LoginDetails): FormikErrors<LoginDetails> => {
   const errors: FormikErrors<LoginDetails> = {};
 
   if (!values.emailAddress || values.emailAddress.trim().length === 0) {
-    errors.emailAddress = "Please enter your email address.";
+    errors.emailAddress = "Введите адрес эл. почты";
   }
 
   if (!values.password) {
-    errors.password = "Please enter your password.";
+    errors.password = "Введите пароль";
   }
 
   return errors;
@@ -65,14 +65,13 @@ const LoginPage = () => {
 
   return (
     <>
-      <h2>Login to your account</h2>
+      <h2>Войти в аккаунт</h2>
       <div className="row">
         <div className="col-lg-4 col-md-6">
-          <p>Enter your email address and password below to activate Fake Filler Pro.</p>
+          <p>Введите адрес эл. почты и пароль для активации подписки Fake Filler Pro.</p>
           <p>
-            Logging in will enable Settings Sync. Your data is never used for anything other than Sync. For more
-            information, please refer to our{" "}
-            <ExternalLink url="https://fakefiller.com/privacy">privacy policy</ExternalLink>.
+          Вход в систему позволит синхронизировать настройки. Ваши данные используются только для синхронизации. Больше информации: {" "}
+            <ExternalLink url="https://fakefiller.com/privacy">Политика конфиденциальности</ExternalLink>.
           </p>
           <Formik initialValues={initialValues} validate={validate} onSubmit={handleSubmit}>
             {({ isSubmitting, isValid }) => (
@@ -93,17 +92,17 @@ const LoginPage = () => {
         <div className="col-lg-7 offset-lg-1 col-md-6">
           <div className="bg-light p-3 rounded mt-4 mt-md-0">
             <p>
-              <b>Don’t have an account?</b>
+              <b>Нет аккаунта?</b>
             </p>
-            <p>Subscribe to Fake Filler Pro to unlock these features:</p>
+            <p>Купите подписку Fake Filler Pro, чтобы:</p>
             <ul>
-              <li>Unlimited custom fields</li>
-              <li>Synchronize settings across all your browsers</li>
-              <li>Create URL-specific custom fields (multiple profiles)</li>
+              <li>Добавлять неограниченное количество польз. полей</li>
+              <li>Синхронизировать настройки между браузерами</li>
+              <li>Добавлять поля по URL (несколько профилей)</li>
             </ul>
             <p>
               <a href="https://fakefiller.com/#pricing" className="btn btn-primary">
-                Subscribe Now
+                Купить подписку
               </a>
             </p>
           </div>

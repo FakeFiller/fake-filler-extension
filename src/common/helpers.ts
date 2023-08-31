@@ -9,14 +9,14 @@ export const CURRENT_SETTINGS_VERSION = 1;
 
 export const DEFAULT_EMAIL_CUSTOM_FIELD: ICustomField = {
   type: "email",
-  name: "Email Address",
+  name: "Email",
   match: ["email"],
   emailPrefix: "",
   emailUsername: "random",
-  emailUsernameList: ["jack", "jill"],
+  emailUsernameList: ["email", "firstname.lastname", "1234567890", "firstname-lastname", "firstname_lastname", "firstname+lastname", "x", "user-", "email@domain", ".email", "email.", "email..email"],
   emailUsernameRegEx: "",
   emailHostname: "list",
-  emailHostnameList: ["mailinator.com"],
+  emailHostnameList: ["domain.com", "subdomain.domain.com", "123.123.123.123", "domain-one.com", "domain.name", "domain.co.jp", "localhost", ".domain.com", "domain..com"],
 };
 
 const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
@@ -49,19 +49,19 @@ const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
 
   options.fields.push({
     type: "username",
-    name: "Username",
+    name: "Юзернейм",
     match: ["userid", "username"],
   });
 
   options.fields.push({
     type: "first-name",
-    name: "First Name",
+    name: "Имя",
     match: ["firstname"],
   });
 
   options.fields.push({
     type: "last-name",
-    name: "Last Name",
+    name: "Фамилия",
     match: ["lastname", "surname", "secondname"],
   });
 
@@ -69,7 +69,7 @@ const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
 
   options.fields.push({
     type: "organization",
-    name: "Organization or Company Name",
+    name: "Компания/Организация",
     match: ["organization", "organisation", "company"],
   });
 
@@ -81,14 +81,14 @@ const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
 
   options.fields.push({
     type: "telephone",
-    name: "Telephone Number",
+    name: "Телефон",
     match: ["phone", "fax"],
     template: "+1 (XxX) XxX-XxxX",
   });
 
   options.fields.push({
     type: "number",
-    name: "A Random Number between 1 and 1000",
+    name: "Рэндомное число от 1 до 1000",
     match: ["integer", "number", "numeric", "income", "price", "qty", "quantity"],
     min: 1,
     max: 1000,
@@ -97,25 +97,25 @@ const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
 
   options.fields.push({
     type: "number",
-    name: "Zip Code",
+    name: "Индекс",
     match: ["zip"],
-    min: 10000,
-    max: 99999,
+    min: 101,
+    max: 694,
     decimalPlaces: 0,
   });
 
   options.fields.push({
     type: "number",
-    name: "Day",
+    name: "День",
     match: ["day"],
     min: 1,
-    max: 28,
+    max: 31,
     decimalPlaces: 0,
   });
 
   options.fields.push({
     type: "number",
-    name: "Month",
+    name: "Месяц",
     match: ["month"],
     min: 1,
     max: 12,
@@ -124,40 +124,40 @@ const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
 
   options.fields.push({
     type: "number",
-    name: "Year",
+    name: "Год",
     match: ["year"],
     min: 1970,
-    max: 2019,
+    max: 2025,
     decimalPlaces: 0,
   });
 
   options.fields.push({
     type: "date",
-    name: "Date",
+    name: "Дата",
     match: ["date"],
     minDate: "1970-01-01",
     max: 0,
-    template: "DD-MMM-YYYY",
+    template: "DD.MM.YYYY",
   });
 
   options.fields.push({
     type: "url",
-    name: "Website Address",
+    name: "Адрес сайта",
     match: ["website"],
   });
 
   options.fields.push({
     type: "regex",
-    name: "Address Line 1",
-    match: ["address1", "addressline1"],
+    name: "Адрес",
+    match: ["address1", "addressline1", "address1"],
     template:
       // tslint:disable-next-line:max-line-length
-      "([1-9][0-9][0-9]?) (North |East |West |South |||||)(Green |White |Rocky ||||||||)(Nobel|Fabien|Hague|Oak|Second|First|Cowley|Clarendon|New|Old|Milton) (Avenue|Boulevard|Court|Drive|Extension|Freeway|Lane|Parkway|Road|Street)",
+      "(ул. Молодежная|ул. Центральная|ул. Советская|ул. Садовая|ул. Школьная|ул. Лесная|ул. Заречная|ул. Ленина|ул. Мира|пр. Ленина|пр. Гагарина|пр. Бакунина|пр. Большевиков|пр. Ветеранов|Владимирский пр.|Вознесенский пр.|Гражданский пр.|Агатов пер.|Альпийский пер.|Басков пер.) (д. )([1-9][0-9][0-9]?) (кв. )([1-9][0-9][0-9]?)",
   });
 
   options.fields.push({
     type: "regex",
-    name: "P.O. Box",
+    name: "Почтовый адрес",
     match: ["pobox", "postbox"],
     template: "((P\\.O\\.)|(PO)) Box [1-9][0-9]{0,4}",
   });
@@ -187,19 +187,19 @@ const CreateContextMenus = (enableContextMenu: boolean): void => {
   if (enableContextMenu) {
     chrome.contextMenus.create({
       id: "fake-filler-all",
-      title: "Fill all inputs",
+      title: "Заполнить всё",
       contexts: ["page", "editable"],
     });
 
     chrome.contextMenus.create({
       id: "fake-filler-form",
-      title: "Fill this form",
+      title: "Заполнить форму",
       contexts: ["editable"],
     });
 
     chrome.contextMenus.create({
       id: "fake-filler-input",
-      title: "Fill this input",
+      title: "Заполнить поле",
       contexts: ["editable"],
     });
   }
