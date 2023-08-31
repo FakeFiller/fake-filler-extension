@@ -72,148 +72,148 @@
     "message": "Сбросить настройки"
   },
   "leftNav_changelog": {
-    "message": "Лог изменений"
+    "message": "Changelog"
   },
   "leftNav_issueTracker": {
     "message": "Issue Tracker"
   },
   "leftNav_confirmResetSettings": {
-    "message": "Are you sure you want to reset to the default settings?"
+    "message": "Сбросить настройки?"
   },
   "leftNav_sendFeedback": {
     "message": "If you have any suggestions to make this extension better, or find any issues, please send me an <a href=\"mailto:$1\">email</a>."
   },
   "backupRestore_title": {
-    "message": "Backup and Restore"
+    "message": "Бэкап и восстановление"
   },
   "backupRestore_exportSettings": {
-    "message": "Export Settings"
+    "message": "Экспортировать настройки"
   },
   "backupRestore_importSettings": {
-    "message": "Import Settings"
+    "message": "Импортировать настройки"
   },
   "backupRestore_errorCreatingBackupFile": {
-    "message": "Error creating backup file: $1"
+    "message": "Ошибка при создании бэкапа: $1"
   },
   "backupRestore_settingImportSuccessMessage": {
-    "message": "Settings imported successfully! You will need to reload all your tabs for the settings to take effect."
+    "message": "Импорт успешно завершен! Перезагрузите активные вкладки, чтобы изменения вступили в силу"
   },
   "backupRestore_confirmRestore": {
-    "message": "Are you sure you want to restore the settings?\n\nNote: Existing settings will be replaced."
+    "message": "Восстановить настройки?\n\n Текущие настройки будут сброшены"
   },
   "backupRestore_errorImporting": {
-    "message": "Error importing from file: $1"
+    "message": "Ошибка импорта из файла: $1"
   },
   "backupRestore_errorReadingFile": {
-    "message": "There was an error while reading the backup file."
+    "message": "Ошибка чтения файла"
   },
   "backupRestore_copyAndSaveToFile": {
-    "message": "Copy and save this to a text file."
+    "message": "Скопируйте и сохраните в текстовый файл"
   },
   "backupRestore_continueAnyway": {
-    "message": "Continue Anyway"
+    "message": "Все равно продолжить"
   },
   "backupRestore_confirmImportOldBackup": {
-    "message": "Are you absolutely sure? Restoring this backup could cause the extension to crash."
+    "message": "Вы точно уверены? Восстановление этого бэкапа может вызвать ошибку"
   },
   "backupRestore_oldBackupErrorMessage": {
-    "message": "The backup file you are trying to restore was created using an older version of the extension and cannot be imported."
+    "message": "Файл был создан с использованием старой версии расширения, поэтому не может быть импортирован."
   },
   "kbdShortcuts_title": {
-    "message": "Keyboard Shortcuts"
+    "message": "Горячие клавиши"
   },
   "kbdShortcuts_changeInstructions": {
-    "message": "<a href=\"https://github.com/FakeFiller/fake-filler-extension/wiki/Keyboard-Shortcuts\" target=\"_blank\" rel=\"noopener noreferrer\">Change keyboard shortcuts</a>"
+    "message": "<a href=\"https://github.com/FakeFiller/fake-filler-extension/wiki/Keyboard-Shortcuts\" target=\"_blank\" rel=\"noopener noreferrer\">Изменить горячие клавиши</a>"
   },
   "kbdShortcuts_notSet": {
-    "message": "Not Set"
+    "message": "Не установлено"
   },
   "customFieldDetails_title": {
-    "message": "Custom Field Details"
+    "message": "Инфо о польз. полях"
   },
   "customFields_title": {
-    "message": "Custom Fields"
+    "message": "Польз. поля"
   },
   "customFields_intro": {
-    "message": "Fake Filler can use the ID, NAME and CLASS values of an input field in addition to the label text to determine its data type."
+    "message": "Fake Filler может использовать значения ID, NAME и CLASS полей в добавок к названию поля, чтобы определить тип данных."
   },
   "customFields_getMoreInfo": {
-    "message": "More information on how the extension matches custom fields"
+    "message": "Больше информации о том, как расширение определяет польз. поля"
   },
   "customFields_addFieldButtonText": {
-    "message": "Add Field"
+    "message": "Добавить поле"
   },
   "customFields_validation_missingType": {
-    "message": "Please select a type."
+    "message": "Выберите тип"
   },
   "customFields_validation_missingName": {
-    "message": "Please enter a name for this custom field."
+    "message": "Введите название"
   },
   "customFields_validation_missingMatch": {
-    "message": "Please enter comma-separated values or a regular expression."
+    "message": "Введите значения, разделенные запятыми, или регулярное выражение."
   },
   "customFields_validation_missingTelephoneTemplate": {
-    "message": "Please enter a template for the telephone number."
+    "message": "Введите шаблон для номера телефона"
   },
   "customFields_validation_missingMinValue": {
-    "message": "Please enter a minimum value."
+    "message": "Введите минимальное значение"
   },
   "customFields_validation_missingMaxValue": {
-    "message": "Please enter a maximum value."
+    "message": "Введите максимальное значение"
   },
   "customFields_validation_missingMaxLength": {
-    "message": "Please enter a value for the maximum length."
+    "message": "Введите максимальную длину"
   },
   "customFields_validation_invalidMinMaxValue": {
-    "message": "The maximum value cannot be less than the minimum value."
+    "message": "Максимальное значение не может быть меньше минимального значения"
   },
   "customFields_validation_invalidMaxValue": {
-    "message": "The minimum value must be greater than one."
+    "message": "Максимальное значение должно быть больше 1"
   },
   "customFields_validation_invalidMaxLengthValue": {
-    "message": "The maximum length value must be greater than one."
+    "message": "Максимальная длина должна быть больше 1"
   },
   "customFields_validation_missingDateTemplate": {
-    "message": "Please enter a template for the date."
+    "message": "Введите шаблон даты"
   },
   "customFields_validation_missingAlNumTemplate": {
-    "message": "Please specify a format template for this field."
+    "message": "Введите шаблон для этого поля"
   },
   "customFields_validation_missingRegEx": {
-    "message": "Please enter a regular expression."
+    "message": "Введите регулярное выражение"
   },
   "customFields_validation_missingRandomItems": {
-    "message": "Please enter some items."
+    "message": "Введите значения"
   },
   "customFields_validation_missingDecimalPlaces": {
-    "message": "Please enter the number of decimal places."
+    "message": "Введите количество знаков после запятой"
   },
   "customFields_validation_onlyOneValueInGroup": {
-    "message": "Please enter only one value in this group."
+    "message": "Введите значение в этой группе"
   },
   "customFields_validation_atLeastOneValueInGroup": {
-    "message": "Please enter at least one value in this group."
+    "message": "Введите хотя бы одно значение в этой группе"
   },
   "customFields_validation_invalidEmailUsername": {
-    "message": "Please select the email username generation option."
+    "message": "Выберите генератор имени эл. почты"
   },
   "customFields_validation_missingEmailUsernameList": {
-    "message": "Please enter some usernames."
+    "message": "Введите имена эл. почты"
   },
   "customFields_validation_missingEmailUsernameRegEx": {
-    "message": "Please enter a regular expression."
+    "message": "Введите регулярное выражение"
   },
   "customFields_validation_invalidEmailHostname": {
-    "message": "Please select the email hostname generation option."
+    "message": "Выберите генератор домена эл. почты"
   },
   "customFields_validation_missingEmailHostnameList": {
-    "message": "Please enter some hostnames."
+    "message": "Введите домены эл. почты"
   },
   "customFields_dateTypeHelp": {
-    "message": "Uses moment.js to format date/time values. Please refer to the moment.js <a href=\"http://momentjs.com/docs/#/displaying/format/\" target=\"_blank\" rel=\"noopener noreferrer\">documentation</a>. This will be ignored for type=\"date\" fields."
+    "message": "Используется moment.js для форматирования даты/времени. Изучите moment.js <a href=\"http://momentjs.com/docs/#/displaying/format/\" target=\"_blank\" rel=\"noopener noreferrer\">документацию</a>. Не используется для полей type=\"date\" "
   },
   "customFields_alNumHelp_uppercaseLetter": {
-    "message": "An uppercase LETTER."
+    "message": "БУКВА ВЕРХНЕГО РЕГИСТРА."
   },
   "customFields_alNumHelp_lowercaseLetter": {
     "message": "A lowercase letter."
