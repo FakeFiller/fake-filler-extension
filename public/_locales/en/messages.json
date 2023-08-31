@@ -285,7 +285,7 @@
     "message": "Десятичные"
   },
   "customFields_label_decimalPlaces_helpText": {
-    "message": "Количество знаков после точки, например, если введете "2", получите X.XX"
+    "message": "Количество знаков после точки, например, если введете 2, получите X.XX"
   },
   "customFields_label_minWords": {
     "message": "Минимальное кол-во слов"
