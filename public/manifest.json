@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "__MSG_extensionName__",
   "short_name": "__MSG_extensionName_short__",
   "version": "3.3.0",
@@ -13,8 +13,8 @@
     "96": "images/icon-96.png",
     "128": "images/icon-128.png"
   },
-  "permissions": ["contextMenus", "activeTab", "<all_urls>", "storage"],
-  "browser_action": {
+  "permissions": ["contextMenus", "activeTab", "storage", "scripting"],
+  "action": {
     "default_icon": {
       "16": "images/icon-16.png",
       "32": "images/icon-32.png",
@@ -23,7 +23,7 @@
       "96": "images/icon-96.png",
       "128": "images/icon-128.png"
     },
-    "default_title": "__MSG_browserActionTitle__"
+    "default_title": "__MSG_ActionTitle__"
   },
   "commands": {
     "fill_all_inputs": {
@@ -47,8 +47,8 @@
     }
   ],
   "background": {
-    "scripts": ["build/background-script.js"],
-    "persistent": false
+    "service_worker": "service_worker.js",
+    "type": "module"
   },
   "options_ui": {
     "page": "options.html",

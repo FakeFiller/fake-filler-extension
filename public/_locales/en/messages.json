@@ -8,7 +8,7 @@
   "extensionDescription": {
     "message": "A form filler that fills all inputs on a page with fake/dummy data."
   },
-  "browserActionTitle": {
+  "actionTitle": {
     "message": "Fill All Inputs with Dummy Data"
   },
   "commands_FillThisForm": {
