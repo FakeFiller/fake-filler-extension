@@ -26,6 +26,7 @@ export type CustomFieldTypes =
 export type PasswordModeType = "defined" | "random";
 export type EmailHostnameType = "list" | "random";
 export type EmailUsernameType = "list" | "name" | "random" | "username" | "regex";
+export type LanguageType = "en" | "ar" | "nl";
 
 export interface ICustomField {
   type: CustomFieldTypes;
@@ -99,6 +100,7 @@ export interface IProfile {
 export interface IFakeFillerOptions {
   version: number;
 
+  language: LanguageType;
   agreeTermsFields: string[];
   confirmFields: string[];
   defaultMaxLength: number;
@@ -116,6 +118,7 @@ export interface IFakeFillerOptions {
 export interface IFakeFillerOptionsForm {
   version: number;
 
+  language: LanguageType;
   agreeTermsFields: string;
   confirmFields: string;
   defaultMaxLength: string;

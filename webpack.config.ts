@@ -39,7 +39,12 @@ const webpackConfig: webpack.Configuration = {
               },
             },
           },
-          { loader: "sass-loader" },
+          {
+            loader: "sass-loader",
+            options: {
+              implementation: require('sass'),
+            },
+          },
         ],
       },
       {

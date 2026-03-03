@@ -22,6 +22,7 @@ export const DEFAULT_EMAIL_CUSTOM_FIELD: ICustomField = {
 const FakeFillerDefaultOptions = (): IFakeFillerOptions => {
   const options: IFakeFillerOptions = {
     version: CURRENT_SETTINGS_VERSION,
+    language: "en",
     agreeTermsFields: ["agree", "terms", "conditions"],
     confirmFields: ["confirm", "reenter", "retype", "repeat", "secondary"],
     defaultMaxLength: 20,
@@ -170,7 +171,7 @@ const GetFakeFillerOptions = (): Promise<IFakeFillerOptions> => {
     chrome.storage.local.get("options", (result) => {
       let options: IFakeFillerOptions;
       if (result && Object.keys(result).length > 0) {
-        options = result.options;
+        options = result.options as IFakeFillerOptions;
       } else {
         options = FakeFillerDefaultOptions();
       }

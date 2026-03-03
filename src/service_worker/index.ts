@@ -36,7 +36,6 @@ function handleMessage(
   sendResponse: (response: any) => void
 ): boolean | null {
   switch (request.type) {
-    
     case "getOptions": {
       GetFakeFillerOptions().then((result) => {
         sendResponse({ options: result });
@@ -69,9 +68,9 @@ function handleMessage(
 
     default:
       return null;
-    }
   }
- 
+  }
+
 
 if (chrome.runtime.onInstalled) {
   chrome.runtime.onInstalled.addListener((details) => {
@@ -85,7 +84,7 @@ if (chrome.runtime.onInstalled) {
         }
       } catch (ex) {
         // eslint-disable-next-line no-alert
-        window.alert(GetMessage("bgPage_errorMigratingOptions", [ex.message]));
+        window.alert(GetMessage("bgPage_errorMigratingOptions", [(ex as Error).message]));
       }
     }
   });
@@ -141,33 +140,33 @@ chrome.contextMenus.onClicked.addListener(
     }
     if (info.menuItemId === "fake-filler-input") {
       await chrome.scripting.executeScript({
-        func : fillThisInput,
-        target : {
-          allFrames : true,
-          tabId: await getCurrentTabId()          
+        func: fillThisInput,
+        target: {
+          allFrames: true,
+          tabId: await getCurrentTabId(),
         },
       });
     }
   }
 );
-    
+
 chrome.commands.onCommand.addListener(
   async (command: string) => {
   if (command === "fill_all_inputs") {
     await chrome.scripting.executeScript({
-      func : fillAllInputs,
-      target : {
-        allFrames : true,
-        tabId: await getCurrentTabId()          
+      func: fillAllInputs,
+      target: {
+        allFrames: true,
+        tabId: await getCurrentTabId(),
       },
     });
   }
   if (command === "fill_this_form") {
     await chrome.scripting.executeScript({
-      func : fillThisForm,
-      target : {
-        allFrames : true,
-        tabId: await getCurrentTabId()          
+      func: fillThisForm,
+      target: {
+        allFrames: true,
+        tabId: await getCurrentTabId(),
       },
     });
   }

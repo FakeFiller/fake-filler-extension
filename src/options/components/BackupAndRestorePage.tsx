@@ -45,7 +45,7 @@ const BackupAndRestorePage = () => {
       const blob = new Blob([encodedData], { type: "text/plain;charset=utf-8" });
       fileSaver.saveAs(blob, `fake-filler-${dateStamp}.txt`);
     } catch (e) {
-      setErrorMessage(GetMessage("backupRestore_errorCreatingBackupFile", e.toString()));
+      setErrorMessage(GetMessage("backupRestore_errorCreatingBackupFile", (e as Error).toString()));
       setBackupData(encodedData);
     }
   }
@@ -76,7 +76,7 @@ const BackupAndRestorePage = () => {
             }
           } catch (ex) {
             setShowSuccess(false);
-            setErrorMessage(GetMessage("backupRestore_errorImporting", ex.toString()));
+            setErrorMessage(GetMessage("backupRestore_errorImporting", (ex as Error).toString()));
           }
         };
 
