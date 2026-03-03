@@ -21,7 +21,7 @@ const RegExOptions = (props: Props) => {
         regExGenerator.defaultRange.add(0, 65535);
         randomValue = regExGenerator.gen();
       } catch (e) {
-        randomValue = e.toString();
+        randomValue = (e as Error).toString();
       }
     }
 

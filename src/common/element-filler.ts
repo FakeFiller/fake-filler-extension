@@ -24,7 +24,7 @@ class ElementFiller {
   constructor(options: IFakeFillerOptions, profileIndex = -1) {
     this.options = options;
     this.profileIndex = profileIndex;
-    this.generator = new DataGenerator();
+    this.generator = new DataGenerator(options.language || "en");
 
     this.previousValue = "";
     this.previousPassword = "";

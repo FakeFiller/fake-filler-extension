@@ -91,6 +91,7 @@ export function saveOptions(options: IFakeFillerOptions, formValues?: IFakeFille
         draft.ignoreFieldsWithContent = formValues.ignoreFieldsWithContent;
         draft.ignoreHiddenFields = formValues.ignoreHiddenFields;
         draft.ignoredFields = CsvToArray(formValues.ignoredFields);
+        draft.language = formValues.language;
         draft.triggerClickEvents = formValues.triggerClickEvents;
 
         draft.passwordSettings = {

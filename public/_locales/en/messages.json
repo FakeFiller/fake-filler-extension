@@ -482,6 +482,18 @@
   "generalSettings_contextMenuLabel": {
     "message": "Add items to the right click menu"
   },
+  "generalSettings_language": {
+    "message": "Names Language"
+  },
+  "generalSettings_language_en": {
+    "message": "English (EN)"
+  },
+  "generalSettings_language_ar": {
+    "message": "Arabic (AR)"
+  },
+  "generalSettings_language_nl": {
+    "message": "Dutch (NL)"
+  },
   "generalSettings_defaultMaxLength": {
     "message": "Maximum Length"
   },

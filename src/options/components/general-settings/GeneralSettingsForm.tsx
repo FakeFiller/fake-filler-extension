@@ -5,6 +5,7 @@ import { GetMessage } from "src/common/helpers";
 import CheckboxField from "src/options/components/common/CheckboxField";
 import HtmlPhrase from "src/options/components/common/HtmlPhrase";
 import RadioButtonField from "src/options/components/common/RadioButtonField";
+import SelectField from "src/options/components/common/SelectField";
 import TextField from "src/options/components/common/TextField";
 import { IFakeFillerOptionsForm, IFakeFillerOptions } from "src/types";
 
@@ -64,6 +65,7 @@ const GeneralSettingsForm = (props: Props) => {
   initialValues.fieldMatchPlaceholder = props.options.fieldMatchSettings.matchPlaceholder;
   initialValues.fieldMatchAriaLabel = props.options.fieldMatchSettings.matchAriaLabel;
   initialValues.fieldMatchAriaLabelledBy = props.options.fieldMatchSettings.matchAriaLabelledBy;
+  initialValues.language = props.options.language || "en";
 
   return (
     <Formik
@@ -171,6 +173,12 @@ const GeneralSettingsForm = (props: Props) => {
             label={GetMessage("generalSettings_contextMenuLabel")}
             title={GetMessage("generalSettings_contextMenu")}
           />
+
+          <SelectField name="language" label={GetMessage("generalSettings_language")}>
+            <option value="en">{GetMessage("generalSettings_language_en")}</option>
+            <option value="ar">{GetMessage("generalSettings_language_ar")}</option>
+            <option value="nl">{GetMessage("generalSettings_language_nl")}</option>
+          </SelectField>
 
           <div className="row">
             <div className="col-sm-3">&nbsp;</div>

@@ -1,7 +1,14 @@
 import * as data from "src/common/dummy-data";
 import { DEFAULT_TELEPHONE_TEMPLATE } from "src/common/helpers";
+import { LanguageType } from "src/types";
 
 class DataGenerator {
+  private language: LanguageType;
+
+  constructor(language: LanguageType = "en") {
+    this.language = language;
+  }
+
   public randomNumber(start: number, end: number, decimalPlaces = 0): number {
     const min = Math.ceil(start);
     const max = Math.floor(end);
@@ -37,8 +44,10 @@ class DataGenerator {
     let resultPhrase = "";
     let word = "";
 
+    const bank = this.language === "ar" ? data.wordBankAr : this.language === "nl" ? data.wordBankNl : data.wordBank;
+
     for (let i = 0; i < wordCount; i += 1) {
-      word = data.wordBank[Math.floor(Math.random() * (data.wordBank.length - 1))];
+      word = bank[Math.floor(Math.random() * (bank.length - 1))];
       const phraseLength = resultPhrase.length;
 
       if (
@@ -163,7 +172,7 @@ class DataGenerator {
     const length = this.randomNumber(5, 20);
     const resultPhrase = this.words(length, maxLength);
 
-    return resultPhrase.replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ");
+    return resultPhrase.replace(/[^\p{L}\p{N}\s]|_/gu, "").replace(/\s+/g, " ");
   }
 
   public website(): string {
@@ -230,10 +239,22 @@ class DataGenerator {
   }
 
   public firstName(): string {
+    if (this.language === "ar") {
+      return data.firstNamesAr[this.randomNumber(0, data.firstNamesAr.length - 1)];
+    }
+    if (this.language === "nl") {
+      return data.firstNamesNl[this.randomNumber(0, data.firstNamesNl.length - 1)];
+    }
     return data.firstNames[this.randomNumber(0, data.firstNames.length - 1)];
   }
 
   public lastName(): string {
+    if (this.language === "ar") {
+      return data.lastNamesAr[this.randomNumber(0, data.lastNamesAr.length - 1)];
+    }
+    if (this.language === "nl") {
+      return data.lastNamesNl[this.randomNumber(0, data.lastNamesNl.length - 1)];
+    }
     return data.lastNames[this.randomNumber(0, data.lastNames.length - 1)];
   }
 
