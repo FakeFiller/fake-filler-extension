@@ -1,17 +1,17 @@
-/* eslint-disable no-param-reassign */
-
+import { UnknownAction } from "@reduxjs/toolkit";
 import { produce } from "immer";
-import { combineReducers, Reducer } from "redux";
 
 import { MyActions } from "src/options/actions";
-import { IOptionsState, IKeyboardShortcutsState, IAppState, IAuthState } from "src/types";
+import { IOptionsState, IKeyboardShortcutsState } from "src/types";
 
 const optionsInitialState: IOptionsState = {
   isFetching: false,
   options: null,
 };
 
-const OptionsReducer: Reducer<IOptionsState> = (state = optionsInitialState, action: MyActions) => {
+// Redux hands every action to every reducer; only this app's own actions change the state.
+const OptionsReducer = (state: IOptionsState = optionsInitialState, unknownAction: UnknownAction): IOptionsState => {
+  const action = unknownAction as MyActions;
   return produce(state, (draft) => {
     switch (action.type) {
       case "FETCHING_OPTIONS":
@@ -35,10 +35,11 @@ const shortcutsInitialState: IKeyboardShortcutsState = {
   shortcuts: [],
 };
 
-const KeyboardShortcutsReducer: Reducer<IKeyboardShortcutsState> = (
-  state = shortcutsInitialState,
-  action: MyActions
-) => {
+const KeyboardShortcutsReducer = (
+  state: IKeyboardShortcutsState = shortcutsInitialState,
+  unknownAction: UnknownAction
+): IKeyboardShortcutsState => {
+  const action = unknownAction as MyActions;
   return produce(state, (draft) => {
     switch (action.type) {
       case "FETCHING_KEYBOARD_SHORTCUTS":
@@ -57,28 +58,9 @@ const KeyboardShortcutsReducer: Reducer<IKeyboardShortcutsState> = (
   });
 };
 
-const authInitialState: IAuthState = {
-  user: null,
-  claims: null,
-};
-
-const AuthReducer: Reducer<IAuthState> = (state = authInitialState, action: MyActions) => {
-  return produce(state, (draft) => {
-    switch (action.type) {
-      case "UPDATE_AUTH_STATE": {
-        draft.user = action.user;
-        draft.claims = action.claims;
-        return draft;
-      }
-
-      default:
-        return draft;
-    }
-  });
-};
-
-export default combineReducers<IAppState>({
-  authData: AuthReducer,
+const reducers = {
   optionsData: OptionsReducer,
   keyboardShortcutsData: KeyboardShortcutsReducer,
-});
+};
+
+export default reducers;

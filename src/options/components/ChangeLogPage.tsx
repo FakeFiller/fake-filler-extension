@@ -1,11 +1,24 @@
-import React from "react";
-
 import ExternalLink from "src/options/components/common/ExternalLink";
 
 const ChangeLogPage = () => {
   return (
     <div>
-      <h2>Fake Filler Changelog</h2>
+      <h2>Changelog</h2>
+      <p>
+        <strong>Version 4.0.0 — FillPilot AI</strong>
+      </p>
+      <ul>
+        <li>AI fill: say or type what goes in a form and the AI fills only those fields, typing like a person.</li>
+        <li>AI providers: OpenRouter, Claude, or any OpenAI-compatible API URL (OpenAI, Groq, Ollama, LM Studio…).</li>
+        <li>Ask page: ask the AI about the page you are on, or let it answer the questions on the page.</li>
+        <li>Human-like typing switch: type like a person, or fill instantly.</li>
+        <li>Audio transcriber: writes down the speech playing in a tab or on your computer.</li>
+        <li>Unlimited custom fields and URL-specific profiles for everyone.</li>
+        <li>Settings sync through your browser account (Chrome, Edge and Firefox).</li>
+        <li>Better detection of custom checkboxes, radio buttons, switches and ARIA radio groups.</li>
+        <li>Builds for Chrome, Edge and Firefox; all libraries updated.</li>
+      </ul>
+      <hr />
       <p>
         <strong>Version 3.4.0</strong>
       </p>
@@ -45,10 +58,10 @@ const ChangeLogPage = () => {
       </p>
       <ul>
         <li>
-          <span className="badge badge-info">PRO</span> Sync settings across browsers.
+          <span className="badge bg-info">PRO</span> Sync settings across browsers.
         </li>
         <li>
-          <span className="badge badge-info">PRO</span> Create multiple profiles for custom fields.
+          <span className="badge bg-info">PRO</span> Create multiple profiles for custom fields.
         </li>
       </ul>
       <hr />

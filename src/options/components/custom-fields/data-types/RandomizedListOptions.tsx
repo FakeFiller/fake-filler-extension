@@ -1,5 +1,3 @@
-import React from "react";
-
 import { GetMessage } from "src/common/helpers";
 import TextAreaField from "src/options/components/common/TextAreaField";
 

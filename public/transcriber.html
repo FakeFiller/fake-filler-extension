@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FillPilot Audio Transcriber</title>
+    <link rel="shortcut icon" href="images/icon-32.png" />
+    <style>
+      :root {
+        --bg: #ffffff; --fg: #1f2328; --muted: #57606a; --border: #d0d7de; --surface: #f6f8fa;
+        --accent: #1f6feb; --accent-soft: rgba(31, 111, 235, 0.15); --danger: #cf222e;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d1117; --fg: #e6edf3; --muted: #8b949e; --border: #30363d; --surface: #161b22;
+          --accent: #4493f8; --accent-soft: rgba(68, 147, 248, 0.18); --danger: #f85149;
+        }
+      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; margin: 0; }
+      body {
+        display: flex; flex-direction: column; background: var(--bg); color: var(--fg);
+        font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      header { padding: 12px 16px 8px; border-bottom: 1px solid var(--border); }
+      h1 { font-size: 15px; margin: 0 0 2px; display: flex; align-items: center; gap: 8px; }
+      .pill { font-size: 11px; font-weight: 500; padding: 1px 8px; border-radius: 999px; background: var(--surface); color: var(--muted); border: 1px solid var(--border); }
+      .pill.live { color: #fff; background: var(--danger); border-color: var(--danger); }
+      .pill.paused { color: var(--fg); }
+      .subtitle { margin: 0; color: var(--muted); font-size: 12px; }
+      .controls { display: flex; gap: 8px; padding: 10px 16px 6px; }
+      button {
+        font: inherit; color: inherit; padding: 7px 12px; border-radius: 6px; cursor: pointer;
+        border: 1px solid var(--border); background: var(--surface);
+      }
+      button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+      button.stop { color: var(--danger); }
+      button:disabled { opacity: 0.5; cursor: default; }
+      button[hidden] { display: none; }
+      .meter { height: 6px; margin: 4px 16px 0; border-radius: 3px; background: var(--accent-soft); overflow: hidden; }
+      .meter-bar { height: 100%; width: 0; background: var(--accent); border-radius: 3px; transition: width 0.08s linear; }
+      .status { display: flex; align-items: center; gap: 8px; min-height: 22px; padding: 6px 16px; color: var(--muted); }
+      .status.error { color: var(--danger); }
+      .spinner {
+        flex: none; width: 13px; height: 13px; border-radius: 50%;
+        border: 2px solid var(--accent-soft); border-top-color: var(--accent); animation: spin 0.8s linear infinite;
+      }
+      .spinner[hidden] { display: none; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      #transcript { flex: 1; overflow-y: auto; margin: 0 16px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+      .empty { color: var(--muted); text-align: center; padding: 32px 8px; }
+      .line { display: flex; gap: 10px; padding: 4px 0; }
+      .time { flex: none; color: var(--muted); font-variant-numeric: tabular-nums; font-size: 12px; padding-top: 1px; }
+      .text { flex: 1; white-space: pre-wrap; word-break: break-word; }
+      .line.pending .text { color: var(--muted); font-style: italic; }
+      .line.failed .text { color: var(--danger); }
+      footer { display: flex; gap: 8px; align-items: center; padding: 10px 16px; }
+      footer .spacer { flex: 1; }
+      details { padding: 0 16px 12px; color: var(--muted); }
+      summary { cursor: pointer; }
+      label { display: block; margin-top: 8px; color: var(--fg); }
+      input {
+        display: block; width: 100%; margin-top: 2px; padding: 6px 8px; font: inherit; color: var(--fg);
+        background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+      }
+      .hint { font-size: 12px; margin: 4px 0 0; }
+      .row { display: flex; gap: 8px; margin-top: 8px; }
+      @media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2.4s; } .meter-bar { transition: none; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>🔊 Audio transcriber <span class="pill" id="statePill">Off</span></h1>
+      <p class="subtitle">Writes down what is playing in a tab or on your computer.</p>
+    </header>
+
+    <div class="controls">
+      <button class="primary" id="startButton">● Start listening</button>
+      <button id="pauseButton" hidden>Pause</button>
+      <button class="stop" id="stopButton" hidden>■ Stop</button>
+    </div>
+    <div class="meter" title="Audio level"><div class="meter-bar" id="meterBar"></div></div>
+    <div class="status" id="status" aria-live="polite"><span class="spinner" id="spinner" hidden></span><span id="statusText"></span></div>
+
+    <div id="transcript"><div class="empty" id="empty">Press <strong>Start listening</strong>, pick the tab or screen that is playing audio, and tick <em>Also share tab audio</em> (or <em>system audio</em>).</div></div>
+
+    <footer>
+      <button id="copyButton">Copy</button>
+      <button id="downloadButton">Download .txt</button>
+      <span class="spacer"></span>
+      <button id="clearButton">Clear</button>
+    </footer>
+
+    <details id="settings">
+      <summary>Settings</summary>
+      <label>OpenRouter API key
+        <input type="password" id="apiKeyInput" autocomplete="off" spellcheck="false" placeholder="sk-or-…" />
+      </label>
+      <p class="hint" id="apiKeyHint"></p>
+      <label>Transcription model (must accept audio)
+        <input type="text" id="modelInput" autocomplete="off" spellcheck="false" />
+      </label>
+      <p class="hint">Uses the same OpenRouter key as AI fill. Audio is sent to OpenRouter in short chunks; silence is skipped.</p>
+      <div class="row"><button class="primary" id="saveSettingsButton">Save</button></div>
+    </details>
+
+    <script type="text/javascript" src="build/transcriber.js"></script>
+  </body>
+</html>

@@ -1,5 +1,4 @@
 import { Form, Formik, FormikErrors } from "formik";
-import React from "react";
 import { Modal } from "react-bootstrap";
 
 import { GetMessage } from "src/common/helpers";
@@ -18,10 +17,9 @@ const validate = (values: IProfile): FormikErrors<IProfile> => {
   } else {
     const expression = values.urlMatch.trim();
     try {
-      if (!new RegExp(expression)) {
-        errors.urlMatch = "Please enter a valid regular expression.";
-      }
-    } catch (e) {
+      // Throws for an invalid pattern.
+      new RegExp(expression);
+    } catch {
       errors.urlMatch = "Please enter a valid regular expression.";
     }
   }
@@ -72,10 +70,6 @@ const ProfileModal = (props: Props) => {
       </Formik>
     </Modal>
   );
-};
-
-ProfileModal.defaultProps = {
-  profile: undefined,
 };
 
 export default ProfileModal;

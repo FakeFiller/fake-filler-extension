@@ -1,9 +1,8 @@
 {
   "arrowParens": "always",
   "bracketSpacing": true,
-  "endOfLine": "crlf",
+  "endOfLine": "auto",
   "htmlWhitespaceSensitivity": "css",
-  "jsxBracketSameLine": false,
   "jsxSingleQuote": false,
   "printWidth": 120,
   "proseWrap": "preserve",
@@ -12,5 +11,6 @@
   "singleQuote": false,
   "tabWidth": 2,
   "trailingComma": "es5",
-  "useTabs": false
+  "useTabs": false,
+  "bracketSameLine": false
 }

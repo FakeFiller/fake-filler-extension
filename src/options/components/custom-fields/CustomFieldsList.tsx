@@ -1,5 +1,4 @@
-import React from "react";
-import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
 
 import AddFieldButton from "src/options/components/custom-fields/AddFieldButton";
 import CustomFieldsListItem from "src/options/components/custom-fields/CustomFieldsListItem";
@@ -47,7 +46,6 @@ const CustomFieldsList = (props: Props) => {
             <div className="custom-fields-list" ref={provided.innerRef} {...provided.droppableProps}>
               {props.customFields.map((item, index) => (
                 <CustomFieldsListItem
-                  // eslint-disable-next-line react/no-array-index-key
                   key={index}
                   customField={item}
                   itemIndex={index}

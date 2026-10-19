@@ -11,7 +11,7 @@ const SelectField = React.forwardRef((props: Props, ref: React.Ref<HTMLSelectEle
   const [field, meta] = useField(props);
   const { name, id, label, helpText, className, ...rest } = props;
 
-  let controlCssClass = "custom-select";
+  let controlCssClass = "form-select";
 
   if (meta.touched) {
     if (meta.error) {
@@ -33,8 +33,8 @@ const SelectField = React.forwardRef((props: Props, ref: React.Ref<HTMLSelectEle
 
   if (label) {
     return (
-      <div className="form-group row">
-        <label className="col-sm-3 col-form-label text-sm-right" htmlFor={name}>
+      <div className="row mb-3">
+        <label className="col-sm-3 col-form-label text-sm-end" htmlFor={name}>
           {label}
         </label>
         <div className="col-sm-9">{controlMarkup}</div>
@@ -44,5 +44,7 @@ const SelectField = React.forwardRef((props: Props, ref: React.Ref<HTMLSelectEle
 
   return controlMarkup;
 });
+
+SelectField.displayName = "SelectField";
 
 export default SelectField;

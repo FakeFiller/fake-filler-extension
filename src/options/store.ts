@@ -1,8 +1,8 @@
-import { applyMiddleware, createStore } from "redux";
-import reduxThunk from "redux-thunk";
+import { configureStore } from "@reduxjs/toolkit";
 
-import reducer from "src/options/reducer";
+import reducers from "src/options/reducer";
 
-const Store = createStore(reducer, applyMiddleware(reduxThunk));
+// configureStore includes the thunk middleware the option actions rely on.
+const Store = configureStore({ reducer: reducers });
 
 export default Store;

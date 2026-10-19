@@ -26,16 +26,16 @@ const RadioButtonField = React.forwardRef((props: Props, ref: React.Ref<HTMLInpu
   const componentId = `${id || name}_${SanitizeText(value)}`;
 
   const controlMarkup = (
-    <div className={`custom-control custom-radio ${className}`}>
+    <div className={`form-check ${className}`}>
       <input
         id={componentId}
         type="radio"
         ref={ref}
-        className={`custom-control-input ${validationCssClass}`}
+        className={`form-check-input ${validationCssClass}`}
         {...field}
         {...rest}
       />
-      <label htmlFor={componentId} className="custom-control-label">
+      <label htmlFor={componentId} className="form-check-label">
         {label}
       </label>
       {helpText && <small className="form-text text-muted">{helpText}</small>}
@@ -45,8 +45,8 @@ const RadioButtonField = React.forwardRef((props: Props, ref: React.Ref<HTMLInpu
 
   if (title) {
     return (
-      <div className="form-group row">
-        <div className="col-sm-3 text-sm-right">{title}</div>
+      <div className="row mb-3">
+        <div className="col-sm-3 text-sm-end">{title}</div>
         <div className="col-sm-9">{controlMarkup}</div>
       </div>
     );
@@ -54,5 +54,7 @@ const RadioButtonField = React.forwardRef((props: Props, ref: React.Ref<HTMLInpu
 
   return controlMarkup;
 });
+
+RadioButtonField.displayName = "RadioButtonField";
 
 export default RadioButtonField;

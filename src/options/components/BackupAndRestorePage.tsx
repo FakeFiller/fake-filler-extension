@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { GetMessage } from "src/common/helpers";
+import { GetSyncStatus, ISyncStatus, SetSyncEnabled } from "src/common/settings-sync";
 import { getOptions, saveOptions, MyThunkDispatch } from "src/options/actions";
 import { IFakeFillerOptions, IAppState } from "src/types";
 
@@ -23,10 +24,21 @@ const BackupAndRestorePage = () => {
   const isFetching = useSelector<IAppState, boolean>((state) => state.optionsData.isFetching);
   const options = useSelector<IAppState, IFakeFillerOptions | null>((state) => state.optionsData.options);
   const dispatch = useDispatch<MyThunkDispatch>();
+  const [syncStatus, setSyncStatus] = useState<ISyncStatus | null>(null);
 
   useEffect(() => {
     dispatch(getOptions());
+    GetSyncStatus().then(setSyncStatus);
   }, [dispatch]);
+
+  function handleSyncToggle(event: React.ChangeEvent<HTMLInputElement>) {
+    if (options) {
+      SetSyncEnabled(event.target.checked, options)
+        .then(() => dispatch(getOptions()))
+        .then(() => GetSyncStatus())
+        .then(setSyncStatus);
+    }
+  }
 
   const currentOptionsVersion = (options && options.version) || 0;
 
@@ -45,7 +57,7 @@ const BackupAndRestorePage = () => {
       const blob = new Blob([encodedData], { type: "text/plain;charset=utf-8" });
       fileSaver.saveAs(blob, `fake-filler-${dateStamp}.txt`);
     } catch (e) {
-      setErrorMessage(GetMessage("backupRestore_errorCreatingBackupFile", e.toString()));
+      setErrorMessage(GetMessage("backupRestore_errorCreatingBackupFile", String(e)));
       setBackupData(encodedData);
     }
   }
@@ -54,7 +66,6 @@ const BackupAndRestorePage = () => {
     const fileElement = document.getElementById("file") as HTMLInputElement;
 
     if (fileElement.files && fileElement.files.length === 1 && fileElement.files[0].name.length > 0) {
-      // eslint-disable-next-line no-alert
       if (window.confirm(GetMessage("backupRestore_confirmRestore"))) {
         const fileReader = new FileReader();
 
@@ -76,7 +87,7 @@ const BackupAndRestorePage = () => {
             }
           } catch (ex) {
             setShowSuccess(false);
-            setErrorMessage(GetMessage("backupRestore_errorImporting", ex.toString()));
+            setErrorMessage(GetMessage("backupRestore_errorImporting", String(ex)));
           }
         };
 
@@ -91,7 +102,6 @@ const BackupAndRestorePage = () => {
   }
 
   function forceImportOldSettings() {
-    // eslint-disable-next-line no-alert
     if (importedOptions && window.confirm(GetMessage("backupRestore_confirmImportOldBackup"))) {
       dispatch(saveOptions(importedOptions)).then(() => {
         setShowSuccess(true);
@@ -115,7 +125,7 @@ const BackupAndRestorePage = () => {
 
   if (backupData) {
     backupDataElements = (
-      <div className="form-group">
+      <div className="mb-3">
         <textarea id="backupTextArea" className="form-control" rows={10} onClick={selectTextAreaText} readOnly>
           {backupData}
         </textarea>
@@ -130,6 +140,41 @@ const BackupAndRestorePage = () => {
 
   return (
     <>
+      <h2>Sync</h2>
+      {syncStatus && (
+        <div className="mb-5">
+          <div className="form-check form-switch">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="syncEnabled"
+              checked={syncStatus.enabled}
+              onChange={handleSyncToggle}
+            />
+            {/* Bootstrap's switch needs the label as a sibling of the input. */}
+            {}
+            <label className="form-check-label" htmlFor="syncEnabled">
+              Sync settings across my browsers
+            </label>
+          </div>
+          <small className="form-text text-muted">
+            Uses your browser&apos;s own account sync (Google account in Chrome, Microsoft account in Edge, Firefox
+            account in Firefox), so your custom fields and profiles follow you to every browser signed in to the same
+            account. Browser sync must be turned on in the browser&apos;s settings. AI API keys are never synced.
+          </small>
+          {syncStatus.enabled && syncStatus.lastSyncedAt && (
+            <small className="form-text text-muted">
+              Last synced: {new Date(syncStatus.lastSyncedAt).toLocaleString()}
+            </small>
+          )}
+          {syncStatus.error && (
+            <p className="alert alert-warning mt-2">
+              Could not sync: {syncStatus.error}. Your settings are still saved in this browser.
+            </p>
+          )}
+        </div>
+      )}
+
       <h2>{GetMessage("backupRestore_title")}</h2>
       <p>
         <button type="button" className="btn btn-link" onClick={exportSettings}>
@@ -152,7 +197,7 @@ const BackupAndRestorePage = () => {
           <div>
             <button
               type="button"
-              className="btn btn-sm font-weight-bold btn-link p-0 text-danger"
+              className="btn btn-sm fw-bold btn-link p-0 text-danger"
               onClick={forceImportOldSettings}
             >
               {GetMessage("backupRestore_continueAnyway")}

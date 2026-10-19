@@ -1,5 +1,4 @@
 import { Form, Formik, FormikErrors } from "formik";
-import React from "react";
 import { Modal } from "react-bootstrap";
 
 import { GetMessage, DEFAULT_EMAIL_CUSTOM_FIELD } from "src/common/helpers";
@@ -185,10 +184,10 @@ const CustomFieldModal = (props: Props) => {
     list: "",
     emailPrefix: "",
     emailHostname: "list",
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     emailHostnameList: DEFAULT_EMAIL_CUSTOM_FIELD.emailHostnameList!.join(", "),
     emailUsername: "random",
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     emailUsernameList: DEFAULT_EMAIL_CUSTOM_FIELD.emailUsernameList!.join(", "),
     emailUsernameRegEx: "",
   };

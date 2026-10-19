@@ -1,1 +1,0 @@
-globalThis.regeneratorRuntime = undefined

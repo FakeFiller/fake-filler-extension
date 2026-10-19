@@ -1,5 +1,3 @@
-import React from "react";
-
 import ElementFiller from "src/common/element-filler";
 import { GetMessage, FakeFillerDefaultOptions, DEFAULT_EMAIL_CUSTOM_FIELD, CsvToArray } from "src/common/helpers";
 import RadioButtonField from "src/options/components/common/RadioButtonField";
@@ -60,16 +58,16 @@ const EmailOptions = (props: Props) => {
 
   return (
     <div>
-      <div className="form-group row">
-        <label className="col-sm-3 col-form-label text-sm-right" htmlFor="emailPrefix">
+      <div className="row mb-3">
+        <label className="col-sm-3 col-form-label text-sm-end" htmlFor="emailPrefix">
           {GetMessage("customFields_label_emailUsernamePrefix")}
         </label>
         <div className="col-sm-9">
           <TextField name="emailPrefix" />
         </div>
       </div>
-      <div className="form-group row">
-        <label className="col-sm-3 col-form-label text-sm-right pt-0" htmlFor="emailUsername">
+      <div className="row mb-3">
+        <label className="col-sm-3 col-form-label text-sm-end pt-0" htmlFor="emailUsername">
           {GetMessage("customFields_label_username")}
         </label>
         <div className="col-sm-9">
@@ -103,8 +101,8 @@ const EmailOptions = (props: Props) => {
         </div>
       </div>
 
-      <div className="form-group row">
-        <label className="col-sm-3 col-form-label text-sm-right pt-0" htmlFor="emailHostname">
+      <div className="row mb-3">
+        <label className="col-sm-3 col-form-label text-sm-end pt-0" htmlFor="emailHostname">
           {GetMessage("customFields_label_hostName")}
         </label>
         <div className="col-sm-9">
@@ -129,9 +127,9 @@ const EmailOptions = (props: Props) => {
       <div className="row">
         <div className="col-sm-3">&nbsp;</div>
         <div className="col-sm-9">
-          <div className="row no-gutters align-items-center">
+          <div className="row g-0 align-items-center">
             <div className="col-auto">
-              <button type="button" className="btn btn-sm btn-outline-primary mr-2" onClick={generateRandomEmail}>
+              <button type="button" className="btn btn-sm btn-outline-primary me-2" onClick={generateRandomEmail}>
                 {GetMessage("testMe")}
               </button>
             </div>

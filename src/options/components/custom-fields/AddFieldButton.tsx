@@ -1,5 +1,3 @@
-import React from "react";
-
 import { GetMessage } from "src/common/helpers";
 import { CustomFieldAddFunction } from "src/types";
 
@@ -21,10 +19,6 @@ const AddFieldButton = (props: Props) => {
       </button>
     </div>
   );
-};
-
-AddFieldButton.defaultProps = {
-  disabled: false,
 };
 
 export default AddFieldButton;

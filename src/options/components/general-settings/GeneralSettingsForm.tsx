@@ -1,5 +1,4 @@
 import { Form, Formik, FormikErrors, FormikHelpers } from "formik";
-import React from "react";
 
 import { GetMessage } from "src/common/helpers";
 import CheckboxField from "src/options/components/common/CheckboxField";
@@ -76,8 +75,8 @@ const GeneralSettingsForm = (props: Props) => {
         <Form>
           <h2>{GetMessage("generalSettings_passwordSettings")}</h2>
 
-          <div className="form-group row">
-            <label className="col-sm-3 col-form-label text-sm-right pt-0" htmlFor="passwordSettingsMode">
+          <div className="row mb-3">
+            <label className="col-sm-3 col-form-label text-sm-end pt-0" htmlFor="passwordSettingsMode">
               {GetMessage("generalSettings_password")}
             </label>
             <div className="col-sm-9">
@@ -97,8 +96,8 @@ const GeneralSettingsForm = (props: Props) => {
 
           <h2>{GetMessage("generalSettings_fieldOptions")}</h2>
 
-          <div className="form-group row">
-            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="ignoredFields">
+          <div className="row mb-3">
+            <label className="col-sm-3 col-form-label text-sm-end" htmlFor="ignoredFields">
               {GetMessage("generalSettings_ignoreFieldsMatch")}
             </label>
             <div className="col-sm-9">
@@ -130,8 +129,8 @@ const GeneralSettingsForm = (props: Props) => {
             helpText={GetMessage("generalSettings_agreeToTermsMatchHelp")}
           />
 
-          <div className="form-group row">
-            <div className="col-sm-3 text-sm-right pt-0">{GetMessage("generalSettings_matchFieldsUsing")}</div>
+          <div className="row mb-3">
+            <div className="col-sm-3 text-sm-end pt-0">{GetMessage("generalSettings_matchFieldsUsing")}</div>
             <div className="col-sm-9">
               <CheckboxField name="fieldMatchId" label={GetMessage("generalSettings_matchFields_useId")} />
               <CheckboxField name="fieldMatchName" label={GetMessage("generalSettings_matchFields_useName")} />

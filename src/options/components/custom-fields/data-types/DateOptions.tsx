@@ -1,5 +1,3 @@
-import React from "react";
-
 import { GetMessage } from "src/common/helpers";
 import HtmlPhrase from "src/options/components/common/HtmlPhrase";
 import TextField from "src/options/components/common/TextField";
@@ -9,37 +7,29 @@ const DateOptions = () => {
 
   return (
     <>
-      <div className="form-group row">
-        <label className="col-sm-3 col-form-label text-sm-right" htmlFor="dateMin">
+      <div className="row mb-3">
+        <label className="col-sm-3 col-form-label text-sm-end" htmlFor="dateMin">
           {GetMessage("customFields_label_minDate")}
         </label>
         <div className="col-sm-9">
           <div className="input-group">
-            <div className="input-group-prepend">
-              <span className="input-group-text">{GetMessage("customFields_label_datePrependText")}</span>
-            </div>
+            <span className="input-group-text">{GetMessage("customFields_label_datePrependText")}</span>
             <TextField name="dateMin" type="number" min={-999999} max={999999} />
-            <div className="input-group-append">
-              <span className="input-group-text">{GetMessage("customFields_label_dateAppendText")}</span>
-            </div>
+            <span className="input-group-text">{GetMessage("customFields_label_dateAppendText")}</span>
             <TextField name="dateMinDate" type="date" />
           </div>
           <small className="form-text text-muted">{GetMessage("customFields_label_date_helpText")}</small>
         </div>
       </div>
-      <div className="form-group row">
-        <label className="col-sm-3 col-form-label text-sm-right" htmlFor="dateMax">
+      <div className="row mb-3">
+        <label className="col-sm-3 col-form-label text-sm-end" htmlFor="dateMax">
           {GetMessage("customFields_label_maxDate")}
         </label>
         <div className="col-sm-9">
           <div className="input-group">
-            <div className="input-group-prepend">
-              <span className="input-group-text">{GetMessage("customFields_label_datePrependText")}</span>
-            </div>
+            <span className="input-group-text">{GetMessage("customFields_label_datePrependText")}</span>
             <TextField name="dateMax" type="number" min={-999999} max={999999} />
-            <div className="input-group-append">
-              <span className="input-group-text">{GetMessage("customFields_label_dateAppendText")}</span>
-            </div>
+            <span className="input-group-text">{GetMessage("customFields_label_dateAppendText")}</span>
             <TextField name="dateMaxDate" type="date" />
           </div>
           <small className="form-text text-muted">{GetMessage("customFields_label_date_helpText")}</small>

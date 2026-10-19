@@ -33,8 +33,8 @@ const TextField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputElemen
 
   if (label) {
     return (
-      <div className="form-group row">
-        <label htmlFor={id || name} className="col-sm-3 col-form-label text-sm-right">
+      <div className="row mb-3">
+        <label htmlFor={id || name} className="col-sm-3 col-form-label text-sm-end">
           {label}
         </label>
         <div className="col-sm-9">{controlMarkup}</div>
@@ -45,8 +45,6 @@ const TextField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputElemen
   return controlMarkup;
 });
 
-TextField.defaultProps = {
-  type: "text",
-};
+TextField.displayName = "TextField";
 
 export default TextField;

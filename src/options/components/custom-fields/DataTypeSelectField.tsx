@@ -55,14 +55,14 @@ const DataTypeSelectField = () => {
   }
 
   return (
-    <div className="form-group row">
-      <label className="col-sm-3 col-form-label text-sm-right" htmlFor="type">
+    <div className="row mb-3">
+      <label className="col-sm-3 col-form-label text-sm-end" htmlFor="type">
         {GetMessage("customFields_label_dataType")}
       </label>
       <div className="col-sm-9">
         <Field name="type">
           {(fieldProps: FieldProps) => {
-            let className = "custom-select";
+            let className = "form-select";
 
             if (fieldProps.meta.touched) {
               if (fieldProps.meta.error) {

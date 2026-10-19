@@ -23,16 +23,16 @@ const CheckboxField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputEl
   const componentId = id || name;
 
   const controlMarkup = (
-    <div className={`custom-control custom-switch ${className}`}>
+    <div className={`form-check form-switch ${className}`}>
       <input
         id={componentId}
         type="checkbox"
         ref={ref}
-        className={`custom-control-input ${validationCssClass}`}
+        className={`form-check-input ${validationCssClass}`}
         {...field}
         {...rest}
       />
-      <label htmlFor={componentId} className="custom-control-label">
+      <label htmlFor={componentId} className="form-check-label">
         {label}
       </label>
       {helpText && <small className="form-text text-muted">{helpText}</small>}
@@ -42,8 +42,8 @@ const CheckboxField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputEl
 
   if (title) {
     return (
-      <div className="form-group row">
-        <div className="col-sm-3 text-sm-right">{title}</div>
+      <div className="row mb-3">
+        <div className="col-sm-3 text-sm-end">{title}</div>
         <div className="col-sm-9">{controlMarkup}</div>
       </div>
     );
@@ -51,5 +51,7 @@ const CheckboxField = React.forwardRef((props: Props, ref: React.Ref<HTMLInputEl
 
   return controlMarkup;
 });
+
+CheckboxField.displayName = "CheckboxField";
 
 export default CheckboxField;

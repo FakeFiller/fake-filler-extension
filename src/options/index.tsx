@@ -1,36 +1,24 @@
-import React from "react";
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { HashRouter, Route } from "react-router-dom";
+import { HashRouter } from "react-router";
 
-import { onAuthStateChange, onOptionsChange } from "src/common/firebase";
-import { updateAuthState } from "src/options/actions";
 import App from "src/options/components/App";
 import Store from "src/options/store";
-import { FirebaseUser, FirebaseCustomClaims, IFakeFillerOptions } from "src/types";
+import { IFakeFillerOptions } from "src/types";
 
-let isProEnabled = false;
-
-function handleAuthStateChange(user: FirebaseUser, claims: FirebaseCustomClaims) {
-  isProEnabled = claims ? claims.subscribed : false;
-  Store.dispatch(updateAuthState(user, claims));
-}
-
-async function handleOptionsChange(options: IFakeFillerOptions) {
-  if (isProEnabled) {
-    Store.dispatch({ type: "RECEIVED_OPTIONS", options });
+// Show options that arrive from another browser through sync while this page is open.
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName === "local" && changes.options && changes.options.newValue) {
+    Store.dispatch({ type: "RECEIVED_OPTIONS", options: changes.options.newValue as IFakeFillerOptions });
   }
-}
-
-onAuthStateChange(handleAuthStateChange);
-onOptionsChange(handleOptionsChange);
+});
 
 const optionsApp = (
   <Provider store={Store}>
     <HashRouter>
-      <Route path="/" component={App} />
+      <App />
     </HashRouter>
   </Provider>
 );
 
-render(optionsApp, document.getElementById("root"));
+createRoot(document.getElementById("root") as HTMLElement).render(optionsApp);

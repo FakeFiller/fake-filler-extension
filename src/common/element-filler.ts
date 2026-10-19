@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-
 import cssesc from "cssesc";
 import moment from "moment";
 import RandExp from "randexp";
@@ -241,7 +239,6 @@ class ElementFiller {
 
         switch (customField.emailUsername) {
           case "list": {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const usernames = customField.emailUsernameList || DEFAULT_EMAIL_CUSTOM_FIELD.emailUsernameList!;
             username = usernames[Math.floor(Math.random() * usernames.length)];
             break;
@@ -275,7 +272,7 @@ class ElementFiller {
                 regExGenerator.defaultRange.add(0, 65535);
                 username = regExGenerator.gen();
               }
-            } catch (ex) {
+            } catch {
               // Do nothing.
             }
             break;
@@ -292,7 +289,6 @@ class ElementFiller {
         let domain = "";
 
         if (customField.emailHostname === "list") {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const hostnames = customField.emailHostnameList || DEFAULT_EMAIL_CUSTOM_FIELD.emailHostnameList!;
           const randomNumber = Math.floor(Math.random() * hostnames.length);
           domain = hostnames[randomNumber];
@@ -510,7 +506,7 @@ class ElementFiller {
             this.previousPassword = this.options.passwordSettings.password;
           } else {
             this.previousPassword = this.generator.scrambledWord(8, 8).toLowerCase();
-            // eslint-disable-next-line no-console
+
             console.info(this.previousPassword);
           }
 

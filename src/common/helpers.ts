@@ -1,4 +1,4 @@
-import { saveOptionsToDb } from "src/common/firebase";
+import { PushOptionsToSync } from "src/common/settings-sync";
 import { IFakeFillerOptions, ICustomField } from "src/types";
 
 // spell-checker:disable
@@ -170,7 +170,7 @@ const GetFakeFillerOptions = (): Promise<IFakeFillerOptions> => {
     chrome.storage.local.get("options", (result) => {
       let options: IFakeFillerOptions;
       if (result && Object.keys(result).length > 0) {
-        options = result.options;
+        options = result.options as IFakeFillerOptions;
       } else {
         options = FakeFillerDefaultOptions();
       }
@@ -202,17 +202,33 @@ const CreateContextMenus = (enableContextMenu: boolean): void => {
       title: "Fill this input",
       contexts: ["editable"],
     });
+
+    chrome.contextMenus.create({
+      id: "fake-filler-ai",
+      title: "AI fill by voice or text…",
+      contexts: ["page", "editable"],
+    });
+
+    chrome.contextMenus.create({
+      id: "fake-filler-ask",
+      title: "Ask AI about this page…",
+      contexts: ["page", "selection", "editable"],
+    });
+
+    chrome.contextMenus.create({
+      id: "fake-filler-transcriber",
+      title: "Transcribe audio that is playing…",
+      contexts: ["page", "editable"],
+    });
   }
 };
 
 const SaveFakeFillerOptions = (options: IFakeFillerOptions): void => {
-  saveOptionsToDb(options).then((updatedAt) => {
-    chrome.storage.local.set({ updatedAt });
-  });
-
   chrome.storage.local.set({
     options,
   });
+
+  PushOptionsToSync(options);
 
   chrome.runtime.sendMessage({ type: "optionsUpdated", data: options }, () => chrome.runtime.lastError);
   CreateContextMenus(options.enableContextMenu);
@@ -256,7 +272,6 @@ const GetKeyboardShortcuts = (): Promise<chrome.commands.Command[]> => {
   return promise;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const GetMessage = (key: string, parameters?: any): string => {
   return chrome.i18n.getMessage(key, parameters);
 };

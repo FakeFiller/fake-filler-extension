@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_extensionName__",
   "short_name": "__MSG_extensionName_short__",
-  "version": "3.4.0",
+  "version": "4.0.0",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
   "icons": {
@@ -14,6 +14,7 @@
     "128": "images/icon-128.png"
   },
   "permissions": ["contextMenus", "activeTab", "storage", "scripting"],
+  "host_permissions": ["<all_urls>"],
   "action": {
     "default_icon": {
       "16": "images/icon-16.png",
@@ -37,6 +38,18 @@
     },
     "fill_this_input": {
       "description": "__MSG_commands_fillThisInput__"
+    },
+    "open_ask_page": {
+      "description": "__MSG_commands_openAskPage__"
+    },
+    "open_audio_transcriber": {
+      "description": "__MSG_commands_openAudioTranscriber__"
+    },
+    "open_ai_fill": {
+      "description": "__MSG_commands_openAiFill__",
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y"
+      }
     }
   },
   "content_scripts": [

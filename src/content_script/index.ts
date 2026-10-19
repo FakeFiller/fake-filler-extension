@@ -1,4 +1,5 @@
 import FakeFiller from "src/common/fake-filler";
+import AiFillPanel, { PanelMode } from "src/content_script/ai-fill-panel";
 import { IFakeFillerOptions, MessageRequest } from "src/types";
 
 declare global {
@@ -7,13 +8,15 @@ declare global {
   }
 }
 
-function initialize(options: IFakeFillerOptions, isProEdition: boolean) {
+let aiFillPanel: AiFillPanel | undefined;
+
+function initialize(options: IFakeFillerOptions) {
   let profileIndex = -1;
   const url = window.location.href;
 
   chrome.runtime.sendMessage({ type: "clearProfileBadge" }, () => chrome.runtime.lastError);
 
-  if (isProEdition && url && options.profiles && options.profiles.length > 0) {
+  if (url && options.profiles && options.profiles.length > 0) {
     for (let i = 0; i < options.profiles.length; i += 1) {
       const currentProfile = options.profiles[i];
 
@@ -32,8 +35,15 @@ function handleMessage(request: MessageRequest): boolean | null {
   switch (request.type) {
     case "receiveNewOptions": {
       const options = request.data.options as IFakeFillerOptions;
-      const isProEdition = request.data.isProEdition as boolean;
-      initialize(options, isProEdition);
+      initialize(options);
+      return true;
+    }
+
+    case "toggleAiFillPanel": {
+      if (window.top === window) {
+        aiFillPanel = aiFillPanel || new AiFillPanel();
+        aiFillPanel.toggle(request.data?.mode as PanelMode | undefined);
+      }
       return true;
     }
 
@@ -50,8 +60,7 @@ document.addEventListener("mousedown", (event) => {
 
 chrome.runtime.sendMessage({ type: "getOptions" }, (response) => {
   const options = response.options as IFakeFillerOptions;
-  const isProEdition = response.isProEdition as boolean;
-  initialize(options, isProEdition);
+  initialize(options);
 });
 
 chrome.runtime.onMessage.addListener(handleMessage);

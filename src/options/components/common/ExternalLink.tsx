@@ -2,6 +2,7 @@ import React from "react";
 
 type Props = {
   url: string;
+  children?: React.ReactNode;
 };
 
 const ExternalLink: React.FC<Props> = (props) => {

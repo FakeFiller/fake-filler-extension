@@ -1,5 +1,5 @@
 import RandExp from "randexp";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { GetMessage } from "src/common/helpers";
 import HtmlPhrase from "src/options/components/common/HtmlPhrase";
@@ -21,7 +21,7 @@ const RegExOptions = (props: Props) => {
         regExGenerator.defaultRange.add(0, 65535);
         randomValue = regExGenerator.gen();
       } catch (e) {
-        randomValue = e.toString();
+        randomValue = String(e);
       }
     }
 
@@ -48,10 +48,6 @@ const RegExOptions = (props: Props) => {
       )}
     </>
   );
-};
-
-RegExOptions.defaultProps = {
-  regexTemplate: undefined,
 };
 
 export default RegExOptions;

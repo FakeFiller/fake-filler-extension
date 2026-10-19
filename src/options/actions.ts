@@ -1,7 +1,5 @@
-/* eslint-disable no-param-reassign */
-
+import { ThunkAction, ThunkDispatch } from "@reduxjs/toolkit";
 import { produce } from "immer";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 import {
   CsvToArray,
@@ -17,8 +15,6 @@ import {
   ICustomField,
   ICustomFieldForm,
   IProfile,
-  FirebaseUser,
-  FirebaseCustomClaims,
 } from "src/types";
 
 export interface IFetchingOptionsAction {
@@ -39,26 +35,12 @@ export interface IReceivedKeyboardShortcutsAction {
   shortcuts: chrome.commands.Command[];
 }
 
-export interface IUpdateAuthStateAction {
-  type: "UPDATE_AUTH_STATE";
-  user: FirebaseUser;
-  claims: FirebaseCustomClaims;
-}
-
 export type MyActions =
-  | IFetchingOptionsAction
-  | IReceivedOptionsAction
-  | IFetchingKeyboardShortcutsAction
-  | IReceivedKeyboardShortcutsAction
-  | IUpdateAuthStateAction;
+  IFetchingOptionsAction | IReceivedOptionsAction | IFetchingKeyboardShortcutsAction | IReceivedKeyboardShortcutsAction;
 
 type MyThunkResult<R> = ThunkAction<Promise<R>, IAppState, unknown, MyActions>;
 type MyDefaultThunkResult = MyThunkResult<void>;
 export type MyThunkDispatch = ThunkDispatch<IAppState, unknown, MyActions>;
-
-export function updateAuthState(user: FirebaseUser, claims: FirebaseCustomClaims): MyActions {
-  return { type: "UPDATE_AUTH_STATE", user, claims };
-}
 
 export function getOptions(): MyDefaultThunkResult {
   return (dispatch) => {

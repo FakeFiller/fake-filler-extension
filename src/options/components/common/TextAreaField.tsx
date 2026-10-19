@@ -33,8 +33,8 @@ const TextAreaField = React.forwardRef((props: Props, ref: React.Ref<HTMLTextAre
 
   if (label) {
     return (
-      <div className="form-group row">
-        <label htmlFor={id || name} className="col-sm-3 col-form-label text-sm-right">
+      <div className="row mb-3">
+        <label htmlFor={id || name} className="col-sm-3 col-form-label text-sm-end">
           {label}
         </label>
         <div className="col-sm-9">{controlMarkup}</div>
@@ -44,5 +44,7 @@ const TextAreaField = React.forwardRef((props: Props, ref: React.Ref<HTMLTextAre
 
   return controlMarkup;
 });
+
+TextAreaField.displayName = "TextAreaField";
 
 export default TextAreaField;

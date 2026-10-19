@@ -1,15 +1,15 @@
 {
   "extensionName": {
-    "message": "Fake Filler"
+    "message": "FillPilot AI"
   },
   "extensionName_short": {
-    "message": "Fake Filler"
+    "message": "FillPilot"
   },
   "extensionDescription": {
-    "message": "A form filler that fills all inputs on a page with fake/dummy data."
+    "message": "Fill web forms with your own details by voice or text using AI, or with realistic dummy data in one click."
   },
   "actionTitle": {
-    "message": "Fill All Inputs with Dummy Data"
+    "message": "FillPilot: fill all inputs with dummy data"
   },
   "commands_FillThisForm": {
     "message": "Fill this form"
@@ -20,8 +20,17 @@
   "commands_fillAllInputs": {
     "message": "Fill all inputs"
   },
+  "commands_openAiFill": {
+    "message": "AI fill by voice or text"
+  },
+  "commands_openAskPage": {
+    "message": "Ask AI about this page"
+  },
+  "commands_openAudioTranscriber": {
+    "message": "Transcribe audio that is playing"
+  },
   "bgPage_errorMigratingOptions": {
-    "message": "An error occurred while migrating Fake Filler options: $1"
+    "message": "An error occurred while migrating FillPilot options: $1"
   },
   "close": {
     "message": "Close"
@@ -135,7 +144,7 @@
     "message": "Custom Fields"
   },
   "customFields_intro": {
-    "message": "Fake Filler can use the ID, NAME and CLASS values of an input field in addition to the label text to determine its data type."
+    "message": "FillPilot can use the ID, NAME and CLASS values of an input field in addition to the label text to determine its data type."
   },
   "customFields_getMoreInfo": {
     "message": "More information on how the extension matches custom fields"
@@ -603,7 +612,7 @@
     "message": "This password is incorrect."
   },
   "account_error_noAccount": {
-    "message": "This email address does not have a Fake Filler account."
+    "message": "This email address does not have a FillPilot account."
   },
   "account_error_errorFetchingAccount": {
     "message": "Could not fetch account information."
@@ -621,21 +630,21 @@
     "message": "Start Sync"
   },
   "account_enableSync_tip": {
-    "message": "<b>TIP</b>: If you have Fake Filler installed on multiple browsers, first enable sync on the browser where you have updated the settings most recently. That way, your other browsers will have the latest settings."
+    "message": "<b>TIP</b>: If you have FillPilot installed on multiple browsers, first enable sync on the browser where you have updated the settings most recently. That way, your other browsers will have the latest settings."
   },
   "account_manageAccount": {
     "message": "Manage Account"
   },
   "account_showSupportTitle": {
-    "message": "Buy Fake Filler Pro"
+    "message": "Buy FillPilot Pro"
   },
   "account_showSupportMessage": {
-    "message": "Hello there! If Fake Filler makes you more productive, please consider showing your support by subscribing to the Pro edition. Subscriptions help to support the continued development of Fake Filler. I hate ads as much as you do so charging for a subscription is the only way I make money. So go ahead and hit the buy button now."
+    "message": "Hello there! If FillPilot makes you more productive, please consider showing your support by subscribing to the Pro edition. Subscriptions help to support the continued development of FillPilot. I hate ads as much as you do so charging for a subscription is the only way I make money. So go ahead and hit the buy button now."
   },
   "account_showSupportButton": {
     "message": "Buy Pro"
   },
   "upgradeToFakeFillerPro": {
-    "message": "Upgrade to Fake Filler Pro"
+    "message": "Upgrade to FillPilot Pro"
   }
 }

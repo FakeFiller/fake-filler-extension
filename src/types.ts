@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-type BrowserCommandName = "fill_this_form" | "fill_this_input" | "fill_all_inputs";
+type BrowserCommandName = "fill_this_form" | "fill_this_input" | "fill_all_inputs" | "open_ai_fill";
 
 export interface IFakeFillerBrowserCommand {
   name: BrowserCommandName;
@@ -145,13 +143,7 @@ export interface IKeyboardShortcutsState {
   shortcuts: chrome.commands.Command[];
 }
 
-export interface IAuthState {
-  user: FirebaseUser;
-  claims: FirebaseCustomClaims;
-}
-
 export interface IAppState {
-  authData: IAuthState;
   optionsData: IOptionsState;
   keyboardShortcutsData: IKeyboardShortcutsState;
 }
@@ -161,22 +153,57 @@ export type CustomFieldEditFunction = (customField: ICustomField, itemIndex: num
 export type CustomFieldDeleteFunction = (itemIndex: number) => void;
 export type CustomFieldSortFunction = (customFields: ICustomField[]) => void;
 
+export type AiProvider = "openrouter" | "claude" | "custom";
+
+export interface IAiProviderSettings {
+  apiKey: string;
+  model: string;
+  baseUrl: string;
+}
+
+export interface IAiFillSettings {
+  provider: AiProvider;
+  providers: Record<AiProvider, IAiProviderSettings>;
+  // On: fields are typed key by key like a person would. Off: values are filled in instantly.
+  humanTyping: boolean;
+}
+
+export interface IAiFieldOption {
+  value: string;
+  text: string;
+}
+
+export interface IAiFieldDescriptor {
+  ref: string;
+  kind: string;
+  label: string;
+  name: string;
+  placeholder?: string;
+  currentValue: string;
+  options?: IAiFieldOption[];
+}
+
+export interface IAiFillInstruction {
+  ref: string;
+  value: string;
+}
+
+export interface IPageContent {
+  title: string;
+  url: string;
+  text: string;
+  // True when the user selected part of the page and only that is sent.
+  isSelection: boolean;
+  // True when the page was longer than the limit and was cut short.
+  truncated: boolean;
+}
+
+export interface IAiFillResult {
+  fills: IAiFillInstruction[];
+  message: string;
+}
+
 export type MessageRequest = {
   type: string;
   data?: any;
 };
-
-export type CustomClaims = {
-  subscribed: boolean;
-};
-
-export type User = {
-  emailAddress: string;
-  stripeCustomerId: string;
-  stripeSubscriptionId: string;
-  claims: CustomClaims;
-  claimsUpdatedAt: firebase.firestore.FieldValue;
-};
-
-export type FirebaseUser = firebase.User | null;
-export type FirebaseCustomClaims = CustomClaims | null;

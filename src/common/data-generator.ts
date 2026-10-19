@@ -71,13 +71,13 @@ class DataGenerator {
 
       if (currentCharacter === "]") {
         ignore = false;
-        // eslint-disable-next-line no-continue
+
         continue;
       }
 
       if (currentCharacter === "[") {
         ignore = true;
-        // eslint-disable-next-line no-continue
+
         continue;
       }
 
